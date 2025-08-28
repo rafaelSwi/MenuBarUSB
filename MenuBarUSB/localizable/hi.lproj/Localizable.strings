@@ -1,0 +1,13 @@
+"exit" = "बाहर निकलें";
+"refresh" = "रिफ्रेश करें";
+"open_on_startup" = "स्टार्टअप पर खोलें";
+"usb_device" = "यूएसबी डिवाइस";
+"usb_devices" = "यूएसबी डिवाइस";
+"no_devices_found" = "कोई डिवाइस नहीं मिला";
+"about" = "के बारे में";
+"version" = "संस्करण: %@";
+"created_by" = "RafaelSwi द्वारा बनाया गया और Github पर प्रकाशित";
+"creator_github" = "निर्माता का Github पेज";
+"creator_location" = "Balneário Camboriú, Santa Catarina, ब्राजील";
+"why_was_it_created" = "आशा है कि यह एप्लिकेशन उपयोगी होगा";
+"close_about_window" = "बंद कर देना";

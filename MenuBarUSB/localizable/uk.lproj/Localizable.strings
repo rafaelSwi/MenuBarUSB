@@ -1,0 +1,13 @@
+"exit" = "Вихід";
+"refresh" = "Оновити";
+"open_on_startup" = "Початок";
+"usb_device" = "USB-пристрій";
+"usb_devices" = "USB-пристрої";
+"no_devices_found" = "Пристрої не знайдено";
+"about" = "Інформація";
+"version" = "Версія програми: %@";
+"created_by" = "Створено RafaelSwi та опубліковано на Github";
+"creator_github" = "Сторінка Github автора";
+"creator_location" = "Balneário Camboriú, Santa Catarina, Бразилія";
+"why_was_it_created" = "Сподіваюся, що додаток корисний";
+"close_about_window" = "Закрити";

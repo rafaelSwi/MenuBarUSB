@@ -1,0 +1,13 @@
+"exit" = "Выход";
+"refresh" = "Обновить";
+"open_on_startup" = "Авто-старт";
+"usb_device" = "USB-устройство";
+"usb_devices" = "USB-устройства";
+"no_devices_found" = "Устройства не найдены";
+"about" = "Информация";
+"version" = "Версия: %@";
+"created_by" = "Создано RafaelSwi и опубликовано на Github";
+"creator_github" = "Страница Github автора";
+"creator_location" = "Балнеарио Камбориу, Санта-Катарина, Бразилия";
+"why_was_it_created" = "Спасибо за использование моего приложения.";
+"close_about_window" = "закрыть";

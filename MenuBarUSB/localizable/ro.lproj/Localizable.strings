@@ -1,0 +1,13 @@
+"exit" = "Ieșire";
+"refresh" = "Reîmprospătare";
+"open_on_startup" = "Începe automat";
+"usb_device" = "Dispozitiv USB";
+"usb_devices" = "Dispozitive USB";
+"no_devices_found" = "Niciun dispozitiv găsit";
+"about" = "Despre";
+"version" = "Versiune: %@";
+"created_by" = "Creat de RafaelSwi și publicat pe Github";
+"creator_github" = "Pagina Github a dezvoltatorului";
+"creator_location" = "Balneário Camboriú, Santa Catarina, Brazilia";
+"why_was_it_created" = "Sper că acest program este util!";
+"close_about_window" = "Închide";

@@ -1,0 +1,13 @@
+"exit" = "Exit";
+"refresh" = "Refresh";
+"open_on_startup" = "Open on startup";
+"usb_device" = "USB Device";
+"usb_devices" = "USB Devices";
+"no_devices_found" = "No devices found";
+"about" = "About";
+"version" ="Version: %@";
+"created_by" = "Created by RafaelSwi and published on Github";
+"creator_github" = "Creator's Github Page";
+"creator_location" = "Balneário Camboriú, Santa Catarina, Brazil";
+"why_was_it_created" = "I was minding my own business when I saw someone charging five bucks for a USB list app. So I thought,\n'Five dollars for that? Why not whip up the same app and give it away for free?'.\nI'm not some kind of software-savior bro I just have common sense.";
+"close_about_window" = "Close";

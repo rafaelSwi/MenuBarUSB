@@ -1,0 +1,13 @@
+"exit" = "Sortir";
+"refresh" = "Actualitza";
+"open_on_startup" = "Obre en iniciar";
+"usb_device" = "Dispositiu USB";
+"usb_devices" = "Dispositius USB";
+"no_devices_found" = "No s'han trobat dispositius";
+"about" = "Més";
+"version" = "Versió: %@";
+"created_by" = "Creat per RafaelSwi i publicat a Github";
+"creator_github" = "Pàgina de Github del creador";
+"creator_location" = "Balneário Camboriú, Santa Catarina, Brasil";
+"why_was_it_created" = "Espero que l'aplicació sigui útil";
+"close_about_window" = "Sortir";

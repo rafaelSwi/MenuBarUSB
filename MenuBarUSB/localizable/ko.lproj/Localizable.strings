@@ -1,0 +1,13 @@
+"exit" = "종료";
+"refresh" = "새로고침";
+"open_on_startup" = "Mac 시작 시 열기";
+"usb_device" = "USB 장치";
+"usb_devices" = "USB 장치들";
+"no_devices_found" = "장치를 찾을 수 없음";
+"about" = "정보";
+"version" = "버전: %@";
+"created_by" = "RafaelSwi가 만들고 Github에 게시함";
+"creator_github" = "개발자 Github 페이지";
+"creator_location" = "발네아리우 캄보리우, 산타카타리나, 브라질";
+"why_was_it_created" = "이 프로그램이 유용하길 바랍니다!";
+"close_about_window" = "창 닫기";

@@ -1,0 +1,13 @@
+"exit" = "退出";
+"refresh" = "刷新";
+"open_on_startup" = "启动时打开";
+"usb_device" = "USB设备";
+"usb_devices" = "USB设备";
+"no_devices_found" = "未找到设备";
+"about" = "关于";
+"version" = "版本：%@";
+"created_by" = "由RafaelSwi创建并发布在Github";
+"creator_github" = "创作者的Github页面";
+"creator_location" = "巴尔内阿里奥坎博里乌，圣卡塔琳娜，巴西";
+"why_was_it_created" = "感谢您使用我的应用程序。";
+"close_about_window" = "关闭";

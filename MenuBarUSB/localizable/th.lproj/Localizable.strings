@@ -1,0 +1,13 @@
+"exit" = "ออก";
+"refresh" = "รีเฟรช";
+"open_on_startup" = "เปิดเมื่อเริ่มต้น";
+"usb_device" = "อุปกรณ์ USB";
+"usb_devices" = "อุปกรณ์ USB";
+"no_devices_found" = "ไม่พบอุปกรณ์";
+"about" = "เกี่ยวกับ";
+"version" = "เวอร์ชัน: %@";
+"created_by" = "สร้างโดย RafaelSwi และเผยแพร่บน Github";
+"creator_github" = "หน้า Github ของผู้สร้าง";
+"creator_location" = "Balneário Camboriú, Santa Catarina, บราซิล";
+"why_was_it_created" = "หวังว่าแอปพลิเคชันนี้จะมีประโยชน์";
+"close_about_window" = "ปิดแท็บ";

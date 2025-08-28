@@ -1,0 +1,13 @@
+"exit" = "Sair";
+"refresh" = "Recarregar";
+"open_on_startup" = "Iniciar junto ao Mac";
+"usb_device" = "Dispositivo USB";
+"usb_devices" = "Dispositivos USB";
+"no_devices_found" = "Nada encontrado";
+"about" = "Sobre";
+"version" = "Versão: %@";
+"created_by" = "Criado por RafaelSwi e publicado no Github";
+"creator_github" = "Página do Github do desenvolvedor";
+"creator_location" = "Balneário Camboriú, Santa Catarina, Brasil";
+"why_was_it_created" = "Resolvi criar este aplicativo quando vi um indivíduo fazendo exatamente a mesma coisa e cobrando 5 dólares (R$ 29,90).\nTipo, é tão difícil assim fazer um simples programa igual esse e deixar o código aberto?";
+"close_about_window" = "Fechar";

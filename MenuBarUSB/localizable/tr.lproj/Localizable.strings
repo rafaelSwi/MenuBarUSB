@@ -1,0 +1,13 @@
+"exit" = "Çıkış";
+"refresh" = "Yenile";
+"open_on_startup" = "Başlangıçta aç";
+"usb_device" = "USB Cihazı";
+"usb_devices" = "USB Cihazları";
+"no_devices_found" = "Cihaz bulunamadı";
+"about" = "Hakkında";
+"version" = "Sürüm: %@";
+"created_by" = "RafaelSwi tarafından oluşturuldu ve Github'da yayınlandı";
+"creator_github" = "Oluşturanın Github sayfası";
+"creator_location" = "Balneário Camboriú, Santa Catarina, Brezilya";
+"why_was_it_created" = "Umarım uygulama faydalı oluyordur";
+"close_about_window" = "Sekmeyi kapat";

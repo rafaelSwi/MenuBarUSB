@@ -1,0 +1,13 @@
+"exit" = "Quitter";
+"refresh" = "Rafraîchir";
+"open_on_startup" = "Commencer";
+"usb_device" = "Périphérique USB";
+"usb_devices" = "Périphériques USB";
+"no_devices_found" = "Aucun périphérique trouvé";
+"about" = "À propos";
+"version" = "Version : %@";
+"created_by" = "Créé par RafaelSwi et publié sur Github";
+"creator_github" = "Page Github du créateur";
+"creator_location" = "Balneário Camboriú, Santa Catarina, Brésil";
+"why_was_it_created" = "Merci d'utiliser mon application.";
+"close_about_window" = "Fermer";

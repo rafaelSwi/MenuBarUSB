@@ -1,0 +1,13 @@
+"exit" = "Beenden";
+"refresh" = "Aktual.";
+"open_on_startup" = "Automatisch starten";
+"usb_device" = "USB-Gerät";
+"usb_devices" = "USB-Geräte";
+"no_devices_found" = "Keine Geräte gefunden";
+"about" = "Über";
+"version" = "Version: %@";
+"created_by" = "Erstellt von RafaelSwi und auf Github veröffentlicht";
+"creator_github" = "Github-Seite des Erstellers";
+"creator_location" = "Balneário Camboriú, Santa Catarina, Brasilien";
+"why_was_it_created" = "Vielen Dank, dass Sie meine App verwenden.";
+"close_about_window" = "Schließen";
