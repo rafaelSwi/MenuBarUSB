@@ -29,11 +29,11 @@ struct ContentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             if manager.devices.isEmpty {
-                HStack(spacing: 6) {
+                ScrollView {
                     Text(String(localized: "no_devices_found"))
                         .foregroundStyle(.secondary)
+                        .padding(15)
                 }
-                .padding(.vertical, 6)
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 4) {

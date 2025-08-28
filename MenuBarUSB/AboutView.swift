@@ -17,7 +17,7 @@ struct AboutView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
 
-            Text("MenuBarUSB")
+            Link("MenuBarUSB", destination: URL(string: "https://github.com/rafaelSwi/MenuBarUSB")!)
                 .font(.largeTitle)
                 .fontWeight(.bold)
 
