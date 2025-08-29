@@ -112,7 +112,17 @@ final class USBDeviceManager: ObservableObject {
         let serial = stringValue(kUSBSerialNumberString as String)
         let locationId = uint32Value(kUSBDevicePropertyLocationID as String)
         let speedBps = intValue(kUSBDevicePropertySpeed as String)
-        let speedMbps = speedBps.map { max(1, $0 / 1_000_000) }
+        let speedCode = intValue(kUSBDevicePropertySpeed as String)
+        let speedMbps: Int? = speedCode.flatMap { code in
+            switch code {
+            case 0: return 2        // 1.5 Mbps ~ arredondado para 2
+            case 1: return 12       // Full-Speed
+            case 2: return 480      // High-Speed
+            case 3: return 5000     // SuperSpeed
+            case 4: return 10000    // SuperSpeed+
+            default: return nil
+            }
+        }
         
         return USBDevice(
             name: productString ?? registryName,

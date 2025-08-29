@@ -44,10 +44,14 @@ struct ContentView: View {
                                         .font(.system(size: 12, weight: .semibold))
                                         .foregroundColor(.primary)
                                     Spacer()
+                                    
+                                    
                                     Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
                                         .font(.system(size: 10))
                                         .foregroundStyle(.secondary)
+
                                 }
+                                
                                 if let vendor = dev.vendor, !vendor.isEmpty {
                                     Text(vendor)
                                         .font(.system(size: 10))
@@ -58,6 +62,9 @@ struct ContentView: View {
                                         .font(.system(size: 9))
                                         .foregroundStyle(.secondary)
                                 }
+                                Text(dev.speedDescription)
+                                    .font(.system(size: 9))
+                                    .foregroundStyle(.secondary)
                             }
                             .padding(.vertical, 3)
                             Divider()
