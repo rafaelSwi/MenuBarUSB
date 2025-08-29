@@ -92,38 +92,79 @@ final class USBDeviceManager: ObservableObject {
               let dict = props?.takeRetainedValue() as? [String: Any] else {
             return nil
         }
-        
-        func intValue(_ key: String) -> Int? {
-            (dict[key] as? NSNumber)?.intValue
-        }
-        func uint32Value(_ key: String) -> UInt32? {
-            (dict[key] as? NSNumber)?.uint32Value
-        }
-        func stringValue(_ key: String) -> String? {
-            dict[key] as? String
-        }
-        
+
+        func num(_ key: String) -> NSNumber? { dict[key] as? NSNumber }
+        func intValue(_ key: String) -> Int? { num(key)?.intValue }
+        func uint32Value(_ key: String) -> UInt32? { num(key)?.uint32Value }
+        func doubleValue(_ key: String) -> Double? { num(key)?.doubleValue }
+        func stringValue(_ key: String) -> String? { dict[key] as? String }
+
         let vendorId = intValue(kUSBVendorID as String) ?? 0
         let productId = intValue(kUSBProductID as String) ?? 0
-        
+
         let registryName = tryGetIORegistryName(entry) ?? "USB Device"
         let productString = stringValue(kUSBProductString as String)
         let vendorString = stringValue(kUSBVendorString as String)
         let serial = stringValue(kUSBSerialNumberString as String)
         let locationId = uint32Value(kUSBDevicePropertyLocationID as String)
-        let speedBps = intValue(kUSBDevicePropertySpeed as String)
+
+        let linkSpeedBpsCandidates = [
+            "kUSBDevicePropertyLinkSpeed", "LinkSpeed", "DeviceLinkSpeed", "link-speed"
+        ]
+        let linkSpeedBps: Double? = linkSpeedBpsCandidates
+            .compactMap { doubleValue($0) ?? intValue($0).map(Double.init) }
+            .first
+        let linkSpeedMbpsFromDevice = linkSpeedBps.map { Int($0 / 1_000_000.0) }
+
         let speedCode = intValue(kUSBDevicePropertySpeed as String)
-        let speedMbps: Int? = speedCode.flatMap { code in
-            switch code {
-            case 0: return 2        // 1.5 Mbps ~ arredondado para 2
-            case 1: return 12       // Full-Speed
-            case 2: return 480      // High-Speed
-            case 3: return 5000     // SuperSpeed
-            case 4: return 10000    // SuperSpeed+
+        let speedMbpsFromCode: Int? = speedCode.flatMap {
+            switch $0 {
+            case 0: return 2
+            case 1: return 12
+            case 2: return 480
+            case 3: return 5000
+            case 4: return 10000
             default: return nil
             }
         }
-        
+
+        func parentPortMaxMbps(_ entry: io_registry_entry_t) -> Int? {
+            var parent: io_registry_entry_t = 0
+            guard IORegistryEntryGetParentEntry(entry, kIOServicePlane, &parent) == KERN_SUCCESS else { return nil }
+            defer { IOObjectRelease(parent) }
+
+            var pprops: Unmanaged<CFMutableDictionary>?
+            guard IORegistryEntryCreateCFProperties(parent, &pprops, kCFAllocatorDefault, 0) == KERN_SUCCESS,
+                  let pdict = pprops?.takeRetainedValue() as? [String: Any] else { return nil }
+
+            func pnum(_ k: String) -> NSNumber? { pdict[k] as? NSNumber }
+            func pint(_ k: String) -> Int? { pnum(k)?.intValue }
+            func pdouble(_ k: String) -> Double? { pnum(k)?.doubleValue }
+
+            let candidates = [
+                "kUSBHostPortPropertyLinkSpeed", "PortLinkSpeed", "PortSpeed",
+                "LinkSpeed", "MaxLinkRate", "maxLinkSpeed"
+            ]
+            if let bps = candidates.compactMap({ pdouble($0) ?? pint($0).map(Double.init) }).first {
+                return Int(bps / 1_000_000.0)
+            }
+
+            if let portType = pdict["PortType"] as? String {
+                if portType.localizedCaseInsensitiveContains("SuperSpeedPlus") { return 10000 }
+                if portType.localizedCaseInsensitiveContains("SuperSpeed") { return 5000 }
+            }
+            return nil
+        }
+
+        let portMaxSpeedMbps = parentPortMaxMbps(entry)
+
+        // bcdUSB
+        let bcdUSBCandidates = ["bcdUSB", "kUSBDevicePropertyUSBReleaseNumber", "USB-bcdUSB"]
+        let usbVersionBCD = bcdUSBCandidates.compactMap { intValue($0) }.first
+
+        // final speed
+        let speedMbps = linkSpeedMbpsFromDevice ?? speedMbpsFromCode
+
         return USBDevice(
             name: productString ?? registryName,
             vendor: vendorString,
@@ -131,7 +172,9 @@ final class USBDeviceManager: ObservableObject {
             productId: productId,
             serialNumber: serial,
             locationId: locationId,
-            speedMbps: speedMbps
+            speedMbps: speedMbps,
+            portMaxSpeedMbps: portMaxSpeedMbps,
+            usbVersionBCD: usbVersionBCD
         )
     }
     

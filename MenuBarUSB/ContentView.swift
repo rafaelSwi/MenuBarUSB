@@ -39,32 +39,47 @@ struct ContentView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         ForEach(manager.devices) { dev in
                             VStack(alignment: .leading, spacing: 2) {
+                                // Linha principal: Nome + IDs
                                 HStack {
                                     Text(dev.name.isEmpty ? String(localized: "usb_device") : dev.name)
                                         .font(.system(size: 12, weight: .semibold))
                                         .foregroundColor(.primary)
                                     Spacer()
                                     
-                                    
                                     Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
                                         .font(.system(size: 10))
                                         .foregroundStyle(.secondary)
-
                                 }
                                 
+                                // Vendor
                                 if let vendor = dev.vendor, !vendor.isEmpty {
                                     Text(vendor)
                                         .font(.system(size: 10))
                                         .foregroundStyle(.secondary)
                                 }
+                                
+                                // Serial
                                 if let serial = dev.serialNumber, !serial.isEmpty {
-                                    Text("SN: \(serial)")
+                                    Text("\(String(localized: "serial_number")) \(serial)")
                                         .font(.system(size: 9))
                                         .foregroundStyle(.secondary)
                                 }
+                                
                                 Text(dev.speedDescription)
                                     .font(.system(size: 9))
                                     .foregroundStyle(.secondary)
+                                
+                                if let portMax = dev.portMaxSpeedMbps {
+                                    Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(.secondary)
+                                }
+                                
+                                if let usbVer = dev.usbVersionBCD {
+                                    Text("\(String(localized: "usb_version")) \(USBDevice.usbVersionLabel(from: usbVer) ?? String(format: "0x%04X", usbVer))")
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(.secondary)
+                                }
                             }
                             .padding(.vertical, 3)
                             Divider()
