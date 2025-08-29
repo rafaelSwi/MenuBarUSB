@@ -19,9 +19,9 @@
 "port_max" = "Máximo da porta:";
 "serial_number" = "SN:";
 "usb_version" = "Versão do USB:";
-"low_speed" = "Low Speed";
-"full_speed" = "Full Speed";
-"high_speed" = "High Speed";
+"low_speed" = "Low-Speed";
+"full_speed" = "Full-Speed";
+"high_speed" = "High-Speed";
 "supports_up_to" = "suporta até";
 "supports" = "suporta";
 "unknown" = "Desconhecido";

@@ -8,7 +8,7 @@
 "version" = "版本：%@";
 "created_by" = "由RafaelSwi创建并发布在Github";
 "creator_github" = "创作者的Github页面";
-"creator_location" = "巴尔内阿里奥坎博里乌，圣卡塔琳娜，巴西";
+"creator_location" = "由巴西开发商开发";
 "close_about_window" = "关闭";
 "unknown_speed" = "未知速度";
 "check_for_updates" = "检查更新";
@@ -19,9 +19,9 @@
 "port_max" = "最大端口:";
 "serial_number" = "SN:";
 "usb_version" = "USB 版本:";
-"low_speed" = "Low Speed";
-"full_speed" = "Full Speed";
-"high_speed" = "High Speed";
+"low_speed" = "慢的";
+"full_speed" = "快速地";
+"high_speed" = "非常快";
 "supports_up_to" = "支持最高";
 "supports" = "支持";
 "unknown" = "未知"; 

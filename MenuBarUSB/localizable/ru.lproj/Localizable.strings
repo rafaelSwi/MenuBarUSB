@@ -19,9 +19,9 @@
 "port_max" = "Макс. порт:";
 "serial_number" = "SN:";
 "usb_version" = "Версия USB:";
-"low_speed" = "Низкая скорость";
-"full_speed" = "Полная скорость";
-"high_speed" = "Высокая скорость";
+"low_speed" = "Медленный";
+"full_speed" = "Быстрый";
+"high_speed" = "Очень быстро";
 "supports_up_to" = "поддерживает до";
 "supports" = "поддерживает";
 "unknown" = "Неизвестно";

@@ -19,9 +19,9 @@
 "port_max" = "Maks. port:";
 "serial_number" = "SN:";
 "usb_version" = "USB Sürümü:";
-"low_speed" = "Low Speed";
-"full_speed" = "Full Speed";
-"high_speed" = "High Speed";
+"low_speed" = "Low-Speed";
+"full_speed" = "Full-Speed";
+"high_speed" = "High-Speed";
 "supports_up_to" = "kadar destekler";
 "supports" = "destekler";
 "unknown" = "Bilinmiyor";

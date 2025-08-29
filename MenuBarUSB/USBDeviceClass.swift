@@ -31,7 +31,7 @@ struct USBDevice: Identifiable, Hashable {
         case 0x0320: return "USB 3.2"
         case 0x0400: return "USB4"
         case 0x0420: return "USB4 2.0"
-        default:     return String(format: "\(String(localized: "unknown")) (%d)", bcd)
+        default:     return String(format: "\(String(localized: "unknown")) (\(String(format: "0x%0\(4)X", bcd)))", bcd)
         }
     }
 

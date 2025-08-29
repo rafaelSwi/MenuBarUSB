@@ -16,12 +16,12 @@
 "open_download_page" = "Obrir pàgina de descàrrega";
 "up_to_date" = "Tens l'última versió disponible";
 "check_automatically" = "Comprovar automàticament";
-"port_max" = "Port màx:";
+"port_max" = "PORT MAX:";
 "serial_number" = "SN:";
 "usb_version" = "Versió USB:";
-"low_speed" = "Low Speed";
-"full_speed" = "Full Speed";
-"high_speed" = "High Speed";
+"low_speed" = "Low-Speed";
+"full_speed" = "Full-Speed";
+"high_speed" = "High-Speed";
 "supports_up_to" = "suporta fins a";
 "supports" = "suporta";
 "unknown" = "Desconegut"; 
