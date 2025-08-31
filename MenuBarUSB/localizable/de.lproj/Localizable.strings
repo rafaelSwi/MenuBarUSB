@@ -3,7 +3,7 @@
 "open_on_startup" = "Automatisch starten";
 "usb_device" = "USB-Gerät";
 "usb_devices" = "USB-Geräte";
-"no_devices_found" = "Keine Geräte gefunden";
+"no_devices_found" = "Nichts gefunden";
 "about" = "Über";
 "version" = "Version: %@";
 "created_by" = "Erstellt von RafaelSwi und auf Github veröffentlicht";
@@ -25,3 +25,15 @@
 "supports_up_to" = "unterstützt bis zu";
 "supports" = "unterstützt";
 "unknown" = "Unbekannt"; 
+"contact" = "Kontakt:";
+"donate" = "Spenden";
+"endereço" = "Adresse";
+"settings" = "Konfig";
+"donate_description" = "Jede Unterstützung wird sehr geschätzt!";
+"open_on_startup_description" = "Startet die App automatisch, wenn du dich anmeldest. Dies kann jederzeit deaktiviert werden.";
+"show_port_max" = "Wenn möglich, die maximale Kapazität eines USB anzeigen";
+"show_port_max_description" = "Falls erkannt, wird die maximale Kapazität des USB zusammen mit den anderen Geräteinformationen angezeigt.";
+"long_list" = "Erweiterte vertikale Liste";
+"long_list_description" = "Erhöht die maximale Höhe, die die Geräteliste erreichen kann.";
+"convert_hexa" = "Unbekannte Hexadezimalwerte in ein lesbares Label umwandeln.";
+"convert_hexa_description" = "Nicht zugeordnete Hexadezimalwerte werden in ein lesbares Format umgewandelt. Zum Beispiel wird 0x0210 als USB 2.10 angezeigt.\nDie Genauigkeit der Bezeichnung ist nicht garantiert.";

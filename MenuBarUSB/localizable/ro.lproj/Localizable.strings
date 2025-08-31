@@ -25,3 +25,15 @@
 "supports_up_to" = "suportă până la";
 "supports" = "suportă";
 "unknown" = "Necunoscut";
+"contact" = "Contact:";
+"donate" = "Donează";
+"endereço" = "Adresă";
+"settings" = "Setări";
+"donate_description" = "Orice ajutor este apreciat din suflet!";
+"open_on_startup_description" = "Face ca aplicația să pornească automat când te conectezi. Poți dezactiva oricând.";
+"show_port_max" = "Dacă este posibil, afișează capacitatea maximă a unui USB";
+"show_port_max_description" = "Dacă este detectat, va fi afișată capacitatea maximă a USB-ului împreună cu celelalte informații despre dispozitiv.";
+"long_list" = "Listă verticală extinsă";
+"long_list_description" = "Crește înălțimea maximă la care poate ajunge lista de dispozitive.";
+"convert_hexa" = "Convertește hexazecimalele necunoscute într-o etichetă lizibilă.";
+"convert_hexa_description" = "Hexazecimalele nemapate vor fi convertite într-un format lizibil. De exemplu, 0x0210 va fi afișat ca USB 2.1. Acuratețea etichetei nu este garantată.";

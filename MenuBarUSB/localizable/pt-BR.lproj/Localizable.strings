@@ -1,5 +1,5 @@
 "exit" = "Sair";
-"refresh" = "Recarregar";
+"refresh" = "Atualizar";
 "open_on_startup" = "Iniciar no Login";
 "usb_device" = "Dispositivo USB";
 "usb_devices" = "Dispositivos USB";
@@ -25,3 +25,15 @@
 "supports_up_to" = "suporta até";
 "supports" = "suporta";
 "unknown" = "Desconhecido";
+"contact" = "Contato:";
+"donate" = "Doar";
+"endereço" = "Endereço";
+"settings" = "Ajustes";
+"donate_description" = "Agradeço imensamente a qualquer ajuda!";
+"open_on_startup_description" = "Faz com que o app inicie quando você faz login. Isso pode ser desabilitado a qualquer momento.";
+"show_port_max" = "Caso for detectado, exibir a capacidade máxima de uma entrada USB";
+"show_port_max_description" = "Caso seja detectado, irá exibir a capacidade máxima da entrada USB.";
+"long_list" = "Lista vertical expandida";
+"long_list_description" = "Aumenta a altura máxima que a lista de dispositivos pode chegar.";
+"convert_hexa" = "Converter hexadecimais incomuns em um rótulo legível";
+"convert_hexa_description" = "Hexadecimais não mapeados serão convertidos em um formato legível. Por exemplo, 0x0210 seria exibido como USB 2.10.\nA precisão do rótulo não é garantida.";

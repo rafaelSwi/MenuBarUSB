@@ -25,3 +25,15 @@
 "supports_up_to" = "understøtter op til";
 "supports" = "understøtter";
 "unknown" = "Ukendt";  
+"contact" = "Kontakt:";
+"donate" = "Donér";
+"endereço" = "Adresse";
+"settings" = "Indstillinger";
+"donate_description" = "Al hjælp værdsættes virkelig!";
+"open_on_startup_description" = "Gør, at appen starter automatisk, når du logger ind. Dette kan deaktiveres når som helst.";
+"show_port_max" = "Hvis muligt, vis den maksimale kapacitet for en USB";
+"show_port_max_description" = "Hvis det registreres, vises USB'ens maksimale kapacitet sammen med de andre enhedsoplysninger.";
+"long_list" = "Udvidet lodret liste";
+"long_list_description" = "Øger den maksimale højde, som enhedens liste kan nå.";
+"convert_hexa" = "Konverter ukendte hexadecimale værdier til en læsbar etiket.";
+"convert_hexa_description" = "Ikke-mappede hexadecimale værdier konverteres til et læsbart format. For eksempel vil 0x0210 blive vist som USB 2.1.\nEtikettens nøjagtighed kan ikke garanteres.";

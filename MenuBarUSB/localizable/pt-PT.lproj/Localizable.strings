@@ -25,3 +25,15 @@
 "supports_up_to" = "suporta até";
 "supports" = "suporta";
 "unknown" = "Desconhecido";
+"contact" = "Contacto:";
+"donate" = "Doar";
+"endereço" = "Morada";
+"settings" = "Definições";
+"donate_description" = "Qualquer ajuda é muito bem-vinda!";
+"open_on_startup_description" = "Faz com que a aplicação inicie automaticamente quando faz login. Pode ser desativado a qualquer momento.";
+"show_port_max" = "Se possível, mostrar a capacidade máxima de uma pen USB";
+"show_port_max_description" = "Se for detetado, será mostrada a capacidade máxima do USB juntamente com as restantes informações do dispositivo.";
+"long_list" = "Lista vertical expandida";
+"long_list_description" = "Aumenta a altura máxima que a lista de dispositivos pode atingir.";
+"convert_hexa" = "Converter hexadecimais desconhecidos para uma etiqueta legível";
+"convert_hexa_description" = "Os hexadecimais não mapeados serão convertidos para um formato legível. Por exemplo, 0x0210 será mostrado como USB 2.10. A precisão da etiqueta não é garantida.";

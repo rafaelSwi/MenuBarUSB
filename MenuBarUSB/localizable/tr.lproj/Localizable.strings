@@ -25,3 +25,15 @@
 "supports_up_to" = "kadar destekler";
 "supports" = "destekler";
 "unknown" = "Bilinmiyor";
+"contact" = "İletişim:";
+"donate" = "Bağış yap";
+"endereço" = "Adres";
+"settings" = "Ayarlar";
+"donate_description" = "Her türlü destek için minnettarız!";
+"open_on_startup_description" = "Uygulamanın oturum açtığınızda otomatik başlamasını sağlar. İstediğiniz zaman devre dışı bırakabilirsiniz.";
+"show_port_max" = "Mümkünse, bir USB’nin maksimum kapasitesini göster";
+"show_port_max_description" = "Tespit edilirse, USB’nin maksimum kapasitesi diğer cihaz bilgileriyle birlikte gösterilecektir.";
+"long_list" = "Genişletilmiş dikey liste";
+"long_list_description" = "Cihaz listesinin ulaşabileceği maksimum yüksekliği artırır.";
+"convert_hexa" = "Bilinmeyen onaltılık değerleri okunabilir bir etikete dönüştür.";
+"convert_hexa_description" = "Eşleşmeyen onaltılık değerler okunabilir bir biçime dönüştürülecek. Örneğin, 0x0210 USB 2.1 olarak gösterilecektir.\nEtiketin doğruluğu garanti edilmez.";

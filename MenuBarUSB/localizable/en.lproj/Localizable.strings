@@ -24,4 +24,16 @@
 "high_speed" = "High-Speed";
 "supports_up_to" = "supports up to";
 "supports" = "supports";
-"unknown" = "Unknown"; 
+"unknown" = "Unknown";
+"contact" = "Contact:";
+"donate" = "Donate";
+"endereço" = "Address";
+"settings" = "Settings";
+"donate_description" = "Any help is truly appreciated!";
+"open_on_startup_description" = "Makes the app start automatically when you log in. You can disable this anytime.";
+"show_port_max" = "If possible, display the maximum capacity of a USB";
+"show_port_max_description" = "If detected, it will show the maximum capacity of the USB Port.";
+"long_list" = "Long vertical list";
+"long_list_description" = "Increases the maximum height that the device list can reach.";
+"convert_hexa" = "Convert unmapped hexadecimals into a readable label";
+"convert_hexa_description" = "Unmapped hexadecimals will be converted into a readable format. For example, 0x0210 would be shown as USB 2.10.\nThe accuracy is not guaranteed.";

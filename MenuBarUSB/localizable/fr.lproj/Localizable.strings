@@ -25,3 +25,15 @@
 "supports_up_to" = "supporte jusqu'à";
 "supports" = "supporte";
 "unknown" = "Inconnu";
+"contact" = "Contact :";
+"donate" = "Faire un don";
+"endereço" = "Adresse";
+"settings" = "Réglages";
+"donate_description" = "Toute aide est grandement appréciée !";
+"open_on_startup_description" = "L’application démarre automatiquement lorsque vous vous connectez. Vous pouvez désactiver cela à tout moment.";
+"show_port_max" = "Si possible, afficher la capacité maximale d’une clé USB";
+"show_port_max_description" = "Si détectée, la capacité maximale de l’USB sera affichée avec les autres informations de l’appareil.";
+"long_list" = "Liste verticale étendue";
+"long_list_description" = "Augmente la hauteur maximale que la liste des appareils peut atteindre.";
+"convert_hexa" = "Convertir les valeurs hexadécimales inconnues en une étiquette lisible";
+"convert_hexa_description" = "Les hexadécimaux non reconnus seront convertis en un format lisible. Par exemple, 0x0210 sera affiché comme USB 2.1.\nL’exactitude de l’étiquette n’est pas garantie.";

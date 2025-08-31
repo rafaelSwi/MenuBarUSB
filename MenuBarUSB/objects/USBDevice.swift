@@ -20,7 +20,7 @@ struct USBDevice: Identifiable, Hashable {
     let usbVersionBCD: Int?
     
     
-    static func usbVersionLabel(from bcd: Int?) -> String? {
+    static func usbVersionLabel(from bcd: Int?, convertHexa: Bool) -> String? {
         guard let bcd = bcd else { return nil }
         switch bcd {
         case 0x0100: return "USB 1.0"
@@ -31,7 +31,25 @@ struct USBDevice: Identifiable, Hashable {
         case 0x0320: return "USB 3.2"
         case 0x0400: return "USB4"
         case 0x0420: return "USB4 2.0"
-        default:     return String(format: "\(String(localized: "unknown")) (\(String(format: "0x%0\(4)X", bcd)))", bcd)
+        default:
+            let major = (bcd >> 8) & 0xFF
+            let minorHigh = (bcd >> 4) & 0x0F
+            let minorLow  = bcd & 0x0F
+            let minor = minorHigh * 10 + minorLow
+
+            let versionString = minor == 0 ? "\(major)" : "\(major).\(minor)"
+            if (convertHexa) {
+                return String(
+                    format: "USB %@",
+                    versionString
+                )
+            } else {
+                return String(
+                    format: "\(String(localized: "unknown")) (0x%04X)",
+                    bcd
+                )
+            }
+            
         }
     }
 

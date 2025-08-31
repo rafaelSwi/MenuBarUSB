@@ -6,40 +6,33 @@
 //
 
 import SwiftUI
-import ServiceManagement
 
 struct ContentView: View {
     @EnvironmentObject var manager: USBDeviceManager
-    @AppStorage("launchAtLogin") private var launchAtLogin = false
     @State private var showingAbout = false
     @Environment(\.openWindow) var openWindow
     
-    public func toggleLoginItem(enabled: Bool) {
-        do {
-            if enabled {
-                try SMAppService.mainApp.register()
-            } else {
-                try SMAppService.mainApp.unregister()
-            }
-        } catch {
-            print("Error:", error)
+    @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
+    @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
+    @AppStorage(StorageKeys.longList) private var longList = false
+    
+    func windowHeight(longList: Bool) -> CGFloat? {
+        if (manager.devices.isEmpty) {
+            return nil;
+        }
+        let baseValue: CGFloat = 200;
+        let sum: CGFloat = baseValue + (CGFloat(manager.devices.count) * 25);
+        var max: CGFloat = 380;
+        if (longList) {
+            max += 315;
+        }
+        if (sum >= max) {
+            return max;
+        } else {
+            return sum;
         }
     }
     
-     func windowHeight() -> CGFloat? {
-         if (manager.devices.isEmpty) {
-             return nil;
-         }
-         let baseValue: CGFloat = 200;
-         let sum: CGFloat = baseValue + (CGFloat(manager.devices.count) * 28);
-         let max: CGFloat = 460;
-         if (sum >= max) {
-             return max;
-         } else {
-             return sum;
-         }
-    }
-
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             if manager.devices.isEmpty {
@@ -69,8 +62,6 @@ struct ContentView: View {
                                     
                                 }
                                 
-                            
-                                
                                 HStack {
                                     Text(dev.speedDescription)
                                         .font(.system(size: 9))
@@ -85,7 +76,7 @@ struct ContentView: View {
                                 HStack {
                                     
                                     if let usbVer = dev.usbVersionBCD {
-                                        Text("\(String(localized: "usb_version")) \(USBDevice.usbVersionLabel(from: usbVer) ?? String(format: "0x%04X", usbVer))")
+                                        Text("\(String(localized: "usb_version")) \(USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa) ?? String(format: "0x%04X", usbVer))")
                                             .font(.system(size: 9))
                                             .foregroundStyle(.secondary)
                                     }
@@ -99,13 +90,13 @@ struct ContentView: View {
                                     }
                                 }
                                 
-                                if let portMax = dev.portMaxSpeedMbps {
-                                    Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
-                                        .font(.system(size: 9))
-                                        .foregroundStyle(.secondary)
+                                if (showPortMax) {
+                                    if let portMax = dev.portMaxSpeedMbps {
+                                        Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(.secondary)
+                                    }
                                 }
-                                
-                                
                                 
                             }
                             .padding(.vertical, 3)
@@ -114,45 +105,40 @@ struct ContentView: View {
                     }
                     .padding(.horizontal, 4)
                 }
-                .frame(maxHeight: 1000)
+                .frame(maxHeight: 1_000)
             }
-
+            
             
         }
         .padding(3)
-        .frame(width: 450)
+        .frame(width: 450, height: windowHeight(longList: longList))
         
         HStack {
-          Toggle(String(localized: "open_on_startup"), isOn: $launchAtLogin)
-            .onChange(of: launchAtLogin) { enabled in
-              toggleLoginItem(enabled: enabled)
-            }
-          
-         
-          Spacer()
-         
+            
+            Spacer()
+            
             Button {
-                openWindow(id: "about")
+                openWindow(id: "settings")
             } label: {
-              Label(String(localized: "about"), systemImage: "info.circle")
+                Label(String(localized: "settings"), systemImage: "gear")
             }
             .font(.system(size: 12))
             
-         
-          Button {
-            manager.refresh()
-          } label: {
-            Label(String(localized: "refresh"), systemImage: "arrow.clockwise")
-          }
-          .font(.system(size: 12))
-         
-          Button(role: .destructive) {
-            NSApp.terminate(nil)
-          } label: {
-            Label(String(localized: "exit"), systemImage: "power")
-          }
-         
-         
+            
+            Button {
+                manager.refresh()
+            } label: {
+                Label(String(localized: "refresh"), systemImage: "arrow.clockwise")
+            }
+            .font(.system(size: 12))
+            
+            Button(role: .destructive) {
+                NSApp.terminate(nil)
+            } label: {
+                Label(String(localized: "exit"), systemImage: "power")
+            }
+            
+            
         }
         .padding(10)
         

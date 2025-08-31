@@ -25,10 +25,10 @@ struct MenuBarUSBApp: App {
         }
         .menuBarExtraStyle(.window)
         
-        WindowGroup(id: "about") {
-            AboutView()
+        WindowGroup(id: "settings") {
+            SettingsView()
         }
-        .handlesExternalEvents(matching: ["about"])
+        .handlesExternalEvents(matching: ["settings"])
         .windowResizability(.contentSize)
         
     }

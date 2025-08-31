@@ -25,3 +25,15 @@
 "supports_up_to" = "支持最高";
 "supports" = "支持";
 "unknown" = "未知"; 
+"contact" = "联系方式:";
+"donate" = "捐赠";
+"endereço" = "地址";
+"settings" = "设置";
+"donate_description" = "非常感谢您的任何帮助！";
+"open_on_startup_description" = "登录时自动启动应用程序。您可以随时关闭此功能。";
+"show_port_max" = "如果可能，显示 USB 的最大容量";
+"show_port_max_description" = "如果检测到，将显示 USB 的最大容量以及其他设备信息。";
+"long_list" = "扩展纵向列表";
+"long_list_description" = "增加设备列表可达到的最大高度。";
+"convert_hexa" = "将未知的十六进制转换为可读标签。";
+"convert_hexa_description" = "未映射的十六进制值将被转换为可读格式。例如，0x0210 将显示为 USB 2.1。\n标签的准确性不作保证。";

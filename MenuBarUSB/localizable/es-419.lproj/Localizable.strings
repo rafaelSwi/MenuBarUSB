@@ -13,7 +13,7 @@
 "unknown_speed" = "Velocidad desconocida";
 "check_for_updates" = "Buscar actualizaciones";
 "new_version_available" = "Nueva versión disponible";
-"open_download_page" = "Abrir página de descarga";
+"open_download_page" = "Abrir página de download";
 "up_to_date" = "Tienes la última versión disponible.";
 "check_automatically" = "Buscar automáticamente";
 "port_max" = "Puerto máx:";
@@ -25,3 +25,15 @@
 "supports_up_to" = "soporta hasta";
 "supports" = "soporta";
 "unknown" = "Desconocido"; 
+"contact" = "Contacto:";
+"donate" = "Donar";
+"endereço" = "Dirección";
+"settings" = "Configuración";
+"donate_description" = "¡Se agradece muchísimo cualquier apoyo!";
+"open_on_startup_description" = "Hace que la app se abra automáticamente al iniciar sesión. Puedes desactivarlo en cualquier momento.";
+"show_port_max" = "Si es posible, mostrar la capacidad máxima de un USB";
+"show_port_max_description" = "Si se detecta, se mostrará la capacidad máxima del USB junto con la demás información del dispositivo.";
+"long_list" = "Lista vertical extendida";
+"long_list_description" = "Incrementa la altura máxima que puede alcanzar la lista de dispositivos.";
+"convert_hexa" = "Convertir valores hexadecimales desconocidos en una etiqueta legible";
+"convert_hexa_description" = "Los hexadecimales no mapeados serán convertidos a un formato legible. Por ejemplo, 0x0210 se mostrará como USB 2.1.\nNo se garantiza la precisión de la etiqueta.";

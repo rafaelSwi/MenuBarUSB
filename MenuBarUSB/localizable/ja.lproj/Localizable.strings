@@ -25,3 +25,15 @@
 "supports_up_to" = "最大対応";
 "supports" = "対応";
 "unknown" = "不明";
+"contact" = "連絡先:";
+"donate" = "寄付";
+"endereço" = "住所";
+"settings" = "設定";
+"donate_description" = "どんな支援でも本当に感謝します！";
+"open_on_startup_description" = "ログイン時にアプリを自動的に起動します。いつでも無効にできます。";
+"show_port_max" = "可能であれば、USB の最大容量を表示する";
+"show_port_max_description" = "検出された場合、USB の最大容量が他のデバイス情報と一緒に表示されます。";
+"long_list" = "拡張縦リスト";
+"long_list_description" = "デバイスリストの最大高さを増やします。";
+"convert_hexa" = "不明な 16 進数を読みやすいラベルに変換します。";
+"convert_hexa_description" = "未対応の 16 進数は読みやすい形式に変換されます。例えば、0x0210 は USB 2.1 として表示されます。ラベルの正確性は保証されません。";
