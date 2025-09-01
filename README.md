@@ -32,3 +32,7 @@ brew upgrade --cask menubarusb
 brew upgrade
 brew reinstall --cask menubarusb
 ```
+
+### License
+
+This project is licensed under the terms of [MIT License](LICENSE).
