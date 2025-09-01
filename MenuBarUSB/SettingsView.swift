@@ -10,13 +10,13 @@ import ServiceManagement
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var manager: USBDeviceManager
     
     @State private var showMessage: Bool = false
+    @State private var showRenameDevices: Bool = false
     
-    // MARK: - App version & updates
-    var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
-    }
+    @State private var selectedDeviceToRename: USBDevice?;
+    @State private var inputText: String = "";
     
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
@@ -26,13 +26,20 @@ struct SettingsView: View {
     @State private var showOpenOnStartupDescription: Bool = false;
     @State private var showConvertHexaDescription: Bool = false;
     @State private var showLongListDescription: Bool = false;
-    @State private var showsShowPortMaxDescription: Bool = false;
+    @State private var showShowPortMaxDescription: Bool = false;
+    @State private var showRenamedIndicatorDescription: Bool = false;
     
-    // MARK: - Toggles
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
     @AppStorage(StorageKeys.longList) private var longList = false
     @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
+    @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
+    
+    @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
+    
+    var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
+    }
     
     public func toggleLoginItem(enabled: Bool) {
         do {
@@ -101,7 +108,7 @@ struct SettingsView: View {
                     label: String(localized: "show_port_max"),
                     description: String(localized: "show_port_max_description"),
                     binding: $showPortMax,
-                    showMessage: $showsShowPortMaxDescription
+                    showMessage: $showShowPortMaxDescription
                 )
                 ToggleRow(
                     label: String(localized: "convert_hexa"),
@@ -109,13 +116,85 @@ struct SettingsView: View {
                     binding: $convertHexa,
                     showMessage: $showConvertHexaDescription
                 )
+                ToggleRow(
+                    label: String(localized: "renamed_indicator"),
+                    description: String(localized: "renamed_indicator_description"),
+                    binding: $renamedIndicator,
+                    showMessage: $showRenamedIndicatorDescription
+                )
             }
             
             Spacer()
             
             HStack {
+                Button(String(localized: "rename_device")) {
+                    if (showRenameDevices) {
+                        showRenameDevices = false;
+                        selectedDeviceToRename = nil;
+                        inputText = "";
+                    } else {
+                        showRenameDevices = true;
+                    }
+                }
+                
+                if (showRenameDevices) {
+                    Menu {
+                        ForEach(manager.devices) { device in
+                            let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
+                            let buttonLabel = renamedDevice?.name ?? device.name
+
+                            Button(buttonLabel) {
+                                selectedDeviceToRename = device
+                            }
+                        }
+                    } label: {
+                        Text(selectedDeviceToRename?.name ?? String(localized: "device"))
+                    }
+                    .frame(width: 190)
+                }
+                
+                if (showRenameDevices && selectedDeviceToRename == nil && renamedDevices.count > 0) {
+                    Button {
+                        renamedDevices.removeAll();
+                        showRenameDevices = false;
+                    } label: {
+                        Text(String(localized: "undo_all"))
+                    }
+                }
+                
+                if (selectedDeviceToRename != nil) {
+                    HStack {
+                        TextFieldWithLimit(
+                            text: $inputText,
+                            placeholder: String(localized: "insert_new_name"),
+                            maxLength: 30
+                        )
+                        .frame(width: 190)
+                        .help(String(localized: "renaming_help"))
+                        
+                        Button {
+                            let uniqueId = USBDevice.uniqueId(selectedDeviceToRename!)
+                            let newDevice = RenamedDevice(deviceId: uniqueId, name: inputText)
+                            if (inputText == "") {
+                                renamedDevices.removeAll { $0.deviceId == uniqueId }
+                            } else {
+                                renamedDevices.removeAll { $0.deviceId == uniqueId }
+                                renamedDevices.append(newDevice)
+                            }
+                            inputText = "";
+                            selectedDeviceToRename = nil;
+                            showRenameDevices = false;
+                        } label: {
+                            Text(String(localized: "confirm"))
+                                .frame(width: 100)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                }
+                
+                
                 Spacer()
-                Button("Close") {
+                Button(String(localized: "close_about_window")) {
                     dismiss()
                 }
                 .buttonStyle(.borderedProminent)

@@ -37,3 +37,12 @@
 "long_list_description" = "장치 목록이 도달할 수 있는 최대 높이를 늘립니다.";
 "convert_hexa" = "알 수 없는 16진수를 읽을 수 있는 레이블로 변환";
 "convert_hexa_description" = "매핑되지 않은 16진수는 읽기 쉬운 형식으로 변환됩니다. 예: 0x0210은 USB 2.1로 표시됩니다.\n레이블의 정확성은 보장되지 않습니다.";
+"rename_device" = "장치 이름 변경";
+"rename" = "이름 변경";
+"device" = "장치";
+"undo_all" = "모두 지우기";
+"insert_new_name" = "새 이름을 입력하세요";
+"confirm" = "확인";
+"renaming_help" = "텍스트 상자를 비워 둔 채 이름을 변경하면, 이전에 설정한 사용자 지정 이름이 제거됩니다.";
+"renamed_indicator" = "이름이 변경된 장치 표시기";
+"renamed_indicator_description" = "이름이 변경된 USB 장치 이름 앞에는 ▪ 표시가 나타납니다.";

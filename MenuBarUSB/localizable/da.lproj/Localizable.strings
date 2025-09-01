@@ -37,3 +37,12 @@
 "long_list_description" = "Øger den maksimale højde, som enhedens liste kan nå.";
 "convert_hexa" = "Konverter ukendte hexadecimale værdier til en læsbar etiket.";
 "convert_hexa_description" = "Ikke-mappede hexadecimale værdier konverteres til et læsbart format. For eksempel vil 0x0210 blive vist som USB 2.1.\nEtikettens nøjagtighed kan ikke garanteres.";
+"rename_device" = "Omdøb enhed";
+"rename" = "Omdøb";
+"device" = "Enhed";
+"undo_all" = "Ryd alt";
+"insert_new_name" = "Indtast det nye navn";
+"confirm" = "Bekræft";
+"renaming_help" = "Hvis du omdøber med et tomt tekstfelt, fjernes det brugerdefinerede navn, der tidligere blev tildelt enheden.";
+"renamed_indicator" = "Indikator for omdøbte enheder";
+"renamed_indicator_description" = "USB-enheder, der er blevet omdøbt, vil have en ▪ foran deres navn.";

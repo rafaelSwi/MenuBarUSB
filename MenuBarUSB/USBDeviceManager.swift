@@ -5,6 +5,7 @@
 //  Created by Rafael Neuwirth on 28/08/25.
 //
 
+import SwiftUI
 import Foundation
 import IOKit
 import IOKit.usb
@@ -51,7 +52,7 @@ final class USBDeviceManager: ObservableObject {
         func addUniqueDevices(from name: String) {
             let devices = fetchMatchingDevices(name: name)
             for device in devices {
-                let deviceId = "\(device.vendorId)-\(device.productId)-\(String(describing: device.locationId))"
+                let deviceId = USBDevice.uniqueId(device);
                 
                 if !seenDeviceIds.contains(deviceId) {
                     result.append(device)

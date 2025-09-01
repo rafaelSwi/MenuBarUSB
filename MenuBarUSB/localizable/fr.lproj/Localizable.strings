@@ -1,6 +1,6 @@
 "exit" = "Quitter";
 "refresh" = "Rafraîchir";
-"open_on_startup" = "Commencer";
+"open_on_startup" = "Démarrer automatiquement";
 "usb_device" = "Périphérique USB";
 "usb_devices" = "Périphériques USB";
 "no_devices_found" = "Aucun périphérique trouvé";
@@ -37,3 +37,12 @@
 "long_list_description" = "Augmente la hauteur maximale que la liste des appareils peut atteindre.";
 "convert_hexa" = "Convertir les valeurs hexadécimales inconnues en une étiquette lisible";
 "convert_hexa_description" = "Les hexadécimaux non reconnus seront convertis en un format lisible. Par exemple, 0x0210 sera affiché comme USB 2.1.\nL’exactitude de l’étiquette n’est pas garantie.";
+"rename_device" = "Renommer l’appareil";
+"rename" = "Renommer";
+"device" = "Appareil";
+"undo_all" = "Tout effacer";
+"insert_new_name" = "Entrez le nouveau nom";
+"confirm" = "Confirmer";
+"renaming_help" = "Renommer avec un champ vide supprimera le nom personnalisé attribué précédemment à l’appareil.";
+"renamed_indicator" = "Indicateur pour appareils renommés";
+"renamed_indicator_description" = "Les périphériques USB qui ont été renommés auront un ▪ devant leur nom.";

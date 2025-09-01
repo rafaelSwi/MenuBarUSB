@@ -37,3 +37,12 @@
 "long_list_description" = "Crește înălțimea maximă la care poate ajunge lista de dispozitive.";
 "convert_hexa" = "Convertește hexazecimalele necunoscute într-o etichetă lizibilă.";
 "convert_hexa_description" = "Hexazecimalele nemapate vor fi convertite într-un format lizibil. De exemplu, 0x0210 va fi afișat ca USB 2.1. Acuratețea etichetei nu este garantată.";
+"rename_device" = "Redenumește dispozitivul";
+"rename" = "Redenumește";
+"device" = "Dispozitiv";
+"undo_all" = "Șterge tot";
+"insert_new_name" = "Introduceți noul nume";
+"confirm" = "Confirmă";
+"renaming_help" = "Dacă redenumești lăsând câmpul gol, numele personalizat atribuit anterior dispozitivului va fi eliminat.";
+"renamed_indicator" = "Indicator pentru dispozitive redenumite";
+"renamed_indicator_description" = "Dispozitivele USB care au fost redenumite vor avea un ▪ înaintea numelui lor.";

@@ -27,6 +27,7 @@ struct MenuBarUSBApp: App {
         
         WindowGroup(id: "settings") {
             SettingsView()
+                .environmentObject(manager)
         }
         .handlesExternalEvents(matching: ["settings"])
         .windowResizability(.contentSize)

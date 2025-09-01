@@ -37,3 +37,12 @@
 "long_list_description" = "增加设备列表可达到的最大高度。";
 "convert_hexa" = "将未知的十六进制转换为可读标签。";
 "convert_hexa_description" = "未映射的十六进制值将被转换为可读格式。例如，0x0210 将显示为 USB 2.1。\n标签的准确性不作保证。";
+"rename_device" = "重命名设备";
+"rename" = "重命名";
+"device" = "设备";
+"undo_all" = "清除全部";
+"insert_new_name" = "输入新名称";
+"confirm" = "确认";
+"renaming_help" = "如果在文本框为空的情况下重命名，将会删除之前为设备设置的自定义名称。";
+"renamed_indicator" = "已重命名设备指示";
+"renamed_indicator_description" = "已重命名的USB设备名称前将显示 ▪ 符号。";

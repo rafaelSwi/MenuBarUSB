@@ -15,13 +15,17 @@ struct ContentView: View {
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
     @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
     @AppStorage(StorageKeys.longList) private var longList = false
+    @AppStorage(StorageKeys.renamedIndicator) private var indicator = false
+    
+    @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     
     func windowHeight(longList: Bool) -> CGFloat? {
         if (manager.devices.isEmpty) {
             return nil;
         }
         let baseValue: CGFloat = 200;
-        let sum: CGFloat = baseValue + (CGFloat(manager.devices.count) * 25);
+        let multiplier: CGFloat = longList ? 30 : 25;
+        let sum: CGFloat = baseValue + (CGFloat(manager.devices.count) * multiplier);
         var max: CGFloat = 380;
         if (longList) {
             max += 315;
@@ -48,9 +52,17 @@ struct ContentView: View {
                             VStack(alignment: .leading, spacing: 2) {
                                 
                                 HStack {
-                                    Text(dev.name.isEmpty ? String(localized: "usb_device") : dev.name)
-                                        .font(.system(size: 12, weight: .semibold))
-                                        .foregroundColor(.primary)
+                                    
+                                    if let device = renamedDevices.first(where: { $0.deviceId == USBDevice.uniqueId(dev) }) {
+                                        let title: String = indicator ? "▪ \(device.name)" : device.name;
+                                        Text(title)
+                                            .font(.system(size: 12, weight: .semibold))
+                                            .foregroundColor(.primary)
+                                    } else {
+                                        Text(dev.name.isEmpty ? String(localized: "usb_device") : dev.name)
+                                            .font(.system(size: 12, weight: .semibold))
+                                            .foregroundColor(.primary)
+                                    }
                                     
                                     Spacer()
                                     

@@ -34,6 +34,15 @@
 "show_port_max" = "Jeśli to możliwe, pokaż maksymalną pojemność USB";
 "show_port_max_description" = "Jeśli zostanie wykryte, wyświetli maksymalną pojemność USB wraz z innymi informacjami o urządzeniu.";
 "long_list" = "Rozszerzona lista pionowa";
-"long_list_description" = "Zwiększa maksymalną wysokość, jaką może osiągnąć lista urządzeń.";
+"long_list_description" = "Zwiększa maksymalną wysokość, jaką może osiągnąć lista urządzeń.\n(Możesz nie zauważyć dużej różnicy, jeśli nie używasz wielu urządzeń)";
 "convert_hexa" = "Konwertuj nieznane wartości szesnastkowe na czytelną etykietę.";
 "convert_hexa_description" = "Niezmapowane wartości szesnastkowe zostaną przekonwertowane do czytelnego formatu. Na przykład 0x0210 będzie wyświetlane jako USB 2.1.\nDokładność etykiety nie jest gwarantowana.";
+"rename_device" = "Zmień nazwę urządzenia";
+"rename" = "Zmień nazwę";
+"device" = "Urządzenie";
+"undo_all" = "Wyczyść wszystko";
+"insert_new_name" = "Wpisz nową nazwę";
+"confirm" = "Potwierdź";
+"renaming_help" = "Zmiana nazwy przy pustym polu tekstowym usunie wcześniej przypisaną nazwę własną urządzenia.";
+"renamed_indicator" = "Wskaźnik dla przemianowanych urządzeń";
+"renamed_indicator_description" = "Urządzenia USB, które zostały przemianowane, będą miały ▪ przed swoją nazwą.";

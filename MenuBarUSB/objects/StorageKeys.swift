@@ -10,4 +10,6 @@ final class StorageKeys {
     static let showPortMax = "showPortMax";
     static let convertHexa = "convertHexa";
     static let longList = "longList";
+    static let renamedDevices = "renamedDevices";
+    static let renamedIndicator = "renamedIndicator";
 }

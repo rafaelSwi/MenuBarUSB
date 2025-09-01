@@ -72,6 +72,10 @@ struct USBDevice: Identifiable, Hashable {
     private func prettyMbps(_ mbps: Int) -> String {
         mbps >= 1000 ? String(format: "%.1f Gbps", Double(mbps)/1000.0) : "\(mbps) Mbps"
     }
+    
+    static func uniqueId(_ device: USBDevice) -> String {
+        return "\(device.vendorId)-\(device.productId)-\(String(describing: device.locationId))";
+    }
 
 }
 

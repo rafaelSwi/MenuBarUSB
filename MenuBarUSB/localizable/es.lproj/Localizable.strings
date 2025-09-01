@@ -37,3 +37,12 @@
 "long_list_description" = "Aumenta la altura máxima que la lista de dispositivos puede alcanzar.";
 "convert_hexa" = "Convertir hexadecimales desconocidos en una etiqueta legible";
 "convert_hexa_description" = "Los hexadecimales no mapeados se convertirán en un formato legible. Por ejemplo, 0x0210 se mostrará como USB 2.10.\nLa precisión de la etiqueta no está garantizada.";
+"rename_device" = "Renombrar";
+"rename" = "Renombrar";
+"device" = "Dispositivo";
+"undo_all" = "Borrar todo";
+"insert_new_name" = "Ingrese el nuevo nombre";
+"confirm" = "Confirmar";
+"renaming_help" = "Si renombras con el cuadro de texto vacío, se eliminará el nombre personalizado asignado previamente al dispositivo.";
+"renamed_indicator" = "Indicador para dispositivos renombrados";
+"renamed_indicator_description" = "Los dispositivos USB que han sido renombrados tendrán un ▪ antes de su nombre.";

@@ -9,7 +9,7 @@
 "created_by" = "RafaelSwi tarafından oluşturuldu ve Github'da yayınlandı";
 "creator_github" = "Oluşturanın Github sayfası";
 "creator_location" = "Balneário Camboriú, Santa Catarina, Brezilya";
-"close_about_window" = "Sekmeyi kapat";
+"close_about_window" = "Çık";
 "unknown_speed" = "Bilinmeyen hız";
 "check_for_updates" = "Güncellemeleri kontrol et";
 "new_version_available" = "Yeni sürüm mevcut";
@@ -37,3 +37,12 @@
 "long_list_description" = "Cihaz listesinin ulaşabileceği maksimum yüksekliği artırır.";
 "convert_hexa" = "Bilinmeyen onaltılık değerleri okunabilir bir etikete dönüştür.";
 "convert_hexa_description" = "Eşleşmeyen onaltılık değerler okunabilir bir biçime dönüştürülecek. Örneğin, 0x0210 USB 2.1 olarak gösterilecektir.\nEtiketin doğruluğu garanti edilmez.";
+"rename_device" = "Adı Değiştir";
+"rename" = "Etiket ekle";
+"device" = "Cihaz";
+"undo_all" = "Hepsini temizle";
+"insert_new_name" = "Yeni adı girin";
+"confirm" = "OK";
+"renaming_help" = "Metin kutusu boş bırakılarak yeniden adlandırılırsa, cihaz için daha önce belirlenen özel ad kaldırılır.";
+"renamed_indicator" = "Yeniden adlandırılmış cihaz göstergesi";
+"renamed_indicator_description" = "Yeniden adlandırılmış USB cihazlarının isimlerinin önünde ▪ bulunacaktır.";
