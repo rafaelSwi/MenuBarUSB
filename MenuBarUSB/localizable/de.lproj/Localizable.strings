@@ -46,3 +46,8 @@
 "renaming_help" = "Wenn Sie mit einem leeren Textfeld umbenennen, wird der zuvor vergebene Benutzername für das Gerät entfernt.";
 "renamed_indicator" = "Indikator für umbenannte Geräte";
 "renamed_indicator_description" = "USB-Geräte, die umbenannt wurden, haben ein ▪ vor ihrem Namen.";
+"hide" = "Ausblenden";
+"hidden" = "Ausgeblendet";
+"hide_device" = "Gerät ausblenden";
+"hidden_indicator" = "Indikator für ausgeblendete Geräte";
+"hidden_indicator_description" = "In der unteren linken Ecke wird angezeigt, wie viele Geräte ausgeblendet sind.";

@@ -15,9 +15,11 @@ struct ContentView: View {
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
     @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
     @AppStorage(StorageKeys.longList) private var longList = false
-    @AppStorage(StorageKeys.renamedIndicator) private var indicator = false
+    @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
+    @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
+    @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     
     func windowHeight(longList: Bool) -> CGFloat? {
         if (manager.devices.isEmpty) {
@@ -49,12 +51,13 @@ struct ContentView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 4) {
                         ForEach(manager.devices) { dev in
+                            let uniqueId: String = USBDevice.uniqueId(dev);
                             VStack(alignment: .leading, spacing: 2) {
                                 
                                 HStack {
                                     
-                                    if let device = renamedDevices.first(where: { $0.deviceId == USBDevice.uniqueId(dev) }) {
-                                        let title: String = indicator ? "▪ \(device.name)" : device.name;
+                                    if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
+                                        let title: String = renamedIndicator ? "▪ \(device.name)" : device.name;
                                         Text(title)
                                             .font(.system(size: 12, weight: .semibold))
                                             .foregroundColor(.primary)
@@ -126,6 +129,14 @@ struct ContentView: View {
         .frame(width: 450, height: windowHeight(longList: longList))
         
         HStack {
+            
+            if (camouflagedDevices.count > 0 && camouflagedIndicator) {
+                Group {
+                    Image(systemName: "eye.slash")
+                    Text("\(camouflagedDevices.count)")
+                }
+                .opacity(0.5)
+            }
             
             Spacer()
             

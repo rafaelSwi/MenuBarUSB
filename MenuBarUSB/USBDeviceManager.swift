@@ -17,6 +17,8 @@ final class USBDeviceManager: ObservableObject {
     private var addedIterator: io_iterator_t = 0
     private var removedIterator: io_iterator_t = 0
     
+    @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
+    
     init() {
         startMonitoring()
         refresh()
@@ -29,19 +31,23 @@ final class USBDeviceManager: ObservableObject {
     // Public
     
     func refresh() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let snapshot = self.fetchUSBDevices()
-            
-            let uniqueDevices = Set(snapshot)
-            
-            DispatchQueue.main.async {
-                self.devices = uniqueDevices.sorted(by: {
-                    ($0.vendor ?? "") < ($1.vendor ?? "")
-                    || ($0.vendor == $1.vendor && $0.name < $1.name)
-                })
+            DispatchQueue.global(qos: .userInitiated).async {
+                let snapshot = self.fetchUSBDevices()
+                
+                let uniqueDevices = Set(snapshot)
+                
+                let filteredDevices = uniqueDevices.filter { dev in
+                    self.camouflagedDevices.first { $0.deviceId == USBDevice.uniqueId(dev) } == nil
+                }
+                
+                DispatchQueue.main.async {
+                    self.devices = filteredDevices.sorted(by: {
+                        ($0.vendor ?? "") < ($1.vendor ?? "")
+                        || ($0.vendor == $1.vendor && $0.name < $1.name)
+                    })
+                }
             }
         }
-    }
     
     // USB Query
     

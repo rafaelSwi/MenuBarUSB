@@ -46,3 +46,8 @@
 "renaming_help" = "Zmiana nazwy przy pustym polu tekstowym usunie wcześniej przypisaną nazwę własną urządzenia.";
 "renamed_indicator" = "Wskaźnik dla przemianowanych urządzeń";
 "renamed_indicator_description" = "Urządzenia USB, które zostały przemianowane, będą miały ▪ przed swoją nazwą.";
+"hide" = "Ukryj";
+"hidden" = "Ukryty";
+"hide_device" = "Ukryj urządzenie";
+"hidden_indicator" = "Wskaźnik ukrytych urządzeń";
+"hidden_indicator_description" = "W lewym dolnym rogu wyświetlana jest liczba ukrytych urządzeń.";

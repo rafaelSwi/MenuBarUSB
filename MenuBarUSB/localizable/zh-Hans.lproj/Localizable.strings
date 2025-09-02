@@ -46,3 +46,8 @@
 "renaming_help" = "如果在文本框为空的情况下重命名，将会删除之前为设备设置的自定义名称。";
 "renamed_indicator" = "已重命名设备指示";
 "renamed_indicator_description" = "已重命名的USB设备名称前将显示 ▪ 符号。";
+"hide" = "隐藏";
+"hidden" = "已隐藏";
+"hide_device" = "隐藏设备";
+"hidden_indicator" = "隐藏设备指示器";
+"hidden_indicator_description" = "显示已隐藏的设备数量";

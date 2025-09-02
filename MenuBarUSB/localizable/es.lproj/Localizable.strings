@@ -46,3 +46,8 @@
 "renaming_help" = "Si renombras con el cuadro de texto vacío, se eliminará el nombre personalizado asignado previamente al dispositivo.";
 "renamed_indicator" = "Indicador para dispositivos renombrados";
 "renamed_indicator_description" = "Los dispositivos USB que han sido renombrados tendrán un ▪ antes de su nombre.";
+"hide" = "Ocultar";
+"hidden" = "Oculto";
+"hide_device" = "Ocultar";
+"hidden_indicator" = "Indicador de dispositivos ocultos";
+"hidden_indicator_description" = "Muestra cuántos dispositivos están ocultos.";

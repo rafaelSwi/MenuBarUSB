@@ -46,3 +46,8 @@
 "renaming_help" = "Si reanomenes amb el camp de text buit, s’eliminarà el nom personalitzat assignat prèviament al dispositiu.";
 "renamed_indicator" = "Indicador per a dispositius renombrats";
 "renamed_indicator_description" = "Els dispositius USB que s'han renombrat tindran un ▪ davant del seu nom.";
+"hide" = "Amagar";
+"hidden" = "Amagat";
+"hide_device" = "Amagar dispositiu";
+"hidden_indicator" = "Indicador per a dispositius amagats";
+"hidden_indicator_description" = "Mostra quants dispositius estan amagats.";

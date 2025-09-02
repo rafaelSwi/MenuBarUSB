@@ -46,3 +46,8 @@
 "renaming_help" = "Hvis du omdøber med et tomt tekstfelt, fjernes det brugerdefinerede navn, der tidligere blev tildelt enheden.";
 "renamed_indicator" = "Indikator for omdøbte enheder";
 "renamed_indicator_description" = "USB-enheder, der er blevet omdøbt, vil have en ▪ foran deres navn.";
+"hide" = "Skjul";
+"hidden" = "Skjult";
+"hide_device" = "Skjul enhed";
+"hidden_indicator" = "Indikator for skjulte enheder";
+"hidden_indicator_description" = "Viser hvor mange enheder der er skjult.";

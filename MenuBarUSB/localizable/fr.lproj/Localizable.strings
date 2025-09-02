@@ -46,3 +46,8 @@
 "renaming_help" = "Renommer avec un champ vide supprimera le nom personnalisé attribué précédemment à l’appareil.";
 "renamed_indicator" = "Indicateur pour appareils renommés";
 "renamed_indicator_description" = "Les périphériques USB qui ont été renommés auront un ▪ devant leur nom.";
+"hide" = "Masquer";
+"hidden" = "Masqué";
+"hide_device" = "Masquer l’appareil";
+"hidden_indicator" = "Indicateur des appareils masqués";
+"hidden_indicator_description" = "Affiche combien d’appareils sont masqués.";

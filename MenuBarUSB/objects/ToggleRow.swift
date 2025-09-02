@@ -12,6 +12,7 @@ struct ToggleRow: View {
     let description: String
     @Binding var binding: Bool
     @Binding var showMessage: Bool
+    var untoggle: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -21,6 +22,7 @@ struct ToggleRow: View {
 
                 Button {
                     showMessage.toggle()
+                    untoggle()
                 } label: {
                     Image(systemName: "info.circle")
                         .opacity(0.4)

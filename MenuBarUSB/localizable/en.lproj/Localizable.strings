@@ -46,3 +46,8 @@
 "renaming_help" = "Renaming with an empty text box will remove the custom name previously set for the USB device.";
 "renamed_indicator" = "Indicator for renamed devices";
 "renamed_indicator_description" = "USB devices that have been renamed will have a ▪ before their name.";
+"hide" = "Hide";
+"hidden" = "Hidden";
+"hide_device" = "Hide device";
+"hidden_indicator" = "Indicator for hidden devices";
+"hidden_indicator_description" = "Shows how many devices have been hidden in the bottom left corner.";

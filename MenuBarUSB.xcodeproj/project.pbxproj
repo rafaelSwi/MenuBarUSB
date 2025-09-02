@@ -118,6 +118,7 @@
 				ro,
 				la,
 				da,
+				he,
 			);
 			mainGroup = 8061FDF12E60BBDB00A07182;
 			minimizedProjectReferenceProxies = 1;

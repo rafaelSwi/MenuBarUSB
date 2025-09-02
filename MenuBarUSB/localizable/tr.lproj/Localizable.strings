@@ -46,3 +46,8 @@
 "renaming_help" = "Metin kutusu boş bırakılarak yeniden adlandırılırsa, cihaz için daha önce belirlenen özel ad kaldırılır.";
 "renamed_indicator" = "Yeniden adlandırılmış cihaz göstergesi";
 "renamed_indicator_description" = "Yeniden adlandırılmış USB cihazlarının isimlerinin önünde ▪ bulunacaktır.";
+"hide" = "Gizle";
+"hidden" = "Gizli";
+"hide_device" = "Cihazı gizle";
+"hidden_indicator" = "Gizli cihaz göstergesi";
+"hidden_indicator_description" = "Kaç cihazın gizlendiğini gösterir";

@@ -14,7 +14,9 @@ struct SettingsView: View {
     
     @State private var showMessage: Bool = false
     @State private var showRenameDevices: Bool = false
+    @State private var showCamouflagedDevices: Bool = false
     
+    @State private var selectedDeviceToCamouflage: USBDevice?;
     @State private var selectedDeviceToRename: USBDevice?;
     @State private var inputText: String = "";
     
@@ -28,14 +30,17 @@ struct SettingsView: View {
     @State private var showLongListDescription: Bool = false;
     @State private var showShowPortMaxDescription: Bool = false;
     @State private var showRenamedIndicatorDescription: Bool = false;
+    @State private var showCamouflagedIndicatorDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
     @AppStorage(StorageKeys.longList) private var longList = false
     @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
     @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
+    @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
+    @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
@@ -60,7 +65,7 @@ struct SettingsView: View {
                     Text("MenuBarUSB")
                         .font(.title2)
                         .bold()
-                    Text("Version: \(appVersion)")
+                    Text(String(format: NSLocalizedString("version", comment: "APP VERSION"), appVersion))
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
@@ -102,32 +107,127 @@ struct SettingsView: View {
                     label: String(localized: "long_list"),
                     description: String(localized: "long_list_description"),
                     binding: $longList,
-                    showMessage: $showLongListDescription
+                    showMessage: $showLongListDescription,
+                    untoggle: {
+                        showShowPortMaxDescription = false;
+                        showConvertHexaDescription = false;
+                        showRenamedIndicatorDescription = false;
+                        showCamouflagedIndicatorDescription = false;
+                    }
                 )
                 ToggleRow(
                     label: String(localized: "show_port_max"),
                     description: String(localized: "show_port_max_description"),
                     binding: $showPortMax,
-                    showMessage: $showShowPortMaxDescription
+                    showMessage: $showShowPortMaxDescription,
+                    untoggle: {
+                        showLongListDescription = false;
+                        showConvertHexaDescription = false;
+                        showRenamedIndicatorDescription = false;
+                        showCamouflagedIndicatorDescription = false;
+                    }
                 )
                 ToggleRow(
                     label: String(localized: "convert_hexa"),
                     description: String(localized: "convert_hexa_description"),
                     binding: $convertHexa,
-                    showMessage: $showConvertHexaDescription
+                    showMessage: $showConvertHexaDescription,
+                    untoggle: {
+                        showLongListDescription = false;
+                        showShowPortMaxDescription = false;
+                        showRenamedIndicatorDescription = false;
+                        showCamouflagedIndicatorDescription = false;
+                    }
+                )
+                ToggleRow(
+                    label: String(localized: "hidden_indicator"),
+                    description: String(localized: "hidden_indicator_description"),
+                    binding: $camouflagedIndicator,
+                    showMessage: $showCamouflagedIndicatorDescription,
+                    untoggle: {
+                        showLongListDescription = false;
+                        showConvertHexaDescription = false;
+                        showShowPortMaxDescription = false;
+                        showRenamedIndicatorDescription = false;
+                    }
                 )
                 ToggleRow(
                     label: String(localized: "renamed_indicator"),
                     description: String(localized: "renamed_indicator_description"),
                     binding: $renamedIndicator,
-                    showMessage: $showRenamedIndicatorDescription
+                    showMessage: $showRenamedIndicatorDescription,
+                    untoggle: {
+                        showLongListDescription = false;
+                        showConvertHexaDescription = false;
+                        showShowPortMaxDescription = false;
+                        showCamouflagedIndicatorDescription = false;
+                    }
                 )
             }
             
             Spacer()
             
             HStack {
+                Button(String(localized: "hide_device")) {
+                    showRenameDevices = false;
+                    selectedDeviceToRename = nil;
+                    inputText = "";
+                    if (showCamouflagedDevices) {
+                        showCamouflagedDevices = false;
+                        selectedDeviceToCamouflage = nil;
+                    } else {
+                        showCamouflagedDevices = true;
+                    }
+                }
+                
+                if (showCamouflagedDevices) {
+                    Menu {
+                        ForEach(manager.devices) { device in
+                            let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
+                            let buttonLabel = renamedDevice?.name ?? device.name
+
+                            Button(buttonLabel) {
+                                selectedDeviceToCamouflage = device
+                            }
+                        }
+                    } label: {
+                        Text(selectedDeviceToCamouflage?.name ?? String(localized: "device"))
+                    }
+                    .frame(width: 190)
+                }
+                
+                if (showCamouflagedDevices && selectedDeviceToCamouflage == nil && camouflagedDevices.count > 0) {
+                    Button {
+                        camouflagedDevices.removeAll();
+                        showCamouflagedDevices = false;
+                    } label: {
+                        Text(String(localized: "undo_all"))
+                    }
+                }
+                
+                if (selectedDeviceToCamouflage != nil) {
+                    Button {
+                        let uniqueId = USBDevice.uniqueId(selectedDeviceToCamouflage!)
+                        let newDevice = CamouflagedDevice(deviceId: uniqueId)
+                        camouflagedDevices.removeAll { $0.deviceId == uniqueId }
+                        camouflagedDevices.append(newDevice)
+                        selectedDeviceToCamouflage = nil;
+                        showCamouflagedDevices = false;
+                    } label: {
+                        Text(String(localized: "confirm"))
+                            .frame(width: 100)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                
+                Spacer()
+                
+            }
+            
+            HStack {
                 Button(String(localized: "rename_device")) {
+                    showCamouflagedDevices = false;
+                    selectedDeviceToCamouflage = nil;
                     if (showRenameDevices) {
                         showRenameDevices = false;
                         selectedDeviceToRename = nil;
@@ -144,6 +244,7 @@ struct SettingsView: View {
                             let buttonLabel = renamedDevice?.name ?? device.name
 
                             Button(buttonLabel) {
+                                inputText = ""
                                 selectedDeviceToRename = device
                             }
                         }

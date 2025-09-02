@@ -46,3 +46,8 @@
 "renaming_help" = "テキストボックスを空のまま名前を変更すると、以前設定されたカスタム名が削除されます。";
 "renamed_indicator" = "名前を変更したデバイスのインジケーター";
 "renamed_indicator_description" = "名前を変更したUSBデバイスには、名前の前に ▪ が付きます。";
+"hide" = "非表示";
+"hidden" = "非表示済み";
+"hide_device" = "デバイスを非表示";
+"hidden_indicator" = "非表示デバイスのインジケーター";
+"hidden_indicator_description" = "非表示にされているデバイスの数を表示します";

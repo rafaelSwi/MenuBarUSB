@@ -40,9 +40,14 @@
 "rename_device" = "Rinomina USB";
 "rename" = "Rinomina";
 "device" = "Dispositivo";
-"undo_all" = "Cancella tutto";
+"undo_all" = "Ripristina tutto";
 "insert_new_name" = "Nuovo nome";
 "confirm" = "Conferma";
 "renaming_help" = "Rinominando con il campo di testo vuoto, verrà rimosso il nome personalizzato precedentemente assegnato al dispositivo.";
 "renamed_indicator" = "Indicatore per dispositivi rinominati";
 "renamed_indicator_description" = "I dispositivi USB che sono stati rinominati avranno un ▪ prima del loro nome.";
+"hide" = "Nascondi";
+"hidden" = "Nascosto";
+"hide_device" = "Nascondi USB";
+"hidden_indicator" = "Indicatore per dispositivi nascosti";
+"hidden_indicator_description" = "Mostra quanti dispositivi sono nascosti.";
