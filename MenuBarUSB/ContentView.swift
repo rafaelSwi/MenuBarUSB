@@ -17,16 +17,23 @@ struct ContentView: View {
     @AppStorage(StorageKeys.longList) private var longList = false
     @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
     @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
+    @AppStorage(StorageKeys.hideTechInfo) private var hideTechInfo = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     
-    func windowHeight(longList: Bool) -> CGFloat? {
+    func windowHeight(longList: Bool, compactList: Bool) -> CGFloat? {
         if (manager.devices.isEmpty) {
             return nil;
         }
         let baseValue: CGFloat = 200;
-        let multiplier: CGFloat = longList ? 30 : 25;
+        var multiplier: CGFloat = 25;
+        if (longList) {
+            multiplier = 30;
+        }
+        if (compactList) {
+            multiplier = 12;
+        }
         let sum: CGFloat = baseValue + (CGFloat(manager.devices.count) * multiplier);
         var max: CGFloat = 380;
         if (longList) {
@@ -77,39 +84,41 @@ struct ContentView: View {
                                     
                                 }
                                 
-                                HStack {
-                                    Text(dev.speedDescription)
-                                        .font(.system(size: 9))
-                                        .foregroundStyle(.secondary)
-                                    Spacer()
-                                    
-                                    Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
-                                        .font(.system(size: 10))
-                                        .foregroundStyle(.secondary)
-                                }
-                                
-                                HStack {
-                                    
-                                    if let usbVer = dev.usbVersionBCD {
-                                        Text("\(String(localized: "usb_version")) \(USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa) ?? String(format: "0x%04X", usbVer))")
+                                if (!hideTechInfo) {
+                                    HStack {
+                                        Text(dev.speedDescription)
                                             .font(.system(size: 9))
+                                            .foregroundStyle(.secondary)
+                                        Spacer()
+                                        
+                                        Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
+                                            .font(.system(size: 10))
                                             .foregroundStyle(.secondary)
                                     }
                                     
-                                    Spacer()
-                                    
-                                    if let serial = dev.serialNumber, !serial.isEmpty {
-                                        Text("\(String(localized: "serial_number")) \(serial)")
-                                            .font(.system(size: 9))
-                                            .foregroundStyle(.secondary)
+                                    HStack {
+                                        
+                                        if let usbVer = dev.usbVersionBCD {
+                                            Text("\(String(localized: "usb_version")) \(USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa) ?? String(format: "0x%04X", usbVer))")
+                                                .font(.system(size: 9))
+                                                .foregroundStyle(.secondary)
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        if let serial = dev.serialNumber, !serial.isEmpty {
+                                            Text("\(String(localized: "serial_number")) \(serial)")
+                                                .font(.system(size: 9))
+                                                .foregroundStyle(.secondary)
+                                        }
                                     }
-                                }
-                                
-                                if (showPortMax) {
-                                    if let portMax = dev.portMaxSpeedMbps {
-                                        Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
-                                            .font(.system(size: 9))
-                                            .foregroundStyle(.secondary)
+                                    
+                                    if (showPortMax) {
+                                        if let portMax = dev.portMaxSpeedMbps {
+                                            Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
+                                                .font(.system(size: 9))
+                                                .foregroundStyle(.secondary)
+                                        }
                                     }
                                 }
                                 
@@ -126,7 +135,7 @@ struct ContentView: View {
             
         }
         .padding(3)
-        .frame(width: 450, height: windowHeight(longList: longList))
+        .frame(width: 450, height: windowHeight(longList: longList, compactList: hideTechInfo))
         
         HStack {
             

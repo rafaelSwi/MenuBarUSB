@@ -31,7 +31,7 @@
 "settings" = "Ajustes";
 "donate_description" = "Agradeço imensamente a qualquer ajuda!";
 "open_on_startup_description" = "Faz com que o app inicie quando você faz login. Isso pode ser desabilitado a qualquer momento.";
-"show_port_max" = "Caso for detectado, exibir a capacidade máxima de uma entrada USB";
+"show_port_max" = "Caso detectado, exibir a capacidade máxima de uma entrada USB";
 "show_port_max_description" = "Caso seja detectado, irá exibir a capacidade máxima da entrada USB.";
 "long_list" = "Lista vertical expandida";
 "long_list_description" = "Aumenta a altura máxima que a lista de dispositivos pode chegar.\n(Você pode não notar muita diferença se não estiver usando muitos dispositivos)";
@@ -51,3 +51,11 @@
 "hide_device" = "Camuflar dispositivo";
 "hidden_indicator" = "Indicador de dispositivos camuflados";
 "hidden_indicator_description" = "No canto inferior esquerdo, mostra quantos dispositivos estão camuflados.";
+"bitcoin_on_chain_transfer" = "Transferência Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Transferência Litecoin on-chain";
+"show_ltc_address" = "Mostrar LTC";
+"show_btc_address" = "Mostrar BTC";
+"copy" = "Copiar";
+"cancel" = "Cancelar";
+"hide_technical_info" = "Lista compacta";
+"hide_technical_info_description" = "Oculta todas as informações relacionadas à velocidade, versão e outros detalhes.\nSe essa opção estiver ativada, a capacidade máxima da entrada USB não será exibida mesmo que esteja marcada para exibir.";

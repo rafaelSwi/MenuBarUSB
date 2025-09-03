@@ -51,3 +51,11 @@
 "hide_device" = "Masquer l’appareil";
 "hidden_indicator" = "Indicateur des appareils masqués";
 "hidden_indicator_description" = "Affiche combien d’appareils sont masqués.";
+"bitcoin_on_chain_transfer" = "Transfert Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Transfert Litecoin on-chain";
+"show_ltc_address" = "Afficher l’adresse LTC";
+"show_btc_address" = "Afficher l’adresse BTC";
+"copy" = "Copier";
+"cancel" = "Annuler";
+"hide_technical_info" = "Liste compacte";
+"hide_technical_info_description" = "Masque toutes les informations liées à la vitesse, la version et d’autres détails.";

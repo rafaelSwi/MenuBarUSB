@@ -51,3 +51,11 @@
 "hide_device" = "Hide device";
 "hidden_indicator" = "Indicator for hidden devices";
 "hidden_indicator_description" = "Shows how many devices have been hidden in the bottom left corner.";
+"bitcoin_on_chain_transfer" = "Bitcoin on-chain transfer";
+"litecoin_on_chain_transfer" = "Litecoin on-chain transfer";
+"show_ltc_address" = "Show LTC Address";
+"show_btc_address" = "Show BTC Address";
+"copy" = "Copy";
+"cancel" = "Cancel";
+"hide_technical_info" = "Compact list";
+"hide_technical_info_description" = "Hides all information related to speed, version, and other details.\nIf enabled, the maximum port capacity will not be shown even if it is checked.";

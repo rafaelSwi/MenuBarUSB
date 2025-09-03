@@ -51,3 +51,11 @@
 "hide_device" = "隐藏设备";
 "hidden_indicator" = "隐藏设备指示器";
 "hidden_indicator_description" = "显示已隐藏的设备数量";
+"bitcoin_on_chain_transfer" = "比特币链上转账";
+"litecoin_on_chain_transfer" = "莱特币链上转账";
+"show_ltc_address" = "显示LTC地址";
+"show_btc_address" = "显示BTC地址";
+"copy" = "复制";
+"cancel" = "取消";
+"hide_technical_info" = "紧凑列表";
+"hide_technical_info_description" = "隐藏所有与速度、版本和其他信息相关的内容。";

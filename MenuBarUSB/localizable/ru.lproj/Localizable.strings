@@ -51,3 +51,11 @@
 "hide_device" = "Скрыть устройство";
 "hidden_indicator" = "Индикатор скрытых устройств";
 "hidden_indicator_description" = "Показывает, сколько устройств скрыто";
+"bitcoin_on_chain_transfer" = "Bitcoin перевод on-chain";
+"litecoin_on_chain_transfer" = "Litecoin перевод on-chain";
+"show_ltc_address" = "Показать адрес LTC";
+"show_btc_address" = "Показать адрес BTC";
+"copy" = "Копировать";
+"cancel" = "Отмена";
+"hide_technical_info" = "Компактный список";
+"hide_technical_info_description" = "Скрывает всю информацию, связанную со скоростью, версией и другими деталями.\nЕсли это работа, которая активна, максимальная способность да порты нао будет самой большой дорогой, которую можно найти.";

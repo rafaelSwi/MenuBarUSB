@@ -51,3 +51,11 @@
 "hide_device" = "Amagar dispositiu";
 "hidden_indicator" = "Indicador per a dispositius amagats";
 "hidden_indicator_description" = "Mostra quants dispositius estan amagats.";
+"bitcoin_on_chain_transfer" = "Transferència Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Transferència Litecoin on-chain";
+"show_ltc_address" = "Mostra l'adreça LTC";
+"show_btc_address" = "Mostra l'adreça BTC";
+"copy" = "Copia";
+"cancel" = "Cancel·lar";
+"hide_technical_info" = "Llista compacta";
+"hide_technical_info_description" = "Amaga tota la informació relacionada amb la velocitat, la versió i altres detalls.";

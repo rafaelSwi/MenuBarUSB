@@ -10,6 +10,7 @@ import ServiceManagement
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.openWindow) var openWindow
     @EnvironmentObject var manager: USBDeviceManager
     
     @State private var showMessage: Bool = false
@@ -29,18 +30,29 @@ struct SettingsView: View {
     @State private var showConvertHexaDescription: Bool = false;
     @State private var showLongListDescription: Bool = false;
     @State private var showShowPortMaxDescription: Bool = false;
+    @State private var showHideTechInfoDescription: Bool = false
     @State private var showRenamedIndicatorDescription: Bool = false;
     @State private var showCamouflagedIndicatorDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
     @AppStorage(StorageKeys.longList) private var longList = false
+    @AppStorage(StorageKeys.hideTechInfo) private var hideTechInfo = false
     @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
     @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
     @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
+    
+    func untoggleAllDesc() {
+        showShowPortMaxDescription = false;
+        showLongListDescription = false;
+        showConvertHexaDescription = false;
+        showRenamedIndicatorDescription = false;
+        showCamouflagedIndicatorDescription = false;
+        showHideTechInfoDescription = false;
+    }
     
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
@@ -88,11 +100,18 @@ struct SettingsView: View {
                         if checkingUpdate {
                             ProgressView()
                         } else {
-                            Text(String(localized: "check_for_updates"))
+                            Label(String(localized: "check_for_updates"), systemImage: "checkmark.circle")
                         }
                     }
                     .buttonStyle(.bordered)
                 }
+                
+                Button {
+                    openWindow(id: "donate")
+                } label: {
+                    Label(String(localized: "donate"), systemImage: "hand.thumbsup.circle")
+                }
+                .font(.system(size: 12)) // TODO: DELETE
             }
             
             Divider()
@@ -109,10 +128,16 @@ struct SettingsView: View {
                     binding: $longList,
                     showMessage: $showLongListDescription,
                     untoggle: {
-                        showShowPortMaxDescription = false;
-                        showConvertHexaDescription = false;
-                        showRenamedIndicatorDescription = false;
-                        showCamouflagedIndicatorDescription = false;
+                        untoggleAllDesc();
+                    }
+                )
+                ToggleRow(
+                    label: String(localized: "hide_technical_info"),
+                    description: String(localized: "hide_technical_info_description"),
+                    binding: $hideTechInfo,
+                    showMessage: $showHideTechInfoDescription,
+                    untoggle: {
+                        untoggleAllDesc();
                     }
                 )
                 ToggleRow(
@@ -121,10 +146,7 @@ struct SettingsView: View {
                     binding: $showPortMax,
                     showMessage: $showShowPortMaxDescription,
                     untoggle: {
-                        showLongListDescription = false;
-                        showConvertHexaDescription = false;
-                        showRenamedIndicatorDescription = false;
-                        showCamouflagedIndicatorDescription = false;
+                        untoggleAllDesc();
                     }
                 )
                 ToggleRow(
@@ -133,10 +155,7 @@ struct SettingsView: View {
                     binding: $convertHexa,
                     showMessage: $showConvertHexaDescription,
                     untoggle: {
-                        showLongListDescription = false;
-                        showShowPortMaxDescription = false;
-                        showRenamedIndicatorDescription = false;
-                        showCamouflagedIndicatorDescription = false;
+                        untoggleAllDesc();
                     }
                 )
                 ToggleRow(
@@ -145,10 +164,7 @@ struct SettingsView: View {
                     binding: $camouflagedIndicator,
                     showMessage: $showCamouflagedIndicatorDescription,
                     untoggle: {
-                        showLongListDescription = false;
-                        showConvertHexaDescription = false;
-                        showShowPortMaxDescription = false;
-                        showRenamedIndicatorDescription = false;
+                        untoggleAllDesc();
                     }
                 )
                 ToggleRow(
@@ -157,155 +173,145 @@ struct SettingsView: View {
                     binding: $renamedIndicator,
                     showMessage: $showRenamedIndicatorDescription,
                     untoggle: {
-                        showLongListDescription = false;
-                        showConvertHexaDescription = false;
-                        showShowPortMaxDescription = false;
-                        showCamouflagedIndicatorDescription = false;
+                        untoggleAllDesc();
                     }
                 )
             }
             
             Spacer()
             
-            HStack {
-                Button(String(localized: "hide_device")) {
-                    showRenameDevices = false;
-                    selectedDeviceToRename = nil;
-                    inputText = "";
-                    if (showCamouflagedDevices) {
-                        showCamouflagedDevices = false;
-                        selectedDeviceToCamouflage = nil;
-                    } else {
-                        showCamouflagedDevices = true;
-                    }
-                }
-                
-                if (showCamouflagedDevices) {
-                    Menu {
-                        ForEach(manager.devices) { device in
-                            let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
-                            let buttonLabel = renamedDevice?.name ?? device.name
-
-                            Button(buttonLabel) {
-                                selectedDeviceToCamouflage = device
-                            }
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    if (!showCamouflagedDevices) {
+                        Button(showRenameDevices ? String(localized: "cancel") : String(localized: "rename_device")) {
+                            showRenameDevices.toggle()
+                            showCamouflagedDevices = false
+                            selectedDeviceToCamouflage = nil
+                            selectedDeviceToRename = nil
+                            inputText = ""
                         }
-                    } label: {
-                        Text(selectedDeviceToCamouflage?.name ?? String(localized: "device"))
+                        .buttonStyle(.bordered)
                     }
-                    .frame(width: 190)
-                }
-                
-                if (showCamouflagedDevices && selectedDeviceToCamouflage == nil && camouflagedDevices.count > 0) {
-                    Button {
-                        camouflagedDevices.removeAll();
-                        showCamouflagedDevices = false;
-                    } label: {
-                        Text(String(localized: "undo_all"))
+                    
+                    if (!showRenameDevices) {
+                        Button(showCamouflagedDevices ? String(localized: "cancel") : String(localized: "hide_device")) {
+                            showCamouflagedDevices.toggle()
+                            showRenameDevices = false
+                            selectedDeviceToRename = nil
+                            selectedDeviceToCamouflage = nil
+                            inputText = ""
+                        }
+                        .buttonStyle(.bordered)
                     }
-                }
-                
-                if (selectedDeviceToCamouflage != nil) {
-                    Button {
-                        let uniqueId = USBDevice.uniqueId(selectedDeviceToCamouflage!)
-                        let newDevice = CamouflagedDevice(deviceId: uniqueId)
-                        camouflagedDevices.removeAll { $0.deviceId == uniqueId }
-                        camouflagedDevices.append(newDevice)
-                        selectedDeviceToCamouflage = nil;
-                        showCamouflagedDevices = false;
-                    } label: {
-                        Text(String(localized: "confirm"))
-                            .frame(width: 100)
+
+                    Spacer()
+
+                    Button(String(localized: "close_about_window")) {
+                        dismiss()
                     }
                     .buttonStyle(.borderedProminent)
                 }
-                
-                Spacer()
-                
+
+                if (showRenameDevices || showCamouflagedDevices) {
+                    Divider()
+                }
+
+                if showCamouflagedDevices {
+                    HStack(spacing: 12) {
+                        Menu {
+                            ForEach(manager.devices) { device in
+                                let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
+                                let buttonLabel = renamedDevice?.name ?? device.name
+                                Button(buttonLabel) {
+                                    selectedDeviceToCamouflage = device
+                                }
+                            }
+                        } label: {
+                            Text(selectedDeviceToCamouflage?.name ?? String(localized: "device"))
+                        }
+                        .frame(width: 190)
+
+                        if selectedDeviceToCamouflage != nil {
+                            Button(String(localized: "confirm")) {
+                                let uniqueId = USBDevice.uniqueId(selectedDeviceToCamouflage!)
+                                let newDevice = CamouflagedDevice(deviceId: uniqueId)
+                                camouflagedDevices.removeAll { $0.deviceId == uniqueId }
+                                camouflagedDevices.append(newDevice)
+                                selectedDeviceToCamouflage = nil
+                                showCamouflagedDevices = false
+                            }
+
+                            .buttonStyle(.borderedProminent)
+                        }
+
+                        if selectedDeviceToCamouflage == nil && !camouflagedDevices.isEmpty {
+                            Button(String(localized: "undo_all")) {
+                                camouflagedDevices.removeAll()
+                                showCamouflagedDevices = false
+                            }
+                        }
+
+                        Spacer()
+                    }
+                }
+
+                if showRenameDevices {
+                    HStack(spacing: 12) {
+                        Menu {
+                            ForEach(manager.devices) { device in
+                                let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
+                                let buttonLabel = renamedDevice?.name ?? device.name
+                                Button(buttonLabel) {
+                                    inputText = ""
+                                    selectedDeviceToRename = device
+                                }
+                            }
+                        } label: {
+                            Text(selectedDeviceToRename?.name ?? String(localized: "device"))
+                        }
+                        .frame(width: 190)
+
+                        if selectedDeviceToRename != nil {
+                            TextFieldWithLimit(
+                                text: $inputText,
+                                placeholder: String(localized: "insert_new_name"),
+                                maxLength: 30
+                            )
+                            .frame(width: 190)
+                            .help(String(localized: "renaming_help"))
+
+                            Button(String(localized: "confirm")) {
+                                let uniqueId = USBDevice.uniqueId(selectedDeviceToRename!)
+                                if inputText.isEmpty {
+                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
+                                } else {
+                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
+                                    renamedDevices.append(RenamedDevice(deviceId: uniqueId, name: inputText))
+                                }
+                                inputText = ""
+                                selectedDeviceToRename = nil
+                                showRenameDevices = false
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+
+                        if selectedDeviceToRename == nil && !renamedDevices.isEmpty {
+                            Button(String(localized: "undo_all")) {
+                                renamedDevices.removeAll()
+                                showRenameDevices = false
+                            }
+                        }
+
+                        Spacer()
+                    }
+                }
             }
             
-            HStack {
-                Button(String(localized: "rename_device")) {
-                    showCamouflagedDevices = false;
-                    selectedDeviceToCamouflage = nil;
-                    if (showRenameDevices) {
-                        showRenameDevices = false;
-                        selectedDeviceToRename = nil;
-                        inputText = "";
-                    } else {
-                        showRenameDevices = true;
-                    }
-                }
-                
-                if (showRenameDevices) {
-                    Menu {
-                        ForEach(manager.devices) { device in
-                            let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
-                            let buttonLabel = renamedDevice?.name ?? device.name
-
-                            Button(buttonLabel) {
-                                inputText = ""
-                                selectedDeviceToRename = device
-                            }
-                        }
-                    } label: {
-                        Text(selectedDeviceToRename?.name ?? String(localized: "device"))
-                    }
-                    .frame(width: 190)
-                }
-                
-                if (showRenameDevices && selectedDeviceToRename == nil && renamedDevices.count > 0) {
-                    Button {
-                        renamedDevices.removeAll();
-                        showRenameDevices = false;
-                    } label: {
-                        Text(String(localized: "undo_all"))
-                    }
-                }
-                
-                if (selectedDeviceToRename != nil) {
-                    HStack {
-                        TextFieldWithLimit(
-                            text: $inputText,
-                            placeholder: String(localized: "insert_new_name"),
-                            maxLength: 30
-                        )
-                        .frame(width: 190)
-                        .help(String(localized: "renaming_help"))
-                        
-                        Button {
-                            let uniqueId = USBDevice.uniqueId(selectedDeviceToRename!)
-                            let newDevice = RenamedDevice(deviceId: uniqueId, name: inputText)
-                            if (inputText == "") {
-                                renamedDevices.removeAll { $0.deviceId == uniqueId }
-                            } else {
-                                renamedDevices.removeAll { $0.deviceId == uniqueId }
-                                renamedDevices.append(newDevice)
-                            }
-                            inputText = "";
-                            selectedDeviceToRename = nil;
-                            showRenameDevices = false;
-                        } label: {
-                            Text(String(localized: "confirm"))
-                                .frame(width: 100)
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
-                }
-                
-                
-                Spacer()
-                Button(String(localized: "close_about_window")) {
-                    dismiss()
-                }
-                .buttonStyle(.borderedProminent)
-            }
+            
         }
         .padding(20)
         .frame(minWidth: 400, minHeight: 400)
         .background(.ultraThinMaterial)
-        .cornerRadius(15)
-        .shadow(radius: 10)
     }
     
     private func checkForUpdate() {

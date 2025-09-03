@@ -51,3 +51,11 @@
 "hide_device" = "장치 숨기기";
 "hidden_indicator" = "숨겨진 장치 표시기";
 "hidden_indicator_description" = "숨겨진 장치의 수를 표시합니다";
+"bitcoin_on_chain_transfer" = "비트코인 온체인 전송";
+"litecoin_on_chain_transfer" = "라이트코인 온체인 전송";
+"show_ltc_address" = "LTC 주소 표시";
+"show_btc_address" = "BTC 주소 표시";
+"copy" = "복사";
+"cancel" = "취소";
+"hide_technical_info" = "간단 목록";
+"hide_technical_info_description" = "속도, 버전 및 기타 정보와 관련된 모든 내용을 숨깁니다.";

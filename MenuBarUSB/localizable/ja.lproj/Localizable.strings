@@ -51,3 +51,11 @@
 "hide_device" = "デバイスを非表示";
 "hidden_indicator" = "非表示デバイスのインジケーター";
 "hidden_indicator_description" = "非表示にされているデバイスの数を表示します";
+"bitcoin_on_chain_transfer" = "ビットコインのオンチェーン転送";
+"litecoin_on_chain_transfer" = "ライトコインのオンチェーン転送";
+"show_ltc_address" = "LTCアドレスを表示";
+"show_btc_address" = "BTCアドレスを表示";
+"copy" = "コピー";
+"cancel" = "キャンセル";
+"hide_technical_info" = "コンパクトリスト";
+"hide_technical_info_description" = "速度、バージョン、その他の情報をすべて非表示にします。";

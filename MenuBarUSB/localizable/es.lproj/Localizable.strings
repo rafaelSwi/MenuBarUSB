@@ -51,3 +51,11 @@
 "hide_device" = "Ocultar";
 "hidden_indicator" = "Indicador de dispositivos ocultos";
 "hidden_indicator_description" = "Muestra cuántos dispositivos están ocultos.";
+"bitcoin_on_chain_transfer" = "Transferencia de Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Transferencia de Litecoin on-chain";
+"show_ltc_address" = "Mostrar LTC";
+"show_btc_address" = "Mostrar BTC";
+"copy" = "Copiar";
+"cancel" = "Cancelar";
+"hide_technical_info" = "Lista compacta";
+"hide_technical_info_description" = "Oculta toda la información relacionada con velocidad, versión y otros detalles.\nSi esta opción está habilitada, no se mostrará la capacidad máxima del puerto incluso si está marcada.";

@@ -51,3 +51,11 @@
 "hide_device" = "Απόκρυψη συσκευής";
 "hidden_indicator" = "Δείκτης για κρυφές συσκευές";
 "hidden_indicator_description" = "Εμφανίζει πόσες συσκευές είναι κρυφές.";
+"bitcoin_on_chain_transfer" = "Μεταφορά Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Μεταφορά Litecoin on-chain";
+"show_ltc_address" = "Εμφάνιση διεύθυνσης LTC";
+"show_btc_address" = "Εμφάνιση διεύθυνσης BTC";
+"copy" = "Αντιγραφή";
+"cancel" = "Ακύρωση";
+"hide_technical_info" = "Συμπαγής λίστα";
+"hide_technical_info_description" = "Αποκρύπτει όλες τις πληροφορίες που σχετίζονται με ταχύτητα, έκδοση και άλλα στοιχεία.";

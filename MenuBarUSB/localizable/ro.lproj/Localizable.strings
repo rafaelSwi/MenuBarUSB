@@ -51,3 +51,11 @@
 "hide_device" = "Ascunde dispozitiv";
 "hidden_indicator" = "Indicator pentru dispozitive ascunse";
 "hidden_indicator_description" = "Arată câte dispozitive sunt ascunse";
+"bitcoin_on_chain_transfer" = "Transfer Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Transfer Litecoin on-chain";
+"show_ltc_address" = "Afișează adresa LTC";
+"show_btc_address" = "Afișează adresa BTC";
+"copy" = "Copiază";
+"cancel" = "Anulează";
+"hide_technical_info" = "Listă compactă";
+"hide_technical_info_description" = "Ascunde toate informațiile legate de viteză, versiune și alte detalii.";

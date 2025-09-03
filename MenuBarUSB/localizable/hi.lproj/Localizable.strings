@@ -51,3 +51,11 @@
 "hide_device" = "डिवाइस छुपाएँ";
 "hidden_indicator" = "छिपे हुए डिवाइस का संकेतक";
 "hidden_indicator_description" = "दिखाता है कितने डिवाइस छिपे हुए हैं";
+"bitcoin_on_chain_transfer" = "बिटकॉइन ऑन-चेन ट्रांसफर";
+"litecoin_on_chain_transfer" = "लाइटकॉइन ऑन-चेन ट्रांसफर";
+"show_ltc_address" = "LTC पता दिखाएं";
+"show_btc_address" = "BTC पता दिखाएं";
+"copy" = "कॉपी";
+"cancel" = "रद्द करें";
+"hide_technical_info" = "संक्षिप्त सूची";
+"hide_technical_info_description" = "गति, संस्करण और अन्य विवरणों से संबंधित सभी जानकारी छिपाएँ।";

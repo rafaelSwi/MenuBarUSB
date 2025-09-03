@@ -51,3 +51,11 @@
 "hide_device" = "הסתר מכשיר";
 "hidden_indicator" = "אינדיקטור למכשירים מוסתרים";
 "hidden_indicator_description" = "מראה כמה מכשירים הוסתרו בפינה השמאלית התחתונה.";
+"bitcoin_on_chain_transfer" = "העברת ביטקוין בשרשרת";
+"litecoin_on_chain_transfer" = "העברת לייטקוין בשרשרת";
+"show_ltc_address" = "הצג כתובת LTC";
+"show_btc_address" = "הצג כתובת BTC";
+"copy" = "העתק";
+"cancel" = "ביטול";
+"hide_technical_info" = "רשימה קומפקטית";
+"hide_technical_info_description" = "מסתיר את כל המידע הקשור למהירות, גרסה ופרטים נוספים.";

@@ -48,6 +48,14 @@
 "renamed_indicator_description" = "Los dispositivos USB que se han renombrado tendrán un ▪ antes de su nombre.";
 "hide" = "Ocultar";
 "hidden" = "Oculto";
-"hide_device" = "Ocultar";
+"hide_device" = "Ocultar USB";
 "hidden_indicator" = "Indicador de dispositivos ocultos";
 "hidden_indicator_description" = "Muestra cuántos dispositivos están ocultos.";
+"bitcoin_on_chain_transfer" = "Transferencia de Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Transferencia de Litecoin on-chain";
+"show_ltc_address" = "Mostrar LTC";
+"show_btc_address" = "Mostrar BTC";
+"copy" = "Copiar";
+"cancel" = "Cancelar";
+"hide_technical_info" = "Lista compacta";
+"hide_technical_info_description" = "Oculta toda la información sobre velocidad, versión y otros detalles.\nSi esta opción está habilitada, no se mostrará la capacidad máxima del puerto incluso si está marcada.";

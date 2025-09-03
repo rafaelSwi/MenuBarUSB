@@ -51,3 +51,11 @@
 "hide_device" = "Cihazı gizle";
 "hidden_indicator" = "Gizli cihaz göstergesi";
 "hidden_indicator_description" = "Kaç cihazın gizlendiğini gösterir";
+"bitcoin_on_chain_transfer" = "Bitcoin zincir içi transfer";
+"litecoin_on_chain_transfer" = "Litecoin zincir içi transfer";
+"show_ltc_address" = "LTC adresini göster";
+"show_btc_address" = "BTC adresini göster";
+"copy" = "Kopyala";
+"cancel" = "İptal";
+"hide_technical_info" = "Kompakt liste";
+"hide_technical_info_description" = "Hız, sürüm ve diğer ayrıntılarla ilgili tüm bilgileri gizler.";

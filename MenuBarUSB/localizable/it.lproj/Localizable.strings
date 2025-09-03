@@ -51,3 +51,11 @@
 "hide_device" = "Nascondi USB";
 "hidden_indicator" = "Indicatore per dispositivi nascosti";
 "hidden_indicator_description" = "Mostra quanti dispositivi sono nascosti.";
+"bitcoin_on_chain_transfer" = "Trasferimento Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Trasferimento Litecoin on-chain";
+"show_ltc_address" = "Mostra indirizzo LTC";
+"show_btc_address" = "Mostra indirizzo BTC";
+"copy" = "Copia";
+"cancel" = "Annulla";
+"hide_technical_info" = "Lista compatta";
+"hide_technical_info_description" = "Nasconde tutte le informazioni relative a velocità, versione e altri dettagli.";

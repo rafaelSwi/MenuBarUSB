@@ -51,3 +51,11 @@
 "hide_device" = "Приховати";
 "hidden_indicator" = "Індикатор прихованих пристроїв";
 "hidden_indicator_description" = "Показує, скільки пристроїв приховано";
+"bitcoin_on_chain_transfer" = "Переказ Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Переказ Litecoin on-chain";
+"show_ltc_address" = "Показати адресу LTC";
+"show_btc_address" = "Показати адресу BTC";
+"copy" = "Копіювати";
+"cancel" = "Скасувати";
+"hide_technical_info" = "Компактний список";
+"hide_technical_info_description" = "Приховує всю інформацію про швидкість, версію та інші деталі.";

@@ -51,3 +51,11 @@
 "hide_device" = "Esconder";
 "hidden_indicator" = "Indicador de dispositivos escondidos";
 "hidden_indicator_description" = "Mostra quantos dispositivos estão escondidos.";
+"bitcoin_on_chain_transfer" = "Transferência Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Transferência Litecoin on-chain";
+"show_ltc_address" = "Mostrar LTC";
+"show_btc_address" = "Mostrar BTC";
+"copy" = "Copiar";
+"cancel" = "Cancelar";
+"hide_technical_info" = "Lista compacta";
+"hide_technical_info_description" = "Esconde todas as informações relacionadas com a velocidade, versão e outros detalhes.\nSe essa opção estiver ativada, a capacidade máxima da entrada USB não será exibida mesmo que esteja marcada para exibir.";

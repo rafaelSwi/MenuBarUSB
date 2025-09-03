@@ -51,3 +51,11 @@
 "hide_device" = "Skjul enhed";
 "hidden_indicator" = "Indikator for skjulte enheder";
 "hidden_indicator_description" = "Viser hvor mange enheder der er skjult.";
+"bitcoin_on_chain_transfer" = "Bitcoin on-chain overførsel";
+"litecoin_on_chain_transfer" = "Litecoin on-chain overførsel";
+"show_ltc_address" = "Vis LTC-adresse";
+"show_btc_address" = "Vis BTC-adresse";
+"copy" = "Kopiér";
+"cancel" = "Annuller";
+"hide_technical_info" = "Kompakt liste";
+"hide_technical_info_description" = "Skjuler alle oplysninger om hastighed, version og andre detaljer.";

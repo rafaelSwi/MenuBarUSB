@@ -32,6 +32,12 @@ struct MenuBarUSBApp: App {
         .handlesExternalEvents(matching: ["settings"])
         .windowResizability(.contentSize)
         
+        WindowGroup(id: "donate") {
+            DonateView()
+        }
+        .handlesExternalEvents(matching: ["donate"])
+        .windowResizability(.automatic)
+        
     }
 }
 

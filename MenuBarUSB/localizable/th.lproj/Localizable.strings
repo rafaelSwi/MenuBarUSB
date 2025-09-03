@@ -51,3 +51,11 @@
 "hide_device" = "ซ่อนอุปกรณ์";
 "hidden_indicator" = "ตัวบ่งชี้สำหรับอุปกรณ์ที่ถูกซ่อน";
 "hidden_indicator_description" = "แสดงจำนวนอุปกรณ์ที่ถูกซ่อน";
+"bitcoin_on_chain_transfer" = "การโอน Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "การโอน Litecoin on-chain";
+"show_ltc_address" = "แสดงที่อยู่ LTC";
+"show_btc_address" = "แสดงที่อยู่ BTC";
+"copy" = "คัดลอก";
+"cancel" = "ยกเลิก";
+"hide_technical_info" = "รายการแบบกะทัดรัด";
+"hide_technical_info_description" = "ซ่อนข้อมูลทั้งหมดที่เกี่ยวข้องกับความเร็ว เวอร์ชัน และรายละเอียดอื่น ๆ";

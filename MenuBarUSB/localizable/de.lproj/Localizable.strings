@@ -51,3 +51,11 @@
 "hide_device" = "Gerät ausblenden";
 "hidden_indicator" = "Indikator für ausgeblendete Geräte";
 "hidden_indicator_description" = "In der unteren linken Ecke wird angezeigt, wie viele Geräte ausgeblendet sind.";
+"bitcoin_on_chain_transfer" = "Bitcoin On-Chain-Überweisung";
+"litecoin_on_chain_transfer" = "Litecoin On-Chain-Überweisung";
+"show_ltc_address" = "LTC-Adresse anzeigen";
+"show_btc_address" = "BTC-Adresse anzeigen";
+"copy" = "Kopieren";
+"cancel" = "Abbrechen";
+"hide_technical_info" = "Kompakte Liste";
+"hide_technical_info_description" = "Blendet alle Informationen zu Geschwindigkeit, Version und weiteren Details aus.\nWenn diese Option aktiviert ist, wird die maximale Portkapazität nicht angezeigt, auch wenn sie aktiviert ist.";

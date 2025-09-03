@@ -21,8 +21,13 @@ struct ToggleRow: View {
                     .toggleStyle(.checkbox)
 
                 Button {
-                    showMessage.toggle()
-                    untoggle()
+                    if (showMessage == true) {
+                        showMessage.toggle();
+                    } else {
+                        untoggle()
+                        showMessage.toggle()
+                    }
+                    
                 } label: {
                     Image(systemName: "info.circle")
                         .opacity(0.4)

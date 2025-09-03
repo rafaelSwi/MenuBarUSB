@@ -51,3 +51,11 @@
 "hide_device" = "Ukryj urządzenie";
 "hidden_indicator" = "Wskaźnik ukrytych urządzeń";
 "hidden_indicator_description" = "W lewym dolnym rogu wyświetlana jest liczba ukrytych urządzeń.";
+"bitcoin_on_chain_transfer" = "Przelew Bitcoin on-chain";
+"litecoin_on_chain_transfer" = "Przelew Litecoin on-chain";
+"show_ltc_address" = "Pokaż adres LTC";
+"show_btc_address" = "Pokaż adres BTC";
+"copy" = "Kopiuj";
+"cancel" = "Anuluj";
+"hide_technical_info" = "Lista kompaktowa";
+"hide_technical_info_description" = "Ukrywa wszystkie informacje dotyczące prędkości, wersji i innych szczegółów.\nJeśli ta opcja jest włączona, maksymalna pojemność portu nie będzie wyświetlana, nawet jeśli jest zaznaczona.";
