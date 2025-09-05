@@ -64,7 +64,7 @@ struct ContentView: View {
                                 HStack {
                                     
                                     if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
-                                        let title: String = renamedIndicator ? "▪ \(device.name)" : device.name;
+                                        let title: String = renamedIndicator ? "∙ \(device.name)" : device.name;
                                         Text(title)
                                             .font(.system(size: 12, weight: .semibold))
                                             .foregroundColor(.primary)

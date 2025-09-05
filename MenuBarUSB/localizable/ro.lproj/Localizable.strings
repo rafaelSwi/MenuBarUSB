@@ -45,7 +45,7 @@
 "confirm" = "Confirmă";
 "renaming_help" = "Dacă redenumești lăsând câmpul gol, numele personalizat atribuit anterior dispozitivului va fi eliminat.";
 "renamed_indicator" = "Indicator pentru dispozitive redenumite";
-"renamed_indicator_description" = "Dispozitivele USB care au fost redenumite vor avea un ▪ înaintea numelui lor.";
+"renamed_indicator_description" = "Dispozitivele USB care au fost redenumite vor avea un ● înaintea numelui lor.";
 "hide" = "Ascunde";
 "hidden" = "Ascuns";
 "hide_device" = "Ascunde dispozitiv";
@@ -59,3 +59,9 @@
 "cancel" = "Anulează";
 "hide_technical_info" = "Listă compactă";
 "hide_technical_info_description" = "Ascunde toate informațiile legate de viteză, versiune și alte detalii.";
+"usb_detected" = "USB detectat";
+"usb_detected_info" = "Un nou dispozitiv USB a fost detectat.";
+"usb_disconnected" = "USB deconectat";
+"usb_disconnected_info" = "Un dispozitiv USB a fost deconectat.";
+"show_notification" = "Afișează notificări";
+"show_notification_description" = "Când un dispozitiv USB este introdus sau scos, apare o notificare.\nTrebuie să permiți aplicației să trimită notificări și, în funcție de versiunea macOS, poate fi necesar să schimbi Alert Style al notificărilor.";

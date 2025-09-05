@@ -26,9 +26,9 @@ struct SettingsView: View {
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
     
-    @State private var showOpenOnStartupDescription: Bool = false;
     @State private var showConvertHexaDescription: Bool = false;
     @State private var showLongListDescription: Bool = false;
+    @State private var showShowNotificationsDescription: Bool = false;
     @State private var showShowPortMaxDescription: Bool = false;
     @State private var showHideTechInfoDescription: Bool = false
     @State private var showRenamedIndicatorDescription: Bool = false;
@@ -41,6 +41,7 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
     @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
     @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
+    @AppStorage(StorageKeys.showNotifications) private var showNotifications = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -52,6 +53,7 @@ struct SettingsView: View {
         showRenamedIndicatorDescription = false;
         showCamouflagedIndicatorDescription = false;
         showHideTechInfoDescription = false;
+        showShowNotificationsDescription = false;
     }
     
     var appVersion: String {
@@ -122,6 +124,15 @@ struct SettingsView: View {
                 }
             
             VStack(spacing: 12) {
+                ToggleRow(
+                    label: String(localized: "show_notification"),
+                    description: String(localized: "show_notification_description"),
+                    binding: $showNotifications,
+                    showMessage: $showShowNotificationsDescription,
+                    untoggle: {
+                        untoggleAllDesc();
+                    }
+                )
                 ToggleRow(
                     label: String(localized: "long_list"),
                     description: String(localized: "long_list_description"),
@@ -229,7 +240,6 @@ struct SettingsView: View {
                         } label: {
                             Text(selectedDeviceToCamouflage?.name ?? String(localized: "device"))
                         }
-                        .frame(width: 190)
 
                         if selectedDeviceToCamouflage != nil {
                             Button(String(localized: "confirm")) {
@@ -269,7 +279,6 @@ struct SettingsView: View {
                         } label: {
                             Text(selectedDeviceToRename?.name ?? String(localized: "device"))
                         }
-                        .frame(width: 190)
 
                         if selectedDeviceToRename != nil {
                             TextFieldWithLimit(
@@ -310,7 +319,7 @@ struct SettingsView: View {
             
         }
         .padding(20)
-        .frame(minWidth: 400, minHeight: 400)
+        .frame(minWidth: 420, minHeight: 500)
         .background(.ultraThinMaterial)
     }
     

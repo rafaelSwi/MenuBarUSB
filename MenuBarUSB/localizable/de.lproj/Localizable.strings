@@ -26,7 +26,7 @@
 "supports" = "unterstützt";
 "unknown" = "Unbekannt"; 
 "contact" = "Kontakt:";
-"donate" = "Spenden";
+"donate" = "Beitragen";
 "endereço" = "Adresse";
 "settings" = "Konfig";
 "donate_description" = "Jede Unterstützung wird sehr geschätzt!";
@@ -45,7 +45,7 @@
 "confirm" = "Bestätigen";
 "renaming_help" = "Wenn Sie mit einem leeren Textfeld umbenennen, wird der zuvor vergebene Benutzername für das Gerät entfernt.";
 "renamed_indicator" = "Indikator für umbenannte Geräte";
-"renamed_indicator_description" = "USB-Geräte, die umbenannt wurden, haben ein ▪ vor ihrem Namen.";
+"renamed_indicator_description" = "USB-Geräte, die umbenannt wurden, haben ein ● vor ihrem Namen.";
 "hide" = "Ausblenden";
 "hidden" = "Ausgeblendet";
 "hide_device" = "Gerät ausblenden";
@@ -59,3 +59,9 @@
 "cancel" = "Abbrechen";
 "hide_technical_info" = "Kompakte Liste";
 "hide_technical_info_description" = "Blendet alle Informationen zu Geschwindigkeit, Version und weiteren Details aus.\nWenn diese Option aktiviert ist, wird die maximale Portkapazität nicht angezeigt, auch wenn sie aktiviert ist.";
+"usb_detected" = "USB erkannt";
+"usb_detected_info" = "Ein neues USB‑Gerät wurde erkannt.";
+"usb_disconnected" = "USB getrennt";
+"usb_disconnected_info" = "Ein USB‑Gerät wurde getrennt.";
+"show_notification" = "Benachrichtigungen anzeigen";
+"show_notification_description" = "Wenn ein USB‑Gerät angeschlossen oder entfernt wird, erscheint eine Benachrichtigung.\nUm Spam zu vermeiden, werden zwischen den Benachrichtigungen kleine Zeitfenster angezeigt.\nDu skal muligvis ændre notifikationsstilen for at den fungerer korrekt.";

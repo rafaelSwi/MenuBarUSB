@@ -59,3 +59,9 @@
 "cancel" = "キャンセル";
 "hide_technical_info" = "コンパクトリスト";
 "hide_technical_info_description" = "速度、バージョン、その他の情報をすべて非表示にします。";
+"usb_detected" = "USBが検出されました";
+"usb_detected_info" = "新しいUSBデバイスが検出されました。";
+"usb_disconnected" = "USBが切断されました";
+"usb_disconnected_info" = "USBデバイスが切断されました。";
+"show_notification" = "通知を表示";
+"show_notification_description" = "USBデバイスが接続または取り外されると通知が表示されます。アプリが通知を送信できるように許可する必要があり、macOSのバージョンによっては通知の**アラートスタイル**を変更する必要があります。\nスパムを避けるために、通知の間には短いタイマーが設けられています。";

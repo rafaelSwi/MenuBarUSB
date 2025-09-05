@@ -45,7 +45,7 @@
 "confirm" = "确认";
 "renaming_help" = "如果在文本框为空的情况下重命名，将会删除之前为设备设置的自定义名称。";
 "renamed_indicator" = "已重命名设备指示";
-"renamed_indicator_description" = "已重命名的USB设备名称前将显示 ▪ 符号。";
+"renamed_indicator_description" = "已重命名的USB设备名称前将显示 ● 符号。";
 "hide" = "隐藏";
 "hidden" = "已隐藏";
 "hide_device" = "隐藏设备";
@@ -59,3 +59,9 @@
 "cancel" = "取消";
 "hide_technical_info" = "紧凑列表";
 "hide_technical_info_description" = "隐藏所有与速度、版本和其他信息相关的内容。";
+"usb_detected" = "检测到 USB";
+"usb_detected_info" = "已检测到新的 USB 设备。";
+"usb_disconnected" = "USB 已断开";
+"usb_disconnected_info" = "USB 设备已断开。";
+"show_notification" = "显示通知";
+"show_notification_description" = "当插入或移除 USB 设备时，会显示通知。您需要允许应用发送通知，并且根据 macOS 版本，可能需要更改通知的 Alert Style。\n通知之间有一个小计时器，以避免垃圾邮件。";

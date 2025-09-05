@@ -45,7 +45,7 @@
 "confirm" = "Confirma";
 "renaming_help" = "Si reanomenes amb el camp de text buit, s’eliminarà el nom personalitzat assignat prèviament al dispositiu.";
 "renamed_indicator" = "Indicador per a dispositius renombrats";
-"renamed_indicator_description" = "Els dispositius USB que s'han renombrat tindran un ▪ davant del seu nom.";
+"renamed_indicator_description" = "Els dispositius USB que s'han renombrat tindran un ● davant del seu nom.";
 "hide" = "Amagar";
 "hidden" = "Amagat";
 "hide_device" = "Amagar dispositiu";
@@ -59,3 +59,9 @@
 "cancel" = "Cancel·lar";
 "hide_technical_info" = "Llista compacta";
 "hide_technical_info_description" = "Amaga tota la informació relacionada amb la velocitat, la versió i altres detalls.";
+"usb_detected" = "USB detectat";
+"usb_detected_info" = "S'ha detectat un nou dispositiu USB.";
+"usb_disconnected" = "USB desconnectat";
+"usb_disconnected_info" = "S'ha desconnectat un dispositiu USB.";
+"show_notification" = "Mostra notificacions";
+"show_notification_description" = "Quan es connecta o desconnecta un dispositiu USB, apareix una notificació.\nNecessites permetre que l'aplicació enviï notificacions, i depenent de la versió del macOS, potser hauràs de canviar l’Estil d’alerta per a les notificacions.";

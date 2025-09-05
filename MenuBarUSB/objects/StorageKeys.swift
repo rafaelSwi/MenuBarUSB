@@ -15,4 +15,5 @@ final class StorageKeys {
     static let camouflagedDevices = "camouflagedDevices";
     static let renamedIndicator = "renamedIndicator";
     static let camouflagedIndicator = "camouflagedIndicator";
+    static let showNotifications = "showNotifications";
 }

@@ -45,7 +45,7 @@
 "confirm" = "Conferma";
 "renaming_help" = "Rinominando con il campo di testo vuoto, verrà rimosso il nome personalizzato precedentemente assegnato al dispositivo.";
 "renamed_indicator" = "Indicatore per dispositivi rinominati";
-"renamed_indicator_description" = "I dispositivi USB che sono stati rinominati avranno un ▪ prima del loro nome.";
+"renamed_indicator_description" = "I dispositivi USB che sono stati rinominati avranno un ● prima del loro nome.";
 "hide" = "Nascondi";
 "hidden" = "Nascosto";
 "hide_device" = "Nascondi USB";
@@ -59,3 +59,9 @@
 "cancel" = "Annulla";
 "hide_technical_info" = "Lista compatta";
 "hide_technical_info_description" = "Nasconde tutte le informazioni relative a velocità, versione e altri dettagli.";
+"usb_detected" = "USB rilevata";
+"usb_detected_info" = "È stato rilevato un nuovo dispositivo USB.";
+"usb_disconnected" = "USB disconnessa";
+"usb_disconnected_info" = "Un dispositivo USB è stato disconnesso.";
+"show_notification" = "Mostra notifiche";
+"show_notification_description" = "Quando un dispositivo USB viene inserito o rimosso, appare una notifica.\nDevi consentire all’app di inviare notifiche e, a seconda della versione di macOS, potresti dover modificare lo Stile avviso (Alert Style) delle notifiche.";

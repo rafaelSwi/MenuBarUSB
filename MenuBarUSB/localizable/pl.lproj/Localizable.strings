@@ -1,6 +1,6 @@
 "exit" = "Zamknij";
 "refresh" = "Odśwież";
-"open_on_startup" = "Uruchom automat.";
+"open_on_startup" = "Uruchom automatycznie";
 "usb_device" = "Urządzenie USB";
 "usb_devices" = "Urządzenia USB";
 "no_devices_found" = "Nie znaleziono urządzeń";
@@ -45,7 +45,7 @@
 "confirm" = "Potwierdź";
 "renaming_help" = "Zmiana nazwy przy pustym polu tekstowym usunie wcześniej przypisaną nazwę własną urządzenia.";
 "renamed_indicator" = "Wskaźnik dla przemianowanych urządzeń";
-"renamed_indicator_description" = "Urządzenia USB, które zostały przemianowane, będą miały ▪ przed swoją nazwą.";
+"renamed_indicator_description" = "Urządzenia USB, które zostały przemianowane, będą miały ● przed swoją nazwą.";
 "hide" = "Ukryj";
 "hidden" = "Ukryty";
 "hide_device" = "Ukryj urządzenie";
@@ -59,3 +59,9 @@
 "cancel" = "Anuluj";
 "hide_technical_info" = "Lista kompaktowa";
 "hide_technical_info_description" = "Ukrywa wszystkie informacje dotyczące prędkości, wersji i innych szczegółów.\nJeśli ta opcja jest włączona, maksymalna pojemność portu nie będzie wyświetlana, nawet jeśli jest zaznaczona.";
+"usb_detected" = "USB wykryte";
+"usb_detected_info" = "Wykryto nowe urządzenie USB.";
+"usb_disconnected" = "USB odłączone";
+"usb_disconnected_info" = "Urządzenie USB zostało odłączone.";
+"show_notification" = "Pokaż powiadomienia";
+"show_notification_description" = "Gdy urządzenie USB zostanie podłączone lub odłączone, pojawi się powiadomienie.\nMusisz zezwolić aplikacji na wysyłanie powiadomień, a w zależności od wersji macOS może być konieczna zmiana Alert Style powiadomień.\nPowiadomienia są opóźnione o krótki czas, aby uniknąć spamu.";

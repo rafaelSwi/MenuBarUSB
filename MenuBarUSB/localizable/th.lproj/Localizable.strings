@@ -59,3 +59,9 @@
 "cancel" = "ยกเลิก";
 "hide_technical_info" = "รายการแบบกะทัดรัด";
 "hide_technical_info_description" = "ซ่อนข้อมูลทั้งหมดที่เกี่ยวข้องกับความเร็ว เวอร์ชัน และรายละเอียดอื่น ๆ";
+"usb_detected" = "ตรวจพบ USB";
+"usb_detected_info" = "ตรวจพบอุปกรณ์ USB ใหม่";
+"usb_disconnected" = "USB ถูกตัดการเชื่อมต่อ";
+"usb_disconnected_info" = "อุปกรณ์ USB ถูกตัดการเชื่อมต่อ";
+"show_notification" = "แสดงการแจ้งเตือน";
+"show_notification_description" = "เมื่อมีการเชื่อมต่อหรือถอดอุปกรณ์ USB จะมีการแจ้งเตือนปรากฏ คุณต้องอนุญาตให้แอปส่งการแจ้งเตือน และขึ้นอยู่กับเวอร์ชัน macOS ของคุณ อาจจำเป็นต้องเปลี่ยน Alert Style ของการแจ้งเตือน" ;

@@ -59,3 +59,9 @@
 "cancel" = "취소";
 "hide_technical_info" = "간단 목록";
 "hide_technical_info_description" = "속도, 버전 및 기타 정보와 관련된 모든 내용을 숨깁니다.";
+"usb_detected" = "USB가 감지되었습니다";
+"usb_detected_info" = "새 USB 장치가 감지되었습니다.";
+"usb_disconnected" = "USB 연결이 끊어졌습니다";
+"usb_disconnected_info" = "USB 장치의 연결이 끊어졌습니다.";
+"show_notification" = "알림 표시";
+"show_notification_description" = "USB 장치를 연결하거나 제거하면 알림이 나타납니다.\n앱이 알림을 보낼 수 있도록 허용해야 하며, macOS 버전에 따라 알림의 Alert Style을 변경해야 할 수도 있습니다.";

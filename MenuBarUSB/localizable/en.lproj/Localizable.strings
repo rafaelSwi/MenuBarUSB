@@ -45,7 +45,7 @@
 "confirm" = "Confirm";
 "renaming_help" = "Renaming with an empty text box will remove the custom name previously set for the USB device.";
 "renamed_indicator" = "Indicator for renamed devices";
-"renamed_indicator_description" = "USB devices that have been renamed will have a ▪ before their name.";
+"renamed_indicator_description" = "USB devices that have been renamed will have a ● before their name.";
 "hide" = "Hide";
 "hidden" = "Hidden";
 "hide_device" = "Hide device";
@@ -59,3 +59,9 @@
 "cancel" = "Cancel";
 "hide_technical_info" = "Compact list";
 "hide_technical_info_description" = "Hides all information related to speed, version, and other details.\nIf enabled, the maximum port capacity will not be shown even if it is checked.";
+"usb_detected" = "USB Detected";
+"usb_detected_info" = "A new USB has been detected.";
+"usb_disconnected" = "USB Disconnected";
+"usb_disconnected_info" = "A USB device has been disconnected.";
+"show_notification" = "Show notifications";
+"show_notification_description" = "When a USB device is inserted or removed, a notification appears.\nYou need to allow the app to send notifications, and depending on your macOS version, you may need to change the Alert Style for notifications.\nIt is important to note that there is a small 3-sec buffer between notifications to avoid spam in cases of devices connecting and disconnecting frequently.";

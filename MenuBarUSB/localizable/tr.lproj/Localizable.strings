@@ -26,7 +26,7 @@
 "supports" = "destekler";
 "unknown" = "Bilinmiyor";
 "contact" = "İletişim:";
-"donate" = "Bağış yap";
+"donate" = "Geliştiriciye yardım edin";
 "endereço" = "Adres";
 "settings" = "Ayarlar";
 "donate_description" = "Her türlü destek için minnettarız!";
@@ -59,3 +59,9 @@
 "cancel" = "İptal";
 "hide_technical_info" = "Kompakt liste";
 "hide_technical_info_description" = "Hız, sürüm ve diğer ayrıntılarla ilgili tüm bilgileri gizler.";
+"usb_detected" = "USB algılandı";
+"usb_detected_info" = "Yeni bir USB aygıtı algılandı.";
+"usb_disconnected" = "USB bağlantısı kesildi";
+"usb_disconnected_info" = "Bir USB aygıtının bağlantısı kesildi.";
+"show_notification" = "Bildirimleri göster";
+"show_notification_description" = "Bir USB aygıtı takıldığında veya çıkarıldığında bir bildirim görünür.\nUygulamanın bildirim göndermesine izin vermeniz gerekir ve macOS sürümünüze bağlı olarak bildirimlerin Alert Style'ını değiştirmeniz gerekebilir.";

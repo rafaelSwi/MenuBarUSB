@@ -45,7 +45,7 @@
 "confirm" = "Confirmer";
 "renaming_help" = "Renommer avec un champ vide supprimera le nom personnalisé attribué précédemment à l’appareil.";
 "renamed_indicator" = "Indicateur pour appareils renommés";
-"renamed_indicator_description" = "Les périphériques USB qui ont été renommés auront un ▪ devant leur nom.";
+"renamed_indicator_description" = "Les périphériques USB qui ont été renommés auront un ● devant leur nom.";
 "hide" = "Masquer";
 "hidden" = "Masqué";
 "hide_device" = "Masquer l’appareil";
@@ -59,3 +59,9 @@
 "cancel" = "Annuler";
 "hide_technical_info" = "Liste compacte";
 "hide_technical_info_description" = "Masque toutes les informations liées à la vitesse, la version et d’autres détails.";
+"usb_detected" = "USB détecté";
+"usb_detected_info" = "Un nouveau périphérique USB a été détecté.";
+"usb_disconnected" = "USB déconnecté";
+"usb_disconnected_info" = "Un périphérique USB a été déconnecté.";
+"show_notification" = "Afficher les notifications";
+"show_notification_description" = "Lorsqu’un périphérique USB est inséré ou retiré, une notification s’affiche.\nVous devez autoriser l’application à envoyer des notifications et, selon votre version de macOS, il se peut que vous deviez modifier le Style d’alerte (Alert Style) des notifications.\nLes notifications ont un petit minuteur entre elles pour éviter le spam.";

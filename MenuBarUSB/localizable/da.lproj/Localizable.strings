@@ -45,7 +45,7 @@
 "confirm" = "Bekræft";
 "renaming_help" = "Hvis du omdøber med et tomt tekstfelt, fjernes det brugerdefinerede navn, der tidligere blev tildelt enheden.";
 "renamed_indicator" = "Indikator for omdøbte enheder";
-"renamed_indicator_description" = "USB-enheder, der er blevet omdøbt, vil have en ▪ foran deres navn.";
+"renamed_indicator_description" = "USB-enheder, der er blevet omdøbt, vil have en ● foran deres navn.";
 "hide" = "Skjul";
 "hidden" = "Skjult";
 "hide_device" = "Skjul enhed";
@@ -59,3 +59,9 @@
 "cancel" = "Annuller";
 "hide_technical_info" = "Kompakt liste";
 "hide_technical_info_description" = "Skjuler alle oplysninger om hastighed, version og andre detaljer.";
+"usb_detected" = "USB registreret";
+"usb_detected_info" = "Et nyt USB‑enhed er blevet registreret.";
+"usb_disconnected" = "USB afbrudt";
+"usb_disconnected_info" = "En USB‑enhed er blevet afbrudt.";
+"show_notification" = "Vis meddelelser";
+"show_notification_description" = "Når en USB‑enhed tilsluttes eller fjernes, vises en meddelelse.\nDu skal tillade, at appen sender meddelelser, og afhængigt af din macOS‑version skal du muligvis ændre Alert‑stil for meddelelser.\nNotifikationer har en lille timer mellem sig for at undgå spam.";
