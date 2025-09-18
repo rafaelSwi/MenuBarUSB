@@ -10,7 +10,8 @@ import CoreImage.CIFilterBuiltins
 
 struct DonateView: View {
     @State private var isBitcoin = true
-    @Environment(\.dismiss) var dismiss
+    
+    @Binding var currentWindow: AppWindow
     
     private let btcAddress = "bc1qvluxh224489mt6svp23kr0u8y2upn009pa546t"
     private let ltcAddress = "ltc1qz42uw4plam83f2sud2rckzewvdwm9vs4rfazl5"
@@ -21,7 +22,7 @@ struct DonateView: View {
         var body: some View {
             if let image = generateQRCode(from: text) {
                 Image(nsImage: image)
-                    .interpolation(.none) // sem suavização
+                    .interpolation(.none)
                     .resizable()
                     .scaledToFit()
             } else {
@@ -36,7 +37,6 @@ struct DonateView: View {
             
             guard let outputImage = filter.outputImage else { return nil }
             
-            // Escala o QR no nível do CoreImage (sem perder definição)
             let scaled = outputImage.transformed(by: CGAffineTransform(scaleX: 12, y: 12))
             
             if let cgimg = context.createCGImage(scaled, from: scaled.extent) {
@@ -46,66 +46,74 @@ struct DonateView: View {
         }
     }
     
-    
     var body: some View {
         let currentAddress = isBitcoin ? btcAddress : ltcAddress
         let currentSymbol = isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
         let currentColor: Color = isBitcoin ? .orange : .gray
         
-        VStack(spacing: 20) {
+        VStack(spacing: 12) {
             
             Text(String(localized: "donate_description"))
                 .font(.title2)
                 .bold()
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 5)
             
-            HStack(spacing: 16) {
-                Image(systemName: currentSymbol)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 42, height: 42)
-                    .foregroundColor(currentColor)
+            VStack(spacing: 15) {
                 
                 QRCodeView(text: currentAddress)
-                    .frame(width: 180, height: 180)
-                    .padding(.horizontal, 30)
+                    .frame(width: 200, height: 200)
                 
                 Button(action: {
                     copyToClipboard(currentAddress)
                 }) {
-                    Label(String(localized: "copy"), systemImage: "doc.on.doc")
+                    let copyText = String(localized: "copy")
+                    let coin = isBitcoin ? "BTC" : "LTC"
+                    Label("\(copyText) (\(coin))", systemImage: "doc.on.doc")
                 }
-                .buttonStyle(.bordered)
-                
-                
+                .padding(.horizontal, 40)
             }
             
             Group {
-                Text(isBitcoin ? String(localized: "bitcoin_on_chain_transfer") : String(localized: "litecoin_on_chain_transfer"))
-                Text(currentAddress)
+                HStack {
+                    
+                    Image(systemName: currentSymbol)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 17, height: 17)
+                        .foregroundColor(currentColor)
+                    
+                    Text(String(localized: isBitcoin ? "bitcoin_on_chain_transfer" : "litecoin_on_chain_transfer"))
+                        .font(.callout)
+                        .bold()
+                    
+                }
+                Group {
+                    Text(currentAddress)
+                    Text(String(format: NSLocalizedString("contact", comment: "EMAIL"), "contatorafaelswi@gmail.com"))
+                }
+                    .font(.footnote)
+                    .textSelection(.enabled)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .padding(.horizontal)
             }
-            .font(.footnote)
-            .textSelection(.enabled)
-            .multilineTextAlignment(.center)
-            .lineLimit(2)
             
-            VStack(spacing: 12) {
-                
+            VStack() {
                 Button(action: {
                     isBitcoin.toggle()
                 }) {
                     Text(isBitcoin ? String(localized: "show_ltc_address") : String(localized: "show_btc_address"))
                 }
-                
-                HStack {
-                    Spacer()
-                    Button(String(localized: "close_about_window")) {
-                        dismiss()
-                    }
-                    .buttonStyle(.bordered)
+                .padding(.top, 10)
+                Spacer()
+                Button(action: {currentWindow = .settings}) {
+                    Label(String(localized: "back"), systemImage: "arrow.uturn.backward")
                 }
             }
         }
-        .padding(20)
+        .padding(10)
+        .frame(minWidth: 465, minHeight: 500)
     }
     
     private func copyToClipboard(_ text: String) {

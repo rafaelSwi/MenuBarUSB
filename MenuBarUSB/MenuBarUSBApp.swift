@@ -10,13 +10,28 @@ import ServiceManagement
 
 @main
 struct MenuBarUSBApp: App {
+    
     @StateObject private var manager = USBDeviceManager()
+    
+    @State var currentWindow: AppWindow = .devices
+    
+    @AppStorage(StorageKeys.reduceTransparency) private var reduceTransparency = false
     
     var body: some Scene {
         MenuBarExtra {
-            ContentView()
-                .environmentObject(manager)
-            
+            switch (self.currentWindow) {
+            case .devices:
+                ContentView(currentWindow: $currentWindow)
+                    .appBackground(reduceTransparency)
+                    .environmentObject(manager)
+            case .settings:
+                SettingsView(currentWindow: $currentWindow)
+                    .appBackground(reduceTransparency)
+                    .environmentObject(manager)
+            case .donate:
+                DonateView(currentWindow: $currentWindow)
+                    .appBackground(reduceTransparency)
+            }
         } label: {
             HStack(spacing: 5) {
                 Image(systemName: "cable.connector")
@@ -24,19 +39,6 @@ struct MenuBarUSBApp: App {
             }
         }
         .menuBarExtraStyle(.window)
-        
-        WindowGroup(id: "settings") {
-            SettingsView()
-                .environmentObject(manager)
-        }
-        .handlesExternalEvents(matching: ["settings"])
-        .windowResizability(.contentSize)
-        
-        WindowGroup(id: "donate") {
-            DonateView()
-        }
-        .handlesExternalEvents(matching: ["donate"])
-        .windowResizability(.automatic)
         
     }
 }

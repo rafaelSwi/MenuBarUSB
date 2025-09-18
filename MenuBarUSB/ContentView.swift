@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var manager: USBDeviceManager
     @State private var showingAbout = false
-    @Environment(\.openWindow) var openWindow
+    
+    @Binding var currentWindow: AppWindow
     
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
     @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
@@ -47,132 +48,134 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            if manager.devices.isEmpty {
-                ScrollView {
-                    Text(String(localized: "no_devices_found"))
-                        .foregroundStyle(.secondary)
-                        .padding(15)
-                }
-            } else {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 4) {
-                        ForEach(manager.devices) { dev in
-                            let uniqueId: String = USBDevice.uniqueId(dev);
-                            VStack(alignment: .leading, spacing: 2) {
-                                
-                                HStack {
-                                    
-                                    if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
-                                        let title: String = renamedIndicator ? "∙ \(device.name)" : device.name;
-                                        Text(title)
-                                            .font(.system(size: 12, weight: .semibold))
-                                            .foregroundColor(.primary)
-                                    } else {
-                                        Text(dev.name.isEmpty ? String(localized: "usb_device") : dev.name)
-                                            .font(.system(size: 12, weight: .semibold))
-                                            .foregroundColor(.primary)
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    if let vendor = dev.vendor, !vendor.isEmpty {
-                                        Text(vendor)
-                                            .font(.system(size: 12, weight: .semibold))
-                                            .foregroundColor(.primary)
-                                    }
-                                    
-                                }
-                                
-                                if (!hideTechInfo) {
-                                    HStack {
-                                        Text(dev.speedDescription)
-                                            .font(.system(size: 9))
-                                            .foregroundStyle(.secondary)
-                                        Spacer()
-                                        
-                                        Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
-                                            .font(.system(size: 10))
-                                            .foregroundStyle(.secondary)
-                                    }
-                                    
-                                    HStack {
-                                        
-                                        if let usbVer = dev.usbVersionBCD {
-                                            Text("\(String(localized: "usb_version")) \(USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa) ?? String(format: "0x%04X", usbVer))")
-                                                .font(.system(size: 9))
-                                                .foregroundStyle(.secondary)
-                                        }
-                                        
-                                        Spacer()
-                                        
-                                        if let serial = dev.serialNumber, !serial.isEmpty {
-                                            Text("\(String(localized: "serial_number")) \(serial)")
-                                                .font(.system(size: 9))
-                                                .foregroundStyle(.secondary)
-                                        }
-                                    }
-                                    
-                                    if (showPortMax) {
-                                        if let portMax = dev.portMaxSpeedMbps {
-                                            Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
-                                                .font(.system(size: 9))
-                                                .foregroundStyle(.secondary)
-                                        }
-                                    }
-                                }
-                                
-                            }
-                            .padding(.vertical, 3)
-                            Divider()
-                        }
+        VStack {
+            VStack(alignment: .leading, spacing: 6) {
+                if manager.devices.isEmpty {
+                    ScrollView {
+                        Text(String(localized: "no_devices_found"))
+                            .foregroundStyle(.secondary)
+                            .padding(15)
                     }
-                    .padding(.horizontal, 4)
+                } else {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 4) {
+                            ForEach(manager.devices) { dev in
+                                let uniqueId: String = USBDevice.uniqueId(dev);
+                                VStack(alignment: .leading, spacing: 2) {
+                                    
+                                    HStack {
+                                        
+                                        if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
+                                            let title: String = renamedIndicator ? "∙ \(device.name)" : device.name;
+                                            Text(title)
+                                                .font(.system(size: 12, weight: .semibold))
+                                                .foregroundColor(.primary)
+                                        } else {
+                                            Text(dev.name.isEmpty ? String(localized: "usb_device") : dev.name)
+                                                .font(.system(size: 12, weight: .semibold))
+                                                .foregroundColor(.primary)
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        if let vendor = dev.vendor, !vendor.isEmpty {
+                                            Text(vendor)
+                                                .font(.system(size: 12, weight: .semibold))
+                                                .foregroundColor(.primary)
+                                        }
+                                        
+                                    }
+                                    
+                                    if (!hideTechInfo) {
+                                        HStack {
+                                            Text(dev.speedDescription)
+                                                .font(.system(size: 9))
+                                                .foregroundStyle(.secondary)
+                                            Spacer()
+                                            
+                                            Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
+                                                .font(.system(size: 10))
+                                                .foregroundStyle(.secondary)
+                                        }
+                                        
+                                        HStack {
+                                            
+                                            if let usbVer = dev.usbVersionBCD {
+                                                let usbVersion: String? = USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa)
+                                                Text("\(String(localized: "usb_version")) \(usbVersion ?? String(format: "0x%04X", usbVer))")
+                                                    .font(.system(size: 9))
+                                                    .foregroundStyle(.secondary)
+                                            }
+                                            
+                                            Spacer()
+                                            
+                                            if let serial = dev.serialNumber, !serial.isEmpty {
+                                                Text("\(String(localized: "serial_number")) \(serial)")
+                                                    .font(.system(size: 9))
+                                                    .foregroundStyle(.secondary)
+                                            }
+                                        }
+                                        
+                                        if (showPortMax) {
+                                            if let portMax = dev.portMaxSpeedMbps {
+                                                Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
+                                                    .font(.system(size: 9))
+                                                    .foregroundStyle(.secondary)
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                                .padding(.vertical, 3)
+                                Divider()
+                            }
+                        }
+                        .padding(.horizontal, 4)
+                    }
+                    .frame(maxHeight: 1_000)
                 }
-                .frame(maxHeight: 1_000)
+                
             }
+            .padding(3)
+            .frame(width: 465, height: windowHeight(longList: longList, compactList: hideTechInfo))
             
-            
-        }
-        .padding(3)
-        .frame(width: 450, height: windowHeight(longList: longList, compactList: hideTechInfo))
-        
-        HStack {
-            
-            if (camouflagedDevices.count > 0 && camouflagedIndicator) {
-                Group {
-                    Image(systemName: "eye.slash")
-                    Text("\(camouflagedDevices.count)")
+            HStack {
+                
+                if (camouflagedDevices.count > 0 && camouflagedIndicator) {
+                    Group {
+                        Image(systemName: "eye.slash")
+                        Text("\(camouflagedDevices.count)")
+                    }
+                    .opacity(0.5)
                 }
-                .opacity(0.5)
+                
+                Spacer()
+                
+                Button {
+                    currentWindow = .settings
+                } label: {
+                    Label(String(localized: "settings"), systemImage: "gear")
+                }
+                .font(.system(size: 12))
+                
+                
+                Button {
+                    manager.refresh()
+                } label: {
+                    Label(String(localized: "refresh"), systemImage: "arrow.clockwise")
+                }
+                .font(.system(size: 12))
+                
+                Button(role: .destructive) {
+                    NSApp.terminate(nil)
+                } label: {
+                    Label(String(localized: "exit"), systemImage: "power")
+                }
+                
+                
             }
-            
-            Spacer()
-            
-            Button {
-                openWindow(id: "settings")
-            } label: {
-                Label(String(localized: "settings"), systemImage: "gear")
-            }
-            .font(.system(size: 12))
-            
-            
-            Button {
-                manager.refresh()
-            } label: {
-                Label(String(localized: "refresh"), systemImage: "arrow.clockwise")
-            }
-            .font(.system(size: 12))
-            
-            Button(role: .destructive) {
-                NSApp.terminate(nil)
-            } label: {
-                Label(String(localized: "exit"), systemImage: "power")
-            }
-            
-            
+            .padding(10)
         }
-        .padding(10)
-        
     }
 }
+

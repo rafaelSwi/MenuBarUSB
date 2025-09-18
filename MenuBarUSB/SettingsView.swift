@@ -9,9 +9,9 @@ import SwiftUI
 import ServiceManagement
 
 struct SettingsView: View {
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.openWindow) var openWindow
     @EnvironmentObject var manager: USBDeviceManager
+    
+    @Binding var currentWindow: AppWindow
     
     @State private var showMessage: Bool = false
     @State private var showRenameDevices: Bool = false
@@ -33,6 +33,7 @@ struct SettingsView: View {
     @State private var showHideTechInfoDescription: Bool = false
     @State private var showRenamedIndicatorDescription: Bool = false;
     @State private var showCamouflagedIndicatorDescription: Bool = false;
+    @State private var showReduceTransparencyDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -42,6 +43,7 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
     @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
     @AppStorage(StorageKeys.showNotifications) private var showNotifications = false
+    @AppStorage(StorageKeys.reduceTransparency) private var reduceTransparency = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -54,6 +56,7 @@ struct SettingsView: View {
         showCamouflagedIndicatorDescription = false;
         showHideTechInfoDescription = false;
         showShowNotificationsDescription = false;
+        showReduceTransparencyDescription = false;
     }
     
     var appVersion: String {
@@ -73,6 +76,9 @@ struct SettingsView: View {
     }
     
     var body: some View {
+        
+        let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
+        
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
@@ -87,33 +93,40 @@ struct SettingsView: View {
                 
                 if updateAvailable, let releaseURL {
                     HStack(alignment: .center, spacing: 6) {
+                        Button(action: {
+                            updateAvailable = false
+                            latestVersion = ""
+                        }) {
+                            Image(systemName: "x.circle")
+                        }
+
                         Link("\(String(localized: "open_download_page")) (v\(latestVersion))", destination: releaseURL)
                             .buttonStyle(.borderedProminent)
                     }
-                } else if !checkingUpdate && !latestVersion.isEmpty {
-                    Text(String(localized: "up_to_date"))
-                        .foregroundColor(.green)
                 }
                 
                 if !updateAvailable {
-                    Button {
-                        checkForUpdate()
-                    } label: {
-                        if checkingUpdate {
-                            ProgressView()
-                        } else {
-                            Label(String(localized: "check_for_updates"), systemImage: "checkmark.circle")
+                    
+                    HStack {
+                        Button {
+                            checkForUpdate()
+                        } label: {
+                            if checkingUpdate {
+                                ProgressView()
+                            } else {
+                                Label(String(localized: !latestVersion.isEmpty ? "updated" : "check_for_updates"), systemImage: "checkmark.circle")
+                            }
                         }
+                        .buttonStyle(.bordered)
+                        
+                        Button {
+                            currentWindow = .donate
+                        } label: {
+                            Label(String(localized: "donate"), systemImage: "hand.thumbsup.circle")
+                        }
+
                     }
-                    .buttonStyle(.bordered)
                 }
-                
-                Button {
-                    openWindow(id: "donate")
-                } label: {
-                    Label(String(localized: "donate"), systemImage: "hand.thumbsup.circle")
-                }
-                .font(.system(size: 12)) // TODO: DELETE
             }
             
             Divider()
@@ -170,6 +183,15 @@ struct SettingsView: View {
                     }
                 )
                 ToggleRow(
+                    label: String(localized: "reduce_transparency"),
+                    description: String(localized: "reduce_transparency_description"),
+                    binding: $reduceTransparency,
+                    showMessage: $showReduceTransparencyDescription,
+                    untoggle: {
+                        untoggleAllDesc();
+                    }
+                )
+                ToggleRow(
                     label: String(localized: "hidden_indicator"),
                     description: String(localized: "hidden_indicator_description"),
                     binding: $camouflagedIndicator,
@@ -217,13 +239,15 @@ struct SettingsView: View {
 
                     Spacer()
 
-                    Button(String(localized: "close_about_window")) {
-                        dismiss()
+                    if (!anyBottomOptionInUse) {
+                        Button(action: {currentWindow = .devices}) {
+                            Label(String(localized: "back"), systemImage: "arrow.uturn.backward")
+                        }
                     }
-                    .buttonStyle(.borderedProminent)
+                    
                 }
 
-                if (showRenameDevices || showCamouflagedDevices) {
+                if (anyBottomOptionInUse) {
                     Divider()
                 }
 
@@ -318,9 +342,9 @@ struct SettingsView: View {
             
             
         }
-        .padding(20)
-        .frame(minWidth: 420, minHeight: 500)
-        .background(.ultraThinMaterial)
+        .padding(10)
+        .frame(minWidth: 465, minHeight: 500)
+        .appBackground(reduceTransparency)
     }
     
     private func checkForUpdate() {
