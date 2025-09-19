@@ -26,6 +26,11 @@ struct SettingsView: View {
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
     
+    @State private var showSystemOptions = false;
+    @State private var showInterfaceOptions = false;
+    @State private var showInfoOptions = false;
+    
+    @State private var showLaunchAtLoginDescription: Bool = false;
     @State private var showConvertHexaDescription: Bool = false;
     @State private var showLongListDescription: Bool = false;
     @State private var showShowNotificationsDescription: Bool = false;
@@ -34,6 +39,7 @@ struct SettingsView: View {
     @State private var showRenamedIndicatorDescription: Bool = false;
     @State private var showCamouflagedIndicatorDescription: Bool = false;
     @State private var showReduceTransparencyDescription: Bool = false;
+    @State private var showDisableNotifCooldownDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -44,6 +50,7 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
     @AppStorage(StorageKeys.showNotifications) private var showNotifications = false
     @AppStorage(StorageKeys.reduceTransparency) private var reduceTransparency = false
+    @AppStorage(StorageKeys.disableNotifCooldown) private var disableNotifCooldown = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -57,10 +64,18 @@ struct SettingsView: View {
         showHideTechInfoDescription = false;
         showShowNotificationsDescription = false;
         showReduceTransparencyDescription = false;
+        showDisableNotifCooldownDescription = false;
+        showLaunchAtLoginDescription = false;
     }
     
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
+    }
+    
+    func untoggleShowOptions() {
+        showSystemOptions = false
+        showInterfaceOptions = false
+        showInfoOptions = false
     }
     
     public func toggleLoginItem(enabled: Bool) {
@@ -99,7 +114,7 @@ struct SettingsView: View {
                         }) {
                             Image(systemName: "x.circle")
                         }
-
+                        
                         Link("\(String(localized: "open_download_page")) (v\(latestVersion))", destination: releaseURL)
                             .buttonStyle(.borderedProminent)
                     }
@@ -124,91 +139,167 @@ struct SettingsView: View {
                         } label: {
                             Label(String(localized: "donate"), systemImage: "hand.thumbsup.circle")
                         }
-
+                        
                     }
                 }
             }
             
             Divider()
             
-            Toggle(String(localized: "open_on_startup"), isOn: $launchAtLogin)
-                .onChange(of: launchAtLogin) { enabled in
-                    toggleLoginItem(enabled: enabled)
+            VStack(alignment: .leading, spacing: 12) {
+                
+                HStack {
+                    Image(systemName: showSystemOptions ? "chevron.down" : "chevron.up")
+                    Text("macOS")
+                        .font(.system(size: 13.5))
+                        .fontWeight(.light)
                 }
-            
-            VStack(spacing: 12) {
-                ToggleRow(
-                    label: String(localized: "show_notification"),
-                    description: String(localized: "show_notification_description"),
-                    binding: $showNotifications,
-                    showMessage: $showShowNotificationsDescription,
-                    untoggle: {
-                        untoggleAllDesc();
-                    }
-                )
-                ToggleRow(
-                    label: String(localized: "long_list"),
-                    description: String(localized: "long_list_description"),
-                    binding: $longList,
-                    showMessage: $showLongListDescription,
-                    untoggle: {
-                        untoggleAllDesc();
-                    }
-                )
-                ToggleRow(
-                    label: String(localized: "hide_technical_info"),
-                    description: String(localized: "hide_technical_info_description"),
-                    binding: $hideTechInfo,
-                    showMessage: $showHideTechInfoDescription,
-                    untoggle: {
-                        untoggleAllDesc();
-                    }
-                )
-                ToggleRow(
-                    label: String(localized: "show_port_max"),
-                    description: String(localized: "show_port_max_description"),
-                    binding: $showPortMax,
-                    showMessage: $showShowPortMaxDescription,
-                    untoggle: {
-                        untoggleAllDesc();
-                    }
-                )
-                ToggleRow(
-                    label: String(localized: "convert_hexa"),
-                    description: String(localized: "convert_hexa_description"),
-                    binding: $convertHexa,
-                    showMessage: $showConvertHexaDescription,
-                    untoggle: {
-                        untoggleAllDesc();
-                    }
-                )
-                ToggleRow(
-                    label: String(localized: "reduce_transparency"),
-                    description: String(localized: "reduce_transparency_description"),
-                    binding: $reduceTransparency,
-                    showMessage: $showReduceTransparencyDescription,
-                    untoggle: {
-                        untoggleAllDesc();
-                    }
-                )
-                ToggleRow(
-                    label: String(localized: "hidden_indicator"),
-                    description: String(localized: "hidden_indicator_description"),
-                    binding: $camouflagedIndicator,
-                    showMessage: $showCamouflagedIndicatorDescription,
-                    untoggle: {
-                        untoggleAllDesc();
-                    }
-                )
-                ToggleRow(
-                    label: String(localized: "renamed_indicator"),
-                    description: String(localized: "renamed_indicator_description"),
-                    binding: $renamedIndicator,
-                    showMessage: $showRenamedIndicatorDescription,
-                    untoggle: {
-                        untoggleAllDesc();
-                    }
-                )
+                .onTapGesture {
+                    showSystemOptions = !showSystemOptions
+                }
+                
+                if (showSystemOptions) {
+                    ToggleRow(
+                        label: String(localized: "open_on_startup"),
+                        description: String(localized: "open_on_startup_description"),
+                        binding: $launchAtLogin,
+                        showMessage: $showLaunchAtLoginDescription,
+                        onToggle: { value in
+                            toggleLoginItem(enabled: value)
+                        },
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "show_notification"),
+                        description: String(localized: "show_notification_description"),
+                        binding: $showNotifications,
+                        showMessage: $showShowNotificationsDescription,
+                        onToggle: { value in
+                            if (value == false) {
+                                disableNotifCooldown = false
+                            }
+                        },
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "disable_notification_cooldown"),
+                        description: String(localized: "disable_notification_cooldown_description"),
+                        binding: $disableNotifCooldown,
+                        showMessage: $showDisableNotifCooldownDescription,
+                        disabled: showNotifications == false,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                }
+                
+                HStack {
+                    Image(systemName: showInterfaceOptions ? "chevron.down" : "chevron.up")
+                    Text("Interface")
+                        .font(.system(size: 13.5))
+                        .fontWeight(.light)
+                }
+                .onTapGesture {
+                    showInterfaceOptions = !showInterfaceOptions
+                }
+                
+                if (showInterfaceOptions) {
+                    ToggleRow(
+                        label: String(localized: "hide_technical_info"),
+                        description: String(localized: "hide_technical_info_description"),
+                        binding: $hideTechInfo,
+                        showMessage: $showHideTechInfoDescription,
+                        onToggle: { value in
+                            if (value == true) {
+                                showPortMax = false
+                                convertHexa = false
+                            }
+                        },
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "long_list"),
+                        description: String(localized: "long_list_description"),
+                        binding: $longList,
+                        showMessage: $showLongListDescription,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "reduce_transparency"),
+                        description: String(localized: "reduce_transparency_description"),
+                        binding: $reduceTransparency,
+                        showMessage: $showReduceTransparencyDescription,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "hidden_indicator"),
+                        description: String(localized: "hidden_indicator_description"),
+                        binding: $camouflagedIndicator,
+                        showMessage: $showCamouflagedIndicatorDescription,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "renamed_indicator"),
+                        description: String(localized: "renamed_indicator_description"),
+                        binding: $renamedIndicator,
+                        showMessage: $showRenamedIndicatorDescription,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                }
+                
+                HStack {
+                    Image(systemName: showInfoOptions ? "chevron.down" : "chevron.up")
+                    Text("Funcionamento")
+                        .font(.system(size: 13.5))
+                        .fontWeight(.light)
+                }
+                .onTapGesture {
+                    showInfoOptions = !showInfoOptions
+                }
+                
+                if (showInfoOptions) {
+                    ToggleRow(
+                        label: String(localized: "show_port_max"),
+                        description: String(localized: "show_port_max_description"),
+                        binding: $showPortMax,
+                        showMessage: $showShowPortMaxDescription,
+                        disabled: hideTechInfo,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "convert_hexa"),
+                        description: String(localized: "convert_hexa_description"),
+                        binding: $convertHexa,
+                        showMessage: $showConvertHexaDescription,
+                        disabled: hideTechInfo,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                }
             }
             
             Spacer()
@@ -236,9 +327,9 @@ struct SettingsView: View {
                         }
                         .buttonStyle(.bordered)
                     }
-
+                    
                     Spacer()
-
+                    
                     if (!anyBottomOptionInUse) {
                         Button(action: {currentWindow = .devices}) {
                             Label(String(localized: "back"), systemImage: "arrow.uturn.backward")
@@ -246,11 +337,11 @@ struct SettingsView: View {
                     }
                     
                 }
-
+                
                 if (anyBottomOptionInUse) {
                     Divider()
                 }
-
+                
                 if showCamouflagedDevices {
                     HStack(spacing: 12) {
                         Menu {
@@ -264,7 +355,7 @@ struct SettingsView: View {
                         } label: {
                             Text(selectedDeviceToCamouflage?.name ?? String(localized: "device"))
                         }
-
+                        
                         if selectedDeviceToCamouflage != nil {
                             Button(String(localized: "confirm")) {
                                 let uniqueId = USBDevice.uniqueId(selectedDeviceToCamouflage!)
@@ -274,21 +365,21 @@ struct SettingsView: View {
                                 selectedDeviceToCamouflage = nil
                                 showCamouflagedDevices = false
                             }
-
+                            
                             .buttonStyle(.borderedProminent)
                         }
-
+                        
                         if selectedDeviceToCamouflage == nil && !camouflagedDevices.isEmpty {
                             Button(String(localized: "undo_all")) {
                                 camouflagedDevices.removeAll()
                                 showCamouflagedDevices = false
                             }
                         }
-
+                        
                         Spacer()
                     }
                 }
-
+                
                 if showRenameDevices {
                     HStack(spacing: 12) {
                         Menu {
@@ -303,7 +394,7 @@ struct SettingsView: View {
                         } label: {
                             Text(selectedDeviceToRename?.name ?? String(localized: "device"))
                         }
-
+                        
                         if selectedDeviceToRename != nil {
                             TextFieldWithLimit(
                                 text: $inputText,
@@ -312,7 +403,7 @@ struct SettingsView: View {
                             )
                             .frame(width: 190)
                             .help(String(localized: "renaming_help"))
-
+                            
                             Button(String(localized: "confirm")) {
                                 let uniqueId = USBDevice.uniqueId(selectedDeviceToRename!)
                                 if inputText.isEmpty {
@@ -327,14 +418,14 @@ struct SettingsView: View {
                             }
                             .buttonStyle(.borderedProminent)
                         }
-
+                        
                         if selectedDeviceToRename == nil && !renamedDevices.isEmpty {
                             Button(String(localized: "undo_all")) {
                                 renamedDevices.removeAll()
                                 showRenameDevices = false
                             }
                         }
-
+                        
                         Spacer()
                     }
                 }
@@ -343,7 +434,7 @@ struct SettingsView: View {
             
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 500)
+        .frame(minWidth: 465, minHeight: 530)
         .appBackground(reduceTransparency)
     }
     

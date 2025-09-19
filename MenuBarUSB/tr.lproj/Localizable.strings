@@ -70,3 +70,5 @@
 "contact" = "İletişim: %@";
 "back" = "Geri";
 "updated" = "Güncellendi";
+"disable_notification_cooldown" = "Bildirim bekleme süresini devre dışı bırak";
+"disable_notification_cooldown_description" = "Arızalı cihazlar veya USB portları sinir bozucu bir deneyime yol açabilir, günlük kullanım için önerilmez.";

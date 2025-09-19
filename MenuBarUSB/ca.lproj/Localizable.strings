@@ -70,3 +70,5 @@
 "contact" = "Contacte: %@";
 "back" = "Enrere";
 "updated" = "Actualitzat";
+"disable_notification_cooldown" = "Desactivar la demora de notificacions";
+"disable_notification_cooldown_description" = "Dispositius o ports USB defectuosos poden provocar una experiència frustrant, no es recomana per a l’ús diari.";

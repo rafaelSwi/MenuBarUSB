@@ -17,4 +17,5 @@ final class StorageKeys {
     static let camouflagedIndicator = "camouflagedIndicator";
     static let showNotifications = "showNotifications";
     static let reduceTransparency = "reduceTransparency";
+    static let disableNotifCooldown = "disableNotifCooldown";
 }

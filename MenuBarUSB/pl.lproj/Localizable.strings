@@ -50,7 +50,7 @@
 "hidden" = "Ukryty";
 "hide_device" = "Ukryj USB";
 "hidden_indicator" = "Wskaźnik ukrytych urządzeń";
-"hidden_indicator_description" = "W lewym dolnym rogu wyświetlana jest liczba ukrytych urządzeń.";
+"hidden_indicator_description" = "Pokazuje liczbę podłączonych ukrytych urządzeń, nie pokazując informacji o urządzeniu.";
 "bitcoin_on_chain_transfer" = "Przelew Bitcoin on-chain";
 "litecoin_on_chain_transfer" = "Przelew Litecoin on-chain";
 "show_ltc_address" = "Pokaż adres LTC";
@@ -70,3 +70,5 @@
 "contact" = "Kontakt: %@";
 "back" = "Wstecz";
 "updated" = "Zaktualizowano";
+"disable_notification_cooldown" = "Wyłącz czas oczekiwania powiadomień";
+"disable_notification_cooldown_description" = "Uszkodzone urządzenia lub porty USB mogą prowadzić do frustrującego doświadczenia, nie zaleca się codziennego używania.";

@@ -70,3 +70,5 @@
 "contact" = "Kontakt: %@";
 "back" = "Tilbage";
 "updated" = "Opdateret";
+"disable_notification_cooldown" = "Deaktiver notifikationsnedkøling";
+"disable_notification_cooldown_description" = "Defekte enheder eller USB-porte kan resultere i en frustrerende oplevelse, det anbefales ikke til daglig brug.";

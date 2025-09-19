@@ -6,6 +6,7 @@ import UserNotifications
 
 final class USBDeviceManager: ObservableObject {
     @Published private(set) var devices: [USBDevice] = []
+    @Published var connectedCamouflagedDevices: Int = 0
     
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
@@ -13,6 +14,7 @@ final class USBDeviceManager: ObservableObject {
     
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     @AppStorage(StorageKeys.showNotifications) private var showNotifications = false
+    @AppStorage(StorageKeys.disableNotifCooldown) private var disableNotifCooldown = false
     
     private var lastNotificationDate: Date = .distantPast
     private let notificationCooldown: TimeInterval = 3
@@ -37,6 +39,9 @@ final class USBDeviceManager: ObservableObject {
     }
     
     private func canSendNotification() -> Bool {
+        if (disableNotifCooldown) {
+            return true
+        }
         let now = Date()
         if now.timeIntervalSince(lastNotificationDate) < notificationCooldown {
             return false
@@ -67,14 +72,24 @@ final class USBDeviceManager: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async {
             let snapshot = self.fetchUSBDevices()
             let uniqueDevices = Set(snapshot)
+            
+            // Atualiza lista visível (exclui camuflados)
             let filteredDevices = uniqueDevices.filter { dev in
                 self.camouflagedDevices.first { $0.deviceId == USBDevice.uniqueId(dev) } == nil
             }
+            
+            // Conta quantos dispositivos conectados são camuflados
+            let camouflagedCount = uniqueDevices.filter { dev in
+                self.camouflagedDevices.contains { $0.deviceId == USBDevice.uniqueId(dev) }
+            }.count
+            
             DispatchQueue.main.async {
                 self.devices = filteredDevices.sorted(by: {
-                    ($0.vendor ?? "") < ($1.vendor ?? "")
-                    || ($0.vendor == $1.vendor && $0.name < ($1.name))
+                    ($0.vendor ?? "") < ($1.vendor ?? "") ||
+                    ($0.vendor == $1.vendor && $0.name < $1.name)
                 })
+                
+                self.connectedCamouflagedDevices = camouflagedCount
             }
         }
     }

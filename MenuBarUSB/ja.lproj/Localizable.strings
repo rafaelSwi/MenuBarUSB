@@ -70,3 +70,5 @@
 "contact" = "連絡先: %@";
 "back" = "戻る";
 "updated" = "更新済み";
+"disable_notification_cooldown" = "通知クールダウンを無効にする";
+"disable_notification_cooldown_description" = "不具合のあるデバイスやUSBポートは、フラストレーションの溜まる体験を引き起こす可能性があり、日常的な使用は推奨されません。";

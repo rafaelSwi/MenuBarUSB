@@ -70,3 +70,5 @@
 "contact" = "Contact : %@";
 "back" = "Retour";
 "updated" = "Mis à jour";
+"disable_notification_cooldown" = "Désactiver le délai de notification";
+"disable_notification_cooldown_description" = "Les périphériques ou ports USB défectueux peuvent provoquer une expérience frustrante, il n’est pas recommandé pour un usage quotidien.";

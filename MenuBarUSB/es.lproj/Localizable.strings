@@ -70,3 +70,5 @@
 "contact" = "Contacto: %@";
 "back" = "Atrás";
 "updated" = "Actualizado";
+"disable_notification_cooldown" = "Desactivar el tiempo de espera de notificaciones";
+"disable_notification_cooldown_description" = "Los dispositivos o puertos USB que funcionan mal pueden generar una experiencia frustrante, no se recomienda para uso diario.";

@@ -49,7 +49,7 @@
 "hide" = "הסתר";
 "hidden" = "מוסתר";
 "hide_device" = "הסתר מכשיר";
-"hidden_indicator" = "אינדיקטור למכשירים מוסתרים";
+"hidden_indicator" = "מראה כמה התקנים נסתרים מחוברים.";
 "hidden_indicator_description" = "מראה כמה מכשירים הוסתרו בפינה השמאלית התחתונה.";
 "bitcoin_on_chain_transfer" = "העברת ביטקוין בשרשרת";
 "litecoin_on_chain_transfer" = "העברת לייטקוין בשרשרת";
@@ -70,3 +70,5 @@
 "contact" = "יצירת קשר: %@";
 "back" = "חזרה";
 "updated" = "עודכן";
+"disable_notification_cooldown" = "השבתת השהיית התראות";
+"disable_notification_cooldown_description" = "מכשירים או יציאות USB פגומים עלולים לגרום לחוויה מתסכלת, לא מומלץ לשימוש יומיומי.";

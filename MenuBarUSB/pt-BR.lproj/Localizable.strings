@@ -50,7 +50,7 @@
 "hidden" = "Camuflado";
 "hide_device" = "Camuflar USB";
 "hidden_indicator" = "Indicador de dispositivos camuflados";
-"hidden_indicator_description" = "No canto inferior esquerdo, mostra quantos dispositivos estão camuflados.";
+"hidden_indicator_description" = "Exibe quantos dispositivos camuflados estão conectados, sem mostrar muitas informações.";
 "bitcoin_on_chain_transfer" = "Transferência Bitcoin on-chain";
 "litecoin_on_chain_transfer" = "Transferência Litecoin on-chain";
 "show_ltc_address" = "Mostrar LTC";
@@ -70,3 +70,5 @@
 "contact" = "Contato: %@";
 "back" = "Voltar";
 "updated" = "Atualizado";
+"disable_notification_cooldown" = "Desativar cooldown entre notificações";
+"disable_notification_cooldown_description" = "Dispositivos ou portas USB com mau funcionamento podem resultar em uma experiência desagradável, não é recomendado para uso constante.";

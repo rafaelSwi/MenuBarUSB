@@ -113,7 +113,7 @@ struct DonateView: View {
             }
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 500)
+        .frame(minWidth: 465, minHeight: 530)
     }
     
     private func copyToClipboard(_ text: String) {

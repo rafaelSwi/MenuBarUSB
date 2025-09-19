@@ -70,3 +70,5 @@
 "contact" = "संपर्क: %@";
 "back" = "वापस";
 "updated" = "अपडेट किया गया";
+"disable_notification_cooldown" = "सूचना कूलडाउन अक्षम करें";
+"disable_notification_cooldown_description" = "खराब काम करने वाले उपकरण या USB पोर्ट निराशाजनक अनुभव पैदा कर सकते हैं, इसे रोजमर्रा के उपयोग के लिए अनुशंसित नहीं किया जाता है।";

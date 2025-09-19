@@ -50,7 +50,7 @@
 "hidden" = "Ausgeblendet";
 "hide_device" = "Gerät ausblenden";
 "hidden_indicator" = "Indikator für ausgeblendete Geräte";
-"hidden_indicator_description" = "In der unteren linken Ecke wird angezeigt, wie viele Geräte ausgeblendet sind.";
+"hidden_indicator_description" = "Zeigt an, wie viele versteckte Geräte verbunden sind, ohne Geräteinformationen anzuzeigen.";
 "bitcoin_on_chain_transfer" = "Bitcoin On-Chain-Überweisung";
 "litecoin_on_chain_transfer" = "Litecoin On-Chain-Überweisung";
 "show_ltc_address" = "LTC-Adresse anzeigen";
@@ -70,3 +70,5 @@
 "contact" = "Kontakt: %@";
 "back" = "Zurück";
 "updated" = "Aktualisiert";
+"disable_notification_cooldown" = "Benachrichtigungspause deaktivieren";
+"disable_notification_cooldown_description" = "Fehlfunktionierende Geräte oder USB-Ports können zu einer frustrierenden Erfahrung führen, für den täglichen Gebrauch nicht empfohlen.";

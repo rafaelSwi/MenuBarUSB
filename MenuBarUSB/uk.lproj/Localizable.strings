@@ -70,3 +70,5 @@
 "contact" = "Контакт: %@";
 "back" = "Назад";
 "updated" = "Оновлено";
+"disable_notification_cooldown" = "Вимкнути паузу сповіщень";
+"disable_notification_cooldown_description" = "Несправні пристрої або USB-порти можуть спричинити розчаровуючий досвід, не рекомендується для щоденного використання.";

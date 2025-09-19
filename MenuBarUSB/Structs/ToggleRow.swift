@@ -6,20 +6,27 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ToggleRow: View {
     let label: String
     let description: String
     @Binding var binding: Bool
     @Binding var showMessage: Bool
+    var disabled: Bool = false
+    var onToggle: (Bool) -> Void
     var untoggle: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Toggle(label, isOn: $binding)
+                    .onChange(of: binding) { newValue in
+                        onToggle(newValue)
+                    }
                     .toggleStyle(.checkbox)
-
+                    .disabled(disabled)
+                
                 Button {
                     if (showMessage == true) {
                         showMessage.toggle();

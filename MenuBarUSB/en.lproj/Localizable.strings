@@ -30,7 +30,7 @@
 "endereço" = "Address";
 "settings" = "Settings";
 "donate_description" = "Any help is truly appreciated!";
-"open_on_startup_description" = "Makes the app start automatically when you log in. You can disable this anytime.";
+"open_on_startup_description" = "Makes the app start automatically when you log in.";
 "show_port_max" = "Display the maximum capacity of a USB";
 "show_port_max_description" = "If detected, it will show the maximum capacity of the USB Port.";
 "long_list" = "Long vertical list";
@@ -50,7 +50,7 @@
 "hidden" = "Hidden";
 "hide_device" = "Hide device";
 "hidden_indicator" = "Indicator for hidden devices";
-"hidden_indicator_description" = "Shows how many devices have been hidden in the bottom left corner.";
+"hidden_indicator_description" = "Shows how many hidden devices are connected.";
 "bitcoin_on_chain_transfer" = "Bitcoin on-chain transfer";
 "litecoin_on_chain_transfer" = "Litecoin on-chain transfer";
 "show_ltc_address" = "Show LTC Address";
@@ -64,9 +64,11 @@
 "usb_disconnected" = "USB Disconnected";
 "usb_disconnected_info" = "A USB device has been disconnected.";
 "show_notification" = "Show notifications";
-"show_notification_description" = "When a USB device is inserted or removed, a notification appears.\nYou need to allow the app to send notifications, and depending on your macOS version, you may need to change the Alert Style for notifications.\nIt is important to note that there is a small 3-sec buffer between notifications to avoid spam in cases of devices connecting and disconnecting frequently.";
-"reduce_transparency" = "Reduce Transparency";
+"show_notification_description" = "You may to allow the app to send notifications, and depending on your macOS version, you may need to change the Alert Style.\nIt is important to note that there is a small 3-sec buffer between notifications to avoid spam in cases of devices connecting and disconnecting frequently.";
+"reduce_transparency" = "Reduce transparency";
 "reduce_transparency_description" = "Turns down transparency to enhance text visibility.";
 "contact" = "Contact: %@";
 "back" = "Back";
 "updated" = "Updated";
+"disable_notification_cooldown" = "Disable notification cooldown";
+"disable_notification_cooldown_description" = "Malfunctioning devices or USB ports may result in a frustrating experience, it is not recommended for everyday use.";

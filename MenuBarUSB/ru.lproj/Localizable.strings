@@ -50,7 +50,7 @@
 "hidden" = "Скрыто";
 "hide_device" = "Чтобы скрыть";
 "hidden_indicator" = "Индикатор скрытых устройств";
-"hidden_indicator_description" = "Показывает, сколько устройств скрыто";
+"hidden_indicator_description" = "Отображает количество подключенных скрытых устройств, не показывая информацию об устройстве.";
 "bitcoin_on_chain_transfer" = "Bitcoin перевод on-chain";
 "litecoin_on_chain_transfer" = "Litecoin перевод on-chain";
 "show_ltc_address" = "Показать адрес LTC";
@@ -70,3 +70,5 @@
 "contact" = "Контакт: %@";
 "back" = "Назад";
 "updated" = "Обновлено";
+"disable_notification_cooldown" = "Отключить паузу уведомлений";
+"disable_notification_cooldown_description" = "Неисправные устройства или USB-порты могут привести к разочаровывающему опыту, не рекомендуется для повседневного использования.";

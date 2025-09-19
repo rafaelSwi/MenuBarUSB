@@ -141,12 +141,13 @@ struct ContentView: View {
             
             HStack {
                 
-                if (camouflagedDevices.count > 0 && camouflagedIndicator) {
+                if (camouflagedIndicator) {
                     Group {
                         Image(systemName: "eye.slash")
-                        Text("\(camouflagedDevices.count)")
+                        Text("\(manager.connectedCamouflagedDevices)/\(camouflagedDevices.count)")
+            
                     }
-                    .opacity(0.5)
+                    .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
                 }
                 
                 Spacer()

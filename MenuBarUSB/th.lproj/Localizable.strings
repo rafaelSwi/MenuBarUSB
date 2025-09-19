@@ -70,3 +70,5 @@
 "contact" = "ติดต่อ: %@";
 "back" = "ย้อนกลับ";
 "updated" = "อัปเดตแล้ว";
+"disable_notification_cooldown" = "ปิดใช้งานคูลดาวน์การแจ้งเตือน";
+"disable_notification_cooldown_description" = "อุปกรณ์หรือพอร์ต USB ที่ทำงานผิดพลาดอาจทำให้เกิดประสบการณ์ที่น่าหงุดหงิด ไม่แนะนำให้ใช้ทุกวัน";
