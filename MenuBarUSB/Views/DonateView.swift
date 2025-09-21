@@ -107,8 +107,12 @@ struct DonateView: View {
                 }
                 .padding(.top, 10)
                 Spacer()
-                Button(action: {currentWindow = .settings}) {
-                    Label("back", systemImage: "arrow.uturn.backward")
+                HStack {
+                    Spacer()
+                    Button(action: {currentWindow = .settings}) {
+                        Label("back", systemImage: "arrow.uturn.backward")
+                    }
+                        
                 }
             }
         }

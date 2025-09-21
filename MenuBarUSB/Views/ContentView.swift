@@ -50,22 +50,38 @@ struct ContentView: View {
     func sortedDevices() -> [USBDevice] {
         var sorted: [USBDevice] = []
         var visited: Set<String> = []
-
-        func visit(_ device: USBDevice) {
-            let id = USBDevice.uniqueId(device)
-            guard !visited.contains(id) else { return }
-            
-            if let parentId = inheritedDevices.first(where: { $0.deviceId == id })?.inheritsFrom,
-               let parentDevice = manager.devices.first(where: { USBDevice.uniqueId($0) == parentId }) {
-                visit(parentDevice)
-            }
+        
+        var childrenMap: [String: [String]] = [:]
+        for relation in inheritedDevices {
+            childrenMap[relation.inheritsFrom, default: []].append(relation.deviceId)
+        }
+        
+        func appendFamily(_ deviceId: String) {
+            guard !visited.contains(deviceId) else { return }
+            guard let device = manager.devices.first(where: { USBDevice.uniqueId($0) == deviceId }) else { return }
             
             sorted.append(device)
-            visited.insert(id)
+            visited.insert(deviceId)
+            
+            if let children = childrenMap[deviceId] {
+                for childId in children {
+                    appendFamily(childId)
+                }
+            }
+        }
+        
+        let heirIds = Set(inheritedDevices.map { $0.deviceId })
+        let roots = manager.devices.filter { !heirIds.contains(USBDevice.uniqueId($0)) }
+        
+        for root in roots {
+            appendFamily(USBDevice.uniqueId(root))
         }
         
         for device in manager.devices {
-            visit(device)
+            let id = USBDevice.uniqueId(device)
+            if !visited.contains(id) {
+                sorted.append(device)
+            }
         }
         
         return sorted
@@ -86,7 +102,7 @@ struct ContentView: View {
             }
         }
         
-        let multiply: CGFloat = increasedIndentationGap ? 35 : 12
+        let multiply: CGFloat = increasedIndentationGap ? 36 : 14
         return CGFloat(level) * multiply
     }
     

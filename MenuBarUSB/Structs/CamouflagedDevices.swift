@@ -12,7 +12,7 @@ struct CamouflagedDevice: Codable, Identifiable {
     
     var id: String { deviceId }
     
-    static func encodeToJson(device: CamouflagedDevice) throws -> String {
+    static func encodeToJson(device: borrowing CamouflagedDevice) throws -> String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         let jsonData = try encoder.encode(device)
