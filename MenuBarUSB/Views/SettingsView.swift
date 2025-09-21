@@ -44,6 +44,8 @@ struct SettingsView: View {
     @State private var showDisableInheritanceLayoutDescription: Bool = false;
     @State private var showForceDarkModeDescription: Bool = false;
     @State private var showForceLightModeDescription: Bool = false;
+    @State private var showIncreasedIndentationGapDescription: Bool = false;
+    @State private var showHideSecondaryInfoDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -58,9 +60,12 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.disableInheritanceLayout) private var disableInheritanceLayout = false
     @AppStorage(StorageKeys.forceDarkMode) private var forceDarkMode = false
     @AppStorage(StorageKeys.forceLightMode) private var forceLightMode = false
+    @AppStorage(StorageKeys.increasedIndentationGap) private var increasedIndentationGap = false
+    @AppStorage(StorageKeys.hideSecondaryInfo) private var hideSecondaryInfo = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
+    @CodableAppStorage(StorageKeys.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
     
     func untoggleAllDesc() {
         showShowPortMaxDescription = false;
@@ -76,6 +81,8 @@ struct SettingsView: View {
         showDisableInheritanceLayoutDescription = false;
         showForceDarkModeDescription = false;
         showForceLightModeDescription = false;
+        showIncreasedIndentationGapDescription = false;
+        showHideSecondaryInfoDescription = false;
     }
     
     var appVersion: String {
@@ -149,7 +156,7 @@ struct SettingsView: View {
                             if checkingUpdate {
                                 ProgressView()
                             } else {
-                                Label(String(localized: !latestVersion.isEmpty ? "updated" : "check_for_updates"), systemImage: "checkmark.circle")
+                                Label(!latestVersion.isEmpty ? "updated" : "check_for_updates", systemImage: "checkmark.circle")
                             }
                         }
                         .buttonStyle(.bordered)
@@ -157,7 +164,7 @@ struct SettingsView: View {
                         Button {
                             currentWindow = .donate
                         } label: {
-                            Label(String(localized: "donate"), systemImage: "hand.thumbsup.circle")
+                            Label("donate", systemImage: "hand.thumbsup.circle")
                         }
                         
                     }
@@ -245,6 +252,21 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
+                        label: String(localized: "hide_secondary_info"),
+                        description: String(localized: "hide_secondary_info_description"),
+                        binding: $hideSecondaryInfo,
+                        showMessage: $showHideSecondaryInfoDescription,
+                        onToggle: { value in
+                            if (value == true) {
+                                showPortMax = false
+                                convertHexa = false
+                            }
+                        },
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
                         label: String(localized: "long_list"),
                         description: String(localized: "long_list_description"),
                         binding: $longList,
@@ -320,6 +342,26 @@ struct SettingsView: View {
                 
                 if (showInfoOptions) {
                     
+                    Button {
+                        showRenameDevices.toggle()
+                    } label: {
+                        HStack {
+                            Image(systemName: "pencil")
+                            Text("rename_device")
+                        }
+                    }
+                    .disabled(anyBottomOptionInUse)
+                    
+                    Button {
+                        showCamouflagedDevices.toggle()
+                    } label: {
+                        HStack {
+                            Image(systemName: "eye")
+                            Text("hide_device")
+                        }
+                    }
+                    .disabled(anyBottomOptionInUse)
+                    
                     ToggleRow(
                         label: String(localized: "show_port_max"),
                         description: String(localized: "show_port_max_description"),
@@ -356,15 +398,42 @@ struct SettingsView: View {
                 
                 if (showHeritageOptions) {
                     
-                    Button(String(localized: "create_inheritance")) {
+                    Button {
                         currentWindow = .heritage
+                    } label: {
+                        HStack {
+                            Image(systemName: "plus")
+                            Text("create_inheritance")
+                        }
                     }
+                    .disabled(anyBottomOptionInUse)
+                    
+                    Button {
+                        currentWindow = .inheritanceTree
+                    } label: {
+                        HStack {
+                            Image(systemName: "point.3.filled.connected.trianglepath.dotted")
+                            Text("view_inheritance_tree")
+                        }
+                    }
+                    .disabled(anyBottomOptionInUse)
                     
                     ToggleRow(
                         label: String(localized: "disable_inheritance_layout"),
                         description: String(localized: "disable_inheritance_layout_description"),
                         binding: $disableInheritanceLayout,
                         showMessage: $showDisableInheritanceLayoutDescription,
+                        onToggle: {_ in increasedIndentationGap = false},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "increased_indentation_gap"),
+                        description: String(localized: "increased_indentation_gap_description"),
+                        binding: $increasedIndentationGap,
+                        showMessage: $showIncreasedIndentationGapDescription,
+                        disabled: disableInheritanceLayout,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
@@ -378,35 +447,25 @@ struct SettingsView: View {
             
             Spacer()
             
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading) {
+                
+                if (anyBottomOptionInUse) {
+                    Button("cancel") {
+                        showRenameDevices = false
+                        showCamouflagedDevices = false
+                        selectedDeviceToRename = nil
+                        selectedDeviceToCamouflage = nil
+                        inputText = ""
+                    }
+                }
+                
                 HStack {
-                    if (!showCamouflagedDevices) {
-                        Button(showRenameDevices ? String(localized: "cancel") : String(localized: "rename_device")) {
-                            showRenameDevices.toggle()
-                            showCamouflagedDevices = false
-                            selectedDeviceToCamouflage = nil
-                            selectedDeviceToRename = nil
-                            inputText = ""
-                        }
-                        .buttonStyle(.bordered)
-                    }
-                    
-                    if (!showRenameDevices) {
-                        Button(showCamouflagedDevices ? String(localized: "cancel") : String(localized: "hide_device")) {
-                            showCamouflagedDevices.toggle()
-                            showRenameDevices = false
-                            selectedDeviceToRename = nil
-                            selectedDeviceToCamouflage = nil
-                            inputText = ""
-                        }
-                        .buttonStyle(.bordered)
-                    }
                     
                     Spacer()
                     
                     if (!anyBottomOptionInUse) {
                         Button(action: {currentWindow = .devices}) {
-                            Label(String(localized: "back"), systemImage: "arrow.uturn.backward")
+                            Label("back", systemImage: "arrow.uturn.backward")
                         }
                     }
                     
@@ -431,20 +490,25 @@ struct SettingsView: View {
                         }
                         
                         if selectedDeviceToCamouflage != nil {
-                            Button(String(localized: "confirm")) {
-                                let uniqueId = USBDevice.uniqueId(selectedDeviceToCamouflage!)
-                                let newDevice = CamouflagedDevice(deviceId: uniqueId)
-                                camouflagedDevices.removeAll { $0.deviceId == uniqueId }
-                                camouflagedDevices.append(newDevice)
-                                selectedDeviceToCamouflage = nil
-                                showCamouflagedDevices = false
-                            }
                             
-                            .buttonStyle(.borderedProminent)
+                            if (inheritedDevices.contains { $0.inheritsFrom == USBDevice.uniqueId(selectedDeviceToCamouflage!) }) {
+                                Text("cant_hide_heir")
+                                    .font(.subheadline)
+                            } else {
+                                Button("confirm") {
+                                    let uniqueId = USBDevice.uniqueId(selectedDeviceToCamouflage!)
+                                    let newDevice = CamouflagedDevice(deviceId: uniqueId)
+                                    camouflagedDevices.removeAll { $0.deviceId == uniqueId }
+                                    camouflagedDevices.append(newDevice)
+                                    selectedDeviceToCamouflage = nil
+                                    showCamouflagedDevices = false
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
                         }
                         
                         if selectedDeviceToCamouflage == nil && !camouflagedDevices.isEmpty {
-                            Button(String(localized: "undo_all")) {
+                            Button("undo_all") {
                                 camouflagedDevices.removeAll()
                                 showCamouflagedDevices = false
                             }
@@ -476,7 +540,7 @@ struct SettingsView: View {
                                 maxLength: 30
                             )
                             .frame(width: 190)
-                            .help(String(localized: "renaming_help"))
+                            .help("renaming_help")
                             
                             Button(String(localized: "confirm")) {
                                 let uniqueId = USBDevice.uniqueId(selectedDeviceToRename!)
@@ -508,7 +572,7 @@ struct SettingsView: View {
             
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 530)
+        .frame(minWidth: 465, minHeight: 565)
         .appBackground(reduceTransparency)
     }
     

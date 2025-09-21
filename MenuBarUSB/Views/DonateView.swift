@@ -53,7 +53,7 @@ struct DonateView: View {
         
         VStack(spacing: 12) {
             
-            Text(String(localized: "donate_description"))
+            Text("donate_description")
                 .font(.title2)
                 .bold()
                 .multilineTextAlignment(.center)
@@ -83,7 +83,7 @@ struct DonateView: View {
                         .frame(width: 17, height: 17)
                         .foregroundColor(currentColor)
                     
-                    Text(String(localized: isBitcoin ? "bitcoin_on_chain_transfer" : "litecoin_on_chain_transfer"))
+                    Text(isBitcoin ? "bitcoin_on_chain_transfer" : "litecoin_on_chain_transfer")
                         .font(.callout)
                         .bold()
                     
@@ -103,17 +103,17 @@ struct DonateView: View {
                 Button(action: {
                     isBitcoin.toggle()
                 }) {
-                    Text(isBitcoin ? String(localized: "show_ltc_address") : String(localized: "show_btc_address"))
+                    Text(isBitcoin ? "show_ltc_address" : "show_btc_address")
                 }
                 .padding(.top, 10)
                 Spacer()
                 Button(action: {currentWindow = .settings}) {
-                    Label(String(localized: "back"), systemImage: "arrow.uturn.backward")
+                    Label("back", systemImage: "arrow.uturn.backward")
                 }
             }
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 530)
+        .frame(minWidth: 465, minHeight: 565)
     }
     
     private func copyToClipboard(_ text: String) {

@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Choisissez l'appareil à hériter ou à être hérité";
 "this_device" = "Cet appareil :";
 "will_inherit_another" = "héritera d'un autre";
-"is_inheriting_from_some_device" = "hérite d'un appareil";
+"is_inheriting_from_some_device" = "Hérite d'un appareil";
 "will_be_the_master" = "Ce sera le maître (transmettant l'héritage aux autres)";
 "which_device_is_it_inheriting_from" = "De quel appareil hérite-t-il ?";
 "which_one_will_be_the_heir" = "Lequel sera l'héritier ?";
@@ -99,3 +99,15 @@
 "heir" = "Héritier";
 "disable_inheritance_layout" = "Désactiver la mise en page basée sur l'héritage";
 "disable_inheritance_layout_description" = "Désactivez la mise en page basée sur l'héritage si vous ne souhaitez pas effacer vos paramètres d'héritage.";
+"inheritance_tree" = "Arbre d'héritage";
+"passing_inheritance_to_others" = "Transfert de l'héritage aux autres";
+"select_device" = "Sélectionner l'appareil:";
+"invalid_inheritance" = "Héritage invalide !";
+"view_inheritance_tree" = "Voir l'arbre d'héritage";
+"increased_indentation_gap" = "Augmentation de l'indentation";
+"increased_indentation_gap_description" = "Augmente l'écart d'indentation entre les héritiers.";
+"cant_hide_heir" = "Il y a un appareil qui hérite de celui-ci, il ne peut donc pas être masqué.";
+"no_info" = "Aucune info";
+"inheritance_tree_warning" = "Seuls les appareils connectés afficheront leur nom dans la liste";
+"hide_secondary_info" = "Masquer les informations secondaires";
+"hide_secondary_info_description" = "Les informations dans le coin droit (comme le numéro de série et le fabricant) ne seront pas affichées.";

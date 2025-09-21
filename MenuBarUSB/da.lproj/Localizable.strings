@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Vælg enheden der skal arve eller arves fra";
 "this_device" = "Denne enhed:";
 "will_inherit_another" = "vil arve en anden";
-"is_inheriting_from_some_device" = "arver fra en anden enhed";
+"is_inheriting_from_some_device" = "Arver fra en anden enhed";
 "will_be_the_master" = "Den vil være masteren (videresender arv til andre)";
 "which_device_is_it_inheriting_from" = "Hvilken enhed arver den fra?";
 "which_one_will_be_the_heir" = "Hvilken bliver arvingen?";
@@ -99,3 +99,15 @@
 "heir" = "Arving";
 "disable_inheritance_layout" = "Deaktiver arv-baseret layout";
 "disable_inheritance_layout_description" = "Deaktiverer arvsbaseret layout, hvis du ikke vil slette dine arvsindstillinger.";
+"inheritance_tree" = "Arvetræ";
+"passing_inheritance_to_others" = "Videregiver arv til andre";
+"select_device" = "Vælg enhed:";
+"invalid_inheritance" = "Ugyldig arv!";
+"view_inheritance_tree" = "Se arvetræ";
+"increased_indentation_gap" = "Øget indrykningsafstand";
+"increased_indentation_gap_description" = "Øger indrykningsafstanden mellem arvinger";
+"cant_hide_heir" = "Der er en enhed, der arver fra denne, så den kan ikke skjules.";
+"no_info" = "Ingen info";
+"inheritance_tree_warning" = "Kun tilsluttede enheder vil få vist deres navn på listen.";
+"hide_secondary_info" = "Skjul sekundær information";
+"hide_secondary_info_description" = "Oplysninger i højre hjørne (såsom serienummer og producent) vil ikke blive vist.";

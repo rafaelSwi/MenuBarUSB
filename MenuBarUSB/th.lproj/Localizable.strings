@@ -99,3 +99,15 @@
 "heir" = "ผู้สืบทอด";
 "disable_inheritance_layout" = "ปิดใช้งานเลย์เอาต์แบบมรดก";
 "disable_inheritance_layout_description" = "หากคุณไม่ต้องการลบการตั้งค่าการสืบทอดของคุณ แต่ไม่อยากใช้เค้าโครงตามการสืบทอด";
+"inheritance_tree" = "ต้นไม้การสืบทอด";
+"passing_inheritance_to_others" = "ส่งต่อการสืบทอดไปยังอุปกรณ์อื่น";
+"select_device" = "เลือกอุปกรณ์:";
+"invalid_inheritance" = "การสืบทอดไม่ถูกต้อง!";
+"view_inheritance_tree" = "ดูต้นไม้การสืบทอด";
+"increased_indentation_gap" = "เพิ่มระยะเยื้อง";
+"increased_indentation_gap_description" = "เพิ่มระยะเยื้องระหว่างทายาท";
+"cant_hide_heir" = "มีอุปกรณ์ที่สืบทอดจากอุปกรณ์นี้ ดังนั้นจึงไม่สามารถซ่อนได้";
+"no_info" = "ไม่มีข้อมูล";
+"inheritance_tree_warning" = "เฉพาะอุปกรณ์ที่เชื่อมต่อแล้วเท่านั้นที่จะมีการแสดงชื่อในรายการ";
+"hide_secondary_info" = "ซ่อนข้อมูลรอง";
+"hide_secondary_info_description" = "ข้อมูลที่มุมขวา (เช่น หมายเลขซีเรียลและผู้ผลิต) จะไม่ถูกแสดง";

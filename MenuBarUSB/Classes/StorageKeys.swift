@@ -12,6 +12,7 @@ final class StorageKeys {
     static let longList = "longList";
     static let hideTechInfo = "hideTechInfo";
     static let renamedDevices = "renamedDevices";
+    static let inheritedDevices = "inheritedDevices";
     static let camouflagedDevices = "camouflagedDevices";
     static let renamedIndicator = "renamedIndicator";
     static let camouflagedIndicator = "camouflagedIndicator";
@@ -21,4 +22,6 @@ final class StorageKeys {
     static let disableInheritanceLayout = "disableInheritanceLayout";
     static let forceDarkMode = "forceDarkMode";
     static let forceLightMode = "forceLightMode";
+    static let increasedIndentationGap = "increasedIndentationGap";
+    static let hideSecondaryInfo = "hideSecondaryInfo";
 }

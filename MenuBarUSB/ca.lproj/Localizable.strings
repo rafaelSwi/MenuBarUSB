@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Tria el dispositiu per heretar o ser heretat";
 "this_device" = "Aquest dispositiu:";
 "will_inherit_another" = "heretarà un altre";
-"is_inheriting_from_some_device" = "està heretant d'algun dispositiu";
+"is_inheriting_from_some_device" = "Està heretant d'algun dispositiu";
 "will_be_the_master" = "Serà el mestre (passant herència a altres)";
 "which_device_is_it_inheriting_from" = "De quin dispositiu està heretant?";
 "which_one_will_be_the_heir" = "Quin serà l'hereu?";
@@ -99,3 +99,15 @@
 "heir" = "Hereu";
 "disable_inheritance_layout" = "Desactivar disseny basat en herència";
 "disable_inheritance_layout_description" = "Desactiva el disseny basat en herència en cas que no vulguis esborrar la configuració d'herència.";
+"inheritance_tree" = "Arbre d'herència";
+"passing_inheritance_to_others" = "Passant herència a altres";
+"select_device" = "Selecciona dispositiu:";
+"invalid_inheritance" = "Herència no vàlida!";
+"view_inheritance_tree" = "Veure l'arbre d'herència";
+"increased_indentation_gap" = "Augment del marge d'indentació";
+"increased_indentation_gap_description" = "Augmenta el marge d'indentació entre els hereus.";
+"cant_hide_heir" = "Hi ha un dispositiu que hereta d'aquest, així que no es pot amagar.";
+"no_info" = "Sense informació";
+"inheritance_tree_warning" = "Només els dispositius connectats mostraran el seu nom a la llista.";
+"hide_secondary_info" = "Amagar informació secundària";
+"hide_secondary_info_description" = "La informació de la cantonada dreta (com el número de sèrie i el fabricant) no es mostrarà.";

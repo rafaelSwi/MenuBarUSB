@@ -99,3 +99,15 @@
 "heir" = "יורש";
 "disable_inheritance_layout" = "השבת תצוגה מבוססת מורשה";
 "disable_inheritance_layout_description" = "השבת את הפריסה המבוססת על ירושה אם אינך רוצה למחוק את הגדרות הירושה שלך.";
+"inheritance_tree" = "עץ ירושה";
+"passing_inheritance_to_others" = "מעביר ירושה לאחרים";
+"select_device" = "בחר התקן:";
+"invalid_inheritance" = "ירושה לא חוקית!";
+"view_inheritance_tree" = "הצג עץ ירושה";
+"increased_indentation_gap" = "הגדלת ריווח הזחה";
+"increased_indentation_gap_description" = "מגדיל את ריווח ההזחה בין היורשים";
+"cant_hide_heir" = "קיים התקן היורש מההתקן הזה, ולכן אי אפשר להסתיר אותו.";
+"no_info" = "אין מידע";
+"inheritance_tree_warning" = "רק מכשירים מחוברים יציגו את שמם ברשימה";
+"hide_secondary_info" = "הסתר מידע משני";
+"hide_secondary_info_description" = "מידע בפינה הנגדית (כגון המספר הסידורי ושם היצרן) לא יוצג.";

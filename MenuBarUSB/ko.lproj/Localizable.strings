@@ -99,3 +99,15 @@
 "heir" = "상속자";
 "disable_inheritance_layout" = "상속 기반 레이아웃 비활성화";
 "disable_inheritance_layout_description" = "상속 설정을 삭제하지 않고 상속 기반 레이아웃을 사용하지 않으려는 경우";
+"inheritance_tree" = "상속 트리";
+"passing_inheritance_to_others" = "상속을 다른 장치로 전달";
+"select_device" = "장치 선택:";
+"invalid_inheritance" = "잘못된 상속!";
+"view_inheritance_tree" = "상속 트리 보기";
+"increased_indentation_gap" = "들여쓰기 간격 증가";
+"increased_indentation_gap_description" = "상속인 간의 들여쓰기 간격을 늘립니다";
+"cant_hide_heir" = "이 장치에서 상속을 받는 장치가 있어 숨길 수 없습니다.";
+"no_info" = "정보 없음";
+"inheritance_tree_warning" = "연결된 장치만 목록에 이름이 표시됩니다";
+"hide_secondary_info" = "보조 정보 숨기기";
+"hide_secondary_info_description" = "오른쪽 상단의 정보(예: 일련 번호 및 제조업체)는 표시되지 않습니다.";

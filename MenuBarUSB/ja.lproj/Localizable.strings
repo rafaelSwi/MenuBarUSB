@@ -99,3 +99,15 @@
 "heir" = "継承者";
 "disable_inheritance_layout" = "継承ベースのレイアウトを無効化";
 "disable_inheritance_layout_description" = "継承設定を削除したくないが、継承ベースのレイアウトを使用したくない場合は";
+"inheritance_tree" = "継承ツリー";
+"passing_inheritance_to_others" = "継承を他のデバイスに渡す";
+"select_device" = "デバイスを選択:";
+"invalid_inheritance" = "無効な継承！";
+"view_inheritance_tree" = "継承ツリーを表示";
+"increased_indentation_gap" = "インデント間隔の拡大";
+"increased_indentation_gap_description" = "相続人間のインデント間隔を広げます";
+"cant_hide_heir" = "このデバイスから継承しているデバイスがあるため、非表示にできません。";
+"no_info" = "情報なし";
+"inheritance_tree_warning" = "接続されているデバイスのみがリストに名前を表示します";
+"hide_secondary_info" = "補足情報を非表示";
+"hide_secondary_info_description" = "右上の情報（シリアル番号や製造元など）は表示されません。";

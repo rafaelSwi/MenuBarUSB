@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Wybierz urządzenie do dziedziczenia lub do otrzymania dziedziczenia";
 "this_device" = "To urządzenie:";
 "will_inherit_another" = "odziedziczy inne";
-"is_inheriting_from_some_device" = "dziedziczy od jakiegoś urządzenia";
+"is_inheriting_from_some_device" = "Dziedziczy od jakiegoś urządzenia";
 "will_be_the_master" = "Będzie głównym (przekazując dziedziczenie innym)";
 "which_device_is_it_inheriting_from" = "Od którego urządzenia dziedziczy?";
 "which_one_will_be_the_heir" = "Które będzie dziedzicem?";
@@ -99,3 +99,15 @@
 "heir" = "Dziedzic";
 "disable_inheritance_layout" = "Wyłącz układ oparty na dziedziczeniu";
 "disable_inheritance_layout_description" = "Jeśli nie chcesz usuwać ustawień dziedziczenia, ale nie chcesz używać układu opartego na dziedziczeniu.";
+"inheritance_tree" = "Drzewo dziedziczenia";
+"passing_inheritance_to_others" = "Przekazywanie dziedziczenia innym";
+"select_device" = "Wybierz urządzenie:";
+"invalid_inheritance" = "Nieprawidłowe dziedziczenie!";
+"view_inheritance_tree" = "Zobacz drzewo dziedziczenia";
+"increased_indentation_gap" = "Zwiększony odstęp wcięcia";
+"increased_indentation_gap_description" = "Zwiększa odstęp wcięcia między spadkobiercami.";
+"cant_hide_heir" = "Istnieje urządzenie dziedziczące po tym, więc nie można go ukryć.";
+"no_info" = "Brak informacji";
+"inheritance_tree_warning" = "Tylko podłączone urządzenia będą wyświetlały swoją nazwę na liście.";
+"hide_secondary_info" = "Ukryj informacje dodatkowe";
+"hide_secondary_info_description" = "Informacje w prawym rogu (takie jak numer seryjny i producent) nie będą wyświetlane.";

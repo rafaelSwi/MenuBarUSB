@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Wählen Sie das Gerät, das erben soll oder von dem geerbt werden soll";
 "this_device" = "Dieses Gerät:";
 "will_inherit_another" = "wird ein anderes erben";
-"is_inheriting_from_some_device" = "erbt von einem Gerät";
+"is_inheriting_from_some_device" = "Erbt von einem Gerät";
 "will_be_the_master" = "Es wird der Master sein (vererbt an andere)";
 "which_device_is_it_inheriting_from" = "Von welchem Gerät erbt es?";
 "which_one_will_be_the_heir" = "Welches wird der Erbe?";
@@ -99,3 +99,15 @@
 "heir" = "Erbe";
 "disable_inheritance_layout" = "Vererbungsbasiertes Layout deaktivieren";
 "disable_inheritance_layout_description" = "Deaktiviert das vererbungsbasierte Layout, falls Sie Ihre Vererbungseinstellungen nicht löschen möchten.";
+"inheritance_tree" = "Vererbungshierarchie";
+"passing_inheritance_to_others" = "Vererbung an andere weitergeben";
+"select_device" = "Gerät auswählen:";
+"invalid_inheritance" = "Ungültige Vererbung!";
+"view_inheritance_tree" = "Vererbungshierarchie anzeigen";
+"increased_indentation_gap" = "Erhöhter Einzugsabstand";
+"increased_indentation_gap_description" = "Erhöht den Einzugsabstand zwischen Erben.";
+"cant_hide_heir" = "Es gibt ein Gerät, das von diesem erbt, daher kann es nicht ausgeblendet werden.";
+"no_info" = "Keine Info";
+"inheritance_tree_warning" = "Bei nicht verbundenen Geräten wird der Name nicht angezeigt.";
+"hide_secondary_info" = "Sekundäre Informationen ausblenden";
+"hide_secondary_info_description" = "Informationen in der rechten Ecke (z. B. Seriennummer und Hersteller) werden nicht angezeigt.";

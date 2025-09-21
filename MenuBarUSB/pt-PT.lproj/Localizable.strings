@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Escolha o dispositivo para herdar ou ser herdado";
 "this_device" = "Este dispositivo:";
 "will_inherit_another" = "irá herdar outro";
-"is_inheriting_from_some_device" = "está a herdar de algum dispositivo";
+"is_inheriting_from_some_device" = "Está a herdar de algum dispositivo";
 "will_be_the_master" = "Será o mestre (passando herança para outros)";
 "which_device_is_it_inheriting_from" = "De qual dispositivo está a herdar?";
 "which_one_will_be_the_heir" = "Qual será o herdeiro?";
@@ -99,3 +99,15 @@
 "heir" = "Herdeiro";
 "disable_inheritance_layout" = "Desativar layout baseado em herança";
 "disable_inheritance_layout_description" = "Se não quiser eliminar as suas definições de herança, mas não quiser utilizar o layout baseado em herança.";
+"inheritance_tree" = "Árvore de Herança";
+"passing_inheritance_to_others" = "A passar herança para outros";
+"select_device" = "Selecionar dispositivo:";
+"invalid_inheritance" = "Herança inválida!";
+"view_inheritance_tree" = "Ver árvore de herança";
+"increased_indentation_gap" = "Aumento do espaçamento de indentação";
+"increased_indentation_gap_description" = "Aumenta o espaçamento de indentação entre os herdeiros.";
+"cant_hide_heir" = "Há um dispositivo a herdar deste, pelo que não pode ser ocultado.";
+"no_info" = "Sem informação";
+"inheritance_tree_warning" = "Apenas os dispositivos ligados terão o seu nome exibido na lista.";
+"hide_secondary_info" = "Ocultar informações secundárias";
+"hide_secondary_info_description" = "As informações no canto direito (como número de série e fabricante) não serão exibidas.";

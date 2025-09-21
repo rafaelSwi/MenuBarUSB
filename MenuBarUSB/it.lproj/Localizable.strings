@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Scegli il dispositivo da ereditare o da cui ereditare";
 "this_device" = "Questo dispositivo:";
 "will_inherit_another" = "erediterà un altro";
-"is_inheriting_from_some_device" = "sta ereditando da un dispositivo";
+"is_inheriting_from_some_device" = "Sta ereditando da un dispositivo";
 "will_be_the_master" = "Sarà il master (trasmettendo l'ereditarietà agli altri)";
 "which_device_is_it_inheriting_from" = "Da quale dispositivo sta ereditando?";
 "which_one_will_be_the_heir" = "Quale sarà l'erede?";
@@ -99,3 +99,15 @@
 "heir" = "Erede";
 "disable_inheritance_layout" = "Disabilita layout basato sull'ereditarietà";
 "disable_inheritance_layout_description" = "Nel caso non si voglia cancellare le impostazioni di ereditarietà ma si voglia usare il layout basato sull'ereditarietà.";
+"inheritance_tree" = "Albero delle ereditarietà";
+"passing_inheritance_to_others" = "Trasferimento dell'ereditarietà ad altri";
+"select_device" = "Seleziona dispositivo:";
+"invalid_inheritance" = "Ereditarietà non valida!";
+"view_inheritance_tree" = "Visualizza l'albero delle ereditarietà";
+"increased_indentation_gap" = "Incremento del margine di rientro";
+"increased_indentation_gap_description" = "Aumenta lo spazio di rientro tra gli eredi.";
+"cant_hide_heir" = "Esiste un dispositivo che eredita da questo, quindi non può essere nascosto.";
+"no_info" = "Nessuna informazione";
+"inheritance_tree_warning" = "Non vedrai il nome dei dispositivi non connessi.";
+"hide_secondary_info" = "Nascondi informazioni secondarie";
+"hide_secondary_info_description" = "Le informazioni nell'angolo destro (come il numero di serie e il produttore) non verranno visualizzate.";

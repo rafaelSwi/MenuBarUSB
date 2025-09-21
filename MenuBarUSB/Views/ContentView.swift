@@ -19,32 +19,75 @@ struct ContentView: View {
     @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
     @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
     @AppStorage(StorageKeys.hideTechInfo) private var hideTechInfo = false
+    @AppStorage(StorageKeys.disableInheritanceLayout) private var disableInheritanceLayout = false
+    @AppStorage(StorageKeys.increasedIndentationGap) private var increasedIndentationGap = false
+    @AppStorage(StorageKeys.hideSecondaryInfo) private var hideSecondaryInfo = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
+    @CodableAppStorage(StorageKeys.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
     
     func windowHeight(longList: Bool, compactList: Bool) -> CGFloat? {
         if (manager.devices.isEmpty) {
-            return nil;
+            return nil
         }
-        let baseValue: CGFloat = 200;
-        var multiplier: CGFloat = 25;
-        if (longList) {
-            multiplier = 30;
+        let baseValue: CGFloat = 200
+        var multiplier: CGFloat = 25
+        if longList {
+            multiplier = 30
         }
-        if (compactList) {
-            multiplier = 12;
+        if compactList {
+            multiplier = 12
         }
-        let sum: CGFloat = baseValue + (CGFloat(manager.devices.count) * multiplier);
-        var max: CGFloat = 380;
-        if (longList) {
-            max += 315;
+        let sum: CGFloat = baseValue + (CGFloat(manager.devices.count) * multiplier)
+        var max: CGFloat = 380
+        if longList {
+            max += 315
         }
-        if (sum >= max) {
-            return max;
-        } else {
-            return sum;
+        return sum >= max ? max : sum
+    }
+    
+    func sortedDevices() -> [USBDevice] {
+        var sorted: [USBDevice] = []
+        var visited: Set<String> = []
+
+        func visit(_ device: USBDevice) {
+            let id = USBDevice.uniqueId(device)
+            guard !visited.contains(id) else { return }
+            
+            if let parentId = inheritedDevices.first(where: { $0.deviceId == id })?.inheritsFrom,
+               let parentDevice = manager.devices.first(where: { USBDevice.uniqueId($0) == parentId }) {
+                visit(parentDevice)
+            }
+            
+            sorted.append(device)
+            visited.insert(id)
         }
+        
+        for device in manager.devices {
+            visit(device)
+        }
+        
+        return sorted
+    }
+    
+    func indentLevel(for device: USBDevice) -> CGFloat {
+        var level = 0
+        var currentId = USBDevice.uniqueId(device)
+        
+        while let relation = inheritedDevices.first(where: { $0.deviceId == currentId }) {
+            let parentId = relation.inheritsFrom
+            
+            if manager.devices.contains(where: { USBDevice.uniqueId($0) == parentId }) {
+                level += 1
+                currentId = parentId
+            } else {
+                break
+            }
+        }
+        
+        let multiply: CGFloat = increasedIndentationGap ? 35 : 12
+        return CGFloat(level) * multiply
     }
     
     var body: some View {
@@ -52,51 +95,59 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 6) {
                 if manager.devices.isEmpty {
                     ScrollView {
-                        Text(String(localized: "no_devices_found"))
+                        Text("no_devices_found")
                             .foregroundStyle(.secondary)
                             .padding(15)
                     }
                 } else {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 4) {
-                            ForEach(manager.devices) { dev in
-                                let uniqueId: String = USBDevice.uniqueId(dev);
+                            ForEach(sortedDevices()) { dev in
+                                let uniqueId: String = USBDevice.uniqueId(dev)
+                                let indent = disableInheritanceLayout ? 0 : indentLevel(for: dev)
+                                
                                 VStack(alignment: .leading, spacing: 2) {
                                     
                                     HStack {
                                         
                                         if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
-                                            let title: String = renamedIndicator ? "∙ \(device.name)" : device.name;
+                                            let title: String = renamedIndicator ? "∙ \(device.name)" : device.name
                                             Text(title)
                                                 .font(.system(size: 12, weight: .semibold))
                                                 .foregroundColor(.primary)
                                         } else {
-                                            Text(dev.name.isEmpty ? String(localized: "usb_device") : dev.name)
+                                            Text(dev.name.isEmpty ? "usb_device" : dev.name)
                                                 .font(.system(size: 12, weight: .semibold))
                                                 .foregroundColor(.primary)
                                         }
                                         
                                         Spacer()
                                         
-                                        if let vendor = dev.vendor, !vendor.isEmpty {
-                                            Text(vendor)
-                                                .font(.system(size: 12, weight: .semibold))
-                                                .foregroundColor(.primary)
+                                        if (!hideSecondaryInfo) {
+                                            if let vendor = dev.vendor, !vendor.isEmpty {
+                                                Text(vendor)
+                                                    .font(.system(size: 12, weight: .semibold))
+                                                    .foregroundColor(.primary)
+                                            }
                                         }
                                         
                                     }
+                                    .padding(.leading, indent)
                                     
-                                    if (!hideTechInfo) {
+                                    if !hideTechInfo {
                                         HStack {
                                             Text(dev.speedDescription)
                                                 .font(.system(size: 9))
                                                 .foregroundStyle(.secondary)
                                             Spacer()
                                             
-                                            Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
-                                                .font(.system(size: 10))
-                                                .foregroundStyle(.secondary)
+                                            if (!hideSecondaryInfo) {
+                                                Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
+                                                    .font(.system(size: 10))
+                                                    .foregroundStyle(.secondary)
+                                            }
                                         }
+                                        .padding(.leading, indent)
                                         
                                         HStack {
                                             
@@ -109,18 +160,22 @@ struct ContentView: View {
                                             
                                             Spacer()
                                             
-                                            if let serial = dev.serialNumber, !serial.isEmpty {
-                                                Text("\(String(localized: "serial_number")) \(serial)")
-                                                    .font(.system(size: 9))
-                                                    .foregroundStyle(.secondary)
+                                            if (!hideSecondaryInfo) {
+                                                if let serial = dev.serialNumber, !serial.isEmpty {
+                                                    Text("\(String(localized: "serial_number")) \(serial)")
+                                                        .font(.system(size: 9))
+                                                        .foregroundStyle(.secondary)
+                                                }
                                             }
                                         }
+                                        .padding(.leading, indent)
                                         
-                                        if (showPortMax) {
+                                        if showPortMax {
                                             if let portMax = dev.portMaxSpeedMbps {
                                                 Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
+                                                    .padding(.leading, indent)
                                             }
                                         }
                                     }
@@ -141,11 +196,10 @@ struct ContentView: View {
             
             HStack {
                 
-                if (camouflagedIndicator) {
+                if camouflagedIndicator {
                     Group {
                         Image(systemName: "eye.slash")
                         Text("\(manager.connectedCamouflagedDevices)/\(camouflagedDevices.count)")
-            
                     }
                     .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
                 }
@@ -155,28 +209,25 @@ struct ContentView: View {
                 Button {
                     currentWindow = .settings
                 } label: {
-                    Label(String(localized: "settings"), systemImage: "gear")
+                    Label("settings", systemImage: "gear")
                 }
                 .font(.system(size: 12))
-                
                 
                 Button {
                     manager.refresh()
                 } label: {
-                    Label(String(localized: "refresh"), systemImage: "arrow.clockwise")
+                    Label("refresh", systemImage: "arrow.clockwise")
                 }
                 .font(.system(size: 12))
                 
                 Button(role: .destructive) {
                     NSApp.terminate(nil)
                 } label: {
-                    Label(String(localized: "exit"), systemImage: "power")
+                    Label("exit", systemImage: "power")
                 }
-                
                 
             }
             .padding(10)
         }
     }
 }
-

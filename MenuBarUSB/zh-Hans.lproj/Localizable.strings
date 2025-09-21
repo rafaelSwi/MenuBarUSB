@@ -99,3 +99,15 @@
 "heir" = "继承者";
 "disable_inheritance_layout" = "禁用继承布局";
 "disable_inheritance_layout_description" = "如果您不想删除继承设置，但不想使用基于继承的布局。";
+"inheritance_tree" = "继承树";
+"passing_inheritance_to_others" = "将继承传递给其他设备";
+"select_device" = "选择设备:";
+"invalid_inheritance" = "无效的继承!";
+"view_inheritance_tree" = "查看继承树";
+"increased_indentation_gap" = "增加缩进间距";
+"increased_indentation_gap_description" = "增加继承人之间的缩进间距";
+"cant_hide_heir" = "有设备从此设备继承，因此无法隐藏。";
+"no_info" = "无信息";
+"inheritance_tree_warning" = "只有已连接的设备才会在列表中显示其名称";
+"hide_secondary_info" = "隐藏次要信息";
+"hide_secondary_info_description" = "右上角的信息（如序列号和制造商）将不会显示。";

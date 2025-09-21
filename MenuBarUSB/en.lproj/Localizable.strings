@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Choose the device to inherit or be inherited from";
 "this_device" = "This device:";
 "will_inherit_another" = "will inherit another";
-"is_inheriting_from_some_device" = "is inheriting from some device";
+"is_inheriting_from_some_device" = "Is inheriting from some device";
 "will_be_the_master" = "It will be the master (passing inheritance to others)";
 "which_device_is_it_inheriting_from" = "Which device is it inheriting from?";
 "which_one_will_be_the_heir" = "Which one will be the heir?";
@@ -99,3 +99,15 @@
 "heir" = "Heir";
 "disable_inheritance_layout" = "Disable inheritance-based layout";
 "disable_inheritance_layout_description" = "Disables inheritance-based layout in case you don't want to erase your inheritance settings.";
+"inheritance_tree" = "Inheritance Tree";
+"passing_inheritance_to_others" = "Passing inheritance to others";
+"select_device" = "Select device:";
+"invalid_inheritance" = "Invalid Inheritance!";
+"view_inheritance_tree" = "View inheritance tree";
+"increased_indentation_gap" = "Increased indentation gap";
+"increased_indentation_gap_description" = "Increases the indentation gap between heirs.";
+"cant_hide_heir" = "There is a device inheriting from that, so it cannot be hidden.";
+"no_info" = "No Info";
+"inheritance_tree_warning" = "Only connected devices will have their name displayed in the list.";
+"hide_secondary_info" = "Hide secondary information";
+"hide_secondary_info_description" = "Information in the right corner (such as the serial number and manufacturer) will not be displayed.";

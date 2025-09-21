@@ -99,3 +99,15 @@
 "heir" = "Спадкоємець";
 "disable_inheritance_layout" = "Вимкнути макет на основі спадщини";
 "disable_inheritance_layout_description" = "Якщо ви не хочете видаляти налаштування успадкування, але не хочете використовувати макет на основі успадкування.";
+"inheritance_tree" = "Дерево спадкування";
+"passing_inheritance_to_others" = "Передача спадщини іншим";
+"select_device" = "Виберіть пристрій:";
+"invalid_inheritance" = "Неправильне спадкування!";
+"view_inheritance_tree" = "Переглянути дерево спадкування";
+"increased_indentation_gap" = "Збільшений відступ";
+"increased_indentation_gap_description" = "Збільшує відступ між спадкоємцями";
+"cant_hide_heir" = "Існує пристрій, який успадковує від цього, тому його не можна приховати.";
+"no_info" = "Немає інформації";
+"inheritance_tree_warning" = "Назви непідключених пристроїв не відображатимуться.";
+"hide_secondary_info" = "Приховати додаткову інформацію";
+"hide_secondary_info_description" = "Інформація у правому куті (наприклад, серійний номер і виробник) не відображатиметься.";

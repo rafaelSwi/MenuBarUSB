@@ -41,6 +41,11 @@ struct MenuBarUSBApp: App {
                     .appBackground(isReduceTransparencyOn)
                     .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
                     .environmentObject(manager)
+            case .inheritanceTree:
+                InheritanceTreeView(currentWindow: $currentWindow)
+                    .appBackground(isReduceTransparencyOn)
+                    .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
+                    .environmentObject(manager)
             }
         } label: {
             HStack(spacing: 5) {

@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Miras alacak veya miras verecek cihazı seçin";
 "this_device" = "Bu cihaz:";
 "will_inherit_another" = "başka bir cihazdan miras alacak";
-"is_inheriting_from_some_device" = "bir cihazdan miras alıyor";
+"is_inheriting_from_some_device" = "Bir cihazdan miras alıyor";
 "will_be_the_master" = "Ana cihaz olacak (mirası diğerlerine aktaracak)";
 "which_device_is_it_inheriting_from" = "Hangi cihazdan miras alıyor?";
 "which_one_will_be_the_heir" = "Hangi cihaz mirasçı olacak?";
@@ -99,3 +99,15 @@
 "heir" = "Mirasçı";
 "disable_inheritance_layout" = "Miras tabanlı düzeni devre dışı bırak";
 "disable_inheritance_layout_description" = "Miras ayarlarınızı silmek istemiyorsanız, ancak miras tabanlı düzeni kullanmak istemiyorsanız.";
+"inheritance_tree" = "Miras Ağacı";
+"passing_inheritance_to_others" = "Mirası başkalarına aktarma";
+"select_device" = "Cihaz seç:";
+"invalid_inheritance" = "Geçersiz miras!";
+"view_inheritance_tree" = "Miras ağacını görüntüle";
+"increased_indentation_gap" = "Girintileme boşluğu artırıldı";
+"increased_indentation_gap_description" = "Mirasçılar arasındaki girintileme boşluğunu artırır";
+"cant_hide_heir" = "Bu cihazdan miras alan bir cihaz var, bu yüzden gizlenemez.";
+"no_info" = "Bilgi yok";
+"inheritance_tree_warning" = "Yalnızca bağlı cihazların adı listede görüntülenecektir.";
+"hide_secondary_info" = "İkincil bilgileri gizle";
+"hide_secondary_info_description" = "Sağ köşedeki bilgiler (seri numarası ve üretici gibi) gösterilmeyecektir.";

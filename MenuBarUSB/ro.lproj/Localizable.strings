@@ -87,7 +87,7 @@
 "choose_the_device_inheritance" = "Alege dispozitivul care va moșteni sau va fi moștenit";
 "this_device" = "Acest dispozitiv:";
 "will_inherit_another" = "va moșteni altul";
-"is_inheriting_from_some_device" = "moștenește de la un dispozitiv";
+"is_inheriting_from_some_device" = "Moștenește de la un dispozitiv";
 "will_be_the_master" = "Va fi masterul (transmițând moștenirea altora)";
 "which_device_is_it_inheriting_from" = "De la ce dispozitiv moștenește?";
 "which_one_will_be_the_heir" = "Care va fi moștenitorul?";
@@ -99,3 +99,15 @@
 "heir" = "Moștenitor";
 "disable_inheritance_layout" = "Dezactivează layout bazat pe moștenire";
 "disable_inheritance_layout_description" = "Te na kames te xasares tire paramètrură vaś o nasledstvo, numaj na kames te hasnis o aranźmanto bazirime pe nasledstvo.";
+"inheritance_tree" = "Arborele moștenirii";
+"passing_inheritance_to_others" = "Transmiterea moștenirii altora";
+"select_device" = "Selectați dispozitivul:";
+"invalid_inheritance" = "Moștenire invalidă!";
+"view_inheritance_tree" = "Vizualizați arborele moștenirii";
+"increased_indentation_gap" = "Spațiu de indentare mărit";
+"increased_indentation_gap_description" = "Mărește spațiul de indentare între moștenitori";
+"cant_hide_heir" = "Există un dispozitiv care moștenește de la acesta, deci nu poate fi ascuns.";
+"no_info" = "Nicio informație";
+"inheritance_tree_warning" = "Doar dispozitivele conectate își vor afișa numele în listă";
+"hide_secondary_info" = "Ascunde informațiile secundare";
+"hide_secondary_info_description" = "Informațiile din colțul din dreapta (cum ar fi numărul de serie și producătorul) nu vor fi afișate.";

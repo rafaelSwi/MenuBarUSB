@@ -99,3 +99,15 @@
 "heir" = "वारिस";
 "disable_inheritance_layout" = "विरासत-आधारित लेआउट अक्षम करें";
 "disable_inheritance_layout_description" = "यदि आप अपनी फ़ाइल सेटिंग्स को हटाना नहीं चाहते हैं तो अपने ईमेल पते पर क्लिक करें।";
+"inheritance_tree" = "विरासत पेड़";
+"passing_inheritance_to_others" = "विरासत दूसरों को देना";
+"select_device" = "डिवाइस चुनें:";
+"invalid_inheritance" = "अमान्य विरासत!";
+"view_inheritance_tree" = "विरासत पेड़ देखें";
+"increased_indentation_gap" = "इंडेंटेशन गैप बढ़ाया गया";
+"increased_indentation_gap_description" = "उत्तराधिकारियों के बीच इंडेंटेशन गैप बढ़ाता है";
+"cant_hide_heir" = "इस डिवाइस से विरासत ले रहा डिवाइस है, इसलिए इसे छिपाया नहीं जा सकता।";
+"no_info" = "कोई जानकारी नहीं";
+"inheritance_tree_warning" = "केवल जुड़े हुए उपकरणों के नाम सूची में दिखाए जाएंगे";
+"hide_secondary_info" = "द्वितीयक जानकारी छिपाएँ";
+"hide_secondary_info_description" = "दाएँ कोने में जानकारी (जैसे सीरियल नंबर और निर्माता) प्रदर्शित नहीं होगी।";
