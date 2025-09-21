@@ -20,6 +20,7 @@ struct USBDevice: Identifiable, Hashable {
     let usbVersionBCD: Int?
     
     
+    
     static func usbVersionLabel(from bcd: Int?, convertHexa: Bool) -> String? {
         guard let bcd = bcd else { return nil }
         switch bcd {

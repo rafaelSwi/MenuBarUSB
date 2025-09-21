@@ -9,4 +9,5 @@ enum AppWindow {
     case devices
     case settings
     case donate
+    case heritage
 }

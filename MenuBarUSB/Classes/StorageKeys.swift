@@ -18,4 +18,7 @@ final class StorageKeys {
     static let showNotifications = "showNotifications";
     static let reduceTransparency = "reduceTransparency";
     static let disableNotifCooldown = "disableNotifCooldown";
+    static let disableInheritanceLayout = "disableInheritanceLayout";
+    static let forceDarkMode = "forceDarkMode";
+    static let forceLightMode = "forceLightMode";
 }

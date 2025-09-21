@@ -29,6 +29,7 @@ struct SettingsView: View {
     @State private var showSystemOptions = false;
     @State private var showInterfaceOptions = false;
     @State private var showInfoOptions = false;
+    @State private var showHeritageOptions = false;
     
     @State private var showLaunchAtLoginDescription: Bool = false;
     @State private var showConvertHexaDescription: Bool = false;
@@ -40,6 +41,9 @@ struct SettingsView: View {
     @State private var showCamouflagedIndicatorDescription: Bool = false;
     @State private var showReduceTransparencyDescription: Bool = false;
     @State private var showDisableNotifCooldownDescription: Bool = false;
+    @State private var showDisableInheritanceLayoutDescription: Bool = false;
+    @State private var showForceDarkModeDescription: Bool = false;
+    @State private var showForceLightModeDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -51,6 +55,9 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.showNotifications) private var showNotifications = false
     @AppStorage(StorageKeys.reduceTransparency) private var reduceTransparency = false
     @AppStorage(StorageKeys.disableNotifCooldown) private var disableNotifCooldown = false
+    @AppStorage(StorageKeys.disableInheritanceLayout) private var disableInheritanceLayout = false
+    @AppStorage(StorageKeys.forceDarkMode) private var forceDarkMode = false
+    @AppStorage(StorageKeys.forceLightMode) private var forceLightMode = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -66,6 +73,9 @@ struct SettingsView: View {
         showReduceTransparencyDescription = false;
         showDisableNotifCooldownDescription = false;
         showLaunchAtLoginDescription = false;
+        showDisableInheritanceLayoutDescription = false;
+        showForceDarkModeDescription = false;
+        showForceLightModeDescription = false;
     }
     
     var appVersion: String {
@@ -76,6 +86,16 @@ struct SettingsView: View {
         showSystemOptions = false
         showInterfaceOptions = false
         showInfoOptions = false
+        showHeritageOptions = false
+    }
+    
+    func manageShowOptions(exception: inout Bool) {
+        if (exception) {
+            exception = !exception
+        } else {
+            untoggleShowOptions()
+            exception = true
+        }
     }
     
     public func toggleLoginItem(enabled: Bool) {
@@ -150,12 +170,12 @@ struct SettingsView: View {
                 
                 HStack {
                     Image(systemName: showSystemOptions ? "chevron.down" : "chevron.up")
-                    Text("macOS")
+                    Text(String(localized: "systemCategory"))
                         .font(.system(size: 13.5))
                         .fontWeight(.light)
                 }
                 .onTapGesture {
-                    showSystemOptions = !showSystemOptions
+                    manageShowOptions(exception: &showSystemOptions)
                 }
                 
                 if (showSystemOptions) {
@@ -200,12 +220,12 @@ struct SettingsView: View {
                 
                 HStack {
                     Image(systemName: showInterfaceOptions ? "chevron.down" : "chevron.up")
-                    Text("Interface")
+                    Text(String(localized: "uiCategory"))
                         .font(.system(size: 13.5))
                         .fontWeight(.light)
                 }
                 .onTapGesture {
-                    showInterfaceOptions = !showInterfaceOptions
+                    manageShowOptions(exception: &showInterfaceOptions)
                 }
                 
                 if (showInterfaceOptions) {
@@ -245,6 +265,28 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
+                        label: String(localized: "force_dark_mode"),
+                        description: String(localized: "force_dark_mode_description"),
+                        binding: $forceDarkMode,
+                        showMessage: $showForceDarkModeDescription,
+                        disabled: forceLightMode,
+                        onToggle: {_ in forceLightMode = false},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "force_light_mode"),
+                        description: String(localized: "force_light_mode_description"),
+                        binding: $forceLightMode,
+                        showMessage: $showForceLightModeDescription,
+                        disabled: forceDarkMode,
+                        onToggle: {_ in forceDarkMode = false},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
                         label: String(localized: "hidden_indicator"),
                         description: String(localized: "hidden_indicator_description"),
                         binding: $camouflagedIndicator,
@@ -268,15 +310,16 @@ struct SettingsView: View {
                 
                 HStack {
                     Image(systemName: showInfoOptions ? "chevron.down" : "chevron.up")
-                    Text("Funcionamento")
+                    Text(String(localized: "usbCategory"))
                         .font(.system(size: 13.5))
                         .fontWeight(.light)
                 }
                 .onTapGesture {
-                    showInfoOptions = !showInfoOptions
+                    manageShowOptions(exception: &showInfoOptions)
                 }
                 
                 if (showInfoOptions) {
+                    
                     ToggleRow(
                         label: String(localized: "show_port_max"),
                         description: String(localized: "show_port_max_description"),
@@ -300,6 +343,37 @@ struct SettingsView: View {
                         }
                     )
                 }
+                
+                HStack {
+                    Image(systemName: showHeritageOptions ? "chevron.down" : "chevron.up")
+                    Text(String(localized: "heritageCategory"))
+                        .font(.system(size: 13.5))
+                        .fontWeight(.light)
+                }
+                .onTapGesture {
+                    manageShowOptions(exception: &showHeritageOptions)
+                }
+                
+                if (showHeritageOptions) {
+                    
+                    Button(String(localized: "create_inheritance")) {
+                        currentWindow = .heritage
+                    }
+                    
+                    ToggleRow(
+                        label: String(localized: "disable_inheritance_layout"),
+                        description: String(localized: "disable_inheritance_layout_description"),
+                        binding: $disableInheritanceLayout,
+                        showMessage: $showDisableInheritanceLayoutDescription,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                }
+                
+                
+                
             }
             
             Spacer()

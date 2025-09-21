@@ -15,22 +15,32 @@ struct MenuBarUSBApp: App {
     
     @State var currentWindow: AppWindow = .devices
     
-    @AppStorage(StorageKeys.reduceTransparency) private var reduceTransparency = false
+    @AppStorage(StorageKeys.reduceTransparency) private var isReduceTransparencyOn = false
+    @AppStorage(StorageKeys.forceDarkMode) private var forceDarkMode = false
+    @AppStorage(StorageKeys.forceLightMode) private var forceLightMode = false
     
     var body: some Scene {
         MenuBarExtra {
             switch (self.currentWindow) {
             case .devices:
                 ContentView(currentWindow: $currentWindow)
-                    .appBackground(reduceTransparency)
+                    .appBackground(isReduceTransparencyOn)
+                    .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
                     .environmentObject(manager)
             case .settings:
                 SettingsView(currentWindow: $currentWindow)
-                    .appBackground(reduceTransparency)
+                    .appBackground(isReduceTransparencyOn)
+                    .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
                     .environmentObject(manager)
             case .donate:
                 DonateView(currentWindow: $currentWindow)
-                    .appBackground(reduceTransparency)
+                    .appBackground(isReduceTransparencyOn)
+                    .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
+            case .heritage:
+                HeritageView(currentWindow: $currentWindow)
+                    .appBackground(isReduceTransparencyOn)
+                    .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
+                    .environmentObject(manager)
             }
         } label: {
             HStack(spacing: 5) {

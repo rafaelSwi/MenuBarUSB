@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension View {
+    
     @ViewBuilder
     func appBackground(_ reduceTransparency: Bool) -> some View {
         if reduceTransparency {
@@ -17,4 +18,17 @@ extension View {
             self
         }
     }
+    
+    @ViewBuilder
+    func colorSchemeForce(light: Bool, dark: Bool) -> some View {
+        switch (light, dark) {
+        case (true, _):
+             self.environment(\.colorScheme, .light)
+        case (_, true):
+             self.environment(\.colorScheme, .dark)
+        default:
+             self
+        }
+    }
+    
 }
