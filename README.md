@@ -14,7 +14,7 @@ brew install --cask menubarusb
 ### Notifications
 You can enable notifications for devices that connect and disconnect! I highly recommend setting macOS to not keep notifications in Notification Center to avoid unnecessary clutter. Below are the settings I recommend.
 
-<img width="480" height="336" alt="Screenshot 2025-09-21 at 22 40 36" src="https://github.com/user-attachments/assets/f3107212-b0bd-4ca3-bd68-43d778f7ee1f" />
+<img width="481" height="420" alt="Screenshot 2025-09-22 at 12 02 36" src="https://github.com/user-attachments/assets/3c435444-2cb1-42a2-b899-d77b53e91fb0" />
 
 ### Rename devices
 If you think a device has a name that's too ugly or not intuitive, you can change it to something better.
@@ -27,6 +27,9 @@ MenuBarUSB doesn't automatically detect which devices are connected to which Hub
 
 ### Customization
 Some customization options are available, such as making the list more compact by hiding information, forcing light/dark mode, reducing transparency, and other stuff.
+
+<img width="629" height="400" alt="Screenshot 2025-09-22 at 12 00 36" src="https://github.com/user-attachments/assets/bcaaf8da-76a0-4f82-9d9d-1db4a0d67686" />
+
 
 ## Installation via Homebrew
 
