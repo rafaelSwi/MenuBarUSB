@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "연결된 장치만 목록에 이름이 표시됩니다";
 "hide_secondary_info" = "보조 정보 숨기기";
 "hide_secondary_info_description" = "오른쪽 상단의 정보(예: 일련 번호 및 제조업체)는 표시되지 않습니다.";
+"othersCategory" = "기타";
+"hide_check_update" = "업데이트 확인 버튼 숨기기";
+"hide_check_update_description" = "이미 brew를 통해 MenuBarUSB를 설치했거나 단순히 버튼이 마음에 들지 않는 경우, 숨길 수 있습니다.";
+"hide_donate" = "기부 버튼 숨기기";
+"hide_donate_description" = "개발자는 약간 슬퍼하겠지만, 원한다면 기부 버튼을 숨길 수 있습니다.";
+"no_text_buttons" = "기본 버튼에는 텍스트 없이 아이콘만 표시";
+"no_text_buttons_description" = "종료, 새로 고침 및 설정 페이지 버튼은 텍스트 없이 아이콘만으로 표시됩니다. 디자인을 조금 더 미니멀하게 만드세요.";

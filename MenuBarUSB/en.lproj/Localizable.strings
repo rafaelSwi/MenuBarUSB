@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Only connected devices will have their name displayed in the list.";
 "hide_secondary_info" = "Hide secondary information";
 "hide_secondary_info_description" = "Information in the right corner (such as the serial number and manufacturer) will not be displayed.";
+"othersCategory" = "Others";
+"hide_check_update" = "Hide button to check for updates";
+"hide_check_update_description" = "If you already have MenuBarUSB installed via brew, or simply don't like that button, you can hide it.";
+"hide_donate" = "Hide donate button";
+"hide_donate_description" = "The developer would be a little sad, but if you want, you can hide the donation button.";
+"no_text_buttons" = "Primary buttons have no text, only icons";
+"no_text_buttons_description" = "The exit, refresh, and settings page buttons are displayed as icons only, rather than icons with text. Make the design a bit more minimalistic.";

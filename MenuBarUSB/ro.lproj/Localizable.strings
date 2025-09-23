@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Doar dispozitivele conectate își vor afișa numele în listă";
 "hide_secondary_info" = "Ascunde informațiile secundare";
 "hide_secondary_info_description" = "Informațiile din colțul din dreapta (cum ar fi numărul de serie și producătorul) nu vor fi afișate.";
+"othersCategory" = "Altele";
+"hide_check_update" = "Ascunde butonul de verificare pentru actualizări";
+"hide_check_update_description" = "Dacă ai deja MenuBarUSB instalat prin brew, sau pur și simplu nu îți place butonul, îl poți ascunde.";
+"hide_donate" = "Ascunde butonul de donație";
+"hide_donate_description" = "Dezvoltatorul ar fi puțin trist, dar dacă vrei, poți ascunde butonul de donație.";
+"no_text_buttons" = "Butonale principale nu au text, doar icoane";
+"no_text_buttons_description" = "Butonale de ieșire, reîmprospătare și pagina de setări sunt afișate doar ca icoane, în loc de icoane cu text. Fă designul un pic mai minimalist.";

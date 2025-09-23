@@ -24,4 +24,7 @@ final class StorageKeys {
     static let forceLightMode = "forceLightMode";
     static let increasedIndentationGap = "increasedIndentationGap";
     static let hideSecondaryInfo = "hideSecondaryInfo";
+    static let hideUpdate = "hideUpdate";
+    static let hideDonate = "hideDonate";
+    static let noTextButtons = "noTextButtons";
 }

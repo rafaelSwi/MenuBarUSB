@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Non vedrai il nome dei dispositivi non connessi.";
 "hide_secondary_info" = "Nascondi informazioni secondarie";
 "hide_secondary_info_description" = "Le informazioni nell'angolo destro (come il numero di serie e il produttore) non verranno visualizzate.";
+"othersCategory" = "Altri";
+"hide_check_update" = "Nascondi pulsante per verificare aggiornamenti";
+"hide_check_update_description" = "Se hai già installato MenuBarUSB tramite brew, o semplicemente non ti piace il pulsante, puoi nasconderlo.";
+"hide_donate" = "Nascondi pulsante di donazione";
+"hide_donate_description" = "Lo sviluppatore sarebbe un po' triste, ma se vuoi, puoi nascondere il pulsante di donazione.";
+"no_text_buttons" = "I pulsanti principali non hanno testo, solo icone";
+"no_text_buttons_description" = "I pulsanti di uscita, aggiornamento e impostazioni sono mostrati solo come icone, invece di icone con testo. Rendi il design un po' più minimalista.";

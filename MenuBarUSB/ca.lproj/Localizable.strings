@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Només els dispositius connectats mostraran el seu nom a la llista.";
 "hide_secondary_info" = "Amagar informació secundària";
 "hide_secondary_info_description" = "La informació de la cantonada dreta (com el número de sèrie i el fabricant) no es mostrarà.";
+"othersCategory" = "Altres";
+"hide_check_update" = "Amaga el botó de comprovar actualitzacions";
+"hide_check_update_description" = "Si ja tens MenuBarUSB instal·lat via brew, o simplement no t’agrada el botó, el pots amagar.";
+"hide_donate" = "Amaga el botó de donació";
+"hide_donate_description" = "Al desenvolupador li trauria una mica la tristesa, però si vols, pots amagar el botó de donació.";
+"no_text_buttons" = "Els botons principals no tenen text, només icones";
+"no_text_buttons_description" = "Els botons de sortir, refrescar i la pàgina de configuració es mostren només amb icones, en lloc d’icones amb text. Fes el disseny una mica més minimalista.";

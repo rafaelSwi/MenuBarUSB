@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Seuls les appareils connectés afficheront leur nom dans la liste";
 "hide_secondary_info" = "Masquer les informations secondaires";
 "hide_secondary_info_description" = "Les informations dans le coin droit (comme le numéro de série et le fabricant) ne seront pas affichées.";
+"othersCategory" = "Autres";
+"hide_check_update" = "Cacher le bouton de vérification des mises à jour";
+"hide_check_update_description" = "Si vous avez déjà installé MenuBarUSB via brew, ou si simplement vous n’aimez pas le bouton, vous pouvez le cacher.";
+"hide_donate" = "Cacher le bouton de don";
+"hide_donate_description" = "Le développeur serait un peu triste, mais si vous voulez, vous pouvez cacher le bouton de don.";
+"no_text_buttons" = "Les boutons principaux n’ont pas de texte, seulement des icônes";
+"no_text_buttons_description" = "Les boutons de sortie, de rafraîchissement et de réglages s’affichent uniquement comme icônes, plutôt que des icônes avec texte. Rendez le design un peu plus minimaliste.";

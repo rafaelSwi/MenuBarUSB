@@ -11,11 +11,11 @@
 "creator_location" = "Balneário Camboriú, Santa Catarina, Brasil";
 "close_about_window" = "Fechar";
 "unknown_speed" = "Sem informações de velocidade";
-"check_for_updates" = "Verificar atualizações";
+"check_for_updates" = "Buscar atualizações";
 "new_version_available" = "Nova versão disponível";
 "open_download_page" = "Abrir página de download";
 "up_to_date" = "Você está na versão mais recente.";
-"check_automatically" = "Verificar automaticamente";
+"check_automatically" = "Buscar automaticamente";
 "port_max" = "Máximo da porta:";
 "serial_number" = "SN:";
 "usb_version" = "Versão do USB:";
@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Apenas dispositivos conectados terão seus nomes exibidos.";
 "hide_secondary_info" = "Ocultar informações secundárias";
 "hide_secondary_info_description" = "As informações no canto direito (como número de série e fabricante) não serão exibidas.";
+"othersCategory" = "Outros";
+"hide_check_update" = "Ocultar botão de buscar atualizações";
+"hide_check_update_description" = "Se você já tem o MenuBarUSB instalado via brew, ou simplesmente não gosta desse botão, você pode ocultá-lo.";
+"hide_donate" = "Ocultar botão de \"Contribuir\"";
+"hide_donate_description" = "O desenvolvedor ficaria um pouco triste, mas se quiser, você pode ocultar o botão de \"Contribuir\".";
+"no_text_buttons" = "Botões principais não têm texto, apenas ícones";
+"no_text_buttons_description" = "Os botões de \"Sair\", \"Atualizar\" e \"Ajustes\" são exibidos apenas como ícones, em vez de ícones com texto. Deixa a UI um pouco mais minimalista.";

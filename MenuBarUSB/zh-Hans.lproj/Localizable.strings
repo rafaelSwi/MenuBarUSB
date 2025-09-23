@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "只有已连接的设备才会在列表中显示其名称";
 "hide_secondary_info" = "隐藏次要信息";
 "hide_secondary_info_description" = "右上角的信息（如序列号和制造商）将不会显示。";
+"othersCategory" = "其他";
+"hide_check_update" = "隐藏检查更新按钮";
+"hide_check_update_description" = "如果你已经通过 brew 安装了 MenuBarUSB，或者你只是单纯不喜欢这个按钮，你可以将它隐藏。";
+"hide_donate" = "隐藏捐赠按钮";
+"hide_donate_description" = "开发者可能会有点难过，但如果你愿意，你可以隐藏捐赠按钮。";
+"no_text_buttons" = "主按钮不含文字，仅图标";
+"no_text_buttons_description" = "退出、刷新和设置页按钮仅显示图标，而非带文字的图标。使设计稍微更简约。";

@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Yalnızca bağlı cihazların adı listede görüntülenecektir.";
 "hide_secondary_info" = "İkincil bilgileri gizle";
 "hide_secondary_info_description" = "Sağ köşedeki bilgiler (seri numarası ve üretici gibi) gösterilmeyecektir.";
+"othersCategory" = "Diğerleri";
+"hide_check_update" = "Güncellemeleri kontrol et düğmesini gizle";
+"hide_check_update_description" = "Eğer MenuBarUSB’yi zaten brew ile yüklediysen ya da sadece düğmeyi sevmiyorsan, gizleyebilirsin.";
+"hide_donate" = "Bağış düğmesini gizle";
+"hide_donate_description" = "Geliştirici biraz üzülürdu, ama istersen bağış düğmesini gizleyebilirsin.";
+"no_text_buttons" = "Ana düğmelerde metin yok, sadece simgeler";
+"no_text_buttons_description" = "Çıkış, yenileme ve ayarlar sayfası düğmeleri, metin yerine yalnızca simgeler olarak görüntülenir. Tasarımı biraz daha minimalist yap.";

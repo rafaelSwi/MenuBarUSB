@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "רק מכשירים מחוברים יציגו את שמם ברשימה";
 "hide_secondary_info" = "הסתר מידע משני";
 "hide_secondary_info_description" = "מידע בפינה הנגדית (כגון המספר הסידורי ושם היצרן) לא יוצג.";
+"othersCategory" = "אחרים";
+"hide_check_update" = "הסתר כפתור בדיקת עדכונים";
+"hide_check_update_description" = "אם כבר התקנת את MenuBarUSB דרך brew, או פשוט לא אוהב את הכפתור, תוכל להסתיר אותו.";
+"hide_donate" = "הסתר כפתור התרומה";
+"hide_donate_description" = "המפתח יהיה קצת עצוב, אבל אם תרצה, תוכל להסתיר את כפתור התרומה.";
+"no_text_buttons" = "לכפתורים הראשיים אין טקסט, רק אייקונים";
+"no_text_buttons_description" = "כפתורי יציאה, רענון ועמוד ההגדרות מוצגים רק כאייקונים, במקום אייקונים עם טקסט. עשה את העיצוב קצת יותר מינימליסטי.";

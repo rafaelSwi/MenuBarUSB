@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "接続されているデバイスのみがリストに名前を表示します";
 "hide_secondary_info" = "補足情報を非表示";
 "hide_secondary_info_description" = "右上の情報（シリアル番号や製造元など）は表示されません。";
+"othersCategory" = "その他";
+"hide_check_update" = "アップデート確認ボタンを非表示";
+"hide_check_update_description" = "もしすでに brew 経由で MenuBarUSB をインストールしている、または単にそのボタンが気に入らないなら、非表示にできます。";
+"hide_donate" = "寄付ボタンを非表示";
+"hide_donate_description" = "開発者は少し悲しむかもしれませんが、必要なら寄付ボタンを非表示にできます。";
+"no_text_buttons" = "主要なボタンはテキストなし、アイコンのみ";
+"no_text_buttons_description" = "終了、更新、設定ページのボタンはテキスト付きではなく、アイコンのみで表示されます。デザインをもう少しミニマルにしましょう。";

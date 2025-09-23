@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Bei nicht verbundenen Geräten wird der Name nicht angezeigt.";
 "hide_secondary_info" = "Sekundäre Informationen ausblenden";
 "hide_secondary_info_description" = "Informationen in der rechten Ecke (z. B. Seriennummer und Hersteller) werden nicht angezeigt.";
+"othersCategory" = "Andere";
+"hide_check_update" = "Schaltfläche zum Überprüfen auf Updates ausblenden";
+"hide_check_update_description" = "Wenn du MenuBarUSB bereits via Brew installiert hast oder den Button einfach nicht magst, kannst du ihn ausblenden.";
+"hide_donate" = "Spendenknopf ausblenden";
+"hide_donate_description" = "Der Entwickler wäre ein wenig traurig, aber wenn du möchtest, kannst du den Spendenknopf ausblenden.";
+"no_text_buttons" = "Primäre Schaltflächen haben keinen Text, nur Symbole";
+"no_text_buttons_description" = "Die Schaltflächen für Beenden, Aktualisieren und Einstellungen werden nur als Symbole angezeigt, statt als Symbole mit Text. Mach das Design ein wenig minimalistischer.";

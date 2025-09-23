@@ -30,6 +30,7 @@ struct SettingsView: View {
     @State private var showInterfaceOptions = false;
     @State private var showInfoOptions = false;
     @State private var showHeritageOptions = false;
+    @State private var showOthersOptions = false;
     
     @State private var showLaunchAtLoginDescription: Bool = false;
     @State private var showConvertHexaDescription: Bool = false;
@@ -46,6 +47,9 @@ struct SettingsView: View {
     @State private var showForceLightModeDescription: Bool = false;
     @State private var showIncreasedIndentationGapDescription: Bool = false;
     @State private var showHideSecondaryInfoDescription: Bool = false;
+    @State private var showHideUpdateDescription: Bool = false;
+    @State private var showHideDonateDescription: Bool = false;
+    @State private var showNoTextButtonsDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -62,6 +66,9 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.forceLightMode) private var forceLightMode = false
     @AppStorage(StorageKeys.increasedIndentationGap) private var increasedIndentationGap = false
     @AppStorage(StorageKeys.hideSecondaryInfo) private var hideSecondaryInfo = false
+    @AppStorage(StorageKeys.hideUpdate) private var hideUpdate = false
+    @AppStorage(StorageKeys.hideDonate) private var hideDonate = false
+    @AppStorage(StorageKeys.noTextButtons) private var noTextButtons = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -83,6 +90,9 @@ struct SettingsView: View {
         showForceLightModeDescription = false;
         showIncreasedIndentationGapDescription = false;
         showHideSecondaryInfoDescription = false;
+        showHideUpdateDescription = false;
+        showHideDonateDescription = false;
+        showNoTextButtonsDescription = false;
     }
     
     var appVersion: String {
@@ -94,6 +104,7 @@ struct SettingsView: View {
         showInterfaceOptions = false
         showInfoOptions = false
         showHeritageOptions = false
+        showOthersOptions = false
     }
     
     func manageShowOptions(exception: inout Bool) {
@@ -150,23 +161,26 @@ struct SettingsView: View {
                 if !updateAvailable {
                     
                     HStack {
-                        Button {
-                            checkForUpdate()
-                        } label: {
-                            if checkingUpdate {
-                                ProgressView()
-                            } else {
-                                Label(!latestVersion.isEmpty ? "updated" : "check_for_updates", systemImage: "checkmark.circle")
+                        if (!hideUpdate) {
+                            Button {
+                                checkForUpdate()
+                            } label: {
+                                if checkingUpdate {
+                                    ProgressView()
+                                } else {
+                                    Label(!latestVersion.isEmpty ? "updated" : "check_for_updates", systemImage: "checkmark.circle")
+                                }
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                        
+                        if (!hideDonate) {
+                            Button {
+                                currentWindow = .donate
+                            } label: {
+                                Label("donate", systemImage: "hand.thumbsup.circle")
                             }
                         }
-                        .buttonStyle(.bordered)
-                        
-                        Button {
-                            currentWindow = .donate
-                        } label: {
-                            Label("donate", systemImage: "hand.thumbsup.circle")
-                        }
-                        
                     }
                 }
             }
@@ -439,6 +453,51 @@ struct SettingsView: View {
                             untoggleAllDesc();
                         }
                     )
+                }
+                
+                HStack {
+                    Image(systemName: showOthersOptions ? "chevron.down" : "chevron.up")
+                    Text(String(localized: "othersCategory"))
+                        .font(.system(size: 13.5))
+                        .fontWeight(.light)
+                }
+                .onTapGesture {
+                    manageShowOptions(exception: &showOthersOptions)
+                }
+                
+                if (showOthersOptions) {
+                    
+                    ToggleRow(
+                        label: String(localized: "hide_check_update"),
+                        description: String(localized: "hide_check_update_description"),
+                        binding: $hideUpdate,
+                        showMessage: $showHideUpdateDescription,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "hide_donate"),
+                        description: String(localized: "hide_donate_description"),
+                        binding: $hideDonate,
+                        showMessage: $showHideDonateDescription,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "no_text_buttons"),
+                        description: String(localized: "no_text_buttons_description"),
+                        binding: $noTextButtons,
+                        showMessage: $showNoTextButtonsDescription,
+                        onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    
                 }
                 
                 

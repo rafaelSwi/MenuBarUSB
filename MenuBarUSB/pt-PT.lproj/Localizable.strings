@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Apenas os dispositivos ligados terão o seu nome exibido na lista.";
 "hide_secondary_info" = "Ocultar informações secundárias";
 "hide_secondary_info_description" = "As informações no canto direito (como número de série e fabricante) não serão exibidas.";
+"othersCategory" = "Outros";
+"hide_check_update" = "Ocultar botão para verificar atualizações";
+"hide_check_update_description" = "Se já tiveres o MenuBarUSB instalado via brew, ou simplesmente não gostas do botão, podes ocultá-lo.";
+"hide_donate" = "Ocultar botão de doação";
+"hide_donate_description" = "O desenvolvedor ficaria um pouco triste, mas se quiseres, podes ocultar o botão de doação.";
+"no_text_buttons" = "Botões principais sem texto, apenas ícones";
+"no_text_buttons_description" = "Os botões de sair, atualizar e da página de definições são exibidos apenas como ícones, em vez de ícones com texto. Torna o design um pouco mais minimalista.";

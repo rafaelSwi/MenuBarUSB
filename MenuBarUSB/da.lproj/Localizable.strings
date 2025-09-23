@@ -111,3 +111,10 @@
 "inheritance_tree_warning" = "Kun tilsluttede enheder vil få vist deres navn på listen.";
 "hide_secondary_info" = "Skjul sekundær information";
 "hide_secondary_info_description" = "Oplysninger i højre hjørne (såsom serienummer og producent) vil ikke blive vist.";
+"othersCategory" = "Andre";
+"hide_check_update" = "Skjul knap til at tjekke for opdateringer";
+"hide_check_update_description" = "Hvis du allerede har MenuBarUSB installeret via brew, eller simpelthen ikke kan lide knappen, kan du skjule den.";
+"hide_donate" = "Skjul donationsknap";
+"hide_donate_description" = "Udvikleren ville være en smule ked af det, men hvis du vil, kan du skjule donationsknappen.";
+"no_text_buttons" = "Primære knapper har ingen tekst, kun ikoner";
+"no_text_buttons_description" = "Knapperne for at lukke, opdatere og indstillinger vises kun som ikoner, i stedet for ikoner med tekst. Gør designet lidt mere minimalistisk.";

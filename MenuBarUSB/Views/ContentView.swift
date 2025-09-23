@@ -22,6 +22,7 @@ struct ContentView: View {
     @AppStorage(StorageKeys.disableInheritanceLayout) private var disableInheritanceLayout = false
     @AppStorage(StorageKeys.increasedIndentationGap) private var increasedIndentationGap = false
     @AppStorage(StorageKeys.hideSecondaryInfo) private var hideSecondaryInfo = false
+    @AppStorage(StorageKeys.noTextButtons) private var noTextButtons = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -225,21 +226,33 @@ struct ContentView: View {
                 Button {
                     currentWindow = .settings
                 } label: {
-                    Label("settings", systemImage: "gear")
+                    if (noTextButtons) {
+                        Image(systemName: "gear")
+                    } else {
+                        Label("settings", systemImage: "gear")
+                    }
                 }
                 .font(.system(size: 12))
                 
                 Button {
                     manager.refresh()
                 } label: {
-                    Label("refresh", systemImage: "arrow.clockwise")
+                    if (noTextButtons) {
+                        Image(systemName: "arrow.clockwise")
+                    } else {
+                        Label("refresh", systemImage: "arrow.clockwise")
+                    }
                 }
                 .font(.system(size: 12))
                 
                 Button(role: .destructive) {
                     NSApp.terminate(nil)
                 } label: {
-                    Label("exit", systemImage: "power")
+                    if (noTextButtons) {
+                        Image(systemName: "power")
+                    } else {
+                        Label("exit", systemImage: "power")
+                    }
                 }
                 
             }
