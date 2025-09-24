@@ -118,3 +118,6 @@
 "hide_donate_description" = "Dezvoltatorul ar fi puțin trist, dar dacă vrei, poți ascunde butonul de donație.";
 "no_text_buttons" = "Butonale principale nu au text, doar icoane";
 "no_text_buttons_description" = "Butonale de ieșire, reîmprospătare și pagina de setări sunt afișate doar ca icoane, în loc de icoane cu text. Fă designul un pic mai minimalist.";
+"warning_incompatible_options" = "Ai activat opțiuni care sunt incompatibile cu aceasta. Activarea acesteia va dezactiva automat opțiunile incompatibile.";
+"device_connected" = "\"%@\" conectat.";
+"device_disconnected" = "\"%@\" deconectat.";

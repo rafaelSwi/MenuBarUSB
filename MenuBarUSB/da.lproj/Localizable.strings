@@ -118,3 +118,6 @@
 "hide_donate_description" = "Udvikleren ville være en smule ked af det, men hvis du vil, kan du skjule donationsknappen.";
 "no_text_buttons" = "Primære knapper har ingen tekst, kun ikoner";
 "no_text_buttons_description" = "Knapperne for at lukke, opdatere og indstillinger vises kun som ikoner, i stedet for ikoner med tekst. Gør designet lidt mere minimalistisk.";
+"warning_incompatible_options" = "Du har aktiveret indstillinger, der er inkompatible med denne. Aktivering af denne vil automatisk deaktivere de inkompatible indstillinger.";
+"device_connected" = "\"%@\" tilsluttet.";
+"device_disconnected" = "\"%@\" afbrudt.";

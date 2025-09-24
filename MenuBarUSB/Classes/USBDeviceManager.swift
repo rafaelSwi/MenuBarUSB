@@ -240,27 +240,95 @@ final class USBDeviceManager: ObservableObject {
         
         let addedCallback: IOServiceMatchingCallback = { (refcon, iterator) in
             let mySelf = Unmanaged<USBDeviceManager>.fromOpaque(refcon!).takeUnretainedValue()
-            while IOIteratorNext(iterator) != 0 {}
+            
+            var deviceNames: [String] = []
+            var service: io_object_t
+            repeat {
+                service = IOIteratorNext(iterator)
+                if service != 0 {
+                    var parts: [String] = []
+                    
+                    if let vendor = IORegistryEntryCreateCFProperty(
+                        service,
+                        kUSBVendorString as CFString,
+                        kCFAllocatorDefault,
+                        0
+                    )?.takeUnretainedValue() as? String {
+                        parts.append(vendor)
+                    }
+                    
+                    if let product = IORegistryEntryCreateCFProperty(
+                        service,
+                        kUSBProductString as CFString,
+                        kCFAllocatorDefault,
+                        0
+                    )?.takeUnretainedValue() as? String {
+                        parts.append(product)
+                    }
+                    
+                    if !parts.isEmpty {
+                        deviceNames.append(parts.joined(separator: " "))
+                    }
+                    
+                    IOObjectRelease(service)
+                }
+            } while service != 0
+            
             DispatchQueue.main.async {
                 mySelf.refresh()
                 if mySelf.showNotifications && mySelf.canSendNotification() {
+                    let deviceList = deviceNames.isEmpty ? "" : "\(deviceNames.joined(separator: ", ").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))"
                     mySelf.sendNotification(
                         title: String(localized: "usb_detected"),
-                        body: String(localized: "usb_detected_info")
+                        body: String(format: NSLocalizedString("device_connected", comment: "DEVICE CONNECTED MESSAGE"), "\(deviceList)")
                     )
                 }
             }
         }
-        
+
         let removedCallback: IOServiceMatchingCallback = { (refcon, iterator) in
             let mySelf = Unmanaged<USBDeviceManager>.fromOpaque(refcon!).takeUnretainedValue()
-            while IOIteratorNext(iterator) != 0 {}
+            
+            var deviceNames: [String] = []
+            var service: io_object_t
+            repeat {
+                service = IOIteratorNext(iterator)
+                if service != 0 {
+                    var parts: [String] = []
+                    
+                    if let vendor = IORegistryEntryCreateCFProperty(
+                        service,
+                        kUSBVendorString as CFString,
+                        kCFAllocatorDefault,
+                        0
+                    )?.takeUnretainedValue() as? String {
+                        parts.append(vendor)
+                    }
+                    
+                    if let product = IORegistryEntryCreateCFProperty(
+                        service,
+                        kUSBProductString as CFString,
+                        kCFAllocatorDefault,
+                        0
+                    )?.takeUnretainedValue() as? String {
+                        parts.append(product)
+                    }
+                    
+                    if !parts.isEmpty {
+                        deviceNames.append(parts.joined(separator: " "))
+                    }
+                    
+                    IOObjectRelease(service)
+                }
+            } while service != 0
+            
             DispatchQueue.main.async {
                 mySelf.refresh()
                 if mySelf.showNotifications && mySelf.canSendNotification() {
+                    let deviceList = deviceNames.isEmpty ? "" : "\(deviceNames.joined(separator: ", ").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))"
                     mySelf.sendNotification(
                         title: String(localized: "usb_disconnected"),
-                        body: String(localized: "usb_disconnected_info")
+                        body: String(format: NSLocalizedString("device_disconnected", comment: "DEVICE DISCONNECTED MESSAGE"), "\(deviceList)")
                     )
                 }
             }

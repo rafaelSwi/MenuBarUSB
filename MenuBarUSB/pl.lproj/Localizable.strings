@@ -118,3 +118,6 @@
 "hide_donate_description" = "Twórca byłby trochę smutny, ale jeśli chcesz, możesz ukryć przycisk darowizny.";
 "no_text_buttons" = "Główne przyciski bez tekstu, tylko ikony";
 "no_text_buttons_description" = "Przyciski wyjścia, odświeżania i ustawień są wyświetlane tylko jako ikony, zamiast ikon z tekstem. Uczyń projekt nieco bardziej minimalistycznym.";
+"warning_incompatible_options" = "Masz włączone opcje, które są niezgodne z tą. Włączenie tej automatycznie wyłączy niezgodne opcje.";
+"device_connected" = "\"%@\" podłączono.";
+"device_disconnected" = "\"%@\" odłączono.";

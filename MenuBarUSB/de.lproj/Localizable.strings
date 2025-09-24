@@ -118,3 +118,6 @@
 "hide_donate_description" = "Der Entwickler wäre ein wenig traurig, aber wenn du möchtest, kannst du den Spendenknopf ausblenden.";
 "no_text_buttons" = "Primäre Schaltflächen haben keinen Text, nur Symbole";
 "no_text_buttons_description" = "Die Schaltflächen für Beenden, Aktualisieren und Einstellungen werden nur als Symbole angezeigt, statt als Symbole mit Text. Mach das Design ein wenig minimalistischer.";
+"warning_incompatible_options" = "Sie haben Optionen aktiviert, die mit dieser inkompatibel sind. Wenn Sie diese aktivieren, werden die inkompatiblen Optionen automatisch deaktiviert.";
+"device_connected" = "\"%@\" verbunden.";
+"device_disconnected" = "\"%@\" getrennt.";

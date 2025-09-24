@@ -118,3 +118,6 @@
 "hide_donate_description" = "开发者可能会有点难过，但如果你愿意，你可以隐藏捐赠按钮。";
 "no_text_buttons" = "主按钮不含文字，仅图标";
 "no_text_buttons_description" = "退出、刷新和设置页按钮仅显示图标，而非带文字的图标。使设计稍微更简约。";
+"warning_incompatible_options" = "您已启用了与此选项不兼容的选项。启用此选项将自动禁用不兼容的选项。";
+"device_connected" = "\"%@\" 已连接。";
+"device_disconnected" = "\"%@\" 已断开连接。";

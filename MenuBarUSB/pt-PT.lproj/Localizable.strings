@@ -118,3 +118,6 @@
 "hide_donate_description" = "O desenvolvedor ficaria um pouco triste, mas se quiseres, podes ocultar o botão de doação.";
 "no_text_buttons" = "Botões principais sem texto, apenas ícones";
 "no_text_buttons_description" = "Os botões de sair, atualizar e da página de definições são exibidos apenas como ícones, em vez de ícones com texto. Torna o design um pouco mais minimalista.";
+"warning_incompatible_options" = "Tens opções ativas que são incompatíveis com esta. Ativar esta irá desativar automaticamente as opções incompatíveis.";
+"device_connected" = "\"%@\" ligado.";
+"device_disconnected" = "\"%@\" desligado.";

@@ -36,7 +36,7 @@
 "long_list" = "Long vertical list";
 "long_list_description" = "Increases the maximum height that the device list can reach.\n(You might not notice much of a difference if you're not using many devices)";
 "convert_hexa" = "Convert unmapped hexadecimals into a readable label";
-"convert_hexa_description" = "Unmapped hexadecimals will be converted into a readable format. For example, 0x0210 would be shown as USB 2.10.\nThe accuracy is not guaranteed.";
+"convert_hexa_description" = "Unmapped hexadecimals will be converted into a readable format. For example, 0x0210 would be shown as USB 2.10. The accuracy is not guaranteed.";
 "rename_device" = "Rename device";
 "rename" = "Rename";
 "device" = "Device";
@@ -118,3 +118,6 @@
 "hide_donate_description" = "The developer would be a little sad, but if you want, you can hide the donation button.";
 "no_text_buttons" = "Primary buttons have no text, only icons";
 "no_text_buttons_description" = "The exit, refresh, and settings page buttons are displayed as icons only, rather than icons with text. Make the design a bit more minimalistic.";
+"warning_incompatible_options" = "You have options enabled that are incompatible with this one, enabling this will automatically disable the incompatible options.";
+"device_connected" = "\"%@\" connected.";
+"device_disconnected" = "\"%@\" disconnected.";

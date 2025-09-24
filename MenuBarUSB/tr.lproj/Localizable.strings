@@ -118,3 +118,6 @@
 "hide_donate_description" = "Geliştirici biraz üzülürdu, ama istersen bağış düğmesini gizleyebilirsin.";
 "no_text_buttons" = "Ana düğmelerde metin yok, sadece simgeler";
 "no_text_buttons_description" = "Çıkış, yenileme ve ayarlar sayfası düğmeleri, metin yerine yalnızca simgeler olarak görüntülenir. Tasarımı biraz daha minimalist yap.";
+"warning_incompatible_options" = "Bu seçenekle uyumsuz olan seçenekler etkin durumda. Bunu etkinleştirmek, uyumsuz seçenekleri otomatik olarak devre dışı bırakacaktır.";
+"device_connected" = "\"%@\" bağlandı.";
+"device_disconnected" = "\"%@\" bağlantısı kesildi.";

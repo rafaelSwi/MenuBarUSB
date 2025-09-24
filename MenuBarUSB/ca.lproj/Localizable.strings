@@ -118,3 +118,6 @@
 "hide_donate_description" = "Al desenvolupador li trauria una mica la tristesa, però si vols, pots amagar el botó de donació.";
 "no_text_buttons" = "Els botons principals no tenen text, només icones";
 "no_text_buttons_description" = "Els botons de sortir, refrescar i la pàgina de configuració es mostren només amb icones, en lloc d’icones amb text. Fes el disseny una mica més minimalista.";
+"warning_incompatible_options" = "Tens opcions activades que són incompatibles amb aquesta, activar aquesta desactivarà automàticament les opcions incompatibles.";
+"device_connected" = "\"%@\" connectat.";
+"device_disconnected" = "\"%@\" desconnectat.";

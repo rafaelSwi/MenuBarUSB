@@ -49,7 +49,7 @@ struct DonateView: View {
     var body: some View {
         let currentAddress = isBitcoin ? btcAddress : ltcAddress
         let currentSymbol = isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
-        let currentColor: Color = isBitcoin ? .orange : .gray
+        let currentColor: Color = isBitcoin ? .orange : Color("LTC")
         
         VStack(spacing: 12) {
             

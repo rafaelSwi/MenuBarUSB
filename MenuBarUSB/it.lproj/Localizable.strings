@@ -118,3 +118,6 @@
 "hide_donate_description" = "Lo sviluppatore sarebbe un po' triste, ma se vuoi, puoi nascondere il pulsante di donazione.";
 "no_text_buttons" = "I pulsanti principali non hanno testo, solo icone";
 "no_text_buttons_description" = "I pulsanti di uscita, aggiornamento e impostazioni sono mostrati solo come icone, invece di icone con testo. Rendi il design un po' più minimalista.";
+"warning_incompatible_options" = "Hai attivato delle opzioni che sono incompatibili con questa. Attivandola, le opzioni incompatibili verranno automaticamente disattivate.";
+"device_connected" = "\"%@\" connesso.";
+"device_disconnected" = "\"%@\" disconnesso.";

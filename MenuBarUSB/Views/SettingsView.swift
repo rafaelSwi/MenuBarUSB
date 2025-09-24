@@ -205,6 +205,7 @@ struct SettingsView: View {
                         description: String(localized: "open_on_startup_description"),
                         binding: $launchAtLogin,
                         showMessage: $showLaunchAtLoginDescription,
+                        incompatibilities: nil,
                         onToggle: { value in
                             toggleLoginItem(enabled: value)
                         },
@@ -217,6 +218,7 @@ struct SettingsView: View {
                         description: String(localized: "show_notification_description"),
                         binding: $showNotifications,
                         showMessage: $showShowNotificationsDescription,
+                        incompatibilities: nil,
                         onToggle: { value in
                             if (value == false) {
                                 disableNotifCooldown = false
@@ -231,6 +233,7 @@ struct SettingsView: View {
                         description: String(localized: "disable_notification_cooldown_description"),
                         binding: $disableNotifCooldown,
                         showMessage: $showDisableNotifCooldownDescription,
+                        incompatibilities: nil,
                         disabled: showNotifications == false,
                         onToggle: {_ in},
                         untoggle: {
@@ -255,6 +258,7 @@ struct SettingsView: View {
                         description: String(localized: "hide_technical_info_description"),
                         binding: $hideTechInfo,
                         showMessage: $showHideTechInfoDescription,
+                        incompatibilities: [showPortMax, convertHexa],
                         onToggle: { value in
                             if (value == true) {
                                 showPortMax = false
@@ -270,6 +274,7 @@ struct SettingsView: View {
                         description: String(localized: "hide_secondary_info_description"),
                         binding: $hideSecondaryInfo,
                         showMessage: $showHideSecondaryInfoDescription,
+                        incompatibilities: [showPortMax, convertHexa],
                         onToggle: { value in
                             if (value == true) {
                                 showPortMax = false
@@ -285,6 +290,7 @@ struct SettingsView: View {
                         description: String(localized: "long_list_description"),
                         binding: $longList,
                         showMessage: $showLongListDescription,
+                        incompatibilities: nil,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
@@ -295,6 +301,7 @@ struct SettingsView: View {
                         description: String(localized: "reduce_transparency_description"),
                         binding: $reduceTransparency,
                         showMessage: $showReduceTransparencyDescription,
+                        incompatibilities: nil,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
@@ -305,6 +312,7 @@ struct SettingsView: View {
                         description: String(localized: "force_dark_mode_description"),
                         binding: $forceDarkMode,
                         showMessage: $showForceDarkModeDescription,
+                        incompatibilities: [forceLightMode],
                         disabled: forceLightMode,
                         onToggle: {_ in forceLightMode = false},
                         untoggle: {
@@ -316,6 +324,7 @@ struct SettingsView: View {
                         description: String(localized: "force_light_mode_description"),
                         binding: $forceLightMode,
                         showMessage: $showForceLightModeDescription,
+                        incompatibilities: [forceDarkMode],
                         disabled: forceDarkMode,
                         onToggle: {_ in forceDarkMode = false},
                         untoggle: {
@@ -327,6 +336,7 @@ struct SettingsView: View {
                         description: String(localized: "hidden_indicator_description"),
                         binding: $camouflagedIndicator,
                         showMessage: $showCamouflagedIndicatorDescription,
+                        incompatibilities: nil,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
@@ -337,6 +347,7 @@ struct SettingsView: View {
                         description: String(localized: "renamed_indicator_description"),
                         binding: $renamedIndicator,
                         showMessage: $showRenamedIndicatorDescription,
+                        incompatibilities: nil,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
@@ -381,6 +392,7 @@ struct SettingsView: View {
                         description: String(localized: "show_port_max_description"),
                         binding: $showPortMax,
                         showMessage: $showShowPortMaxDescription,
+                        incompatibilities: nil,
                         disabled: hideTechInfo,
                         onToggle: {_ in},
                         untoggle: {
@@ -392,6 +404,7 @@ struct SettingsView: View {
                         description: String(localized: "convert_hexa_description"),
                         binding: $convertHexa,
                         showMessage: $showConvertHexaDescription,
+                        incompatibilities: nil,
                         disabled: hideTechInfo,
                         onToggle: {_ in},
                         untoggle: {
@@ -437,6 +450,7 @@ struct SettingsView: View {
                         description: String(localized: "disable_inheritance_layout_description"),
                         binding: $disableInheritanceLayout,
                         showMessage: $showDisableInheritanceLayoutDescription,
+                        incompatibilities: [increasedIndentationGap],
                         onToggle: {_ in increasedIndentationGap = false},
                         untoggle: {
                             untoggleAllDesc();
@@ -447,6 +461,7 @@ struct SettingsView: View {
                         description: String(localized: "increased_indentation_gap_description"),
                         binding: $increasedIndentationGap,
                         showMessage: $showIncreasedIndentationGapDescription,
+                        incompatibilities: nil,
                         disabled: disableInheritanceLayout,
                         onToggle: {_ in},
                         untoggle: {
@@ -472,6 +487,7 @@ struct SettingsView: View {
                         description: String(localized: "hide_check_update_description"),
                         binding: $hideUpdate,
                         showMessage: $showHideUpdateDescription,
+                        incompatibilities: nil,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
@@ -482,6 +498,7 @@ struct SettingsView: View {
                         description: String(localized: "hide_donate_description"),
                         binding: $hideDonate,
                         showMessage: $showHideDonateDescription,
+                        incompatibilities: nil,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
@@ -492,6 +509,7 @@ struct SettingsView: View {
                         description: String(localized: "no_text_buttons_description"),
                         binding: $noTextButtons,
                         showMessage: $showNoTextButtonsDescription,
+                        incompatibilities: nil,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
