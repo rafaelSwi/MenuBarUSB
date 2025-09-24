@@ -14,7 +14,7 @@ brew install --cask menubarusb
 ### Notifications
 You can enable notifications for devices that connect and disconnect! I highly recommend setting macOS to not keep notifications in Notification Center to avoid unnecessary clutter. Below are the settings I recommend.
 
-<img width="481" height="420" alt="Screenshot 2025-09-22 at 12 02 36" src="https://github.com/user-attachments/assets/3c435444-2cb1-42a2-b899-d77b53e91fb0" />
+<img width="478" height="425" alt="settings_notif" src="https://github.com/user-attachments/assets/f83a7260-8d05-45bc-8d70-b3631f239c97" />
 
 ### Rename devices
 If you think a device has a name that's too ugly or not intuitive, you can change it to something better.
@@ -28,8 +28,7 @@ MenuBarUSB doesn't automatically detect which devices are connected to which Hub
 ### Customization
 Some customization options are available, such as making the list more compact by hiding information, forcing light/dark mode, reducing transparency, and other stuff.
 
-<img width="629" height="400" alt="Screenshot 2025-09-22 at 12 00 36" src="https://github.com/user-attachments/assets/bcaaf8da-76a0-4f82-9d9d-1db4a0d67686" />
-
+<img width="693" height="513" alt="list" src="https://github.com/user-attachments/assets/6972b881-ca31-43ad-b424-161ab3d09e84" />
 
 ## Installation via Homebrew
 
@@ -47,8 +46,6 @@ brew install --cask menubarusb
 
 ### 3. "Apple could not verify MenuBarUSB" warning
 This warning appears because I don't have a paid Apple subscription. To open it, go to Settings > Privacy & Security > (scroll down) > Open Anyway.
-
-<img width="372" height="358" alt="Screenshot 2025-09-21 at 22 44 30" src="https://github.com/user-attachments/assets/97ead210-a8f7-41a2-a0b0-34b98ada962d" />
 
 ### Update
 
