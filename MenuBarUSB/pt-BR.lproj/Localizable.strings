@@ -133,8 +133,8 @@
 "egyptian_nr" = "Egípcio";
 "greek_nr" = "Grego";
 "roman_nr" = "Romano";
-"hide_menubar_icon" = "Ocultar ícone da barra de menus";
-"hide_menubar_icon_description" = "Oculta o ícone do app, deixando apenas o número.";
+"hide_menubar_icon" = "Ocultar símbolo do ícone";
+"hide_menubar_icon_description" = "Oculta o símbolo ícone do app (não o ícone inteiro), deixando apenas o número.";
 "switch_sides" = "Trocar lados";
 "switch_sides_description" = "O ícone e o número trocam de lado";
 "changes_restart_warning" = "Algumas alterações podem fazer o programa reiniciar.";

@@ -53,6 +53,6 @@ struct InheritanceTreeView: View {
             }
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 565)
+        .frame(minWidth: 465, minHeight: 585)
     }
 }

@@ -292,33 +292,11 @@ struct SettingsView: View {
                         }
                     )
                     HStack {
+                        Text("icon")
+                        Text("|")
                         Text("numerical_representation")
-                        Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
-                            let nr: [NumberRepresentation] = [
-                                .base10,
-                                .binary,
-                                .egyptian,
-                                .greek,
-                                .hex,
-                                .roman
-                            ]
-                            ForEach(nr, id: \.self) { item in
-                                Button {
-                                    numberRepresentation = item
-                                    let task = Process()
-                                    task.launchPath = "/usr/bin/open"
-                                    task.arguments = ["-n", Bundle.main.bundlePath]
-                                    task.launch()
-                                    NSApp.terminate(nil)
-                                } label: {
-                                    let string = item.rawValue
-                                    Text(LocalizedStringKey(string))
-                                }
-                            }
-                        }
                     }
                     HStack {
-                        Text("icon")
                         Menu {
                             let icons: [String] = [
                                 "cable.connector",
@@ -353,6 +331,33 @@ struct SettingsView: View {
                         } label: {
                             Image(systemName: macBarIcon)
                         }
+                        .disabled(hideMenubarIcon)
+                        
+                        Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
+                            let nr: [NumberRepresentation] = [
+                                .base10,
+                                .binary,
+                                .egyptian,
+                                .greek,
+                                .hex,
+                                .roman
+                            ]
+                            ForEach(nr, id: \.self) { item in
+                                Button {
+                                    numberRepresentation = item
+                                    let task = Process()
+                                    task.launchPath = "/usr/bin/open"
+                                    task.arguments = ["-n", Bundle.main.bundlePath]
+                                    task.launch()
+                                    NSApp.terminate(nil)
+                                } label: {
+                                    let string = item.rawValue
+                                    Text(LocalizedStringKey(string))
+                                }
+                            }
+                        }
+                        .disabled(hideCount)
+                        
                     }
                     Text("changes_restart_warning")
                         .font(.footnote)
@@ -765,7 +770,7 @@ struct SettingsView: View {
             
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 565)
+        .frame(minWidth: 465, minHeight: 585)
         .appBackground(reduceTransparency)
     }
     
