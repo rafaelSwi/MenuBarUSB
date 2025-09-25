@@ -27,4 +27,9 @@ final class StorageKeys {
     static let hideUpdate = "hideUpdate";
     static let hideDonate = "hideDonate";
     static let noTextButtons = "noTextButtons";
+    static let hideCount = "hideCount";
+    static let numberRepresentation = "numberRepresentation";
+    static let macBarIcon = "macBarIcon";
+    static let hideMenubarIcon = "hideMenubarIcon";
+    static let switchSides = "switchSides";
 }

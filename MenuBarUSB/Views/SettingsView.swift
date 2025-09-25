@@ -27,6 +27,7 @@ struct SettingsView: View {
     @State private var releaseURL: URL? = nil
     
     @State private var showSystemOptions = false;
+    @State private var showIconOptions = false;
     @State private var showInterfaceOptions = false;
     @State private var showInfoOptions = false;
     @State private var showHeritageOptions = false;
@@ -50,6 +51,8 @@ struct SettingsView: View {
     @State private var showHideUpdateDescription: Bool = false;
     @State private var showHideDonateDescription: Bool = false;
     @State private var showNoTextButtonsDescription: Bool = false;
+    @State private var showHideCountDescription: Bool = false;
+    @State private var showHideMenubarIconDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -69,6 +72,10 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.hideUpdate) private var hideUpdate = false
     @AppStorage(StorageKeys.hideDonate) private var hideDonate = false
     @AppStorage(StorageKeys.noTextButtons) private var noTextButtons = false
+    @AppStorage(StorageKeys.hideCount) private var hideCount = false
+    @AppStorage(StorageKeys.numberRepresentation) private var numberRepresentation: NumberRepresentation = .base10
+    @AppStorage(StorageKeys.macBarIcon) private var macBarIcon: String = "cable.connector"
+    @AppStorage(StorageKeys.hideMenubarIcon) private var hideMenubarIcon = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -93,6 +100,8 @@ struct SettingsView: View {
         showHideUpdateDescription = false;
         showHideDonateDescription = false;
         showNoTextButtonsDescription = false;
+        showHideCountDescription = false;
+        showHideMenubarIconDescription = false;
     }
     
     var appVersion: String {
@@ -105,6 +114,7 @@ struct SettingsView: View {
         showInfoOptions = false
         showHeritageOptions = false
         showOthersOptions = false
+        showIconOptions = false
     }
     
     func manageShowOptions(exception: inout Bool) {
@@ -240,6 +250,112 @@ struct SettingsView: View {
                             untoggleAllDesc();
                         }
                     )
+                }
+                
+                HStack {
+                    Image(systemName: showIconOptions ? "chevron.down" : "chevron.up")
+                    Text(String(localized: "icon_category"))
+                        .font(.system(size: 13.5))
+                        .fontWeight(.light)
+                }
+                .onTapGesture {
+                    manageShowOptions(exception: &showIconOptions)
+                }
+                
+                if (showIconOptions) {
+                    ToggleRow(
+                        label: String(localized: "hide_menubar_icon"),
+                        description: String(localized: "hide_menubar_icon_description"),
+                        binding: $hideMenubarIcon,
+                        showMessage: $showHideMenubarIconDescription,
+                        incompatibilities: nil,
+                        disabled: hideCount,
+                        onToggle: {_ in
+                            hideCount = false;
+                        },
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "hide_count"),
+                        description: String(localized: "hide_count_description"),
+                        binding: $hideCount,
+                        showMessage: $showHideCountDescription,
+                        incompatibilities: nil,
+                        disabled: hideMenubarIcon,
+                        onToggle: {_ in
+                            hideMenubarIcon = false;
+                        },
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    HStack {
+                        Text("numerical_representation")
+                        Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
+                            let nr: [NumberRepresentation] = [
+                                .base10,
+                                .binary,
+                                .egyptian,
+                                .greek,
+                                .hex,
+                                .roman
+                            ]
+                            ForEach(nr, id: \.self) { item in
+                                Button {
+                                    numberRepresentation = item
+                                    let task = Process()
+                                    task.launchPath = "/usr/bin/open"
+                                    task.arguments = ["-n", Bundle.main.bundlePath]
+                                    task.launch()
+                                    NSApp.terminate(nil)
+                                } label: {
+                                    let string = item.rawValue
+                                    Text(LocalizedStringKey(string))
+                                }
+                            }
+                        }
+                    }
+                    HStack {
+                        Text("icon")
+                        Menu {
+                            let icons: [String] = [
+                                "cable.connector",
+                                "app.connected.to.app.below.fill",
+                                "inset.filled.topthird.middlethird.bottomthird.rectangle",
+                                "externaldrive.connected.to.line.below",
+                                "externaldrive.connected.to.line.below.fill",
+                                "bolt.ring.closed",
+                                "bolt",
+                                "bolt.fill",
+                                "powerplug.portrait",
+                                "powerplug.portrait.fill",
+                                "powercord",
+                                "powercord.fill",
+                                "wrench.and.screwdriver",
+                                "wrench.and.screwdriver.fill",
+                                "cat.fill",
+                                "dog.fill"
+                            ]
+                            ForEach(icons, id: \.self) { item in
+                                Button {
+                                    macBarIcon = item
+                                } label: {
+                                    HStack {
+                                        Image(systemName: item)
+                                        if (!hideCount) {
+                                            Text(NumberConverter(manager.devices.count).convert())
+                                        }
+                                    }
+                                }
+                            }
+                        } label: {
+                            Image(systemName: macBarIcon)
+                        }
+                    }
+                    Text("changes_restart_warning")
+                        .font(.footnote)
                 }
                 
                 HStack {
