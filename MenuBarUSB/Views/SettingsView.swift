@@ -33,6 +33,12 @@ struct SettingsView: View {
     @State private var showHeritageOptions = false;
     @State private var showOthersOptions = false;
     
+    @State private var invisibleIconOptions = false;
+    @State private var invisibleInterfaceOptions = false;
+    @State private var invisibleInfoOptions = false;
+    @State private var invisibleHeritageOptions = false;
+    @State private var invisibleOthersOptions = false;
+    
     @State private var showLaunchAtLoginDescription: Bool = false;
     @State private var showConvertHexaDescription: Bool = false;
     @State private var showLongListDescription: Bool = false;
@@ -299,86 +305,82 @@ struct SettingsView: View {
                 }
                 
                 if (showIconOptions) {
-                    ToggleRow(
-                        label: String(localized: "hide_menubar_icon"),
-                        description: String(localized: "hide_menubar_icon_description"),
-                        binding: $hideMenubarIcon,
-                        showMessage: $showHideMenubarIconDescription,
-                        incompatibilities: nil,
-                        disabled: hideCount,
-                        onToggle: {_ in
-                            hideCount = false;
-                        },
-                        untoggle: {
-                            untoggleAllDesc();
+                    VStack(alignment: .leading, spacing: 16) {
+                        ToggleRow(
+                            label: String(localized: "hide_menubar_icon"),
+                            description: String(localized: "hide_menubar_icon_description"),
+                            binding: $hideMenubarIcon,
+                            showMessage: $showHideMenubarIconDescription,
+                            incompatibilities: nil,
+                            disabled: hideCount,
+                            onToggle: { _ in hideCount = false },
+                            untoggle: { untoggleAllDesc() }
+                        )
+                        ToggleRow(
+                            label: String(localized: "hide_count"),
+                            description: String(localized: "hide_count_description"),
+                            binding: $hideCount,
+                            showMessage: $showHideCountDescription,
+                            incompatibilities: nil,
+                            disabled: hideMenubarIcon,
+                            onToggle: { _ in hideMenubarIcon = false },
+                            untoggle: { untoggleAllDesc() }
+                        )
+
+                        HStack(spacing: 12) {
+                            Image(systemName: macBarIcon)
+                            if !hideCount {
+                                Text(NumberConverter(manager.devices.count).convert())
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
                         }
-                    )
-                    ToggleRow(
-                        label: String(localized: "hide_count"),
-                        description: String(localized: "hide_count_description"),
-                        binding: $hideCount,
-                        showMessage: $showHideCountDescription,
-                        incompatibilities: nil,
-                        disabled: hideMenubarIcon,
-                        onToggle: {_ in
-                            hideMenubarIcon = false;
-                        },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
-                    )
-                    HStack {
-                        Text("icon")
-                        Text("|")
-                        Text("numerical_representation")
-                    }
-                    HStack {
-                        Menu {
-                            ForEach(getIcons(), id: \.self) { item in
-                                Button {
-                                    macBarIcon = item
-                                } label: {
-                                    HStack {
-                                        Image(systemName: item)
-                                        if (!hideCount) {
-                                            Text(NumberConverter(manager.devices.count).convert())
+
+                        HStack{
+                            Menu {
+                                ForEach(getIcons(), id: \.self) { item in
+                                    Button {
+                                        macBarIcon = item
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: item)
+                                            if !hideCount {
+                                                Text(NumberConverter(manager.devices.count).convert())
+                                            }
                                         }
                                     }
                                 }
+                            } label: {
+                                Label("icon", systemImage: macBarIcon)
+                                    .background(RoundedRectangle(cornerRadius: 6).stroke(Color.gray.opacity(0.3)))
                             }
-                        } label: {
-                            Image(systemName: macBarIcon)
-                        }
-                        .disabled(hideMenubarIcon)
-                        
-                        Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
-                            let nr: [NumberRepresentation] = [
-                                .base10,
-                                .binary,
-                                .egyptian,
-                                .greek,
-                                .hex,
-                                .roman
-                            ]
-                            ForEach(nr, id: \.self) { item in
-                                Button {
-                                    numberRepresentation = item
-                                    let task = Process()
-                                    task.launchPath = "/usr/bin/open"
-                                    task.arguments = ["-n", Bundle.main.bundlePath]
-                                    task.launch()
-                                    NSApp.terminate(nil)
-                                } label: {
-                                    let string = item.rawValue
-                                    Text(LocalizedStringKey(string))
+                            .disabled(hideMenubarIcon)
+
+                            Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
+                                let nr: [NumberRepresentation] = [.base10, .binary, .egyptian, .greek, .hex, .roman]
+                                ForEach(nr, id: \.self) { item in
+                                    Button {
+                                        numberRepresentation = item
+                                        let task = Process()
+                                        task.launchPath = "/usr/bin/open"
+                                        task.arguments = ["-n", Bundle.main.bundlePath]
+                                        task.launch()
+                                        NSApp.terminate(nil)
+                                    } label: {
+                                        Text(LocalizedStringKey(item.rawValue))
+                                    }
                                 }
                             }
+                            .disabled(hideCount)
                         }
-                        .disabled(hideCount)
-                        
+
+                        Text("changes_restart_warning")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .padding(.bottom, 3)
                     }
-                    Text("changes_restart_warning")
-                        .font(.footnote)
+
                 }
                 
                 HStack {
@@ -803,7 +805,7 @@ struct SettingsView: View {
             
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 585)
+        .frame(minWidth: 465, minHeight: 600)
         .appBackground(reduceTransparency)
     }
     
