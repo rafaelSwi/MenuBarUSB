@@ -12,8 +12,12 @@ brew install --cask menubarusb
 ## Features
 
 ### Notifications
-You can enable notifications for devices that connect and disconnect! I highly recommend setting macOS to not keep notifications in Notification Center to avoid unnecessary clutter. Below are the settings I recommend.
+You can enable notifications! Below are the settings I recommend.
 
+#### Notifications (Tahoe 26.0 or higher)
+<img width="477" height="410" alt="Screenshot 2025-09-26 at 10 36 46" src="https://github.com/user-attachments/assets/5d2476b9-cc1e-4b20-bf6a-005b1df58f1c" />
+
+#### Notifications (Sequoia 15.0 or lower)
 <img width="478" height="425" alt="settings_notif" src="https://github.com/user-attachments/assets/f83a7260-8d05-45bc-8d70-b3631f239c97" />
 
 ### Rename devices
