@@ -138,3 +138,9 @@
 "switch_sides" = "Skift side";
 "switch_sides_description" = "Ikonet og tallet skifter side";
 "changes_restart_warning" = "Nogle ændringer kan få appen til hurtigt at genstarte.";
+"destroy_all_inheritances_device" = "Fjern alle arveforbindelser for denne enhed";
+"alert" = "Advarsel";
+"press_to_close" = "[esc] for at lukke";
+"restart_button" = "Genstart-knap";
+"restart_button_description" = "Tilføjer en knap, der genstarter programmet (afslutter processen og åbner det igen) til fanen Enheder.";
+"restart" = "Genstart";

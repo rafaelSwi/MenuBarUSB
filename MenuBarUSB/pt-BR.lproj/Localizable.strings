@@ -138,3 +138,9 @@
 "switch_sides" = "Trocar lados";
 "switch_sides_description" = "O ícone e o número trocam de lado";
 "changes_restart_warning" = "Algumas alterações podem fazer o programa reiniciar.";
+"destroy_all_inheritances_device" = "Remover todos os vínculos de herança deste dispositivo";
+"alert" = "Alerta";
+"press_to_close" = "[esc] para fechar";
+"restart_button" = "Botão de reiniciar";
+"restart_button_description" = "Adiciona um botão que reinicia o programa (encerra o processo e o reabre) na aba de dispositivos.";
+"restart" = "Reiniciar";

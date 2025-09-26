@@ -72,7 +72,7 @@
 "updated" = "Actualitzat";
 "disable_notification_cooldown" = "Desactivar la demora de notificacions";
 "disable_notification_cooldown_description" = "Dispositius o ports USB defectuosos poden provocar una experiència frustrant, no es recomana per a l’ús diari.";
-"systemCategory" = "macOS";
+"systemCategory" = "Sistema";
 "uiCategory" = "Interfície general";
 "usbCategory" = "USB";
 "heritageCategory" = "Herència";
@@ -138,3 +138,9 @@
 "switch_sides" = "Canvia de costat";
 "switch_sides_description" = "La icona i el número canvien de costat";
 "changes_restart_warning" = "Alguns canvis poden fer que l'aplicació es reiniciï ràpidament.";
+"destroy_all_inheritances_device" = "Elimina tots els enllaços d'herència per a aquest dispositiu";
+"alert" = "Alerta";
+"press_to_close" = "[esc] per tancar";
+"restart_button" = "Botó de reinici";
+"restart_button_description" = "Afegeix un botó que reinicia el programa (finalitza el procés i el torna a obrir) a la pestanya de dispositius.";
+"restart" = "Reinicia";

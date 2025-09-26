@@ -138,3 +138,9 @@
 "switch_sides" = "Tarafları değiştir";
 "switch_sides_description" = "Simge ve sayı taraf değiştirir";
 "changes_restart_warning" = "Bazı değişiklikler uygulamanın hızlıca yeniden başlamasına neden olabilir.";
+"destroy_all_inheritances_device" = "Bu cihaz için tüm kalıtım bağlantılarını kaldır";
+"alert" = "Uyarı";
+"press_to_close" = "[esc] ile kapat";
+"restart_button" = "Yeniden başlat düğmesi";
+"restart_button_description" = "Cihazlar sekmesine, programı yeniden başlatan (işlemi sonlandırıp tekrar açan) bir düğme ekler.";
+"restart" = "Yeniden başlat";

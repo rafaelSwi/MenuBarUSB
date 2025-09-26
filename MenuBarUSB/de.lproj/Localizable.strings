@@ -72,7 +72,7 @@
 "updated" = "Aktualisiert";
 "disable_notification_cooldown" = "Benachrichtigungspause deaktivieren";
 "disable_notification_cooldown_description" = "Fehlfunktionierende Geräte oder USB-Ports können zu einer frustrierenden Erfahrung führen, für den täglichen Gebrauch nicht empfohlen.";
-"systemCategory" = "macOS";
+"systemCategory" = "System";
 "uiCategory" = "Liste";
 "usbCategory" = "USB";
 "heritageCategory" = "Vererbung";
@@ -138,3 +138,9 @@
 "switch_sides" = "Seiten wechseln";
 "switch_sides_description" = "Das Symbol und die Zahl wechseln die Seiten";
 "changes_restart_warning" = "Einige Änderungen können dazu führen, dass die App schnell neu startet.";
+"destroy_all_inheritances_device" = "Alle Vererbungsverbindungen für dieses Gerät entfernen";
+"alert" = "Warnung";
+"press_to_close" = "[esc] zum Schließen";
+"restart_button" = "Neustart-Schaltfläche";
+"restart_button_description" = "Fügt eine Schaltfläche hinzu, die das Programm neu startet (beendet den Prozess und öffnet es erneut) im Geräte-Tab.";
+"restart" = "Neustart";

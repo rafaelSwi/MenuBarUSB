@@ -138,3 +138,9 @@
 "switch_sides" = "Changer de côté";
 "switch_sides_description" = "L’icône et le nombre changent de côté";
 "changes_restart_warning" = "Certains changements peuvent entraîner un redémarrage rapide de l’application.";
+"destroy_all_inheritances_device" = "Supprimer tous les liens d'héritage pour cet appareil";
+"alert" = "Alerte";
+"press_to_close" = "[esc] pour fermer";
+"restart_button" = "Bouton de redémarrage";
+"restart_button_description" = "Ajoute un bouton qui redémarre le programme (termine le processus et le rouvre) dans l'onglet des périphériques.";
+"restart" = "Redémarrer";

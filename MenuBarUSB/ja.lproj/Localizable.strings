@@ -138,3 +138,9 @@
 "switch_sides" = "左右を入れ替える";
 "switch_sides_description" = "アイコンと数字が左右を入れ替えます";
 "changes_restart_warning" = "一部の変更により、アプリがすぐに再起動する場合があります。";
+"destroy_all_inheritances_device" = "このデバイスのすべての継承リンクを削除";
+"alert" = "警告";
+"press_to_close" = "[esc]";
+"restart_button" = "再起動ボタン";
+"restart_button_description" = "デバイスタブに、プログラムを再起動するボタン（プロセスを終了して再び開く）を追加します。";
+"restart" = "再起動";

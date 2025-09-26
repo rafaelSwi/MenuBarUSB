@@ -1,5 +1,5 @@
 "exit" = "Ieșire";
-"refresh" = "Reîmprospătare";
+"refresh" = "Reîmprosp.";
 "open_on_startup" = "Începe automat";
 "usb_device" = "Dispozitiv USB";
 "usb_devices" = "Dispozitive USB";
@@ -138,3 +138,9 @@
 "switch_sides" = "Schimbă părțile";
 "switch_sides_description" = "Pictograma și numărul își schimbă părțile";
 "changes_restart_warning" = "Unele modificări pot face ca aplicația să repornească rapid.";
+"destroy_all_inheritances_device" = "Eliminați toate legăturile de moștenire pentru acest dispozitiv";
+"alert" = "Avertizare";
+"press_to_close" = "[esc] pentru a închide";
+"restart_button" = "Buton de repornire";
+"restart_button_description" = "Adaugă un buton care repornește programul (închide procesul și îl redeschide) în fila dispozitive.";
+"restart" = "Repornire";

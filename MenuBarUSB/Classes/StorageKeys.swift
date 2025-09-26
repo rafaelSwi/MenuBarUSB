@@ -32,4 +32,5 @@ final class StorageKeys {
     static let macBarIcon = "macBarIcon";
     static let hideMenubarIcon = "hideMenubarIcon";
     static let switchSides = "switchSides";
+    static let restartButton = "restartButton";
 }

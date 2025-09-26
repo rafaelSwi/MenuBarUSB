@@ -138,3 +138,9 @@
 "switch_sides" = "पक्ष बदलें";
 "switch_sides_description" = "आइकन और संख्या पक्ष बदलते हैं";
 "changes_restart_warning" = "कुछ बदलावों से ऐप जल्दी से पुनः प्रारंभ हो सकता है।";
+"destroy_all_inheritances_device" = "इस डिवाइस के लिए सभी इनहेरिटेंस लिंक हटाएँ";
+"alert" = "चेतावनी";
+"press_to_close" = "[esc] बंद करें";
+"restart_button" = "रीस्टार्ट बटन";
+"restart_button_description" = "डिवाइस टैब में एक बटन जोड़ता है जो प्रोग्राम को रीस्टार्ट करता है (प्रक्रिया समाप्त करता है और इसे फिर से खोलता है)।";
+"restart" = "रीस्टार्ट";

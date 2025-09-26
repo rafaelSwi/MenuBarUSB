@@ -32,7 +32,7 @@ struct InheritanceTreeView: View {
                         TreeNodeView(
                             deviceId: rootId,
                             level: 0,
-                            inheritedDevices: inheritedDevices,
+                            inheritedDevices: $inheritedDevices,
                             manager: manager,
                             renamedDevices: renamedDevices
                         )

@@ -53,6 +53,7 @@ struct SettingsView: View {
     @State private var showNoTextButtonsDescription: Bool = false;
     @State private var showHideCountDescription: Bool = false;
     @State private var showHideMenubarIconDescription: Bool = false;
+    @State private var showRestartButtonDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -76,6 +77,7 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.numberRepresentation) private var numberRepresentation: NumberRepresentation = .base10
     @AppStorage(StorageKeys.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AppStorage(StorageKeys.hideMenubarIcon) private var hideMenubarIcon = false
+    @AppStorage(StorageKeys.restartButton) private var restartButton = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -102,10 +104,44 @@ struct SettingsView: View {
         showNoTextButtonsDescription = false;
         showHideCountDescription = false;
         showHideMenubarIconDescription = false;
+        showRestartButtonDescription = false;
     }
     
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
+    }
+    
+    func getIcons() -> [String] {
+        var icons: [String] = [
+            "cable.connector",
+            "app.connected.to.app.below.fill",
+            "mediastick",
+            "sdcard",
+            "sdcard.fill",
+            "bolt.ring.closed",
+            "bolt",
+            "bolt.fill",
+            "wrench.and.screwdriver",
+            "wrench.and.screwdriver.fill",
+            "externaldrive.connected.to.line.below",
+            "externaldrive.connected.to.line.below.fill",
+        ]
+        if #available(macOS 15.0, *) {
+            icons.append(contentsOf: [
+                "powerplug.portrait",
+                "powerplug.portrait.fill",
+                "powercord",
+                "powercord.fill",
+                "cat.fill",
+                "dog.fill",
+            ])
+        }
+        if #available(macOS 26.0, *) {
+            icons.append(contentsOf: [
+                "inset.filled.topthird.middlethird.bottomthird.rectangle",
+            ])
+        }
+        return icons
     }
     
     func untoggleShowOptions() {
@@ -298,25 +334,7 @@ struct SettingsView: View {
                     }
                     HStack {
                         Menu {
-                            let icons: [String] = [
-                                "cable.connector",
-                                "app.connected.to.app.below.fill",
-                                "inset.filled.topthird.middlethird.bottomthird.rectangle",
-                                "externaldrive.connected.to.line.below",
-                                "externaldrive.connected.to.line.below.fill",
-                                "bolt.ring.closed",
-                                "bolt",
-                                "bolt.fill",
-                                "powerplug.portrait",
-                                "powerplug.portrait.fill",
-                                "powercord",
-                                "powercord.fill",
-                                "wrench.and.screwdriver",
-                                "wrench.and.screwdriver.fill",
-                                "cat.fill",
-                                "dog.fill"
-                            ]
-                            ForEach(icons, id: \.self) { item in
+                            ForEach(getIcons(), id: \.self) { item in
                                 Button {
                                     macBarIcon = item
                                 } label: {
@@ -457,8 +475,10 @@ struct SettingsView: View {
                         description: String(localized: "hidden_indicator_description"),
                         binding: $camouflagedIndicator,
                         showMessage: $showCamouflagedIndicatorDescription,
-                        incompatibilities: nil,
-                        onToggle: {_ in},
+                        incompatibilities: [restartButton],
+                        onToggle: {_ in
+                            restartButton = false;
+                        },
                         untoggle: {
                             untoggleAllDesc();
                         }
@@ -632,6 +652,19 @@ struct SettingsView: View {
                         showMessage: $showNoTextButtonsDescription,
                         incompatibilities: nil,
                         onToggle: {_ in},
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "restart_button"),
+                        description: String(localized: "restart_button_description"),
+                        binding: $restartButton,
+                        showMessage: $showRestartButtonDescription,
+                        incompatibilities: [camouflagedIndicator],
+                        onToggle: {_ in
+                            camouflagedIndicator = false;
+                        },
                         untoggle: {
                             untoggleAllDesc();
                         }

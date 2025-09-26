@@ -138,3 +138,9 @@
 "switch_sides" = "切换位置";
 "switch_sides_description" = "图标和数字交换位置";
 "changes_restart_warning" = "某些更改可能会导致应用快速重启。";
+"destroy_all_inheritances_device" = "移除此设备的所有继承链接";
+"alert" = "警告";
+"press_to_close" = "[esc]";
+"restart_button" = "重启按钮";
+"restart_button_description" = "在设备选项卡中添加一个按钮，用于重启程序（结束进程并重新打开）。";
+"restart" = "重启";

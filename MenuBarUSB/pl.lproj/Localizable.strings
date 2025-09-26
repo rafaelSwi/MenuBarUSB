@@ -138,3 +138,9 @@
 "switch_sides" = "Zmień strony";
 "switch_sides_description" = "Ikona i numer zamieniają się miejscami";
 "changes_restart_warning" = "Niektóre zmiany mogą spowodować szybki restart aplikacji.";
+"destroy_all_inheritances_device" = "Usuń wszystkie powiązania dziedziczenia dla tego urządzenia";
+"alert" = "Alert";
+"press_to_close" = "[esc] aby zamknąć";
+"restart_button" = "Przycisk restartu";
+"restart_button_description" = "Dodaje przycisk, który restartuje program (kończy proces i otwiera go ponownie) na karcie urządzeń.";
+"restart" = "Restart";

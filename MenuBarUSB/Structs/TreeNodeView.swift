@@ -11,9 +11,23 @@ struct TreeNodeView: View {
     
     let deviceId: String
     let level: Int
-    let inheritedDevices: [HeritageDevice]
+    @Binding var inheritedDevices: [HeritageDevice]
     let manager: USBDeviceManager
     let renamedDevices: [RenamedDevice]
+    
+    private func removeInheritance(for deviceId: String) {
+        inheritedDevices.removeAll { $0.deviceId == deviceId }
+        
+        let directChildren = inheritedDevices
+            .filter { $0.inheritsFrom == deviceId }
+            .map { $0.deviceId }
+        
+        for childId in directChildren {
+            removeInheritance(for: childId)
+        }
+        
+        inheritedDevices.removeAll { $0.inheritsFrom == deviceId }
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -31,9 +45,21 @@ struct TreeNodeView: View {
                         .font(.system(size: 14, weight: .regular))
                         .foregroundColor(.secondary)
                 }
+                
+                if level > 0 {
+                    Button {
+                        removeInheritance(for: deviceId)
+                    } label: {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                            .imageScale(.small)
+                            .opacity(0.7)
+                    }
+                    .buttonStyle(.plain)
+                    .help("destroy_all_inheritances_device")
+                }
             }
             
-            // Filhos
             let children = inheritedDevices
                 .filter { $0.inheritsFrom == deviceId }
                 .map { $0.deviceId }
@@ -42,7 +68,7 @@ struct TreeNodeView: View {
                 TreeNodeView(
                     deviceId: childId,
                     level: level + 1,
-                    inheritedDevices: inheritedDevices,
+                    inheritedDevices: $inheritedDevices,
                     manager: manager,
                     renamedDevices: renamedDevices
                 )

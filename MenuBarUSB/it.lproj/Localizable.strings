@@ -138,3 +138,9 @@
 "switch_sides" = "Scambia lato";
 "switch_sides_description" = "L’icona e il numero si scambiano di lato";
 "changes_restart_warning" = "Alcune modifiche potrebbero causare un rapido riavvio dell’app.";
+"destroy_all_inheritances_device" = "Rimuovi tutti i collegamenti di ereditarietà per questo dispositivo";
+"alert" = "Avviso";
+"press_to_close" = "[esc]";
+"restart_button" = "Pulsante di riavvio";
+"restart_button_description" = "Aggiunge un pulsante che riavvia il programma (termina il processo e lo riapre) nella scheda dispositivi.";
+"restart" = "Riavvia";

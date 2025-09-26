@@ -138,3 +138,9 @@
 "switch_sides" = "Switch sides";
 "switch_sides_description" = "The icon and number switch sides";
 "changes_restart_warning" = "Some changes may cause the application to quickly restart.";
+"destroy_all_inheritances_device" = "Remove all inheritance links for this device";
+"alert" = "Alert";
+"press_to_close" = "[esc] to close";
+"restart_button" = "Restart button";
+"restart_button_description" = "Adds a button that restarts the program (ends the process and reopens it) to the devices tab.";
+"restart" = "Restart";

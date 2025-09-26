@@ -57,6 +57,11 @@ struct ToggleRow: View {
                             .opacity(0.4)
                     }
                     .buttonStyle(.plain)
+                    .alert("alert", isPresented: $showIncompatibilityMessage) {
+                        Button("press_to_close", role: .cancel) { }
+                    } message: {
+                        Text("warning_incompatible_options")
+                    }
                 }
                 
                 Spacer()
@@ -72,15 +77,6 @@ struct ToggleRow: View {
                     }
             }
             
-            if showIncompatibilityMessage {
-                Text("warning_incompatible_options")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .onAppear {
-                        showMessage = false
-                    }
-            }
         }
     }
 }

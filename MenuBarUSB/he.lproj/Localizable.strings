@@ -138,3 +138,9 @@
 "switch_sides" = "החלף צדדים";
 "switch_sides_description" = "הסמל והמספר מחליפים צדדים";
 "changes_restart_warning" = "חלק מהשינויים עלולים לגרום לאפליקציה להפעיל מחדש במהירות.";
+"destroy_all_inheritances_device" = "הסר את כל קשרי הירושה עבור התקן זה";
+"alert" = "התראה";
+"press_to_close" = "[esc] לסגור";
+"restart_button" = "כפתור הפעלה מחדש";
+"restart_button_description" = "מוסיף כפתור שמפעיל מחדש את התוכנית (מסיים את התהליך ופותח אותה מחדש) בלשונית ההתקנים.";
+"restart" = "הפעלה מחדש";

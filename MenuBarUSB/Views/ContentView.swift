@@ -23,6 +23,7 @@ struct ContentView: View {
     @AppStorage(StorageKeys.increasedIndentationGap) private var increasedIndentationGap = false
     @AppStorage(StorageKeys.hideSecondaryInfo) private var hideSecondaryInfo = false
     @AppStorage(StorageKeys.noTextButtons) private var noTextButtons = false
+    @AppStorage(StorageKeys.restartButton) private var restartButton = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -216,7 +217,9 @@ struct ContentView: View {
                 if camouflagedIndicator {
                     Group {
                         Image(systemName: "eye.slash")
-                        Text("\(manager.connectedCamouflagedDevices)/\(camouflagedDevices.count)")
+                        let first = NumberConverter(manager.connectedCamouflagedDevices).convert()
+                        let second = NumberConverter(camouflagedDevices.count).convert()
+                        Text("\(first)/\(second)")
                     }
                     .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
                 }
@@ -232,7 +235,6 @@ struct ContentView: View {
                         Label("settings", systemImage: "gear")
                     }
                 }
-                .font(.system(size: 12))
                 
                 Button {
                     manager.refresh()
@@ -243,7 +245,22 @@ struct ContentView: View {
                         Label("refresh", systemImage: "arrow.clockwise")
                     }
                 }
-                .font(.system(size: 12))
+                
+                if (restartButton) {
+                    Button {
+                        let task = Process()
+                        task.launchPath = "/usr/bin/open"
+                        task.arguments = ["-n", Bundle.main.bundlePath]
+                        task.launch()
+                        NSApp.terminate(nil)
+                    } label: {
+                        if (noTextButtons) {
+                            Image(systemName: "power.dotted")
+                        } else {
+                            Label("restart", systemImage: "power.dotted")
+                        }
+                    }
+                }
                 
                 Button(role: .destructive) {
                     NSApp.terminate(nil)

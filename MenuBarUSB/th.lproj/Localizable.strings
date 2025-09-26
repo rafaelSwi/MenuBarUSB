@@ -138,3 +138,9 @@
 "switch_sides" = "สลับด้าน";
 "switch_sides_description" = "ไอคอนและตัวเลขสลับด้านกัน";
 "changes_restart_warning" = "การเปลี่ยนแปลงบางอย่างอาจทำให้แอปรีสตาร์ทอย่างรวดเร็ว.";
+"destroy_all_inheritances_device" = "ลบการเชื่อมโยงการสืบทอดทั้งหมดสำหรับอุปกรณ์นี้";
+"alert" = "แจ้งเตือน";
+"press_to_close" = "[esc] ปิด";
+"restart_button" = "ปุ่มรีสตาร์ท";
+"restart_button_description" = "เพิ่มปุ่มที่รีสตาร์ทโปรแกรม (สิ้นสุดกระบวนการและเปิดใหม่) ในแท็บอุปกรณ์.";
+"restart" = "รีสตาร์ท";
