@@ -108,6 +108,14 @@ struct ContentView: View {
         return CGFloat(level) * multiply
     }
     
+    func showEyeSlash() -> Bool {
+        if (noTextButtons) {
+            return true;
+        } else {
+            return (!restartButton);
+        }
+    }
+    
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 6) {
@@ -216,7 +224,7 @@ struct ContentView: View {
                 
                 if camouflagedIndicator {
                     Group {
-                        if (!restartButton) {
+                        if (showEyeSlash()) {
                             Image(systemName: "eye.slash")
                         }
                         let first = NumberConverter(manager.connectedCamouflagedDevices).convert()
