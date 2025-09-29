@@ -121,6 +121,7 @@ struct SettingsView: View {
         var icons: [String] = [
             "cable.connector",
             "app.connected.to.app.below.fill",
+            "rectangle.connected.to.line.below",
             "mediastick",
             "sdcard",
             "sdcard.fill",
@@ -328,10 +329,14 @@ struct SettingsView: View {
                         )
 
                         HStack(spacing: 12) {
-                            Image(systemName: macBarIcon)
+                            if !hideMenubarIcon {
+                                Text("icon")
+                                Image(systemName: macBarIcon)
+                            }
                             if !hideCount {
+                                Text("numerical_representation")
                                 Text(NumberConverter(manager.devices.count).convert())
-                                    .font(.caption)
+                                    .fontWeight(.bold)
                                     .foregroundColor(.secondary)
                             }
                             Spacer()
@@ -377,7 +382,8 @@ struct SettingsView: View {
 
                         Text("changes_restart_warning")
                             .font(.footnote)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.primary)
+                            .opacity(0.7)
                             .padding(.bottom, 3)
                     }
 
@@ -477,10 +483,8 @@ struct SettingsView: View {
                         description: String(localized: "hidden_indicator_description"),
                         binding: $camouflagedIndicator,
                         showMessage: $showCamouflagedIndicatorDescription,
-                        incompatibilities: [restartButton],
-                        onToggle: {_ in
-                            restartButton = false;
-                        },
+                        incompatibilities: nil,
+                        onToggle: {_ in },
                         untoggle: {
                             untoggleAllDesc();
                         }
@@ -663,10 +667,8 @@ struct SettingsView: View {
                         description: String(localized: "restart_button_description"),
                         binding: $restartButton,
                         showMessage: $showRestartButtonDescription,
-                        incompatibilities: [camouflagedIndicator],
-                        onToggle: {_ in
-                            camouflagedIndicator = false;
-                        },
+                        incompatibilities: nil,
+                        onToggle: {_ in },
                         untoggle: {
                             untoggleAllDesc();
                         }

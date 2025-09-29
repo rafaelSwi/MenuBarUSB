@@ -57,6 +57,7 @@ struct ToggleRow: View {
                             .opacity(0.4)
                     }
                     .buttonStyle(.plain)
+                    .help("warning_incompatible_options")
                     .alert("alert", isPresented: $showIncompatibilityMessage) {
                         Button("press_to_close", role: .cancel) { }
                     } message: {
@@ -77,6 +78,9 @@ struct ToggleRow: View {
                     }
             }
             
+        }
+        .onAppear {
+            showIncompatibilityMessage = false
         }
     }
 }

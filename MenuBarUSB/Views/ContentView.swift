@@ -216,12 +216,15 @@ struct ContentView: View {
                 
                 if camouflagedIndicator {
                     Group {
-                        Image(systemName: "eye.slash")
+                        if (!restartButton) {
+                            Image(systemName: "eye.slash")
+                        }
                         let first = NumberConverter(manager.connectedCamouflagedDevices).convert()
                         let second = NumberConverter(camouflagedDevices.count).convert()
                         Text("\(first)/\(second)")
                     }
                     .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
+                    .help("hidden_indicator")
                 }
                 
                 Spacer()
@@ -255,9 +258,9 @@ struct ContentView: View {
                         NSApp.terminate(nil)
                     } label: {
                         if (noTextButtons) {
-                            Image(systemName: "power.dotted")
+                            Image(systemName: "arrow.2.squarepath")
                         } else {
-                            Label("restart", systemImage: "power.dotted")
+                            Label("restart", systemImage: "arrow.2.squarepath")
                         }
                     }
                 }
