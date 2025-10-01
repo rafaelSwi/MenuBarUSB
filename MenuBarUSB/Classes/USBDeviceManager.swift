@@ -278,14 +278,22 @@ final class USBDeviceManager: ObservableObject {
                 mySelf.refresh()
                 if mySelf.showNotifications && mySelf.canSendNotification() {
                     let deviceList = deviceNames.isEmpty ? "" : "\(deviceNames.joined(separator: ", ").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))"
-                    mySelf.sendNotification(
-                        title: String(localized: "usb_detected"),
-                        body: String(format: NSLocalizedString("device_connected", comment: "DEVICE CONNECTED MESSAGE"), "\(deviceList)")
-                    )
+                    if (deviceList == "") {
+                        mySelf.sendNotification(
+                            title: String(localized: "usb_detected"),
+                            body: String(localized: "usb_detected_info")
+                        )
+                    } else {
+                        mySelf.sendNotification(
+                            title: String(localized: "usb_detected"),
+                            body: String(format: NSLocalizedString("device_connected", comment: "DEVICE CONNECTED MESSAGE"), "\(deviceList)")
+                        )
+                    }
+                    
                 }
             }
         }
-
+        
         let removedCallback: IOServiceMatchingCallback = { (refcon, iterator) in
             let mySelf = Unmanaged<USBDeviceManager>.fromOpaque(refcon!).takeUnretainedValue()
             
@@ -326,10 +334,17 @@ final class USBDeviceManager: ObservableObject {
                 mySelf.refresh()
                 if mySelf.showNotifications && mySelf.canSendNotification() {
                     let deviceList = deviceNames.isEmpty ? "" : "\(deviceNames.joined(separator: ", ").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))"
-                    mySelf.sendNotification(
-                        title: String(localized: "usb_disconnected"),
-                        body: String(format: NSLocalizedString("device_disconnected", comment: "DEVICE DISCONNECTED MESSAGE"), "\(deviceList)")
-                    )
+                    if (deviceList == "") {
+                        mySelf.sendNotification(
+                            title: String(localized: "usb_disconnected"),
+                            body: String(localized: "usb_disconnected_info"),
+                        )
+                    } else {
+                        mySelf.sendNotification(
+                            title: String(localized: "usb_disconnected"),
+                            body: String(format: NSLocalizedString("device_disconnected", comment: "DEVICE DISCONNECTED MESSAGE"), "\(deviceList)")
+                        )
+                    }
                 }
             }
         }
