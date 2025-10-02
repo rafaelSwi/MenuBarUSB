@@ -144,3 +144,7 @@
 "restart_button" = "Bouton de redémarrage";
 "restart_button_description" = "Ajoute un bouton qui redémarre le programme (termine le processus et le rouvre) dans l'onglet des périphériques.";
 "restart" = "Redémarrer";
+"mouse_hover_info" = "Le survol affiche des informations";
+"mouse_hover_info_description" = "Le survol du nom d’un appareil pendant un court instant affichera ses informations, comme le fabricant, la version USB et d’autres.";
+"restore_default_settings" = "Restaurer les paramètres par défaut";
+"are_you_sure" = "Êtes-vous sûr ?";

@@ -144,3 +144,7 @@
 "restart_button" = "Neustart-Schaltfläche";
 "restart_button_description" = "Fügt eine Schaltfläche hinzu, die das Programm neu startet (beendet den Prozess und öffnet es erneut) im Geräte-Tab.";
 "restart" = "Neustart";
+"mouse_hover_info" = "Beim Darüberfahren werden Informationen angezeigt";
+"mouse_hover_info_description" = "Wenn Sie den Mauszeiger kurz über den Namen eines Geräts bewegen, werden Informationen wie Hersteller, USB-Version und weitere angezeigt.";
+"restore_default_settings" = "Auf Standardeinstellungen zurücksetzen";
+"are_you_sure" = "Sind Sie sicher?";

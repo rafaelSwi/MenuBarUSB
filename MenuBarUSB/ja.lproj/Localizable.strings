@@ -144,3 +144,7 @@
 "restart_button" = "再起動ボタン";
 "restart_button_description" = "デバイスタブに、プログラムを再起動するボタン（プロセスを終了して再び開く）を追加します。";
 "restart" = "再起動";
+"mouse_hover_info" = "ホバーすると情報が表示されます";
+"mouse_hover_info_description" = "デバイス名の上にカーソルを少しの間置くと、メーカー、USBバージョンなどの情報が表示されます。";
+"restore_default_settings" = "デフォルト設定に戻す";
+"are_you_sure" = "本当に実行しますか？";

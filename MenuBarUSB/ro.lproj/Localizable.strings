@@ -144,3 +144,7 @@
 "restart_button" = "Buton de repornire";
 "restart_button_description" = "Adaugă un buton care repornește programul (închide procesul și îl redeschide) în fila dispozitive.";
 "restart" = "Repornire";
+"mouse_hover_info" = "Plasarea cursorului afișează informații";
+"mouse_hover_info_description" = "Plasarea cursorului pe numele unui dispozitiv pentru o scurtă perioadă de timp va afișa informații precum producător, versiune USB și altele.";
+"restore_default_settings" = "Restabilește setările implicite";
+"are_you_sure" = "Ești sigur?";

@@ -144,3 +144,7 @@
 "restart_button" = "Botó de reinici";
 "restart_button_description" = "Afegeix un botó que reinicia el programa (finalitza el procés i el torna a obrir) a la pestanya de dispositius.";
 "restart" = "Reinicia";
+"mouse_hover_info" = "Passar el cursor mostra informació";
+"mouse_hover_info_description" = "En passar el cursor sobre el nom d’un dispositiu durant un breu període de temps es mostrarà la seva informació, com ara fabricant, versió USB i altres.";
+"restore_default_settings" = "Restableix la configuració per defecte";
+"are_you_sure" = "N’estàs segur?";

@@ -144,3 +144,7 @@
 "restart_button" = "Genstart-knap";
 "restart_button_description" = "Tilføjer en knap, der genstarter programmet (afslutter processen og åbner det igen) til fanen Enheder.";
 "restart" = "Genstart";
+"mouse_hover_info" = "At holde musen over viser information";
+"mouse_hover_info_description" = "At holde musen over et enhedsnavn i kort tid vil vise oplysninger som producent, USB-version og andre.";
+"restore_default_settings" = "Gendan standardindstillinger";
+"are_you_sure" = "Er du sikker?";

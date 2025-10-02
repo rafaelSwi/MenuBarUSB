@@ -33,4 +33,5 @@ final class StorageKeys {
     static let hideMenubarIcon = "hideMenubarIcon";
     static let switchSides = "switchSides";
     static let restartButton = "restartButton";
+    static let mouseHoverInfo = "mouseHoverInfo";
 }

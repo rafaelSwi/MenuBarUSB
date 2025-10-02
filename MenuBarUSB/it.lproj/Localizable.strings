@@ -144,3 +144,7 @@
 "restart_button" = "Pulsante di riavvio";
 "restart_button_description" = "Aggiunge un pulsante che riavvia il programma (termina il processo e lo riapre) nella scheda dispositivi.";
 "restart" = "Riavvia";
+"mouse_hover_info" = "Il passaggio del mouse mostra informazioni";
+"mouse_hover_info_description" = "Passando il mouse sopra il nome di un dispositivo per un breve periodo verranno visualizzate le informazioni, come produttore, versione USB e altre.";
+"restore_default_settings" = "Ripristina impostazioni predefinite";
+"are_you_sure" = "Sei sicuro?";

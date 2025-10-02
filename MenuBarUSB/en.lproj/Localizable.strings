@@ -144,3 +144,7 @@
 "restart_button" = "Restart button";
 "restart_button_description" = "Adds a button that restarts the program (ends the process and reopens it) to the devices tab.";
 "restart" = "Restart";
+"mouse_hover_info" = "Hovering displays information";
+"mouse_hover_info_description" = "Hovering over a device’s name for a short period of time will display its information, such as manufacturer, USB version, and others.";
+"restore_default_settings" = "Restore to default settings";
+"are_you_sure" = "Are you sure?";

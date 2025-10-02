@@ -24,6 +24,7 @@ struct ContentView: View {
     @AppStorage(StorageKeys.hideSecondaryInfo) private var hideSecondaryInfo = false
     @AppStorage(StorageKeys.noTextButtons) private var noTextButtons = false
     @AppStorage(StorageKeys.restartButton) private var restartButton = false
+    @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -104,7 +105,7 @@ struct ContentView: View {
             }
         }
         
-        let multiply: CGFloat = increasedIndentationGap ? 36 : 14
+        let multiply: CGFloat = increasedIndentationGap ? 36 : 16
         return CGFloat(level) * multiply
     }
     
@@ -114,6 +115,45 @@ struct ContentView: View {
         } else {
             return (!restartButton);
         }
+    }
+    
+    func compactStringInformation(_ usb: USBDevice) -> String {
+        var parts: [String] = []
+        
+        if !usb.name.isEmpty {
+            parts.append(usb.name)
+        } else {
+            parts.append(String(localized: "usb_device"))
+        }
+        
+        if let vendor = usb.vendor, !vendor.isEmpty {
+            parts.append(vendor)
+        }
+        
+        parts.append(usb.speedDescription)
+        
+        parts.append(String(format: "%04X:%04X", usb.vendorId, usb.productId))
+        
+        if let usbVer = usb.usbVersionBCD {
+            if let usbVersion = USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa) {
+                parts.append("\(String(localized: "usb_version")) \(usbVersion)")
+            } else {
+                parts.append("\(String(localized: "usb_version")) 0x\(String(format: "%04X", usbVer))")
+            }
+        }
+        
+        if let serial = usb.serialNumber, !serial.isEmpty {
+            parts.append("\(String(localized: "serial_number")) \(serial)")
+        }
+
+        if let portMax = usb.portMaxSpeedMbps {
+            let portStr = portMax >= 1000
+                ? String(format: "%.1f Gbps", Double(portMax) / 1000.0)
+                : "\(portMax) Mbps"
+            parts.append("\(String(localized: "port_max")) \(portStr)")
+        }
+        
+        return parts.joined(separator: "\n")
     }
     
     var body: some View {
@@ -138,13 +178,25 @@ struct ContentView: View {
                                         
                                         if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
                                             let title: String = renamedIndicator ? "∙ \(device.name)" : device.name
-                                            Text(title)
+                                            let textView = Text(title)
                                                 .font(.system(size: 12, weight: .semibold))
                                                 .foregroundColor(.primary)
+                                            
+                                            if mouseHoverInfo {
+                                                textView.help(compactStringInformation(dev))
+                                            } else {
+                                                textView
+                                            }
                                         } else {
-                                            Text(dev.name.isEmpty ? "usb_device" : dev.name)
+                                            let textView = Text(dev.name.isEmpty ? "usb_device" : dev.name)
                                                 .font(.system(size: 12, weight: .semibold))
                                                 .foregroundColor(.primary)
+                                            
+                                            if mouseHoverInfo {
+                                                textView.help(compactStringInformation(dev))
+                                            } else {
+                                                textView
+                                            }
                                         }
                                         
                                         Spacer()

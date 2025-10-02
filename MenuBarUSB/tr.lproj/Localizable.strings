@@ -144,3 +144,7 @@
 "restart_button" = "Yeniden başlat düğmesi";
 "restart_button_description" = "Cihazlar sekmesine, programı yeniden başlatan (işlemi sonlandırıp tekrar açan) bir düğme ekler.";
 "restart" = "Yeniden başlat";
+"mouse_hover_info" = "Üzerine gelmek bilgileri gösterir";
+"mouse_hover_info_description" = "Bir cihaz adının üzerine kısa süreyle geldiğinizde üretici, USB sürümü ve diğer bilgileri gösterir.";
+"restore_default_settings" = "Varsayılan ayarları geri yükle";
+"are_you_sure" = "Emin misiniz?";

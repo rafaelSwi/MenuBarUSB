@@ -144,3 +144,7 @@
 "restart_button" = "Botão de reiniciar";
 "restart_button_description" = "Adiciona um botão que reinicia o programa (termina o processo e volta a abri-lo) no separador de dispositivos.";
 "restart" = "Reiniciar";
+"mouse_hover_info" = "Passar o rato exibe informações";
+"mouse_hover_info_description" = "Ao passar o rato sobre o nome de um dispositivo durante um curto período de tempo, serão exibidas informações como fabricante, versão USB e outras.";
+"restore_default_settings" = "Restaurar definições padrão";
+"are_you_sure" = "Tem a certeza?";

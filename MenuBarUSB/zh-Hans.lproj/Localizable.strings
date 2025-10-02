@@ -144,3 +144,7 @@
 "restart_button" = "重启按钮";
 "restart_button_description" = "在设备选项卡中添加一个按钮，用于重启程序（结束进程并重新打开）。";
 "restart" = "重启";
+"mouse_hover_info" = "悬停显示信息";
+"mouse_hover_info_description" = "将鼠标悬停在设备名称上片刻，会显示其信息，例如制造商、USB版本等。";
+"restore_default_settings" = "恢复默认设置";
+"are_you_sure" = "您确定吗？";

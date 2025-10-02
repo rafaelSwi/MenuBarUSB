@@ -144,3 +144,7 @@
 "restart_button" = "Botón de reinicio";
 "restart_button_description" = "Agrega un botón que reinicia el programa (termina el proceso y lo vuelve a abrir) en la pestaña de dispositivos.";
 "restart" = "Reiniciar";
+"mouse_hover_info" = "Pasar el cursor muestra información";
+"mouse_hover_info_description" = "Al pasar el cursor sobre el nombre de un dispositivo por un momento, se mostrará su información, como fabricante, versión de USB y más.";
+"restore_default_settings" = "Restablecer configuración predeterminada";
+"are_you_sure" = "¿Seguro que deseas continuar?";

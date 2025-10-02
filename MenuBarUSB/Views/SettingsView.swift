@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ServiceManagement
+import AppKit
 
 struct SettingsView: View {
     @EnvironmentObject var manager: USBDeviceManager
@@ -21,6 +22,7 @@ struct SettingsView: View {
     @State private var selectedDeviceToRename: USBDevice?;
     @State private var inputText: String = "";
     
+    @State private var tryingToResetSettings = false;
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
     @State private var latestVersion: String = ""
@@ -60,6 +62,7 @@ struct SettingsView: View {
     @State private var showHideCountDescription: Bool = false;
     @State private var showHideMenubarIconDescription: Bool = false;
     @State private var showRestartButtonDescription: Bool = false;
+    @State private var showMouseHoverInfoDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -84,6 +87,7 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AppStorage(StorageKeys.hideMenubarIcon) private var hideMenubarIcon = false
     @AppStorage(StorageKeys.restartButton) private var restartButton = false
+    @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -111,10 +115,31 @@ struct SettingsView: View {
         showHideCountDescription = false;
         showHideMenubarIconDescription = false;
         showRestartButtonDescription = false;
+        showMouseHoverInfoDescription = false;
     }
     
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
+    }
+    
+    func resetAppData() {
+        let fileManager = FileManager.default
+        
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+            UserDefaults.standard.synchronize()
+        }
+        
+        if let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
+           let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first,
+           let bundleID = Bundle.main.bundleIdentifier {
+            
+            let appSupportPath = appSupport.appendingPathComponent(bundleID).path
+            let cachesPath = caches.appendingPathComponent(bundleID).path
+            
+            try? fileManager.removeItem(atPath: appSupportPath)
+            try? fileManager.removeItem(atPath: cachesPath)
+        }
     }
     
     func getIcons() -> [String] {
@@ -327,7 +352,7 @@ struct SettingsView: View {
                             onToggle: { _ in hideMenubarIcon = false },
                             untoggle: { untoggleAllDesc() }
                         )
-
+                        
                         HStack(spacing: 12) {
                             if !hideMenubarIcon {
                                 Text("icon")
@@ -341,7 +366,7 @@ struct SettingsView: View {
                             }
                             Spacer()
                         }
-
+                        
                         HStack{
                             Menu {
                                 ForEach(getIcons(), id: \.self) { item in
@@ -361,7 +386,7 @@ struct SettingsView: View {
                                     .background(RoundedRectangle(cornerRadius: 6).stroke(Color.gray.opacity(0.3)))
                             }
                             .disabled(hideMenubarIcon)
-
+                            
                             Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
                                 let nr: [NumberRepresentation] = [.base10, .binary, .egyptian, .greek, .hex, .roman]
                                 ForEach(nr, id: \.self) { item in
@@ -378,15 +403,16 @@ struct SettingsView: View {
                                 }
                             }
                             .disabled(hideCount)
+                            .help("numerical_representation")
                         }
-
+                        
                         Text("changes_restart_warning")
                             .font(.footnote)
                             .foregroundColor(.primary)
                             .opacity(0.7)
                             .padding(.bottom, 3)
                     }
-
+                    
                 }
                 
                 HStack {
@@ -428,6 +454,17 @@ struct SettingsView: View {
                                 convertHexa = false
                             }
                         },
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "mouse_hover_info"),
+                        description: String(localized: "mouse_hover_info_description"),
+                        binding: $mouseHoverInfo,
+                        showMessage: $showMouseHoverInfoDescription,
+                        incompatibilities: nil,
+                        onToggle: { _ in},
                         untoggle: {
                             untoggleAllDesc();
                         }
@@ -673,6 +710,30 @@ struct SettingsView: View {
                             untoggleAllDesc();
                         }
                     )
+                    Button {
+                        tryingToResetSettings = true;
+                    } label: {
+                        HStack {
+                            Image(systemName: "folder.fill.badge.gearshape")
+                            Text("restore_default_settings")
+                        }
+                    }
+                    .disabled(tryingToResetSettings)
+                    if (tryingToResetSettings) {
+                        HStack(spacing: 12) {
+                            Button("back") {
+                                tryingToResetSettings = false;
+                            }
+                            Button("confirm") {
+                                resetAppData()
+                                tryingToResetSettings = false;
+                                showOthersOptions = false;
+                                if let sound = NSSound(named: NSSound.Name("Funk")) {
+                                    sound.play()
+                                }
+                            }
+                        }
+                    }
                     
                 }
                 
