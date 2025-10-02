@@ -118,7 +118,7 @@
 "hide_donate_description" = "The developer would be a little sad, but if you want, you can hide the donation button.";
 "no_text_buttons" = "Primary buttons have no text, only icons";
 "no_text_buttons_description" = "The exit, refresh, and settings page buttons are displayed as icons only, rather than icons with text. Make the design a bit more minimalistic.";
-"warning_incompatible_options" = "You have options enabled that are incompatible with this one, enabling this will automatically disable the incompatible options.";
+"warning_incompatible_options" = "You have options enabled that conflict with each other, turning this on will automatically turn off the conflicting options.";
 "device_connected" = "\"%@\" connected.";
 "device_disconnected" = "\"%@\" disconnected.";
 "icon_category" = "Icon";

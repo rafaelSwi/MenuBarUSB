@@ -22,6 +22,7 @@ struct SettingsView: View {
     @State private var selectedDeviceToRename: USBDevice?;
     @State private var inputText: String = "";
     @State private var textFieldFocused: Bool = false
+    @State private var activeRowID: UUID? = nil
     
     @State private var tryingToResetSettings = false;
     @State private var checkingUpdate = false
@@ -41,30 +42,6 @@ struct SettingsView: View {
     @State private var invisibleInfoOptions = false;
     @State private var invisibleHeritageOptions = false;
     @State private var invisibleOthersOptions = false;
-    
-    @State private var showLaunchAtLoginDescription: Bool = false;
-    @State private var showConvertHexaDescription: Bool = false;
-    @State private var showLongListDescription: Bool = false;
-    @State private var showShowNotificationsDescription: Bool = false;
-    @State private var showShowPortMaxDescription: Bool = false;
-    @State private var showHideTechInfoDescription: Bool = false
-    @State private var showRenamedIndicatorDescription: Bool = false;
-    @State private var showCamouflagedIndicatorDescription: Bool = false;
-    @State private var showReduceTransparencyDescription: Bool = false;
-    @State private var showDisableNotifCooldownDescription: Bool = false;
-    @State private var showDisableInheritanceLayoutDescription: Bool = false;
-    @State private var showForceDarkModeDescription: Bool = false;
-    @State private var showForceLightModeDescription: Bool = false;
-    @State private var showIncreasedIndentationGapDescription: Bool = false;
-    @State private var showHideSecondaryInfoDescription: Bool = false;
-    @State private var showHideUpdateDescription: Bool = false;
-    @State private var showHideDonateDescription: Bool = false;
-    @State private var showNoTextButtonsDescription: Bool = false;
-    @State private var showHideCountDescription: Bool = false;
-    @State private var showHideMenubarIconDescription: Bool = false;
-    @State private var showRestartButtonDescription: Bool = false;
-    @State private var showMouseHoverInfoDescription: Bool = false;
-    @State private var showProfilerButtonDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -96,52 +73,25 @@ struct SettingsView: View {
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     @CodableAppStorage(StorageKeys.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
     
-    func untoggleAllDesc() {
-        showShowPortMaxDescription = false;
-        showLongListDescription = false;
-        showConvertHexaDescription = false;
-        showRenamedIndicatorDescription = false;
-        showCamouflagedIndicatorDescription = false;
-        showHideTechInfoDescription = false;
-        showShowNotificationsDescription = false;
-        showReduceTransparencyDescription = false;
-        showDisableNotifCooldownDescription = false;
-        showLaunchAtLoginDescription = false;
-        showDisableInheritanceLayoutDescription = false;
-        showForceDarkModeDescription = false;
-        showForceLightModeDescription = false;
-        showIncreasedIndentationGapDescription = false;
-        showHideSecondaryInfoDescription = false;
-        showHideUpdateDescription = false;
-        showHideDonateDescription = false;
-        showNoTextButtonsDescription = false;
-        showHideCountDescription = false;
-        showHideMenubarIconDescription = false;
-        showRestartButtonDescription = false;
-        showMouseHoverInfoDescription = false;
-        showProfilerButtonDescription = false;
-    }
-    
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
     }
     
-    func killApp() {
-        let task = Process()
-        task.launchPath = "/usr/bin/open"
-        task.arguments = ["-n", Bundle.main.bundlePath]
-        task.launch()
-        NSApp.terminate(nil)
-    }
-    
-    func openSysInfo() {
-        let task = Process()
-        task.launchPath = "/usr/bin/open"
-        task.arguments = [
-            "-b", "com.apple.SystemProfiler",
-            "--args", "SPUSBDataType"
-        ]
-        try? task.run()
+    func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey) -> some View {
+        
+        let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
+        
+        return HStack {
+            Image(systemName: toggle.wrappedValue ? "chevron.down" : "chevron.up")
+            Text(label)
+                .font(.system(size: 13.5))
+                .fontWeight(.light)
+        }
+        .onTapGesture {
+            manageShowOptions(binding: toggle)
+        }
+        .opacity(anyBottomOptionInUse ? 0.4 : 1.0)
+        .disabled(anyBottomOptionInUse)
     }
     
     func resetAppData() {
@@ -207,12 +157,12 @@ struct SettingsView: View {
         showIconOptions = false
     }
     
-    func manageShowOptions(exception: inout Bool) {
-        if (exception) {
-            exception = !exception
+    func manageShowOptions(binding: Binding<Bool>) {
+        if binding.wrappedValue {
+            binding.wrappedValue.toggle()
         } else {
             untoggleShowOptions()
-            exception = true
+            binding.wrappedValue = true
         }
     }
     
@@ -231,8 +181,9 @@ struct SettingsView: View {
     var body: some View {
         
         let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
-        
+            
         VStack(alignment: .leading, spacing: 20) {
+            
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("MenuBarUSB")
@@ -280,6 +231,7 @@ struct SettingsView: View {
                             } label: {
                                 Label("donate", systemImage: "hand.thumbsup.circle")
                             }
+                            .disabled(anyBottomOptionInUse)
                         }
                     }
                 }
@@ -289,68 +241,77 @@ struct SettingsView: View {
             
             VStack(alignment: .leading, spacing: 12) {
                 
-                HStack {
-                    Image(systemName: showSystemOptions ? "chevron.down" : "chevron.up")
-                    Text(String(localized: "systemCategory"))
-                        .font(.system(size: 13.5))
-                        .fontWeight(.light)
-                }
-                .onTapGesture {
-                    manageShowOptions(exception: &showSystemOptions)
-                }
+                categoryButton(toggle: $showSystemOptions, label: "systemCategory")
                 
                 if (showSystemOptions) {
                     ToggleRow(
                         label: String(localized: "open_on_startup"),
                         description: String(localized: "open_on_startup_description"),
                         binding: $launchAtLogin,
-                        showMessage: $showLaunchAtLoginDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { value in
                             toggleLoginItem(enabled: value)
                         },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "reduce_transparency"),
+                        description: String(localized: "reduce_transparency_description"),
+                        binding: $reduceTransparency,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        disabled: forceDarkMode || forceLightMode,
+                        onToggle: {_ in},
+                    )
+                    ToggleRow(
+                        label: String(localized: "force_dark_mode"),
+                        description: String(localized: "force_dark_mode_description"),
+                        binding: $forceDarkMode,
+                        activeRowID: $activeRowID,
+                        incompatibilities: [forceLightMode],
+                        onToggle: { value in
+                            if (value == true) {
+                                forceLightMode = false
+                            }
+                            
+                        },
+                    )
+                    ToggleRow(
+                        label: String(localized: "force_light_mode"),
+                        description: String(localized: "force_light_mode_description"),
+                        binding: $forceLightMode,
+                        activeRowID: $activeRowID,
+                        incompatibilities: [forceDarkMode],
+                        onToggle: { value in
+                            if (value == true) {
+                                forceDarkMode = false
+                            }
+                        },
                     )
                     ToggleRow(
                         label: String(localized: "show_notification"),
                         description: String(localized: "show_notification_description"),
                         binding: $showNotifications,
-                        showMessage: $showShowNotificationsDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { value in
                             if (value == false) {
                                 disableNotifCooldown = false
                             }
                         },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "disable_notification_cooldown"),
                         description: String(localized: "disable_notification_cooldown_description"),
                         binding: $disableNotifCooldown,
-                        showMessage: $showDisableNotifCooldownDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: showNotifications == false,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                 }
                 
-                HStack {
-                    Image(systemName: showIconOptions ? "chevron.down" : "chevron.up")
-                    Text(String(localized: "icon_category"))
-                        .font(.system(size: 13.5))
-                        .fontWeight(.light)
-                }
-                .onTapGesture {
-                    manageShowOptions(exception: &showIconOptions)
-                }
+                categoryButton(toggle: $showIconOptions, label: "icon_category")
                 
                 if (showIconOptions) {
                     VStack(alignment: .leading, spacing: 16) {
@@ -358,21 +319,19 @@ struct SettingsView: View {
                             label: String(localized: "hide_menubar_icon"),
                             description: String(localized: "hide_menubar_icon_description"),
                             binding: $hideMenubarIcon,
-                            showMessage: $showHideMenubarIconDescription,
+                            activeRowID: $activeRowID,
                             incompatibilities: nil,
                             disabled: hideCount,
                             onToggle: { _ in hideCount = false },
-                            untoggle: { untoggleAllDesc() }
                         )
                         ToggleRow(
                             label: String(localized: "hide_count"),
                             description: String(localized: "hide_count_description"),
                             binding: $hideCount,
-                            showMessage: $showHideCountDescription,
+                            activeRowID: $activeRowID,
                             incompatibilities: nil,
                             disabled: hideMenubarIcon,
                             onToggle: { _ in hideMenubarIcon = false },
-                            untoggle: { untoggleAllDesc() }
                         )
                         
                         HStack(spacing: 12) {
@@ -414,7 +373,7 @@ struct SettingsView: View {
                                 ForEach(nr, id: \.self) { item in
                                     Button {
                                         numberRepresentation = item
-                                        killApp()
+                                        Utils.killApp()
                                     } label: {
                                         Text(LocalizedStringKey(item.rawValue))
                                     }
@@ -433,22 +392,14 @@ struct SettingsView: View {
                     
                 }
                 
-                HStack {
-                    Image(systemName: showInterfaceOptions ? "chevron.down" : "chevron.up")
-                    Text(String(localized: "uiCategory"))
-                        .font(.system(size: 13.5))
-                        .fontWeight(.light)
-                }
-                .onTapGesture {
-                    manageShowOptions(exception: &showInterfaceOptions)
-                }
+                categoryButton(toggle: $showInterfaceOptions, label: "uiCategory")
                 
                 if (showInterfaceOptions) {
                     ToggleRow(
                         label: String(localized: "hide_technical_info"),
                         description: String(localized: "hide_technical_info_description"),
                         binding: $hideTechInfo,
-                        showMessage: $showHideTechInfoDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: [showPortMax, convertHexa],
                         onToggle: { value in
                             if (value == true) {
@@ -458,27 +409,21 @@ struct SettingsView: View {
                                 mouseHoverInfo = false
                             }
                         },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "mouse_hover_info"),
                         description: String(localized: "mouse_hover_info_description"),
                         binding: $mouseHoverInfo,
-                        showMessage: $showMouseHoverInfoDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: !hideTechInfo,
                         onToggle: { _ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "hide_secondary_info"),
                         description: String(localized: "hide_secondary_info_description"),
                         binding: $hideSecondaryInfo,
-                        showMessage: $showHideSecondaryInfoDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: [showPortMax, convertHexa],
                         onToggle: { value in
                             if (value == true) {
@@ -486,97 +431,34 @@ struct SettingsView: View {
                                 convertHexa = false
                             }
                         },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "long_list"),
                         description: String(localized: "long_list_description"),
                         binding: $longList,
-                        showMessage: $showLongListDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
-                    )
-                    ToggleRow(
-                        label: String(localized: "reduce_transparency"),
-                        description: String(localized: "reduce_transparency_description"),
-                        binding: $reduceTransparency,
-                        showMessage: $showReduceTransparencyDescription,
-                        incompatibilities: nil,
-                        disabled: forceDarkMode || forceLightMode,
-                        onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
-                    )
-                    ToggleRow(
-                        label: String(localized: "force_dark_mode"),
-                        description: String(localized: "force_dark_mode_description"),
-                        binding: $forceDarkMode,
-                        showMessage: $showForceDarkModeDescription,
-                        incompatibilities: [forceLightMode],
-                        onToggle: { value in
-                            if (value == true) {
-                                forceLightMode = false
-                            }
-                            
-                        },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
-                    )
-                    ToggleRow(
-                        label: String(localized: "force_light_mode"),
-                        description: String(localized: "force_light_mode_description"),
-                        binding: $forceLightMode,
-                        showMessage: $showForceLightModeDescription,
-                        incompatibilities: [forceDarkMode],
-                        onToggle: { value in
-                            if (value == true) {
-                                forceDarkMode = false
-                            }
-                        },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "hidden_indicator"),
                         description: String(localized: "hidden_indicator_description"),
                         binding: $camouflagedIndicator,
-                        showMessage: $showCamouflagedIndicatorDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: {_ in },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "renamed_indicator"),
                         description: String(localized: "renamed_indicator_description"),
                         binding: $renamedIndicator,
-                        showMessage: $showRenamedIndicatorDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                 }
                 
-                HStack {
-                    Image(systemName: showInfoOptions ? "chevron.down" : "chevron.up")
-                    Text(String(localized: "usbCategory"))
-                        .font(.system(size: 13.5))
-                        .fontWeight(.light)
-                }
-                .onTapGesture {
-                    manageShowOptions(exception: &showInfoOptions)
-                }
+                categoryButton(toggle: $showInfoOptions, label: "usbCategory")
                 
                 if (showInfoOptions) {
                     
@@ -584,7 +466,7 @@ struct SettingsView: View {
                         showRenameDevices.toggle()
                     } label: {
                         HStack {
-                            Image(systemName: "pencil")
+                            Image(systemName: "pencil.and.scribble")
                             Text("rename_device")
                         }
                     }
@@ -604,37 +486,23 @@ struct SettingsView: View {
                         label: String(localized: "show_port_max"),
                         description: String(localized: "show_port_max_description"),
                         binding: $showPortMax,
-                        showMessage: $showShowPortMaxDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: hideTechInfo,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "convert_hexa"),
                         description: String(localized: "convert_hexa_description"),
                         binding: $convertHexa,
-                        showMessage: $showConvertHexaDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: hideTechInfo,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                 }
                 
-                HStack {
-                    Image(systemName: showHeritageOptions ? "chevron.down" : "chevron.up")
-                    Text(String(localized: "heritageCategory"))
-                        .font(.system(size: 13.5))
-                        .fontWeight(.light)
-                }
-                .onTapGesture {
-                    manageShowOptions(exception: &showHeritageOptions)
-                }
+                categoryButton(toggle: $showHeritageOptions, label: "heritageCategory")
                 
                 if (showHeritageOptions) {
                     
@@ -652,7 +520,7 @@ struct SettingsView: View {
                         currentWindow = .inheritanceTree
                     } label: {
                         HStack {
-                            Image(systemName: "point.3.filled.connected.trianglepath.dotted")
+                            Image(systemName: "tree")
                             Text("view_inheritance_tree")
                         }
                     }
@@ -662,36 +530,22 @@ struct SettingsView: View {
                         label: String(localized: "disable_inheritance_layout"),
                         description: String(localized: "disable_inheritance_layout_description"),
                         binding: $disableInheritanceLayout,
-                        showMessage: $showDisableInheritanceLayoutDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: [increasedIndentationGap],
                         onToggle: {_ in increasedIndentationGap = false},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "increased_indentation_gap"),
                         description: String(localized: "increased_indentation_gap_description"),
                         binding: $increasedIndentationGap,
-                        showMessage: $showIncreasedIndentationGapDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: disableInheritanceLayout,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                 }
                 
-                HStack {
-                    Image(systemName: showOthersOptions ? "chevron.down" : "chevron.up")
-                    Text(String(localized: "othersCategory"))
-                        .font(.system(size: 13.5))
-                        .fontWeight(.light)
-                }
-                .onTapGesture {
-                    manageShowOptions(exception: &showOthersOptions)
-                }
+                categoryButton(toggle: $showOthersOptions, label: "othersCategory")
                 
                 if (showOthersOptions) {
                     
@@ -699,71 +553,56 @@ struct SettingsView: View {
                         label: String(localized: "hide_check_update"),
                         description: String(localized: "hide_check_update_description"),
                         binding: $hideUpdate,
-                        showMessage: $showHideUpdateDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "hide_donate"),
                         description: String(localized: "hide_donate_description"),
                         binding: $hideDonate,
-                        showMessage: $showHideDonateDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "no_text_buttons"),
                         description: String(localized: "no_text_buttons_description"),
                         binding: $noTextButtons,
-                        showMessage: $showNoTextButtonsDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: {_ in},
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     ToggleRow(
                         label: String(localized: "restart_button"),
                         description: String(localized: "restart_button_description"),
                         binding: $restartButton,
-                        showMessage: $showRestartButtonDescription,
+                        activeRowID: $activeRowID,
                         incompatibilities: [profilerButton],
                         onToggle: { value in
                             if (value == true) {
                                 profilerButton = false;
                             }
                         },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
                     )
                     if #available(macOS 15.0, *) {
                         ToggleRow(
                             label: String(localized: "profiler_shortcut"),
                             description: String(localized: "profiler_shortcut_description"),
                             binding: $profilerButton,
-                            showMessage: $showProfilerButtonDescription,
+                            activeRowID: $activeRowID,
                             incompatibilities: [restartButton],
                             onToggle: { value in
                                 if (value == true) {
                                     restartButton = false;
                                 }
                             },
-                            untoggle: {
-                                untoggleAllDesc();
-                            }
                         )
                     }
                     
                     if #available(macOS 15.0, *) {
                         Button {
-                            openSysInfo()
+                            Utils.openSysInfo()
                         } label: {
                             HStack {
                                 Image(systemName: "info.circle.fill")
@@ -797,7 +636,7 @@ struct SettingsView: View {
                                     sound.play()
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                    killApp()
+                                    Utils.killApp()
                                 }
                             }
                             .buttonStyle(.borderedProminent)
@@ -899,7 +738,7 @@ struct SettingsView: View {
                         }
                         
                         if selectedDeviceToRename != nil {
-                            TextFieldWithLimit(
+                            CustomTextField(
                                 text: $inputText,
                                 placeholder: String(localized: "insert_new_name"),
                                 maxLength: 30,

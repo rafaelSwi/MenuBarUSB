@@ -8,7 +8,7 @@
 import SwiftUI
 import AppKit
 
-struct TextFieldWithLimit: NSViewRepresentable {
+struct CustomTextField: NSViewRepresentable {
     @Binding var text: String
     var placeholder: String
     var maxLength: Int
@@ -24,7 +24,7 @@ struct TextFieldWithLimit: NSViewRepresentable {
         textField.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(textField)
         
-        let emojiButton = NSButton(title: "🖼️", target: context.coordinator, action: #selector(Coordinator.toggleEmojiPicker))
+        let emojiButton = NSButton(title: "😃", target: context.coordinator, action: #selector(Coordinator.toggleEmojiPicker))
         emojiButton.bezelStyle = .rounded
         emojiButton.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(emojiButton)
@@ -59,12 +59,12 @@ struct TextFieldWithLimit: NSViewRepresentable {
     }
 
     class Coordinator: NSObject, NSTextFieldDelegate {
-        var parent: TextFieldWithLimit
+        var parent: CustomTextField
         weak var textField: NSTextField?
         weak var emojiButton: NSButton?
         var emojiPopover: NSPopover?
 
-        init(_ parent: TextFieldWithLimit) {
+        init(_ parent: CustomTextField) {
             self.parent = parent
         }
 

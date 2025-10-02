@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @EnvironmentObject var manager: USBDeviceManager
     
     @State private var isHoveringDeviceId: String = ""
@@ -158,24 +159,6 @@ struct ContentView: View {
         return parts.joined(separator: "\n")
     }
     
-    func killApp() {
-        let task = Process()
-        task.launchPath = "/usr/bin/open"
-        task.arguments = ["-n", Bundle.main.bundlePath]
-        task.launch()
-        NSApp.terminate(nil)
-    }
-    
-    func openSysInfo() {
-        let task = Process()
-        task.launchPath = "/usr/bin/open"
-        task.arguments = [
-            "-b", "com.apple.SystemProfiler",
-            "--args", "SPUSBDataType"
-        ]
-        try? task.run()
-    }
-    
     func showSecondaryInfo(for device: USBDevice) -> Bool {
         if !hideSecondaryInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
@@ -211,26 +194,12 @@ struct ContentView: View {
                                             let textView = Text(title)
                                                 .font(.system(size: 12, weight: .semibold))
                                                 .foregroundColor(.primary)
-                                                .onHover { hovering in
-                                                    if hovering {
-                                                        isHoveringDeviceId = uniqueId
-                                                    } else if isHoveringDeviceId == uniqueId {
-                                                        isHoveringDeviceId = ""
-                                                    }
-                                                }
                                             
                                             textView
                                         } else {
                                             let textView = Text(dev.name.isEmpty ? "usb_device" : dev.name)
                                                 .font(.system(size: 12, weight: .semibold))
                                                 .foregroundColor(.primary)
-                                                .onHover { hovering in
-                                                    if hovering {
-                                                        isHoveringDeviceId = uniqueId
-                                                    } else if isHoveringDeviceId == uniqueId {
-                                                        isHoveringDeviceId = ""
-                                                    }
-                                                }
                                             
                                             textView
                                         }
@@ -296,6 +265,14 @@ struct ContentView: View {
                                     
                                 }
                                 .padding(.vertical, 3)
+                                .onHover { hovering in
+                                    if hovering {
+                                        isHoveringDeviceId = uniqueId
+                                    } else if isHoveringDeviceId == uniqueId {
+                                        isHoveringDeviceId = ""
+                                    }
+                                }
+                                
                                 Divider()
                             }
                         }
@@ -327,7 +304,7 @@ struct ContentView: View {
                 
                 if (profilerButton) {
                     Button {
-                        openSysInfo()
+                        Utils.openSysInfo()
                     } label: {
                         if (noTextButtons) {
                             Image(systemName: "info.circle")
@@ -359,7 +336,7 @@ struct ContentView: View {
                 
                 if (restartButton) {
                     Button {
-                        killApp()
+                        Utils.killApp()
                     } label: {
                         if (noTextButtons) {
                             Image(systemName: "arrow.2.squarepath")
