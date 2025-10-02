@@ -77,9 +77,9 @@
 "usbCategory" = "USB";
 "heritageCategory" = "Vererbung";
 "force_dark_mode" = "Dunkelmodus erzwingen";
-"force_dark_mode_description" = "Wenn der Dunkelmodus bereits aktiviert ist, werden Sie keinen Unterschied sehen.";
+"force_dark_mode_description" = "Wenn Sie den Dunkelmodus unter macOS bereits aktiviert haben, werden Sie keinen großen Unterschied feststellen, außer dass der Hintergrund immer eine geringere Transparenz aufweist.";
 "force_light_mode" = "Hellmodus erzwingen";
-"force_light_mode_description" = "Wenn der Hellmodus bereits aktiviert ist, werden Sie keinen Unterschied sehen.";
+"force_light_mode_description" = "Wenn Sie den Hellmodus unter macOS bereits aktiviert haben, werden Sie keinen großen Unterschied feststellen, außer dass der Hintergrund immer eine geringere Transparenz aufweist.";
 "heritage" = "Vererbung";
 "create_inheritance" = "Vererbung erstellen";
 "confirm_inheritance" = "Vererbung bestätigen";

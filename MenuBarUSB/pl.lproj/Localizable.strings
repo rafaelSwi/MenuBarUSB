@@ -77,9 +77,9 @@
 "usbCategory" = "USB";
 "heritageCategory" = "Dziedzictwo";
 "force_dark_mode" = "Wymuś tryb ciemny";
-"force_dark_mode_description" = "Jeśli tryb ciemny jest już włączony w systemie, nie zauważysz różnicy.";
+"force_dark_mode_description" = "Jeśli masz już włączony tryb ciemny w systemie macOS, nie zauważysz dużej różnicy, oprócz tego, że tło zawsze będzie miało mniejszą przezroczystość.";
 "force_light_mode" = "Wymuś tryb jasny";
-"force_light_mode_description" = "Jeśli tryb jasny jest już włączony w systemie, nie zauważysz różnicy.";
+"force_light_mode_description" = "Jeśli masz już włączony tryb jasny w systemie macOS, nie zauważysz dużej różnicy, oprócz tego, że tło zawsze będzie miało mniejszą przezroczystość.";
 "heritage" = "Dziedzictwo";
 "create_inheritance" = "Utwórz dziedziczenie";
 "confirm_inheritance" = "Potwierdź dziedziczenie";

@@ -506,6 +506,7 @@ struct SettingsView: View {
                         binding: $reduceTransparency,
                         showMessage: $showReduceTransparencyDescription,
                         incompatibilities: nil,
+                        disabled: forceDarkMode || forceLightMode,
                         onToggle: {_ in},
                         untoggle: {
                             untoggleAllDesc();
@@ -517,8 +518,12 @@ struct SettingsView: View {
                         binding: $forceDarkMode,
                         showMessage: $showForceDarkModeDescription,
                         incompatibilities: [forceLightMode],
-                        disabled: forceLightMode,
-                        onToggle: {_ in forceLightMode = false},
+                        onToggle: { value in
+                            if (value == true) {
+                                forceLightMode = false
+                            }
+                            
+                        },
                         untoggle: {
                             untoggleAllDesc();
                         }
@@ -529,8 +534,11 @@ struct SettingsView: View {
                         binding: $forceLightMode,
                         showMessage: $showForceLightModeDescription,
                         incompatibilities: [forceDarkMode],
-                        disabled: forceDarkMode,
-                        onToggle: {_ in forceDarkMode = false},
+                        onToggle: { value in
+                            if (value == true) {
+                                forceDarkMode = false
+                            }
+                        },
                         untoggle: {
                             untoggleAllDesc();
                         }
@@ -784,7 +792,7 @@ struct SettingsView: View {
                                 resetAppData()
                                 tryingToResetSettings = false;
                                 showOthersOptions = false;
-                                if let sound = NSSound(named: NSSound.Name("Funk")) {
+                                if let sound = NSSound(named: NSSound.Name("Bottle")) {
                                     sound.play()
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
@@ -954,6 +962,9 @@ struct SettingsView: View {
                 
                 DispatchQueue.main.async {
                     updateAvailable = isVersion(appVersion, olderThan: latest)
+                    if let sound = NSSound(named: NSSound.Name(updateAvailable ? "Submarine" : "Glass")) {
+                        sound.play()
+                    }
                 }
             }
         }.resume()

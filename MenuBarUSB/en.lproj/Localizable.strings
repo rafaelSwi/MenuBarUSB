@@ -77,9 +77,9 @@
 "usbCategory" = "Information";
 "heritageCategory" = "Heritage";
 "force_dark_mode" = "Force dark mode";
-"force_dark_mode_description" = "If you already have dark mode enabled on macOS, you won't see any difference.";
+"force_dark_mode_description" = "If you already have dark mode enabled on macOS, you won't see much difference, except that the background will always have reduced transparency.";
 "force_light_mode" = "Force light mode";
-"force_light_mode_description" = "If you already have light mode enabled on macOS, you won't see any difference.";
+"force_light_mode_description" = "If you already have light mode enabled on macOS, you won't see much difference, except that the background will always have reduced transparency.";
 "heritage" = "Heritage";
 "create_inheritance" = "Create inheritance";
 "confirm_inheritance" = "Confirm inheritance";

@@ -77,9 +77,9 @@
 "usbCategory" = "USB";
 "heritageCategory" = "Herança";
 "force_dark_mode" = "Forçar modo escuro";
-"force_dark_mode_description" = "Se já tiver o modo escuro ativado no sistema, não verá qualquer diferença.";
+"force_dark_mode_description" = "Se você já tiver o modo escuro ativado no macOS, não verá muita diferença, exceto que agora o fundo sempre terá transparência reduzida.";
 "force_light_mode" = "Forçar modo claro";
-"force_light_mode_description" = "Se já tiver o modo claro ativado no sistema, não verá qualquer diferença.";
+"force_light_mode_description" = "Se você já tiver o modo claro ativado no macOS, não verá muita diferença, exceto que agora o fundo sempre terá transparência reduzida.";
 "heritage" = "Herança";
 "create_inheritance" = "Criar herança";
 "confirm_inheritance" = "Confirmar herança";

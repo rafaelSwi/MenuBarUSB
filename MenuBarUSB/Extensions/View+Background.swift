@@ -23,9 +23,13 @@ extension View {
     func colorSchemeForce(light: Bool, dark: Bool) -> some View {
         switch (light, dark) {
         case (true, _):
-             self.environment(\.colorScheme, .light)
+             self
+                .background(.ultraThickMaterial)
+                .environment(\.colorScheme, .light)
         case (_, true):
-             self.environment(\.colorScheme, .dark)
+             self
+                .background(.ultraThickMaterial)
+                .environment(\.colorScheme, .dark)
         default:
              self
         }
