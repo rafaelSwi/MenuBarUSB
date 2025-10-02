@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "Le survol du nom d’un appareil pendant un court instant affichera ses informations, comme le fabricant, la version USB et d’autres.";
 "restore_default_settings" = "Restaurer les paramètres par défaut";
 "are_you_sure" = "Êtes-vous sûr ?";
+"no" = "Non";
+"yes_confirm" = "Oui, confirmer";
+"open_profiler" = "Ouvrir Informations système";
+"profiler_shortcut" = "Bouton Informations système";
+"profiler_shortcut_description" = "Ajoute un bouton qui ouvre l’app Informations système dans l’onglet Appareils.";
+"profiler_abbreviated" = "Inf.";

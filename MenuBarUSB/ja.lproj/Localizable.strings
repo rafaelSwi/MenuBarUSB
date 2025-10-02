@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "デバイス名の上にカーソルを少しの間置くと、メーカー、USBバージョンなどの情報が表示されます。";
 "restore_default_settings" = "デフォルト設定に戻す";
 "are_you_sure" = "本当に実行しますか？";
+"no" = "いいえ";
+"yes_confirm" = "はい、確認";
+"open_profiler" = "システム情報を開く";
+"profiler_shortcut" = "システム情報ボタン";
+"profiler_shortcut_description" = "システム情報アプリをデバイスタブで開くボタンを追加します。";
+"profiler_abbreviated" = "情報";

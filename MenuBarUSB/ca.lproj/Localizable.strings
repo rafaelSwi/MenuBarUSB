@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "En passar el cursor sobre el nom d’un dispositiu durant un breu període de temps es mostrarà la seva informació, com ara fabricant, versió USB i altres.";
 "restore_default_settings" = "Restableix la configuració per defecte";
 "are_you_sure" = "N’estàs segur?";
+"no" = "No";
+"yes_confirm" = "Sí, confirma";
+"open_profiler" = "Obrir Informació del sistema";
+"profiler_shortcut" = "Botó d’Informació del sistema";
+"profiler_shortcut_description" = "Afegeix un botó que obre l’app Informació del sistema a la pestanya de dispositius.";
+"profiler_abbreviated" = "Inf.";

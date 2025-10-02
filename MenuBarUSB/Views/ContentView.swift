@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var manager: USBDeviceManager
-    @State private var showingAbout = false
+    
+    @State private var isHoveringDeviceId: String = ""
     
     @Binding var currentWindow: AppWindow
     
@@ -25,6 +26,7 @@ struct ContentView: View {
     @AppStorage(StorageKeys.noTextButtons) private var noTextButtons = false
     @AppStorage(StorageKeys.restartButton) private var restartButton = false
     @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
+    @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -113,7 +115,7 @@ struct ContentView: View {
         if (noTextButtons) {
             return true;
         } else {
-            return (!restartButton);
+            return (!restartButton && !profilerButton);
         }
     }
     
@@ -145,15 +147,43 @@ struct ContentView: View {
         if let serial = usb.serialNumber, !serial.isEmpty {
             parts.append("\(String(localized: "serial_number")) \(serial)")
         }
-
+        
         if let portMax = usb.portMaxSpeedMbps {
             let portStr = portMax >= 1000
-                ? String(format: "%.1f Gbps", Double(portMax) / 1000.0)
-                : "\(portMax) Mbps"
+            ? String(format: "%.1f Gbps", Double(portMax) / 1000.0)
+            : "\(portMax) Mbps"
             parts.append("\(String(localized: "port_max")) \(portStr)")
         }
         
         return parts.joined(separator: "\n")
+    }
+    
+    func killApp() {
+        let task = Process()
+        task.launchPath = "/usr/bin/open"
+        task.arguments = ["-n", Bundle.main.bundlePath]
+        task.launch()
+        NSApp.terminate(nil)
+    }
+    
+    func openSysInfo() {
+        let task = Process()
+        task.launchPath = "/usr/bin/open"
+        task.arguments = [
+            "-b", "com.apple.SystemProfiler",
+            "--args", "SPUSBDataType"
+        ]
+        try? task.run()
+    }
+    
+    func showSecondaryInfo(for device: USBDevice) -> Bool {
+        if !hideSecondaryInfo { return true }
+        return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
+    }
+    
+    func showTechInfo(for device: USBDevice) -> Bool {
+        if !hideTechInfo { return true }
+        return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
     }
     
     var body: some View {
@@ -181,27 +211,33 @@ struct ContentView: View {
                                             let textView = Text(title)
                                                 .font(.system(size: 12, weight: .semibold))
                                                 .foregroundColor(.primary)
+                                                .onHover { hovering in
+                                                    if hovering {
+                                                        isHoveringDeviceId = uniqueId
+                                                    } else if isHoveringDeviceId == uniqueId {
+                                                        isHoveringDeviceId = ""
+                                                    }
+                                                }
                                             
-                                            if mouseHoverInfo {
-                                                textView.help(compactStringInformation(dev))
-                                            } else {
-                                                textView
-                                            }
+                                            textView
                                         } else {
                                             let textView = Text(dev.name.isEmpty ? "usb_device" : dev.name)
                                                 .font(.system(size: 12, weight: .semibold))
                                                 .foregroundColor(.primary)
+                                                .onHover { hovering in
+                                                    if hovering {
+                                                        isHoveringDeviceId = uniqueId
+                                                    } else if isHoveringDeviceId == uniqueId {
+                                                        isHoveringDeviceId = ""
+                                                    }
+                                                }
                                             
-                                            if mouseHoverInfo {
-                                                textView.help(compactStringInformation(dev))
-                                            } else {
-                                                textView
-                                            }
+                                            textView
                                         }
                                         
                                         Spacer()
                                         
-                                        if (!hideSecondaryInfo) {
+                                        if showSecondaryInfo(for: dev) {
                                             if let vendor = dev.vendor, !vendor.isEmpty {
                                                 Text(vendor)
                                                     .font(.system(size: 12, weight: .semibold))
@@ -212,14 +248,14 @@ struct ContentView: View {
                                     }
                                     .padding(.leading, indent)
                                     
-                                    if !hideTechInfo {
+                                    if showTechInfo(for: dev) {
                                         HStack {
                                             Text(dev.speedDescription)
                                                 .font(.system(size: 9))
                                                 .foregroundStyle(.secondary)
                                             Spacer()
                                             
-                                            if (!hideSecondaryInfo) {
+                                            if showSecondaryInfo(for: dev) {
                                                 Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
                                                     .font(.system(size: 10))
                                                     .foregroundStyle(.secondary)
@@ -238,7 +274,7 @@ struct ContentView: View {
                                             
                                             Spacer()
                                             
-                                            if (!hideSecondaryInfo) {
+                                            if showSecondaryInfo(for: dev) {
                                                 if let serial = dev.serialNumber, !serial.isEmpty {
                                                     Text("\(String(localized: "serial_number")) \(serial)")
                                                         .font(.system(size: 9))
@@ -289,6 +325,18 @@ struct ContentView: View {
                 
                 Spacer()
                 
+                if (profilerButton) {
+                    Button {
+                        openSysInfo()
+                    } label: {
+                        if (noTextButtons) {
+                            Image(systemName: "info.circle")
+                        } else {
+                            Label("profiler_abbreviated", systemImage: "info.circle")
+                        }
+                    }
+                }
+                
                 Button {
                     currentWindow = .settings
                 } label: {
@@ -311,11 +359,7 @@ struct ContentView: View {
                 
                 if (restartButton) {
                     Button {
-                        let task = Process()
-                        task.launchPath = "/usr/bin/open"
-                        task.arguments = ["-n", Bundle.main.bundlePath]
-                        task.launch()
-                        NSApp.terminate(nil)
+                        killApp()
                     } label: {
                         if (noTextButtons) {
                             Image(systemName: "arrow.2.squarepath")

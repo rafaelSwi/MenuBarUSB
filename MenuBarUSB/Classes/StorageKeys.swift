@@ -34,4 +34,5 @@ final class StorageKeys {
     static let switchSides = "switchSides";
     static let restartButton = "restartButton";
     static let mouseHoverInfo = "mouseHoverInfo";
+    static let profilerButton = "profilerButton";
 }

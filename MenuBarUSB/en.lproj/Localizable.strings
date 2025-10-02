@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "Hovering over a device’s name for a short period of time will display its information, such as manufacturer, USB version, and others.";
 "restore_default_settings" = "Restore to default settings";
 "are_you_sure" = "Are you sure?";
+"no" = "No";
+"yes_confirm" = "Yes, confirm";
+"open_profiler" = "Open System Information";
+"profiler_shortcut" = "Open System Information button";
+"profiler_shortcut_description" = "Adds a button that opens the System Information app to the devices tab.";
+"profiler_abbreviated" = "System Info";

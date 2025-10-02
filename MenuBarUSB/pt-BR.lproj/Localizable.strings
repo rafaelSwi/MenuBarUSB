@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "Ao passar o cursor do mouse sobre o nome de um dispositivo por um curto período de tempo, serão exibidas informações como fabricante, versão USB e outros.";
 "restore_default_settings" = "Restaurar configurações padrão";
 "are_you_sure" = "Você tem certeza?";
+"no" = "Não";
+"yes_confirm" = "Sim, confirmar";
+"open_profiler" = "Abrir Informações do Sistema";
+"profiler_shortcut" = "Botão de Informações do Sistema";
+"profiler_shortcut_description" = "Adiciona um botão que abre o app Informações do Sistema (o app nativo do macOS) na aba de dispositivos.";
+"profiler_abbreviated" = "Inform.";

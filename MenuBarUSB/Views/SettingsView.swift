@@ -63,6 +63,7 @@ struct SettingsView: View {
     @State private var showHideMenubarIconDescription: Bool = false;
     @State private var showRestartButtonDescription: Bool = false;
     @State private var showMouseHoverInfoDescription: Bool = false;
+    @State private var showProfilerButtonDescription: Bool = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -88,6 +89,7 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.hideMenubarIcon) private var hideMenubarIcon = false
     @AppStorage(StorageKeys.restartButton) private var restartButton = false
     @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
+    @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -116,10 +118,29 @@ struct SettingsView: View {
         showHideMenubarIconDescription = false;
         showRestartButtonDescription = false;
         showMouseHoverInfoDescription = false;
+        showProfilerButtonDescription = false;
     }
     
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
+    }
+    
+    func killApp() {
+        let task = Process()
+        task.launchPath = "/usr/bin/open"
+        task.arguments = ["-n", Bundle.main.bundlePath]
+        task.launch()
+        NSApp.terminate(nil)
+    }
+    
+    func openSysInfo() {
+        let task = Process()
+        task.launchPath = "/usr/bin/open"
+        task.arguments = [
+            "-b", "com.apple.SystemProfiler",
+            "--args", "SPUSBDataType"
+        ]
+        try? task.run()
     }
     
     func resetAppData() {
@@ -392,11 +413,7 @@ struct SettingsView: View {
                                 ForEach(nr, id: \.self) { item in
                                     Button {
                                         numberRepresentation = item
-                                        let task = Process()
-                                        task.launchPath = "/usr/bin/open"
-                                        task.arguments = ["-n", Bundle.main.bundlePath]
-                                        task.launch()
-                                        NSApp.terminate(nil)
+                                        killApp()
                                     } label: {
                                         Text(LocalizedStringKey(item.rawValue))
                                     }
@@ -436,8 +453,22 @@ struct SettingsView: View {
                             if (value == true) {
                                 showPortMax = false
                                 convertHexa = false
+                            } else {
+                                mouseHoverInfo = false
                             }
                         },
+                        untoggle: {
+                            untoggleAllDesc();
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "mouse_hover_info"),
+                        description: String(localized: "mouse_hover_info_description"),
+                        binding: $mouseHoverInfo,
+                        showMessage: $showMouseHoverInfoDescription,
+                        incompatibilities: nil,
+                        disabled: !hideTechInfo,
+                        onToggle: { _ in},
                         untoggle: {
                             untoggleAllDesc();
                         }
@@ -454,17 +485,6 @@ struct SettingsView: View {
                                 convertHexa = false
                             }
                         },
-                        untoggle: {
-                            untoggleAllDesc();
-                        }
-                    )
-                    ToggleRow(
-                        label: String(localized: "mouse_hover_info"),
-                        description: String(localized: "mouse_hover_info_description"),
-                        binding: $mouseHoverInfo,
-                        showMessage: $showMouseHoverInfoDescription,
-                        incompatibilities: nil,
-                        onToggle: { _ in},
                         untoggle: {
                             untoggleAllDesc();
                         }
@@ -704,12 +724,46 @@ struct SettingsView: View {
                         description: String(localized: "restart_button_description"),
                         binding: $restartButton,
                         showMessage: $showRestartButtonDescription,
-                        incompatibilities: nil,
-                        onToggle: {_ in },
+                        incompatibilities: [profilerButton],
+                        onToggle: { value in
+                            if (value == true) {
+                                profilerButton = false;
+                            }
+                        },
                         untoggle: {
                             untoggleAllDesc();
                         }
                     )
+                    if #available(macOS 15.0, *) {
+                        ToggleRow(
+                            label: String(localized: "profiler_shortcut"),
+                            description: String(localized: "profiler_shortcut_description"),
+                            binding: $profilerButton,
+                            showMessage: $showProfilerButtonDescription,
+                            incompatibilities: [restartButton],
+                            onToggle: { value in
+                                if (value == true) {
+                                    restartButton = false;
+                                }
+                            },
+                            untoggle: {
+                                untoggleAllDesc();
+                            }
+                        )
+                    }
+                    
+                    if #available(macOS 15.0, *) {
+                        Button {
+                            openSysInfo()
+                        } label: {
+                            HStack {
+                                Image(systemName: "info.circle.fill")
+                                Text("open_profiler")
+                            }
+                        }
+                        .disabled(tryingToResetSettings)
+                    }
+                    
                     Button {
                         tryingToResetSettings = true;
                     } label: {
@@ -719,19 +773,25 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(tryingToResetSettings)
+                    
                     if (tryingToResetSettings) {
                         HStack(spacing: 12) {
-                            Button("back") {
+                            Text("are_you_sure")
+                            Button("no") {
                                 tryingToResetSettings = false;
                             }
-                            Button("confirm") {
+                            Button("yes_confirm") {
                                 resetAppData()
                                 tryingToResetSettings = false;
                                 showOthersOptions = false;
                                 if let sound = NSSound(named: NSSound.Name("Funk")) {
                                     sound.play()
                                 }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                    killApp()
+                                }
                             }
+                            .buttonStyle(.borderedProminent)
                         }
                     }
                     

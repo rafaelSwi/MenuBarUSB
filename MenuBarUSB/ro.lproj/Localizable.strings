@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "Plasarea cursorului pe numele unui dispozitiv pentru o scurtă perioadă de timp va afișa informații precum producător, versiune USB și altele.";
 "restore_default_settings" = "Restabilește setările implicite";
 "are_you_sure" = "Ești sigur?";
+"no" = "Nu";
+"yes_confirm" = "Da, confirmă";
+"open_profiler" = "Deschide Informații sistem";
+"profiler_shortcut" = "Buton Informații sistem";
+"profiler_shortcut_description" = "Adaugă un buton care deschide aplicația Informații sistem în fila Dispozitive.";
+"profiler_abbreviated" = "Inf.";

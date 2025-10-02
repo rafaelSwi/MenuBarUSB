@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "Bir cihaz adının üzerine kısa süreyle geldiğinizde üretici, USB sürümü ve diğer bilgileri gösterir.";
 "restore_default_settings" = "Varsayılan ayarları geri yükle";
 "are_you_sure" = "Emin misiniz?";
+"no" = "Hayır";
+"yes_confirm" = "Evet, onayla";
+"open_profiler" = "Sistem Bilgilerini Aç";
+"profiler_shortcut" = "Sistem Bilgileri düğmesi";
+"profiler_shortcut_description" = "Cihazlar sekmesinde Sistem Bilgileri uygulamasını açan bir düğme ekler.";
+"profiler_abbreviated" = "Bilg.";

@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "Wenn Sie den Mauszeiger kurz über den Namen eines Geräts bewegen, werden Informationen wie Hersteller, USB-Version und weitere angezeigt.";
 "restore_default_settings" = "Auf Standardeinstellungen zurücksetzen";
 "are_you_sure" = "Sind Sie sicher?";
+"no" = "Nein";
+"yes_confirm" = "Ja, bestätigen";
+"open_profiler" = "Systeminformationen öffnen";
+"profiler_shortcut" = "Systeminformationen-Schaltfläche";
+"profiler_shortcut_description" = "Fügt eine Schaltfläche hinzu, die die App Systeminformationen im Tab Geräte öffnet.";
+"profiler_abbreviated" = "Info";

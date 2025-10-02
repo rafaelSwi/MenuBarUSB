@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "장치 이름에 마우스를 잠시 올려두면 제조사, USB 버전 등과 같은 정보가 표시됩니다.";
 "restore_default_settings" = "기본 설정으로 복원";
 "are_you_sure" = "정말로 하시겠습니까?";
+"no" = "아니요";
+"yes_confirm" = "예, 확인";
+"open_profiler" = "시스템 정보 열기";
+"profiler_shortcut" = "시스템 정보 버튼";
+"profiler_shortcut_description" = "시스템 정보 앱을 장치 탭에서 여는 버튼을 추가합니다.";
+"profiler_abbreviated" = "정보";

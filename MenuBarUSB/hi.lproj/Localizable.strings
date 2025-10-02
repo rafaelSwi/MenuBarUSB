@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "किसी डिवाइस के नाम पर थोड़ी देर होवर करने से उसकी जानकारी दिखाई देगी, जैसे निर्माता, USB संस्करण और अन्य।";
 "restore_default_settings" = "डिफ़ॉल्ट सेटिंग्स पर पुनर्स्थापित करें";
 "are_you_sure" = "क्या आप सुनिश्चित हैं?";
+"no" = "नहीं";
+"yes_confirm" = "हाँ, पुष्टि करें";
+"open_profiler" = "सिस्टम जानकारी खोलें";
+"profiler_shortcut" = "सिस्टम जानकारी बटन";
+"profiler_shortcut_description" = "एक बटन जोड़ता है जो सिस्टम जानकारी ऐप को डिवाइस टैब में खोलता है।";
+"profiler_abbreviated" = "जानकारी";

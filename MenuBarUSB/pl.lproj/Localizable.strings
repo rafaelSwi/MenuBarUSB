@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "Najechanie kursorem na nazwę urządzenia na krótki czas spowoduje wyświetlenie jego informacji, takich jak producent, wersja USB i inne.";
 "restore_default_settings" = "Przywróć ustawienia domyślne";
 "are_you_sure" = "Czy na pewno?";
+"no" = "Nie";
+"yes_confirm" = "Tak, potwierdź";
+"open_profiler" = "Otwórz Informacje o systemie";
+"profiler_shortcut" = "Przycisk Informacje o systemie";
+"profiler_shortcut_description" = "Dodaje przycisk, który otwiera aplikację Informacje o systemie na karcie Urządzenia.";
+"profiler_abbreviated" = "Inf.";

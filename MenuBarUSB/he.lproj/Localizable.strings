@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "מעבר עם העכבר מעל שם המכשיר לפרק זמן קצר יציג את המידע שלו, כגון יצרן, גרסת USB ואחרים.";
 "restore_default_settings" = "שחזר להגדרות ברירת מחדל";
 "are_you_sure" = "האם אתה בטוח?";
+"no" = "לא";
+"yes_confirm" = "כן, אשר";
+"open_profiler" = "פתח מידע מערכת";
+"profiler_shortcut" = "כפתור מידע מערכת";
+"profiler_shortcut_description" = "מוסיף כפתור שפותח את האפליקציה מידע מערכת בלשונית ההתקנים.";
+"profiler_abbreviated" = "מידע";

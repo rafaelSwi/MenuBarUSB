@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "At holde musen over et enhedsnavn i kort tid vil vise oplysninger som producent, USB-version og andre.";
 "restore_default_settings" = "Gendan standardindstillinger";
 "are_you_sure" = "Er du sikker?";
+"no" = "Nej";
+"yes_confirm" = "Ja, bekræft";
+"open_profiler" = "Åbn Systemoplysninger";
+"profiler_shortcut" = "Knap til Systemoplysninger";
+"profiler_shortcut_description" = "Tilføjer en knap, der åbner appen Systemoplysninger på fanen Enheder.";
+"profiler_abbreviated" = "Opl.";

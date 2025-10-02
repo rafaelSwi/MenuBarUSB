@@ -148,3 +148,9 @@
 "mouse_hover_info_description" = "การวางเมาส์เหนือชื่ออุปกรณ์ชั่วครู่จะแสดงข้อมูล เช่น ผู้ผลิต เวอร์ชัน USB และอื่นๆ";
 "restore_default_settings" = "กู้คืนการตั้งค่าเริ่มต้น";
 "are_you_sure" = "คุณแน่ใจหรือไม่?";
+"no" = "ไม่";
+"yes_confirm" = "ใช่, ยืนยัน";
+"open_profiler" = "เปิดข้อมูลระบบ";
+"profiler_shortcut" = "ปุ่มข้อมูลระบบ";
+"profiler_shortcut_description" = "เพิ่มปุ่มที่เปิดแอปข้อมูลระบบในแท็บอุปกรณ์";
+"profiler_abbreviated" = "ข้อมูล";
