@@ -41,7 +41,7 @@
 "rename" = "Omdøb";
 "device" = "Enhed";
 "undo_all" = "Ryd alt";
-"insert_new_name" = "Indtast det nye navn";
+"insert_new_name" = "Nyt navn";
 "confirm" = "Bekræft";
 "renaming_help" = "Hvis du omdøber med et tomt tekstfelt, fjernes det brugerdefinerede navn, der tidligere blev tildelt enheden.";
 "renamed_indicator" = "Indikator for omdøbte enheder";

@@ -41,7 +41,7 @@
 "rename" = "Redenumește";
 "device" = "Dispozitiv";
 "undo_all" = "Șterge tot";
-"insert_new_name" = "Introduceți noul nume";
+"insert_new_name" = "Noul nume";
 "confirm" = "Confirmă";
 "renaming_help" = "Dacă redenumești lăsând câmpul gol, numele personalizat atribuit anterior dispozitivului va fi eliminat.";
 "renamed_indicator" = "Indicator pentru dispozitive redenumite";

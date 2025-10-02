@@ -41,7 +41,7 @@
 "rename" = "Etiket ekle";
 "device" = "Cihaz";
 "undo_all" = "Hepsini temizle";
-"insert_new_name" = "Yeni adı girin";
+"insert_new_name" = "Yeni isim";
 "confirm" = "OK";
 "renaming_help" = "Metin kutusu boş bırakılarak yeniden adlandırılırsa, cihaz için daha önce belirlenen özel ad kaldırılır.";
 "renamed_indicator" = "Yeniden adlandırılmış cihaz göstergesi";

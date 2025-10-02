@@ -41,7 +41,7 @@
 "rename" = "Umbenennen";
 "device" = "Gerät";
 "undo_all" = "Alles löschen";
-"insert_new_name" = "Neuen Namen eingeben";
+"insert_new_name" = "Neuer Name";
 "confirm" = "Bestätigen";
 "renaming_help" = "Wenn Sie mit einem leeren Textfeld umbenennen, wird der zuvor vergebene Benutzername für das Gerät entfernt.";
 "renamed_indicator" = "Indikator für umbenannte Geräte";

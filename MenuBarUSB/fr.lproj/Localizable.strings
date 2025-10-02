@@ -41,7 +41,7 @@
 "rename" = "Renommer";
 "device" = "Appareil";
 "undo_all" = "Tout effacer";
-"insert_new_name" = "Entrez le nouveau nom";
+"insert_new_name" = "Nouveau nom";
 "confirm" = "Confirmer";
 "renaming_help" = "Renommer avec un champ vide supprimera le nom personnalisé attribué précédemment à l’appareil.";
 "renamed_indicator" = "Indicateur pour appareils renommés";

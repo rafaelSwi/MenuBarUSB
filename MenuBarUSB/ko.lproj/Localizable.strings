@@ -41,7 +41,7 @@
 "rename" = "이름 변경";
 "device" = "장치";
 "undo_all" = "모두 지우기";
-"insert_new_name" = "새 이름을 입력하세요";
+"insert_new_name" = "새로운 이름";
 "confirm" = "확인";
 "renaming_help" = "텍스트 상자를 비워 둔 채 이름을 변경하면, 이전에 설정한 사용자 지정 이름이 제거됩니다.";
 "renamed_indicator" = "이름이 변경된 장치 표시기";

@@ -41,7 +41,7 @@
 "rename" = "名前を変更";
 "device" = "デバイス";
 "undo_all" = "すべてクリア";
-"insert_new_name" = "新しい名前を入力してください";
+"insert_new_name" = "新しい名前";
 "confirm" = "確認";
 "renaming_help" = "テキストボックスを空のまま名前を変更すると、以前設定されたカスタム名が削除されます。";
 "renamed_indicator" = "名前を変更したデバイスのインジケーター";

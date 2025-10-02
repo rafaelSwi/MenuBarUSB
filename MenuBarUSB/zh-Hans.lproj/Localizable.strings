@@ -41,7 +41,7 @@
 "rename" = "重命名";
 "device" = "设备";
 "undo_all" = "清除全部";
-"insert_new_name" = "输入新名称";
+"insert_new_name" = "新名称";
 "confirm" = "确认";
 "renaming_help" = "如果在文本框为空的情况下重命名，将会删除之前为设备设置的自定义名称。";
 "renamed_indicator" = "已重命名设备指示";

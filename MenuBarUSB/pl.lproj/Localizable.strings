@@ -41,7 +41,7 @@
 "rename" = "Zmień nazwę";
 "device" = "Urządzenie";
 "undo_all" = "Wyczyść wszystko";
-"insert_new_name" = "Wpisz nową nazwę";
+"insert_new_name" = "Nowa nazwa";
 "confirm" = "Potwierdź";
 "renaming_help" = "Zmiana nazwy przy pustym polu tekstowym usunie wcześniej przypisaną nazwę własną urządzenia.";
 "renamed_indicator" = "Wskaźnik dla przemianowanych urządzeń";

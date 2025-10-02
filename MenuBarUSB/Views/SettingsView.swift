@@ -21,6 +21,7 @@ struct SettingsView: View {
     @State private var selectedDeviceToCamouflage: USBDevice?;
     @State private var selectedDeviceToRename: USBDevice?;
     @State private var inputText: String = "";
+    @State private var textFieldFocused: Bool = false
     
     @State private var tryingToResetSettings = false;
     @State private var checkingUpdate = false
@@ -901,7 +902,8 @@ struct SettingsView: View {
                             TextFieldWithLimit(
                                 text: $inputText,
                                 placeholder: String(localized: "insert_new_name"),
-                                maxLength: 30
+                                maxLength: 30,
+                                isFocused: $textFieldFocused
                             )
                             .frame(width: 190)
                             .help("renaming_help")

@@ -41,7 +41,7 @@
 "rename" = "Reanomena";
 "device" = "Dispositiu";
 "undo_all" = "Neteja-ho tot";
-"insert_new_name" = "Introdueix el nou nom";
+"insert_new_name" = "Nom nou";
 "confirm" = "Confirma";
 "renaming_help" = "Si reanomenes amb el camp de text buit, s’eliminarà el nom personalitzat assignat prèviament al dispositiu.";
 "renamed_indicator" = "Indicador per a dispositius renombrats";
