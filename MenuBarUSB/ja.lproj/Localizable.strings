@@ -73,7 +73,7 @@
 "disable_notification_cooldown" = "通知クールダウンを無効にする";
 "disable_notification_cooldown_description" = "不具合のあるデバイスやUSBポートは、フラストレーションの溜まる体験を引き起こす可能性があり、日常的な使用は推奨されません。";
 "systemCategory" = "システム";
-"uiCategory" = "一般インターフェイス";
+"uiCategory" = "リスト";
 "usbCategory" = "USB";
 "heritageCategory" = "継承";
 "force_dark_mode" = "ダークモードを強制";

@@ -73,7 +73,7 @@
 "disable_notification_cooldown" = "Dezactivează perioada de răcire a notificărilor";
 "disable_notification_cooldown_description" = "Dispozitivele sau porturile USB defecte pot cauza o experiență frustrantă, nu este recomandat pentru utilizare zilnică.";
 "systemCategory" = "Sistem";
-"uiCategory" = "Interfață generală";
+"uiCategory" = "Lìsta";
 "usbCategory" = "USB";
 "heritageCategory" = "Moștenire";
 "force_dark_mode" = "Forțează modul întunecat";

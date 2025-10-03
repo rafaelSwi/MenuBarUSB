@@ -73,7 +73,7 @@
 "disable_notification_cooldown" = "Απενεργοποίηση καθυστέρησης ειδοποίησης";
 "disable_notification_cooldown_description" = "Συσκευές ή θύρες USB με δυσλειτουργία μπορεί να προκαλέσουν απογοητευτική εμπειρία, δεν συνιστάται για καθημερινή χρήση.";
 "systemCategory" = "Σύστημα";
-"uiCategory" = "Γενική διεπαφή";
+"uiCategory" = "Λίστα";
 "usbCategory" = "USB";
 "heritageCategory" = "Κληρονομιά";
 "force_dark_mode" = "Αναγκαστική σκοτεινή λειτουργία";

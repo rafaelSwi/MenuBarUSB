@@ -73,7 +73,7 @@
 "disable_notification_cooldown" = "Desativar cooldown entre notificações";
 "disable_notification_cooldown_description" = "Dispositivos ou portas USB com mau funcionamento podem resultar em uma experiência desagradável, não é recomendado para uso constante.";
 "systemCategory" = "Sistema";
-"uiCategory" = "Interface";
+"uiCategory" = "Lista";
 "usbCategory" = "USB";
 "heritageCategory" = "Herança";
 "force_dark_mode" = "Forçar modo escuro";
@@ -157,7 +157,7 @@
 "copy" = "Copiar";
 "search_name" = "Pesquisar nome";
 "search_id" = "Pesquisar ID";
-"search_sn" = "Pesquisar SN";
+"search_sn" = "Pesquisar Serial";
 "disable_context_menu_search" = "Desativar pesquisas no menu de contexto";
 "disable_context_menu_search_description" = "As opções de pesquisa na internet não aparecerão mais.";
 "search_engine" = "Ferramenta de Pesquisa";

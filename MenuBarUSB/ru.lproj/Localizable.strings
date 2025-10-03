@@ -73,7 +73,7 @@
 "disable_notification_cooldown" = "Отключить паузу уведомлений";
 "disable_notification_cooldown_description" = "Неисправные устройства или USB-порты могут привести к разочаровывающему опыту, не рекомендуется для повседневного использования.";
 "systemCategory" = "Система";
-"uiCategory" = "Общий интерфейс";
+"uiCategory" = "Список";
 "usbCategory" = "USB";
 "heritageCategory" = "Наследование";
 "force_dark_mode" = "Принудительный тёмный режим";

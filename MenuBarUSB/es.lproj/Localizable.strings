@@ -73,7 +73,7 @@
 "disable_notification_cooldown" = "Desactivar el tiempo de espera de notificaciones";
 "disable_notification_cooldown_description" = "Los dispositivos o puertos USB que funcionan mal pueden generar una experiencia frustrante, no se recomienda para uso diario.";
 "systemCategory" = "Sistema";
-"uiCategory" = "Interfaz";
+"uiCategory" = "Lista";
 "usbCategory" = "USB";
 "heritageCategory" = "Herencia";
 "force_dark_mode" = "Forzar modo oscuro";

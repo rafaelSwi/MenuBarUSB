@@ -338,6 +338,7 @@ struct ContentView: View {
                                     }
                                     
                                     Button {
+                                        inputText = ""
                                         isRenamingDeviceId = uniqueId
                                     } label: {
                                         Label("rename", systemImage: "pencil.and.scribble")
@@ -407,6 +408,15 @@ struct ContentView: View {
                     }
                     .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
                     .help("hidden_indicator")
+                    .contextMenu {
+                        Button {
+                            camouflagedDevices.removeAll()
+                            manager.refresh()
+                        } label: {
+                            Label("undo_all", systemImage: "trash")
+                        }
+                        .disabled(camouflagedDevices.isEmpty)
+                    }
                 }
                 
                 Spacer()
@@ -462,6 +472,13 @@ struct ContentView: View {
                         Image(systemName: "power")
                     } else {
                         Label("exit", systemImage: "power")
+                    }
+                }
+                .contextMenu {
+                    Button {
+                        Utils.killApp()
+                    } label: {
+                        Label("restart", systemImage: "arrow.2.squarepath")
                     }
                 }
                 

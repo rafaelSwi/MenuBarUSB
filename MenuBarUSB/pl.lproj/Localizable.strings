@@ -73,7 +73,7 @@
 "disable_notification_cooldown" = "Wyłącz czas oczekiwania powiadomień";
 "disable_notification_cooldown_description" = "Uszkodzone urządzenia lub porty USB mogą prowadzić do frustrującego doświadczenia, nie zaleca się codziennego używania.";
 "systemCategory" = "System";
-"uiCategory" = "Interfejs";
+"uiCategory" = "Lista";
 "usbCategory" = "USB";
 "heritageCategory" = "Dziedzictwo";
 "force_dark_mode" = "Wymuś tryb ciemny";

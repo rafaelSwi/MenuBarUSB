@@ -71,7 +71,7 @@
 "back" = "Back";
 "updated" = "Updated";
 "disable_notification_cooldown" = "Disable notification cooldown";
-"disable_notification_cooldown_description" = "Malfunctioning devices or USB ports may result in a frustrating experience, it is not recommended for everyday use.";
+"disable_notification_cooldown_description" = "May can be useful for those who want accurate feedback, but can be annoying with malfunctioning devices.";
 "systemCategory" = "System";
 "uiCategory" = "List";
 "usbCategory" = "Information";

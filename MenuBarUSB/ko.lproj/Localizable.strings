@@ -73,7 +73,7 @@
 "disable_notification_cooldown" = "알림 쿨다운 비활성화";
 "disable_notification_cooldown_description" = "오작동하는 장치나 USB 포트는 답답한 경험을 초래할 수 있으며, 일상적인 사용에는 권장되지 않습니다.";
 "systemCategory" = "시스템";
-"uiCategory" = "일반 인터페이스";
+"uiCategory" = "목록";
 "usbCategory" = "USB";
 "heritageCategory" = "상속";
 "force_dark_mode" = "다크 모드 강제 적용";

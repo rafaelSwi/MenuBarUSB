@@ -71,7 +71,7 @@
 "back" = "Tilbage";
 "updated" = "Opdateret";
 "disable_notification_cooldown" = "Deaktiver notifikationsnedkøling";
-"disable_notification_cooldown_description" = "Defekte enheder eller USB-porte kan resultere i en frustrerende oplevelse, det anbefales ikke til daglig brug.";
+"disable_notification_cooldown_description" = "Dette eliminerer nedkølingstiden mellem notifikationer. Dette kan være nyttigt for dem, der ønsker præcis feedback, men kan være irriterende på enheder, der ikke fungerer korrekt.";
 "systemCategory" = "System";
 "uiCategory" = "Liste";
 "usbCategory" = "USB";

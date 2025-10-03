@@ -221,6 +221,18 @@ struct SettingsView: View {
                                 }
                             }
                             .buttonStyle(.bordered)
+                            .contextMenu {
+                                Button {
+                                    checkForUpdate()
+                                } label: {
+                                    Label("check_for_updates", systemImage: "magnifyingglass")
+                                }
+                                Button {
+                                    hideUpdate = true;
+                                } label: {
+                                    Label("hide", systemImage: "eye.slash")
+                                }
+                            }
                         }
                         
                         if (!hideDonate) {
@@ -230,6 +242,13 @@ struct SettingsView: View {
                                 Label("donate", systemImage: "hand.thumbsup.circle")
                             }
                             .disabled(anyBottomOptionInUse)
+                            .contextMenu {
+                                Button {
+                                    hideDonate = true;
+                                } label: {
+                                    Label("hide", systemImage: "eye.slash")
+                                }
+                            }
                         }
                     }
                 }
@@ -460,16 +479,46 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(anyBottomOptionInUse)
+                    .contextMenu {
+                        Button {
+                            renamedDevices.removeAll()
+                            manager.refresh()
+                        } label: {
+                            Label("undo_all", systemImage: "trash")
+                        }
+                        .disabled(renamedDevices.isEmpty)
+                    }
                     
                     Button {
                         showCamouflagedDevices.toggle()
                     } label: {
                         HStack {
-                            Image(systemName: "eye")
+                            Image(systemName: "eye.slash")
                             Text("hide_device")
                         }
                     }
                     .disabled(anyBottomOptionInUse)
+                    .contextMenu {
+                        Button {
+                            camouflagedDevices.removeAll()
+                            manager.refresh()
+                        } label: {
+                            Label("undo_all", systemImage: "trash")
+                        }
+                        .disabled(camouflagedDevices.isEmpty)
+                    }
+                    
+                    if #available(macOS 15.0, *) {
+                        Button {
+                            Utils.openSysInfo()
+                        } label: {
+                            HStack {
+                                Image(systemName: "info.circle")
+                                Text("open_profiler")
+                            }
+                        }
+                        .disabled(tryingToResetSettings || anyBottomOptionInUse)
+                    }
                     
                     ToggleRow(
                         label: String(localized: "show_port_max"),
@@ -615,18 +664,6 @@ struct SettingsView: View {
                                 }
                             },
                         )
-                    }
-                    
-                    if #available(macOS 15.0, *) {
-                        Button {
-                            Utils.openSysInfo()
-                        } label: {
-                            HStack {
-                                Image(systemName: "info.circle.fill")
-                                Text("open_profiler")
-                            }
-                        }
-                        .disabled(tryingToResetSettings)
                     }
                     
                     Button {
