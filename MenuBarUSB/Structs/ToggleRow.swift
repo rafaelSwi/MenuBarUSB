@@ -119,7 +119,7 @@ struct ToggleRow: View {
                 
                 ZStack {
                     Image(systemName: "info.circle")
-                        .foregroundStyle(Color.gray)
+                        .foregroundStyle(Color("Info"))
                         .onTapGesture { immediateToggle(forInfo: true) }
                         .onHover { inside in
                             if inside && !showDescription { startHoverProgress(forInfo: true) }
@@ -129,7 +129,7 @@ struct ToggleRow: View {
                     if infoHoverProgress > 0 && infoHoverProgress < 1 {
                         Circle()
                             .trim(from: 0, to: infoHoverProgress)
-                            .stroke(Color.gray, lineWidth: 2)
+                            .stroke(Color("Info"), lineWidth: 2)
                             .rotationEffect(.degrees(-90))
                             .animation(.linear, value: infoHoverProgress)
                     }
@@ -139,7 +139,7 @@ struct ToggleRow: View {
                 if hasIncompatibility() {
                     ZStack {
                         Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(Color.red)
+                            .foregroundStyle(Color("Warning"))
                             .onTapGesture { immediateToggle(forInfo: false) }
                             .onHover { inside in
                                 if inside && !showIncompatibilityMessage { startHoverProgress(forInfo: false) }
@@ -149,7 +149,7 @@ struct ToggleRow: View {
                         if warningHoverProgress > 0 && warningHoverProgress < 1 {
                             Circle()
                                 .trim(from: 0, to: warningHoverProgress)
-                                .stroke(Color.red, lineWidth: 2)
+                                .stroke(Color("Warning"), lineWidth: 2)
                                 .rotationEffect(.degrees(-90))
                                 .animation(.linear, value: warningHoverProgress)
                         }
@@ -174,8 +174,8 @@ struct ToggleRow: View {
                     .foregroundColor(.primary)
                     .padding(8)
                     .background(
-                        Color.red
-                            .opacity(0.2)
+                        Color("Warning")
+                            .opacity(0.4)
                             .cornerRadius(8)
                     )
                     .fixedSize(horizontal: false, vertical: true)
