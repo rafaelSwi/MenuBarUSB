@@ -167,3 +167,6 @@
 "disable_indicator" = "Dezactivează indicatorul";
 "open_github_page" = "Deschide pagina Github";
 "open" = "Deschide";
+"check_on_blockchain" = "Verifică pe blockchain";
+"copy_crypto_address" = "Copiază adresa";
+"copy_email" = "Copiază adresa de email";

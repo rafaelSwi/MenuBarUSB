@@ -167,3 +167,6 @@
 "disable_indicator" = "Вимкнути індикатор";
 "open_github_page" = "Відкрити сторінку Github";
 "open" = "Відкрити";
+"check_on_blockchain" = "Перевірити в блокчейні";
+"copy_crypto_address" = "Скопіювати адресу";
+"copy_email" = "Скопіювати електронну адресу";

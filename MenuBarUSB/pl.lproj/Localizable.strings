@@ -167,3 +167,6 @@
 "disable_indicator" = "Wyłącz wskaźnik";
 "open_github_page" = "Otwórz stronę Github";
 "open" = "Otwórz";
+"check_on_blockchain" = "Sprawdź w blockchain";
+"copy_crypto_address" = "Kopiuj adres";
+"copy_email" = "Kopiuj adres e-mail";

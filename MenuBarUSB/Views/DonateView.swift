@@ -9,6 +9,9 @@ import SwiftUI
 import CoreImage.CIFilterBuiltins
 
 struct DonateView: View {
+    
+    @Environment(\.openURL) var openURL
+    
     @State private var isBitcoin = true
     
     @Binding var currentWindow: AppWindow
@@ -50,6 +53,7 @@ struct DonateView: View {
         let currentAddress = isBitcoin ? btcAddress : ltcAddress
         let currentSymbol = isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
         let currentColor: Color = isBitcoin ? .orange : Color("LTC")
+        let email: String = "contatorafaelswi@gmail.com"
         
         VStack(spacing: 12) {
             
@@ -63,13 +67,41 @@ struct DonateView: View {
                 
                 QRCodeView(text: currentAddress)
                     .frame(width: 200, height: 200)
+                    .contextMenu {
+                        
+                        Button {
+                            if (isBitcoin) {
+                                if let url = URL(string: "https://www.blockchain.com/explorer/addresses/btc/\(btcAddress)") {
+                                    openURL(url)
+                                }
+                            } else {
+                                if let url = URL(string: "https://litecoinspace.org/address/\(ltcAddress)") {
+                                    openURL(url)
+                                }
+                            }
+                        } label: {
+                            Label("check_on_blockchain", systemImage: "globe")
+                        }
+                        
+                        Button {
+                            copyToClipboard(currentAddress)
+                        } label: {
+                            Label("copy_crypto_address", systemImage: "square.on.square")
+                        }
+                        
+                        Button {
+                            copyToClipboard(email)
+                        } label: {
+                            Label("copy_email", systemImage: "square.on.square")
+                        }
+                    }
                 
                 Button(action: {
                     copyToClipboard(currentAddress)
                 }) {
                     let copyText = String(localized: "copy")
                     let coin = isBitcoin ? "BTC" : "LTC"
-                    Label("\(copyText) (\(coin))", systemImage: "doc.on.doc")
+                    Label("\(copyText) (\(coin))", systemImage: "square.on.square")
                 }
                 .padding(.horizontal, 40)
             }
@@ -90,10 +122,23 @@ struct DonateView: View {
                 }
                 Group {
                     Text(currentAddress)
-                    Text(String(format: NSLocalizedString("contact", comment: "EMAIL"), "contatorafaelswi@gmail.com"))
+                        .contextMenu {
+                            Button {
+                                copyToClipboard(currentAddress)
+                            } label: {
+                                Label("copy", systemImage: "square.on.square")
+                            }
+                        }
+                    Text(String(format: NSLocalizedString("contact", comment: "EMAIL"), email))
+                        .contextMenu {
+                            Button {
+                                copyToClipboard(email)
+                            } label: {
+                                Label("copy_email", systemImage: "square.on.square")
+                            }
+                        }
                 }
                     .font(.footnote)
-                    .textSelection(.enabled)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .padding(.horizontal)

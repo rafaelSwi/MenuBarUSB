@@ -337,7 +337,7 @@ struct ContentView: View {
                                         NSPasteboard.general.clearContents()
                                         NSPasteboard.general.setString(compactStringInformation(dev), forType: .string)
                                     } label: {
-                                        Label("copy", systemImage: "rectangle.on.rectangle")
+                                        Label("copy", systemImage: "square.on.square")
                                     }
                                     
                                     Button {
@@ -470,6 +470,24 @@ struct ContentView: View {
                         Image(systemName: "gear")
                     } else {
                         Label("settings", systemImage: "gear")
+                    }
+                }
+                .contextMenu {
+                    Button {
+                        currentWindow = .settings
+                    } label: {
+                        HStack {
+                            Image(systemName: "arrow.up.right.square")
+                            Text("open")
+                        }
+                    }
+                    Button {
+                        Utils.openSysInfo()
+                    } label: {
+                        HStack {
+                            Image(systemName: "info.circle")
+                            Text("open_profiler")
+                        }
                     }
                 }
                 

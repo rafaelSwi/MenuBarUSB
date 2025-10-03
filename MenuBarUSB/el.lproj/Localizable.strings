@@ -167,3 +167,6 @@
 "disable_indicator" = "Απενεργοποίηση δείκτη";
 "open_github_page" = "Άνοιγμα σελίδας Github";
 "open" = "Άνοιγμα";
+"check_on_blockchain" = "Ελέγξτε στο blockchain";
+"copy_crypto_address" = "Αντιγραφή διεύθυνσης";
+"copy_email" = "Αντιγραφή διεύθυνσης email";

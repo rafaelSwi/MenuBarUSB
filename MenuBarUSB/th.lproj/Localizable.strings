@@ -167,3 +167,6 @@
 "disable_indicator" = "ปิดการใช้งานตัวบ่งชี้";
 "open_github_page" = "เปิดหน้าของ Github";
 "open" = "เปิด";
+"check_on_blockchain" = "ตรวจสอบบนบล็อกเชน";
+"copy_crypto_address" = "คัดลอกที่อยู่";
+"copy_email" = "คัดลอกอีเมล";

@@ -167,3 +167,6 @@
 "disable_indicator" = "インジケーターを無効化";
 "open_github_page" = "Githubページを開く";
 "open" = "開く";
+"check_on_blockchain" = "ブロックチェーンで確認";
+"copy_crypto_address" = "アドレスをコピー";
+"copy_email" = "メールアドレスをコピー";

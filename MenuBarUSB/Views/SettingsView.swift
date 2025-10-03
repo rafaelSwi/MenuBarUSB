@@ -255,7 +255,7 @@ struct SettingsView: View {
                                 Button {
                                     currentWindow = .donate
                                 } label: {
-                                    Label("open", systemImage: "hand.thumbsup.circle")
+                                    Label("open", systemImage: "arrow.up.right.square")
                                 }
                                 Button {
                                     hideDonate = true;

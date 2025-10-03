@@ -167,3 +167,6 @@
 "disable_indicator" = "禁用指示器";
 "open_github_page" = "打开Github页面";
 "open" = "打开";
+"check_on_blockchain" = "在区块链上查看";
+"copy_crypto_address" = "复制地址";
+"copy_email" = "复制电子邮件地址";

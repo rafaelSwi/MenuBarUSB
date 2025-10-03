@@ -167,3 +167,6 @@
 "disable_indicator" = "Göstergiyi devre dışı bırak";
 "open_github_page" = "Github sayfasını aç";
 "open" = "Aç";
+"check_on_blockchain" = "Blok zincirinde doğrula";
+"copy_crypto_address" = "Adresi kopyala";
+"copy_email" = "E-posta adresini kopyala";

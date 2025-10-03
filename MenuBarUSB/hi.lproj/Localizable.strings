@@ -167,3 +167,6 @@
 "disable_indicator" = "सूचक अक्षम करें";
 "open_github_page" = "Github पेज खोलें";
 "open" = "खोलें";
+"check_on_blockchain" = "ब्लॉकचेन पर जाँचें";
+"copy_crypto_address" = "पता कॉपी करें";
+"copy_email" = "ईमेल पता कॉपी करें";

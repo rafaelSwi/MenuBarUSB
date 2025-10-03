@@ -167,3 +167,6 @@
 "disable_indicator" = "지표 비활성화";
 "open_github_page" = "Github 페이지 열기";
 "open" = "열기";
+"check_on_blockchain" = "블록체인에서 확인";
+"copy_crypto_address" = "주소 복사";
+"copy_email" = "이메일 주소 복사";

@@ -167,3 +167,6 @@
 "disable_indicator" = "השבת מחוון";
 "open_github_page" = "פתח עמוד Github";
 "open" = "פתח";
+"check_on_blockchain" = "בדוק בבלוקצ’יין";
+"copy_crypto_address" = "העתק כתובת";
+"copy_email" = "העתק כתובת דוא״ל";
