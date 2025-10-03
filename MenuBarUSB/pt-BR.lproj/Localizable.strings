@@ -154,3 +154,10 @@
 "profiler_shortcut" = "Botão de Informações do Sistema";
 "profiler_shortcut_description" = "Adiciona um botão que abre o app Informações do Sistema (o app nativo do macOS) na aba de dispositivos.";
 "profiler_abbreviated" = "Inform.";
+"copy" = "Copiar";
+"search_name" = "Pesquisar nome";
+"search_id" = "Pesquisar ID";
+"search_sn" = "Pesquisar SN";
+"disable_context_menu_search" = "Desativar pesquisas no menu de contexto";
+"disable_context_menu_search_description" = "As opções de pesquisa na internet não aparecerão mais.";
+"search_engine" = "Ferramenta de Pesquisa";

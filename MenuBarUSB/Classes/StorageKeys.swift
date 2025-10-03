@@ -35,4 +35,5 @@ final class StorageKeys {
     static let restartButton = "restartButton";
     static let mouseHoverInfo = "mouseHoverInfo";
     static let profilerButton = "profilerButton";
+    static let disableContextMenuSearch = "disableContextMenuSearch";
 }

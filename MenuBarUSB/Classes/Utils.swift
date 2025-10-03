@@ -28,4 +28,9 @@ final class Utils {
         try? task.run()
     }
     
+    static func hapticFeedback() {
+        let performer = NSHapticFeedbackManager.defaultPerformer
+        performer.perform(.generic, performanceTime: .now)
+    }
+    
 }

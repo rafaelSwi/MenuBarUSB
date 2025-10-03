@@ -154,3 +154,10 @@
 "profiler_shortcut" = "כפתור מידע מערכת";
 "profiler_shortcut_description" = "מוסיף כפתור שפותח את האפליקציה מידע מערכת בלשונית ההתקנים.";
 "profiler_abbreviated" = "מידע";
+"copy" = "העתק";
+"search_name" = "חפש שם";
+"search_id" = "חפש מזהה";
+"search_sn" = "חפש מספר סידורי";
+"disable_context_menu_search" = "השבת חיפוש בתפריט ההקשר";
+"disable_context_menu_search_description" = "אפשרויות החיפוש אינן מופיעות יותר.";
+"search_engine" = "מנוע חיפוש";

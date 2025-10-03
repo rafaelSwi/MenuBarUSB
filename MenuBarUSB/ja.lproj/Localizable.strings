@@ -154,3 +154,10 @@
 "profiler_shortcut" = "システム情報ボタン";
 "profiler_shortcut_description" = "システム情報アプリをデバイスタブで開くボタンを追加します。";
 "profiler_abbreviated" = "情報";
+"copy" = "コピー";
+"search_name" = "名前を検索";
+"search_id" = "IDを検索";
+"search_sn" = "シリアル番号を検索";
+"disable_context_menu_search" = "コンテキストメニューでの検索を無効化";
+"disable_context_menu_search_description" = "検索オプションは表示されなくなります。";
+"search_engine" = "検索エンジン";

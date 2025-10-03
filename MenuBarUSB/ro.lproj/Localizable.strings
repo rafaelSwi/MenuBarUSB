@@ -154,3 +154,10 @@
 "profiler_shortcut" = "Buton Informații sistem";
 "profiler_shortcut_description" = "Adaugă un buton care deschide aplicația Informații sistem în fila Dispozitive.";
 "profiler_abbreviated" = "Inf.";
+"copy" = "Copiază";
+"search_name" = "Caută nume";
+"search_id" = "Caută ID";
+"search_sn" = "Caută număr de serie";
+"disable_context_menu_search" = "Dezactivează căutarea în meniul contextual";
+"disable_context_menu_search_description" = "Opțiunile de căutare nu mai apar.";
+"search_engine" = "Motor de căutare";

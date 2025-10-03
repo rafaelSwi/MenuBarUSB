@@ -10,8 +10,12 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var manager: USBDeviceManager
+    @Environment(\.openURL) var openURL
     
     @State private var isHoveringDeviceId: String = ""
+    @State private var isRenamingDeviceId: String = ""
+    @State private var inputText: String = "";
+    @State private var textFieldFocused: Bool = false
     
     @Binding var currentWindow: AppWindow
     
@@ -28,6 +32,7 @@ struct ContentView: View {
     @AppStorage(StorageKeys.restartButton) private var restartButton = false
     @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
     @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
+    @AppStorage(StorageKeys.disableContextMenuSearch) private var disableContextMenuSearch = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -94,6 +99,9 @@ struct ContentView: View {
     }
     
     func indentLevel(for device: USBDevice) -> CGFloat {
+        if (isRenamingDeviceId == USBDevice.uniqueId(device)) {
+            return 0;
+        }
         var level = 0
         var currentId = USBDevice.uniqueId(device)
         
@@ -160,11 +168,13 @@ struct ContentView: View {
     }
     
     func showSecondaryInfo(for device: USBDevice) -> Bool {
+        if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
         if !hideSecondaryInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
     }
     
     func showTechInfo(for device: USBDevice) -> Bool {
+        if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
         if !hideTechInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
     }
@@ -189,19 +199,51 @@ struct ContentView: View {
                                     
                                     HStack {
                                         
-                                        if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
-                                            let title: String = renamedIndicator ? "∙ \(device.name)" : device.name
-                                            let textView = Text(title)
-                                                .font(.system(size: 12, weight: .semibold))
-                                                .foregroundColor(.primary)
+                                        if (isRenamingDeviceId == uniqueId) {
+                                            CustomTextField(
+                                                text: $inputText,
+                                                placeholder: String(localized: "insert_new_name"),
+                                                maxLength: 30,
+                                                isFocused: $textFieldFocused
+                                            )
+                                            .frame(width: 190)
+                                            .help("renaming_help")
                                             
-                                            textView
+                                            Button(role: .cancel) {
+                                                isRenamingDeviceId = ""
+                                            } label: {
+                                                Text("cancel")
+                                            }
+                                            
+                                            Button("confirm") {
+                                                let uniqueId = USBDevice.uniqueId(dev)
+                                                if inputText.isEmpty {
+                                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
+                                                } else {
+                                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
+                                                    renamedDevices.append(RenamedDevice(deviceId: uniqueId, name: inputText))
+                                                }
+                                                inputText = ""
+                                                isRenamingDeviceId = ""
+                                                manager.refresh()
+                                            }
+                                            .buttonStyle(.borderedProminent)
+                                            
                                         } else {
-                                            let textView = Text(dev.name.isEmpty ? "usb_device" : dev.name)
-                                                .font(.system(size: 12, weight: .semibold))
-                                                .foregroundColor(.primary)
-                                            
-                                            textView
+                                            if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
+                                                let title: String = renamedIndicator ? "∙ \(device.name)" : device.name
+                                                let textView = Text(title)
+                                                    .font(.system(size: 12, weight: .semibold))
+                                                    .foregroundColor(.primary)
+                                                
+                                                textView
+                                            } else {
+                                                let textView = Text(dev.name.isEmpty ? "usb_device" : dev.name)
+                                                    .font(.system(size: 12, weight: .semibold))
+                                                    .foregroundColor(.primary)
+                                                
+                                                textView
+                                            }
                                         }
                                         
                                         Spacer()
@@ -216,6 +258,16 @@ struct ContentView: View {
                                         
                                     }
                                     .padding(.leading, indent)
+                                    .onHover { hovering in
+                                        if (mouseHoverInfo) {
+                                            if hovering {
+                                                isHoveringDeviceId = uniqueId
+                                                Utils.hapticFeedback()
+                                            } else if isHoveringDeviceId == uniqueId {
+                                                isHoveringDeviceId = ""
+                                            }
+                                        }
+                                    }
                                     
                                     if showTechInfo(for: dev) {
                                         HStack {
@@ -265,12 +317,69 @@ struct ContentView: View {
                                     
                                 }
                                 .padding(.vertical, 3)
-                                .onHover { hovering in
-                                    if hovering {
-                                        isHoveringDeviceId = uniqueId
-                                    } else if isHoveringDeviceId == uniqueId {
-                                        isHoveringDeviceId = ""
+                                .animation(.spring(duration: 0.15), value: showSecondaryInfo(for: dev))
+                                .animation(.spring(duration: 0.15), value: showTechInfo(for: dev))
+                                .contextMenu {
+                                    
+                                    Button {
+                                        NSPasteboard.general.clearContents()
+                                        NSPasteboard.general.setString(compactStringInformation(dev), forType: .string)
+                                    } label: {
+                                        Label("copy", systemImage: "rectangle.on.rectangle")
                                     }
+                                    
+                                    Button {
+                                        isRenamingDeviceId = uniqueId
+                                    } label: {
+                                        Label("rename", systemImage: "pencil.and.scribble")
+                                    }
+                                    
+                                    Button(role: .destructive) {
+                                        let uniqueId = USBDevice.uniqueId(dev)
+                                        let newDevice = CamouflagedDevice(deviceId: uniqueId)
+                                        camouflagedDevices.removeAll { $0.deviceId == uniqueId }
+                                        camouflagedDevices.append(newDevice)
+                                        manager.refresh()
+                                    } label: {
+                                        Label("hide", systemImage: "eye.slash")
+                                    }
+                                    .disabled(inheritedDevices.contains { $0.inheritsFrom == USBDevice.uniqueId(dev) })
+                                    
+                                    if (!disableContextMenuSearch) {
+                                        
+                                        Divider()
+                                        
+                                        Button {
+                                            let query = dev.name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                                            if let url = URL(string: "https://www.google.com/search?q=\(query!)") {
+                                                openURL(url)
+                                            }
+                                        } label: {
+                                            Label("search_name", systemImage: "globe")
+                                        }
+                                        
+                                        Button {
+                                            let id = String(format: "%04X:%04X", dev.vendorId, dev.productId)
+                                            let query = id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                                            if let url = URL(string: "https://www.google.com/search?q=\(query!)") {
+                                                openURL(url)
+                                            }
+                                        } label: {
+                                            Label("search_id", systemImage: "globe")
+                                        }
+                                        
+                                        Button {
+                                            let query = dev.serialNumber!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                                            if let url = URL(string: "https://www.google.com/search?q=\(query!)") {
+                                                openURL(url)
+                                            }
+                                        } label: {
+                                            Label("search_sn", systemImage: "globe")
+                                        }
+                                        .disabled(dev.serialNumber == nil)
+                                        
+                                    }
+                                    
                                 }
                                 
                                 Divider()

@@ -73,12 +73,12 @@
 "disable_notification_cooldown" = "Désactiver le délai de notification";
 "disable_notification_cooldown_description" = "Les périphériques ou ports USB défectueux peuvent provoquer une expérience frustrante, il n’est pas recommandé pour un usage quotidien.";
 "systemCategory" = "Système";
-"uiCategory" = "Interface générale";
+"uiCategory" = "Liste";
 "usbCategory" = "USB";
 "heritageCategory" = "Héritage";
-"force_dark_mode" = "Forcer le mode sombre";
+"force_dark_mode" = "Forcer le mode sombre (dark mode)";
 "force_dark_mode_description" = "Si vous avez déjà activé le mode sombre sur le système, vous ne verrez aucune différence.";
-"force_light_mode" = "Forcer le mode clair";
+"force_light_mode" = "Forcer le mode clair (light mode)";
 "force_light_mode_description" = "Si vous avez déjà activé le mode clair sur le système, vous ne verrez aucune différence.";
 "heritage" = "Héritage";
 "create_inheritance" = "Créer héritage";
@@ -154,3 +154,10 @@
 "profiler_shortcut" = "Bouton Informations système";
 "profiler_shortcut_description" = "Ajoute un bouton qui ouvre l’app Informations système dans l’onglet Appareils.";
 "profiler_abbreviated" = "Inf.";
+"copy" = "Copier";
+"search_name" = "Rechercher un nom";
+"search_id" = "Rechercher ID";
+"search_sn" = "Rechercher SN";
+"disable_context_menu_search" = "Désactiver la recherche dans le menu contextuel";
+"disable_context_menu_search_description" = "Les options de recherche n’apparaissent plus.";
+"search_engine" = "Moteur de recherche";

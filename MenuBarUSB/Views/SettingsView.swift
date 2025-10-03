@@ -68,6 +68,7 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.restartButton) private var restartButton = false
     @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
     @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
+    @AppStorage(StorageKeys.disableContextMenuSearch) private var disableContextMenuSearch = false
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -343,7 +344,6 @@ struct SettingsView: View {
                                 Text("numerical_representation")
                                 Text(NumberConverter(manager.devices.count).convert())
                                     .fontWeight(.bold)
-                                    .foregroundColor(.secondary)
                             }
                             Spacer()
                         }
@@ -369,7 +369,7 @@ struct SettingsView: View {
                             .disabled(hideMenubarIcon)
                             
                             Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
-                                let nr: [NumberRepresentation] = [.base10, .binary, .egyptian, .greek, .hex, .roman]
+                                let nr: [NumberRepresentation] = [.base10, .egyptian, .greek, .roman]
                                 ForEach(nr, id: \.self) { item in
                                     Button {
                                         numberRepresentation = item
@@ -400,12 +400,9 @@ struct SettingsView: View {
                         description: String(localized: "hide_technical_info_description"),
                         binding: $hideTechInfo,
                         activeRowID: $activeRowID,
-                        incompatibilities: [showPortMax, convertHexa],
+                        incompatibilities: nil,
                         onToggle: { value in
-                            if (value == true) {
-                                showPortMax = false
-                                convertHexa = false
-                            } else {
+                            if (value == false) {
                                 mouseHoverInfo = false
                             }
                         },
@@ -424,13 +421,8 @@ struct SettingsView: View {
                         description: String(localized: "hide_secondary_info_description"),
                         binding: $hideSecondaryInfo,
                         activeRowID: $activeRowID,
-                        incompatibilities: [showPortMax, convertHexa],
-                        onToggle: { value in
-                            if (value == true) {
-                                showPortMax = false
-                                convertHexa = false
-                            }
-                        },
+                        incompatibilities: nil,
+                        onToggle: { _ in },
                     )
                     ToggleRow(
                         label: String(localized: "long_list"),
@@ -452,6 +444,14 @@ struct SettingsView: View {
                         label: String(localized: "renamed_indicator"),
                         description: String(localized: "renamed_indicator_description"),
                         binding: $renamedIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: {_ in},
+                    )
+                    ToggleRow(
+                        label: String(localized: "disable_context_menu_search"),
+                        description: String(localized: "disable_context_menu_search_description"),
+                        binding: $disableContextMenuSearch,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: {_ in},
@@ -488,7 +488,7 @@ struct SettingsView: View {
                         binding: $showPortMax,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        disabled: hideTechInfo,
+                        disabled: hideTechInfo && !mouseHoverInfo,
                         onToggle: {_ in},
                     )
                     ToggleRow(
@@ -497,7 +497,7 @@ struct SettingsView: View {
                         binding: $convertHexa,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        disabled: hideTechInfo,
+                        disabled: hideTechInfo && !mouseHoverInfo,
                         onToggle: {_ in},
                     )
                 }
@@ -706,6 +706,7 @@ struct SettingsView: View {
                                     camouflagedDevices.append(newDevice)
                                     selectedDeviceToCamouflage = nil
                                     showCamouflagedDevices = false
+                                    manager.refresh()
                                 }
                                 .buttonStyle(.borderedProminent)
                             }
@@ -715,6 +716,7 @@ struct SettingsView: View {
                             Button("undo_all") {
                                 camouflagedDevices.removeAll()
                                 showCamouflagedDevices = false
+                                manager.refresh()
                             }
                         }
                         
@@ -758,6 +760,7 @@ struct SettingsView: View {
                                 inputText = ""
                                 selectedDeviceToRename = nil
                                 showRenameDevices = false
+                                manager.refresh()
                             }
                             .buttonStyle(.borderedProminent)
                         }
@@ -766,6 +769,7 @@ struct SettingsView: View {
                             Button(String(localized: "undo_all")) {
                                 renamedDevices.removeAll()
                                 showRenameDevices = false
+                                manager.refresh()
                             }
                         }
                         

@@ -154,3 +154,10 @@
 "profiler_shortcut" = "Кнопка Відомості про систему";
 "profiler_shortcut_description" = "Додає кнопку, яка відкриває додаток Відомості про систему на вкладці Пристрої.";
 "profiler_abbreviated" = "Інф.";
+"copy" = "Копіювати";
+"search_name" = "Пошук імені";
+"search_id" = "Пошук ID";
+"search_sn" = "Пошук серійного номера";
+"disable_context_menu_search" = "Вимкнути пошук у контекстному меню";
+"disable_context_menu_search_description" = "Параметри пошуку більше не відображаються.";
+"search_engine" = "Пошукова система";

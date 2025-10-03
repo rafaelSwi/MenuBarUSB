@@ -154,3 +154,10 @@
 "profiler_shortcut" = "Botão Informações do Sistema";
 "profiler_shortcut_description" = "Adiciona um botão que abre a app Informações do Sistema no separador Dispositivos.";
 "profiler_abbreviated" = "Inform.";
+"copy" = "Copiar";
+"search_name" = "Procurar nome";
+"search_id" = "Procurar ID";
+"search_sn" = "Procurar SN";
+"disable_context_menu_search" = "Desativar pesquisa no menu de contexto";
+"disable_context_menu_search_description" = "As opções de pesquisa deixam de aparecer.";
+"search_engine" = "Motor de pesquisa";

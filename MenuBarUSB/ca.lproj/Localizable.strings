@@ -154,3 +154,10 @@
 "profiler_shortcut" = "Botó d’Informació del sistema";
 "profiler_shortcut_description" = "Afegeix un botó que obre l’app Informació del sistema a la pestanya de dispositius.";
 "profiler_abbreviated" = "Inf.";
+"copy" = "Copiar";
+"search_name" = "Cercar nom";
+"search_id" = "Cercar ID";
+"search_sn" = "Cercar número de sèrie";
+"disable_context_menu_search" = "Desactivar la cerca al menú contextual";
+"disable_context_menu_search_description" = "Les opcions de cerca ja no apareixen.";
+"search_engine" = "Motor de cerca";

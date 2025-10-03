@@ -25,10 +25,6 @@ final class NumberConverter {
         switch representation {
         case .base10:
             return toDecimal()
-        case .binary:
-            return toBinary()
-        case .hex:
-            return toHex()
         case .egyptian:
             return toEgyptian()
         case .greek:

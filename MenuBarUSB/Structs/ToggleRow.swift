@@ -47,6 +47,7 @@ struct ToggleRow: View {
                         activeRowID = id
                         showDescription = true
                         showIncompatibilityMessage = false
+                        Utils.hapticFeedback()
                     }
                     t.invalidate()
                 }
@@ -63,6 +64,7 @@ struct ToggleRow: View {
                         activeRowID = id
                         showIncompatibilityMessage = true
                         showDescription = false
+                        Utils.hapticFeedback()
                     }
                     t.invalidate()
                 }

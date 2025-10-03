@@ -154,3 +154,10 @@
 "profiler_shortcut" = "Botón de Información del sistema";
 "profiler_shortcut_description" = "Agrega un botón que abre la app Información del sistema en la pestaña Dispositivos.";
 "profiler_abbreviated" = "Inf.";
+"copy" = "Copiar";
+"search_name" = "Buscar nombre";
+"search_id" = "Buscar ID";
+"search_sn" = "Buscar número de serie";
+"disable_context_menu_search" = "Desactivar búsqueda en el menú contextual";
+"disable_context_menu_search_description" = "Las opciones de búsqueda ya no aparecen.";
+"search_engine" = "Motor de búsqueda";
