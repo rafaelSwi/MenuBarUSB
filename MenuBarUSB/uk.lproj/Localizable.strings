@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Параметри пошуку більше не відображаються.";
 "search_engine" = "Пошукова система";
 "context_menu_category" = "Контекстне меню";
+"show_more" = "Показати більше";
+"show_less" = "Показати менше";
+"disable_indicator" = "Вимкнути індикатор";
+"open_github_page" = "Відкрити сторінку Github";
+"open" = "Відкрити";

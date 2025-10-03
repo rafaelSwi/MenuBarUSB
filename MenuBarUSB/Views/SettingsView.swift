@@ -10,6 +10,8 @@ import ServiceManagement
 import AppKit
 
 struct SettingsView: View {
+    
+    @Environment(\.openURL) var openURL
     @EnvironmentObject var manager: USBDeviceManager
     
     @Binding var currentWindow: AppWindow
@@ -179,7 +181,7 @@ struct SettingsView: View {
     var body: some View {
         
         let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
-            
+        
         VStack(alignment: .leading, spacing: 20) {
             
             HStack {
@@ -228,6 +230,13 @@ struct SettingsView: View {
                                     Label("check_for_updates", systemImage: "magnifyingglass")
                                 }
                                 Button {
+                                    if let url = URL(string: "https://github.com/rafaelSwi/MenuBarUSB") {
+                                        openURL(url)
+                                    }
+                                } label: {
+                                    Label("open_github_page", systemImage: "globe")
+                                }
+                                Button {
                                     hideUpdate = true;
                                 } label: {
                                     Label("hide", systemImage: "eye.slash")
@@ -243,6 +252,11 @@ struct SettingsView: View {
                             }
                             .disabled(anyBottomOptionInUse)
                             .contextMenu {
+                                Button {
+                                    currentWindow = .donate
+                                } label: {
+                                    Label("open", systemImage: "hand.thumbsup.circle")
+                                }
                                 Button {
                                     hideDonate = true;
                                 } label: {

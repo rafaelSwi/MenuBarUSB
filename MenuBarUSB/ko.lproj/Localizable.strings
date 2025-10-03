@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "검색 옵션이 더 이상 표시되지 않습니다.";
 "search_engine" = "검색 엔진";
 "context_menu_category" = "컨텍스트 메뉴";
+"show_more" = "더 보기";
+"show_less" = "간략히 보기";
+"disable_indicator" = "지표 비활성화";
+"open_github_page" = "Github 페이지 열기";
+"open" = "열기";

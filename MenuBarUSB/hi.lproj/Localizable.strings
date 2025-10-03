@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "खोज विकल्प अब दिखाई नहीं देंगे।";
 "search_engine" = "सर्च इंजन";
 "context_menu_category" = "संदर्भ मेनू";
+"show_more" = "और दिखाएं";
+"show_less" = "कम दिखाएं";
+"disable_indicator" = "सूचक अक्षम करें";
+"open_github_page" = "Github पेज खोलें";
+"open" = "खोलें";

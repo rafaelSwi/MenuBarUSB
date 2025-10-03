@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Les options de recherche n’apparaissent plus.";
 "search_engine" = "Moteur de recherche";
 "context_menu_category" = "Menu contextuel";
+"show_more" = "Afficher plus";
+"show_less" = "Afficher moins";
+"disable_indicator" = "Désactiver l’indicateur";
+"open_github_page" = "Ouvrir la page Github";
+"open" = "Ouvrir";

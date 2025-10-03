@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Suchoptionen werden nicht mehr angezeigt.";
 "search_engine" = "Suchmaschine";
 "context_menu_category" = "Kontextmenü";
+"show_more" = "Mehr anzeigen";
+"show_less" = "Weniger anzeigen";
+"disable_indicator" = "Indikator deaktivieren";
+"open_github_page" = "GitHub-Seite öffnen";
+"open" = "Öffnen";

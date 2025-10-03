@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Opțiunile de căutare nu mai apar.";
 "search_engine" = "Motor de căutare";
 "context_menu_category" = "Meniu contextual";
+"show_more" = "Arată mai mult";
+"show_less" = "Arată mai puțin";
+"disable_indicator" = "Dezactivează indicatorul";
+"open_github_page" = "Deschide pagina Github";
+"open" = "Deschide";

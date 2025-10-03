@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Параметры поиска больше не отображаются.";
 "search_engine" = "Поисковая система";
 "context_menu_category" = "Контекстное меню";
+"show_more" = "Показать больше";
+"show_less" = "Показать меньше";
+"disable_indicator" = "Отключить индикатор";
+"open_github_page" = "Открыть страницу Github";
+"open" = "Открыть";

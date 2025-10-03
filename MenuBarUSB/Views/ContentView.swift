@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var isRenamingDeviceId: String = ""
     @State private var inputText: String = "";
     @State private var textFieldFocused: Bool = false
+    @State private var devicesShowingMore: [USBDevice] = []
     
     @Binding var currentWindow: AppWindow
     
@@ -169,12 +170,14 @@ struct ContentView: View {
     }
     
     func showSecondaryInfo(for device: USBDevice) -> Bool {
+        if devicesShowingMore.contains(device) { return true }
         if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
         if !hideSecondaryInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
     }
     
     func showTechInfo(for device: USBDevice) -> Bool {
+        if devicesShowingMore.contains(device) { return true }
         if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
         if !hideTechInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
@@ -355,6 +358,23 @@ struct ContentView: View {
                                     }
                                     .disabled(inheritedDevices.contains { $0.inheritsFrom == USBDevice.uniqueId(dev) })
                                     
+                                    if (!mouseHoverInfo && hideTechInfo) {
+                                        Divider()
+                                        if (!devicesShowingMore.contains(dev)) {
+                                            Button {
+                                                devicesShowingMore.append(dev)
+                                            } label: {
+                                                Label("show_more", systemImage: "line.3.horizontal")
+                                            }
+                                        } else {
+                                            Button {
+                                                devicesShowingMore.removeAll { $0 == dev }
+                                            } label: {
+                                                Label("show_less", systemImage: "ellipsis")
+                                            }
+                                        }
+                                    }
+                                    
                                     if (!disableContextMenuSearch) {
                                         
                                         Divider()
@@ -409,6 +429,15 @@ struct ContentView: View {
                     .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
                     .help("hidden_indicator")
                     .contextMenu {
+                        
+                        Button {
+                            camouflagedIndicator = false
+                        } label: {
+                            Label("disable_indicator", systemImage: "eye.slash")
+                        }
+                        
+                        Divider()
+                        
                         Button {
                             camouflagedDevices.removeAll()
                             manager.refresh()
@@ -416,6 +445,7 @@ struct ContentView: View {
                             Label("undo_all", systemImage: "trash")
                         }
                         .disabled(camouflagedDevices.isEmpty)
+                        
                     }
                 }
                 
@@ -484,6 +514,7 @@ struct ContentView: View {
                 
             }
             .padding(10)
+            .disabled(isRenamingDeviceId != "")
         }
     }
 }

@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "ตัวเลือกการค้นหาไม่ปรากฏอีกต่อไป";
 "search_engine" = "เครื่องมือค้นหา";
 "context_menu_category" = "เมนูบริบท";
+"show_more" = "แสดงเพิ่มเติม";
+"show_less" = "แสดงน้อยลง";
+"disable_indicator" = "ปิดการใช้งานตัวบ่งชี้";
+"open_github_page" = "เปิดหน้าของ Github";
+"open" = "เปิด";

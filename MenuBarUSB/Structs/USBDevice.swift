@@ -18,6 +18,7 @@ struct USBDevice: Identifiable, Hashable {
     let speedMbps: Int?
     let portMaxSpeedMbps: Int?
     let usbVersionBCD: Int?
+    let isExternalStorage: Bool?
     
     
     

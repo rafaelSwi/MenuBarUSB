@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Les opcions de cerca ja no apareixen.";
 "search_engine" = "Motor de cerca";
 "context_menu_category" = "Menú contextual";
+"show_more" = "Mostra més";
+"show_less" = "Mostra menys";
+"disable_indicator" = "Desactiva l'indicador";
+"open_github_page" = "Obrir pàgina de Github";
+"open" = "Obrir";

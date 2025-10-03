@@ -46,11 +46,11 @@
 "renaming_help" = "Renomear com a caixa de texto vazia irá remover o nome personalizado atribuído anteriormente ao dispositivo.";
 "renamed_indicator" = "Indicador para dispositivos renomeados";
 "renamed_indicator_description" = "Dispositivos USB que foram renomeados terão um ● antes do nome.";
-"hide" = "Camuflar";
-"hidden" = "Camuflado";
-"hide_device" = "Camuflar USB";
-"hidden_indicator" = "Indicador de dispositivos camuflados";
-"hidden_indicator_description" = "Exibe quantos dispositivos camuflados estão conectados, sem mostrar muitas informações.";
+"hide" = "Ocultar";
+"hidden" = "Oculto";
+"hide_device" = "Ocultar USB";
+"hidden_indicator" = "Indicador de dispositivos ocultos";
+"hidden_indicator_description" = "Exibe quantos dispositivos ocultos estão conectados, sem mostrar muitas informações.";
 "bitcoin_on_chain_transfer" = "Transferência Bitcoin on-chain";
 "litecoin_on_chain_transfer" = "Transferência Litecoin on-chain";
 "show_ltc_address" = "Mostrar LTC";
@@ -106,7 +106,7 @@
 "view_inheritance_tree" = "Ver árvore de herança";
 "increased_indentation_gap" = "Aumento do espaçamento de indentação";
 "increased_indentation_gap_description" = "Aumenta o espaçamento de indentação entre os herdeiros.";
-"cant_hide_heir" = "Você não pode camuflar um dispositivo que possui herdeiros.";
+"cant_hide_heir" = "Você não pode ocultar um dispositivo que possui herdeiros.";
 "no_info" = "Sem informação";
 "inheritance_tree_warning" = "Apenas dispositivos conectados terão seus nomes exibidos.";
 "hide_secondary_info" = "Ocultar informações secundárias";
@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "As opções de pesquisa na internet não aparecerão mais.";
 "search_engine" = "Ferramenta de Pesquisa";
 "context_menu_category" = "Menu contextual";
+"show_more" = "Mostrar mais";
+"show_less" = "Mostrar menos";
+"disable_indicator" = "Remover indicador";
+"open_github_page" = "Abrir página do Github";
+"open" = "Abrir";

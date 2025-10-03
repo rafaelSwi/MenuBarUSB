@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Søgemuligheder vises ikke længere.";
 "search_engine" = "Søgemaskine";
 "context_menu_category" = "Kontekstmenu";
+"show_more" = "Vis mere";
+"show_less" = "Vis mindre";
+"disable_indicator" = "Deaktiver indikator";
+"open_github_page" = "Åbn Github-side";
+"open" = "Åbn";

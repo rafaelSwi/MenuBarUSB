@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Arama seçenekleri artık görünmeyecek.";
 "search_engine" = "Arama motoru";
 "context_menu_category" = "Bağlam Menüsü";
+"show_more" = "Daha fazla göster";
+"show_less" = "Daha az göster";
+"disable_indicator" = "Göstergiyi devre dışı bırak";
+"open_github_page" = "Github sayfasını aç";
+"open" = "Aç";

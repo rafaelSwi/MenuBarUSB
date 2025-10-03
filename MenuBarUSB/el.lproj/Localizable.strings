@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Οι επιλογές αναζήτησης δεν εμφανίζονται πλέον.";
 "search_engine" = "Μηχανή αναζήτησης";
 "context_menu_category" = "Μενού περιβάλλοντος";
+"show_more" = "Δείξε περισσότερα";
+"show_less" = "Δείξε λιγότερα";
+"disable_indicator" = "Απενεργοποίηση δείκτη";
+"open_github_page" = "Άνοιγμα σελίδας Github";
+"open" = "Άνοιγμα";

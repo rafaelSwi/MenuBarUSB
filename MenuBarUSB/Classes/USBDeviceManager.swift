@@ -94,6 +94,32 @@ final class USBDeviceManager: ObservableObject {
         }
     }
     
+    private func isExternalStorageDevice(_ entry: io_registry_entry_t) -> Bool {
+        var parent: io_registry_entry_t = 0
+        var result = false
+        
+        var current = entry
+        while IORegistryEntryGetParentEntry(current, kIOServicePlane, &parent) == KERN_SUCCESS {
+            let classNameCString = UnsafeMutablePointer<CChar>.allocate(capacity: 128)
+            defer { classNameCString.deallocate() }
+            
+            if IOObjectGetClass(parent, classNameCString) == KERN_SUCCESS {
+                let className = String(cString: classNameCString)
+                if className.contains("IOUSBMassStorageInterface") ||
+                   className.contains("IOBlockStorageDevice") ||
+                   className.contains("IOMedia") {
+                    result = true
+                    break
+                }
+            }
+            
+            current = parent
+        }
+        
+        if parent != 0 { IOObjectRelease(parent) }
+        return result
+    }
+    
     private func fetchUSBDevices() -> [USBDevice] {
         var result: [USBDevice] = []
         var seenDeviceIds = Set<String>()
@@ -214,7 +240,8 @@ final class USBDeviceManager: ObservableObject {
             locationId: locationId,
             speedMbps: speedMbps,
             portMaxSpeedMbps: portMaxSpeedMbps,
-            usbVersionBCD: usbVersionBCD
+            usbVersionBCD: usbVersionBCD,
+            isExternalStorage: isExternalStorageDevice(entry)
         )
     }
     

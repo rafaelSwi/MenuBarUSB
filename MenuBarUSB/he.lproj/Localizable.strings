@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "אפשרויות החיפוש אינן מופיעות יותר.";
 "search_engine" = "מנוע חיפוש";
 "context_menu_category" = "תפריט הקשר";
+"show_more" = "הצג עוד";
+"show_less" = "הצג פחות";
+"disable_indicator" = "השבת מחוון";
+"open_github_page" = "פתח עמוד Github";
+"open" = "פתח";

@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Opcje wyszukiwania nie będą się już pojawiać.";
 "search_engine" = "Wyszukiwarka";
 "context_menu_category" = "Menu kontekstowe";
+"show_more" = "Pokaż więcej";
+"show_less" = "Pokaż mniej";
+"disable_indicator" = "Wyłącz wskaźnik";
+"open_github_page" = "Otwórz stronę Github";
+"open" = "Otwórz";

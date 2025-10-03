@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "搜索选项不再显示。";
 "search_engine" = "搜索引擎";
 "context_menu_category" = "右键菜单";
+"show_more" = "显示更多";
+"show_less" = "显示更少";
+"disable_indicator" = "禁用指示器";
+"open_github_page" = "打开Github页面";
+"open" = "打开";

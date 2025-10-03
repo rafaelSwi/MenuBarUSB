@@ -162,3 +162,8 @@
 "disable_context_menu_search_description" = "Search options no longer appear.";
 "search_engine" = "Search engine";
 "context_menu_category" = "Context Menu";
+"show_more" = "Show more";
+"show_less" = "Show less";
+"disable_indicator" = "Disable indicator";
+"open_github_page" = "Open Github page";
+"open" = "Open";
