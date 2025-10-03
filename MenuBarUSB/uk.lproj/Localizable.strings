@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Вимкнути пошук у контекстному меню";
 "disable_context_menu_search_description" = "Параметри пошуку більше не відображаються.";
 "search_engine" = "Пошукова система";
+"context_menu_category" = "Контекстне меню";

@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "कॉन्टेक्स्ट मेनू में खोज अक्षम करें";
 "disable_context_menu_search_description" = "खोज विकल्प अब दिखाई नहीं देंगे।";
 "search_engine" = "सर्च इंजन";
+"context_menu_category" = "संदर्भ मेनू";

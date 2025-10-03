@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "コンテキストメニューでの検索を無効化";
 "disable_context_menu_search_description" = "検索オプションは表示されなくなります。";
 "search_engine" = "検索エンジン";
+"context_menu_category" = "コンテキストメニュー";

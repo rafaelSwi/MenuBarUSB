@@ -35,13 +35,8 @@ struct SettingsView: View {
     @State private var showInterfaceOptions = false;
     @State private var showInfoOptions = false;
     @State private var showHeritageOptions = false;
+    @State private var showContextMenuOptions = false;
     @State private var showOthersOptions = false;
-    
-    @State private var invisibleIconOptions = false;
-    @State private var invisibleInterfaceOptions = false;
-    @State private var invisibleInfoOptions = false;
-    @State private var invisibleHeritageOptions = false;
-    @State private var invisibleOthersOptions = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
     @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
@@ -69,6 +64,7 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
     @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
     @AppStorage(StorageKeys.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AppStorage(StorageKeys.searchEngine) private var searchEngine: SearchEngine = .google
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -156,6 +152,7 @@ struct SettingsView: View {
         showHeritageOptions = false
         showOthersOptions = false
         showIconOptions = false
+        showContextMenuOptions = false
     }
     
     func manageShowOptions(binding: Binding<Bool>) {
@@ -448,14 +445,6 @@ struct SettingsView: View {
                         incompatibilities: nil,
                         onToggle: {_ in},
                     )
-                    ToggleRow(
-                        label: String(localized: "disable_context_menu_search"),
-                        description: String(localized: "disable_context_menu_search_description"),
-                        binding: $disableContextMenuSearch,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        onToggle: {_ in},
-                    )
                 }
                 
                 categoryButton(toggle: $showInfoOptions, label: "usbCategory")
@@ -500,6 +489,34 @@ struct SettingsView: View {
                         disabled: hideTechInfo && !mouseHoverInfo,
                         onToggle: {_ in},
                     )
+                }
+                
+                categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category")
+                
+                if (showContextMenuOptions) {
+                    
+                    ToggleRow(
+                        label: String(localized: "disable_context_menu_search"),
+                        description: String(localized: "disable_context_menu_search_description"),
+                        binding: $disableContextMenuSearch,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: {_ in},
+                    )
+                    HStack {
+                        Text("search_engine")
+                        Menu(searchEngine.rawValue) {
+                            ForEach(SearchEngine.allCases, id: \.self) { engine in
+                                Button {
+                                    searchEngine = engine
+                                } label: {
+                                    Text(engine.rawValue)
+                                }
+                            }
+                        }
+                        .disabled(disableContextMenuSearch)
+                    }
+                    
                 }
                 
                 categoryButton(toggle: $showHeritageOptions, label: "heritageCategory")

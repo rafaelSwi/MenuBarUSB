@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "ปิดการค้นหาในเมนูบริบท";
 "disable_context_menu_search_description" = "ตัวเลือกการค้นหาไม่ปรากฏอีกต่อไป";
 "search_engine" = "เครื่องมือค้นหา";
+"context_menu_category" = "เมนูบริบท";

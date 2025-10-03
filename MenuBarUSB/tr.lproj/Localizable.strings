@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Bağlam menüsünde aramayı devre dışı bırak";
 "disable_context_menu_search_description" = "Arama seçenekleri artık görünmeyecek.";
 "search_engine" = "Arama motoru";
+"context_menu_category" = "Bağlam Menüsü";

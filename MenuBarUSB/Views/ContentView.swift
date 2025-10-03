@@ -33,6 +33,7 @@ struct ContentView: View {
     @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
     @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
     @AppStorage(StorageKeys.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AppStorage(StorageKeys.searchEngine) private var searchEngine: SearchEngine = .google
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
@@ -178,6 +179,14 @@ struct ContentView: View {
         if !hideTechInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
     }
+    
+    func searchOnWeb(_ search: String) {
+            guard let query = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                  let url = URL(string: "\(searchEngine.searchURL)\(query)") else {
+                return
+            }
+            openURL(url)
+        }
     
     var body: some View {
         VStack {
@@ -350,29 +359,20 @@ struct ContentView: View {
                                         Divider()
                                         
                                         Button {
-                                            let query = dev.name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                                            if let url = URL(string: "https://www.google.com/search?q=\(query!)") {
-                                                openURL(url)
-                                            }
+                                            searchOnWeb(dev.name)
                                         } label: {
                                             Label("search_name", systemImage: "globe")
                                         }
                                         
                                         Button {
                                             let id = String(format: "%04X:%04X", dev.vendorId, dev.productId)
-                                            let query = id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                                            if let url = URL(string: "https://www.google.com/search?q=\(query!)") {
-                                                openURL(url)
-                                            }
+                                            searchOnWeb(id)
                                         } label: {
                                             Label("search_id", systemImage: "globe")
                                         }
                                         
                                         Button {
-                                            let query = dev.serialNumber!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                                            if let url = URL(string: "https://www.google.com/search?q=\(query!)") {
-                                                openURL(url)
-                                            }
+                                            searchOnWeb(dev.serialNumber!)
                                         } label: {
                                             Label("search_sn", systemImage: "globe")
                                         }

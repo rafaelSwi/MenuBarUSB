@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Suche im Kontextmenü deaktivieren";
 "disable_context_menu_search_description" = "Suchoptionen werden nicht mehr angezeigt.";
 "search_engine" = "Suchmaschine";
+"context_menu_category" = "Kontextmenü";

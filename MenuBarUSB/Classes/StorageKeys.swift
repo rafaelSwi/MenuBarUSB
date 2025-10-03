@@ -36,4 +36,5 @@ final class StorageKeys {
     static let mouseHoverInfo = "mouseHoverInfo";
     static let profilerButton = "profilerButton";
     static let disableContextMenuSearch = "disableContextMenuSearch";
+    static let searchEngine = "searchEngine";
 }

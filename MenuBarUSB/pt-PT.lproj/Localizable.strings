@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Desativar pesquisa no menu de contexto";
 "disable_context_menu_search_description" = "As opções de pesquisa deixam de aparecer.";
 "search_engine" = "Motor de pesquisa";
+"context_menu_category" = "Menu de contexto";

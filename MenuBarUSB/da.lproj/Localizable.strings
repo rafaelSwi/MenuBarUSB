@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Deaktiver søgning i kontekstmenu";
 "disable_context_menu_search_description" = "Søgemuligheder vises ikke længere.";
 "search_engine" = "Søgemaskine";
+"context_menu_category" = "Kontekstmenu";

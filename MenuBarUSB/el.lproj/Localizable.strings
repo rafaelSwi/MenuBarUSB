@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Απενεργοποίηση αναζήτησης στο μενού";
 "disable_context_menu_search_description" = "Οι επιλογές αναζήτησης δεν εμφανίζονται πλέον.";
 "search_engine" = "Μηχανή αναζήτησης";
+"context_menu_category" = "Μενού περιβάλλοντος";

@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Wyłącz wyszukiwanie w menu kontekstowym";
 "disable_context_menu_search_description" = "Opcje wyszukiwania nie będą się już pojawiać.";
 "search_engine" = "Wyszukiwarka";
+"context_menu_category" = "Menu kontekstowe";

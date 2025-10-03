@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Désactiver la recherche dans le menu contextuel";
 "disable_context_menu_search_description" = "Les options de recherche n’apparaissent plus.";
 "search_engine" = "Moteur de recherche";
+"context_menu_category" = "Menu contextuel";

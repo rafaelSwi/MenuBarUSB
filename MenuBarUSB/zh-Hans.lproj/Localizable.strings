@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "禁用右键菜单中的搜索";
 "disable_context_menu_search_description" = "搜索选项不再显示。";
 "search_engine" = "搜索引擎";
+"context_menu_category" = "上下文菜单";

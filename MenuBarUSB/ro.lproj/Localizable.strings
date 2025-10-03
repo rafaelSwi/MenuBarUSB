@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Dezactivează căutarea în meniul contextual";
 "disable_context_menu_search_description" = "Opțiunile de căutare nu mai apar.";
 "search_engine" = "Motor de căutare";
+"context_menu_category" = "Meniu contextual";

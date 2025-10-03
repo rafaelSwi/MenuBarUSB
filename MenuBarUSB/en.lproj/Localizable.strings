@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Disable search in context menu";
 "disable_context_menu_search_description" = "Search options no longer appear.";
 "search_engine" = "Search engine";
+"context_menu_category" = "Context Menu";

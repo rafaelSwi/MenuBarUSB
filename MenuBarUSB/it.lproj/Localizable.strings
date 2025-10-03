@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "Disattiva ricerca nel menu contestuale";
 "disable_context_menu_search_description" = "Le opzioni di ricerca non compaiono più.";
 "search_engine" = "Motore di ricerca";
+"context_menu_category" = "Menu contestuale";

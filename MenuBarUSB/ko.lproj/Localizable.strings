@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "컨텍스트 메뉴에서 검색 비활성화";
 "disable_context_menu_search_description" = "검색 옵션이 더 이상 표시되지 않습니다.";
 "search_engine" = "검색 엔진";
+"context_menu_category" = "컨텍스트 메뉴";

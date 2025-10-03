@@ -161,3 +161,4 @@
 "disable_context_menu_search" = "השבת חיפוש בתפריט ההקשר";
 "disable_context_menu_search_description" = "אפשרויות החיפוש אינן מופיעות יותר.";
 "search_engine" = "מנוע חיפוש";
+"context_menu_category" = "תפריט הקשר";
