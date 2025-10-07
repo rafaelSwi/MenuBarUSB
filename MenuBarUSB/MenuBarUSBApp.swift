@@ -40,16 +40,22 @@ struct MenuBarUSBApp: App {
     }
     
     var body: some Scene {
+        
         MenuBarExtra {
             mainContent
         } label: {
             menuLabel
         }
         .menuBarExtraStyle(.window)
+        
+        Window("legacy_settings", id: "legacy_settings") {
+            LegacySettingsView(currentWindow: $currentWindow)
+        }
     }
     
     @ViewBuilder
     private var mainContent: some View {
+        
         switch currentWindow {
         case .devices:
             ContentView(currentWindow: $currentWindow)

@@ -170,3 +170,8 @@
 "check_on_blockchain" = "Comprova a la blockchain";
 "copy_crypto_address" = "Copia l’adreça";
 "copy_email" = "Copia l’adreça de correu electrònic";
+"renamed_devices" = "Dispositius renombrats";
+"hidden_devices" = "Dispositius ocults";
+"close" = "Tancar";
+"legacy_settings" = "Configuració antiga";
+"legacy_settings_description" = "Estàs utilitzant la versió antiga de MenuBarUSB. Essencialment, és una versió adaptada per a versions de macOS anteriors a macOS Sequoia. Utilitzar la versió antiga significa que no tens accés a algunes funcions, com la herència, la personalització d'icones i algunes altres, però, en general, l'aplicació és completament funcional.";

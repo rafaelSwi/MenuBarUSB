@@ -170,3 +170,8 @@
 "check_on_blockchain" = "ブロックチェーンで確認";
 "copy_crypto_address" = "アドレスをコピー";
 "copy_email" = "メールアドレスをコピー";
+"renamed_devices" = "名前が変更されたデバイス";
+"hidden_devices" = "非表示デバイス";
+"close" = "閉じる";
+"legacy_settings" = "レガシー設定";
+"legacy_settings_description" = "MenuBarUSBのレガシーバージョンを使用しています。基本的に、macOS Sequoia以前のmacOSバージョンに対応したバージョンです。レガシーバージョンを使用すると、一部の機能（継承、アイコンのカスタマイズなど）にはアクセスできませんが、ほとんどの場合、アプリは完全に使用可能です。";

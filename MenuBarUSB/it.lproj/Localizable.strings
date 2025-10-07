@@ -170,3 +170,8 @@
 "check_on_blockchain" = "Verifica sulla blockchain";
 "copy_crypto_address" = "Copia indirizzo";
 "copy_email" = "Copia indirizzo e-mail";
+"renamed_devices" = "Dispositivi rinominati";
+"hidden_devices" = "Dispositivi nascosti";
+"close" = "Chiudi";
+"legacy_settings" = "Impostazioni legacy";
+"legacy_settings_description" = "Stai utilizzando la versione legacy di MenuBarUSB. Essenzialmente, è una versione adattata per le versioni di macOS precedenti a macOS Sequoia. Utilizzare la versione legacy significa che non hai accesso ad alcune funzionalità, come ereditarietà, personalizzazione delle icone e alcune altre, ma per la maggior parte, l'app è completamente utilizzabile.";

@@ -170,3 +170,8 @@
 "check_on_blockchain" = "在区块链上查看";
 "copy_crypto_address" = "复制地址";
 "copy_email" = "复制电子邮件地址";
+"renamed_devices" = "已重命名设备";
+"hidden_devices" = "隐藏设备";
+"close" = "关闭";
+"legacy_settings" = "旧版设置";
+"legacy_settings_description" = "您正在使用 MenuBarUSB 的旧版。基本上，它是为 macOS Sequoia 之前的 macOS 版本适配的版本。使用旧版意味着您无法访问某些功能，例如继承、图标自定义和其他一些功能，但在大多数情况下，应用程序完全可用。";

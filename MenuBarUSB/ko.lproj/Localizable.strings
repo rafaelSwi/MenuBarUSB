@@ -170,3 +170,8 @@
 "check_on_blockchain" = "블록체인에서 확인";
 "copy_crypto_address" = "주소 복사";
 "copy_email" = "이메일 주소 복사";
+"renamed_devices" = "이름이 변경된 장치";
+"hidden_devices" = "숨겨진 장치";
+"close" = "닫기";
+"legacy_settings" = "레거시 설정";
+"legacy_settings_description" = "귀하는 MenuBarUSB의 레거시 버전을 사용하고 있습니다. 기본적으로, macOS Sequoia 이전 버전의 macOS에 맞게 조정된 버전입니다. 레거시 버전을 사용하면 상속, 아이콘 사용자 정의 및 기타 몇 가지 기능에 접근할 수 없지만, 대부분의 경우 앱은 완전히 사용 가능합니다.";

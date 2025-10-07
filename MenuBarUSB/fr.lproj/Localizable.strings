@@ -170,3 +170,8 @@
 "check_on_blockchain" = "Vérifier sur la blockchain";
 "copy_crypto_address" = "Copier l’adresse";
 "copy_email" = "Copier l’adresse e-mail";
+"renamed_devices" = "Appareils renommés";
+"hidden_devices" = "Appareils cachés";
+"close" = "Fermer";
+"legacy_settings" = "Paramètres hérités";
+"legacy_settings_description" = "Vous utilisez la version héritée de MenuBarUSB. Essentiellement, il s'agit d'une version adaptée aux versions de macOS antérieures à macOS Sequoia. Utiliser la version héritée signifie que vous n'avez pas accès à certaines fonctionnalités, comme l'héritage, la personnalisation des icônes et quelques autres, mais dans l'ensemble, l'application est entièrement utilisable.";

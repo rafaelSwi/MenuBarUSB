@@ -364,7 +364,7 @@ final class USBDeviceManager: ObservableObject {
                     if (deviceList == "") {
                         mySelf.sendNotification(
                             title: String(localized: "usb_disconnected"),
-                            body: String(localized: "usb_disconnected_info"),
+                            body: String(localized: "usb_disconnected_info")
                         )
                     } else {
                         mySelf.sendNotification(

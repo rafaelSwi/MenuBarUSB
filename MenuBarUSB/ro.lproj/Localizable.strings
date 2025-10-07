@@ -170,3 +170,8 @@
 "check_on_blockchain" = "Verifică pe blockchain";
 "copy_crypto_address" = "Copiază adresa";
 "copy_email" = "Copiază adresa de email";
+"renamed_devices" = "Dispozitive redenumite";
+"hidden_devices" = "Dispozitive ascunse";
+"close" = "Închide";
+"legacy_settings" = "Setări vechi";
+"legacy_settings_description" = "Utilizați versiunea veche a MenuBarUSB. Practic, este o versiune adaptată pentru versiunile macOS anterioare macOS Sequoia. Utilizarea versiunii vechi înseamnă că nu aveți acces la unele funcții, cum ar fi moștenirea, personalizarea pictogramelor și câteva altele, dar în mare parte, aplicația este complet funcțională.";

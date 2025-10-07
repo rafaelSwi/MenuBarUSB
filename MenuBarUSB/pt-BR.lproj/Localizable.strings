@@ -170,3 +170,8 @@
 "check_on_blockchain" = "Acessar no blockchain";
 "copy_crypto_address" = "Copiar endereço";
 "copy_email" = "Copiar endereço de e-mail";
+"renamed_devices" = "Disp. Renomeados";
+"hidden_devices" = "Disp. Ocultos";
+"close" = "Fechar";
+"legacy_settings" = "Ajustes (Legacy)";
+"legacy_settings_description" = "Você está usando a versão legada do MenuBarUSB. Essencialmente, é uma versão adaptada para versões do macOS anteriores ao macOS Sequoia. Usar a versão legada significa que você não tem acesso a alguns recursos, como herança, personalização de ícones e alguns outros, mas na maior parte, o app é totalmente utilizável.";

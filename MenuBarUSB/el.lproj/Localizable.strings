@@ -170,3 +170,8 @@
 "check_on_blockchain" = "Ελέγξτε στο blockchain";
 "copy_crypto_address" = "Αντιγραφή διεύθυνσης";
 "copy_email" = "Αντιγραφή διεύθυνσης email";
+"renamed_devices" = "Dispositivos renombrados";
+"hidden_devices" = "Dispositivos ocultos";
+"close" = "Cerrar";
+"legacy_settings" = "Configuración antigua";
+"legacy_settings_description" = "Estás usando la versión antigua de MenuBarUSB. Básicamente, es una versión adaptada para versiones de macOS anteriores a macOS Sequoia. Usar la versión antigua significa que no tienes acceso a algunas funciones, como herencia, personalización de íconos y algunas otras, pero en su mayoría, la aplicación es completamente funcional.";

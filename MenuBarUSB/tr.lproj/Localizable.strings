@@ -170,3 +170,8 @@
 "check_on_blockchain" = "Blok zincirinde doğrula";
 "copy_crypto_address" = "Adresi kopyala";
 "copy_email" = "E-posta adresini kopyala";
+"renamed_devices" = "Yeniden Adlandırılmış Cihazlar";
+"hidden_devices" = "Gizli Cihazlar";
+"close" = "Kapat";
+"legacy_settings" = "Eski Ayarlar";
+"legacy_settings_description" = "MenuBarUSB'nin eski sürümünü kullanıyorsunuz. Temelde, macOS Sequoia öncesi macOS sürümleri için uyarlanmış bir sürümdür. Eski sürümü kullanmak, miras, simge özelleştirme ve birkaç diğer özellik gibi bazı özelliklere erişiminiz olmadığı anlamına gelir, ancak çoğu durumda uygulama tamamen kullanılabilir durumdadır.";

@@ -170,3 +170,8 @@
 "check_on_blockchain" = "Sprawdź w blockchain";
 "copy_crypto_address" = "Kopiuj adres";
 "copy_email" = "Kopiuj adres e-mail";
+"renamed_devices" = "Zmienione urządzenia";
+"hidden_devices" = "Ukryte urządzenia";
+"close" = "Zamknij";
+"legacy_settings" = "Ustawienia starszej wersji";
+"legacy_settings_description" = "Używasz starszej wersji MenuBarUSB. W zasadzie jest to wersja dostosowana do systemów macOS sprzed macOS Sequoia. Korzystanie ze starszej wersji oznacza brak dostępu do niektórych funkcji, takich jak dziedziczenie, dostosowywanie ikon i kilku innych, ale w większości przypadków aplikacja jest w pełni użyteczna.";

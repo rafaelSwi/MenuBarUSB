@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @Environment(\.openWindow) private var openWindow
     @EnvironmentObject var manager: USBDeviceManager
     @Environment(\.openURL) var openURL
     
@@ -464,7 +465,11 @@ struct ContentView: View {
                 }
                 
                 Button {
-                    currentWindow = .settings
+                    if #available(macOS 15.0, *) {
+                        currentWindow = .settings
+                    } else {
+                        openWindow(id: "legacy_settings")
+                    }
                 } label: {
                     if (noTextButtons) {
                         Image(systemName: "gear")
