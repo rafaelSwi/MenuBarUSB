@@ -479,7 +479,11 @@ struct ContentView: View {
                 }
                 .contextMenu {
                     Button {
-                        currentWindow = .settings
+                        if #available(macOS 15.0, *) {
+                            currentWindow = .settings
+                        } else {
+                            openWindow(id: "legacy_settings")
+                        }
                     } label: {
                         HStack {
                             Image(systemName: "arrow.up.right.square")
