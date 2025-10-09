@@ -187,3 +187,9 @@
 "paused" = "已暂停";
 "running" = "正在运行";
 "traffic_monitor_inactive_settings" = "在设置中时，流量监控已暂停";
+"hide_traffic_side_label" = "隐藏状态文本";
+"show_traffic_side_label" = "显示状态文本";
+"stop_resume" = "停止/继续";
+"back_and_resume" = "返回并继续";
+"back_without_resume" = "返回（不继续）";
+"required_ethernet_to_monitor_traffic" = "需要连接以太网电缆以保持网络监控运行";

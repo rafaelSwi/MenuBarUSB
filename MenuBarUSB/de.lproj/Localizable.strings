@@ -187,3 +187,9 @@
 "paused" = "Angehalten";
 "running" = "Läuft";
 "traffic_monitor_inactive_settings" = "Die Verkehrsüberwachung ist angehalten, solange Sie sich in den Einstellungen befinden";
+"hide_traffic_side_label" = "Statustext ausblenden";
+"show_traffic_side_label" = "Statustext anzeigen";
+"stop_resume" = "Anhalten/Fortsetzen";
+"back_and_resume" = "Zurück und fortsetzen";
+"back_without_resume" = "Zurück (ohne Fortsetzen)";
+"required_ethernet_to_monitor_traffic" = "Ein angeschlossenes Ethernet-Kabel ist erforderlich, um die Netzwerküberwachung aufrechtzuerhalten";

@@ -187,3 +187,9 @@
 "paused" = "일시 중지됨";
 "running" = "실행 중";
 "traffic_monitor_inactive_settings" = "설정 중에는 트래픽 모니터링이 일시 중지됩니다";
+"hide_traffic_side_label" = "상태 텍스트 숨기기";
+"show_traffic_side_label" = "상태 텍스트 표시";
+"stop_resume" = "중지/재개";
+"back_and_resume" = "뒤로 가서 재개";
+"back_without_resume" = "뒤로 가기 (재개 안 함)";
+"required_ethernet_to_monitor_traffic" = "네트워크 모니터링을 유지하려면 이더넷 케이블이 연결되어 있어야 합니다";

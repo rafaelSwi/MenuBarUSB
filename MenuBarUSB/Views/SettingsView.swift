@@ -184,6 +184,10 @@ struct SettingsView: View {
         }
     }
     
+    private var isTrafficMonitoringPausedForSettings: Bool {
+        return internetMonitoring && !manager.trafficMonitorRunning && manager.ethernet
+    }
+    
     var body: some View {
         
         let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
@@ -275,7 +279,7 @@ struct SettingsView: View {
                 }
             }
             
-            if (internetMonitoring && !manager.trafficMonitorRunning) {
+            if (isTrafficMonitoringPausedForSettings) {
                 HStack {
                     Image(systemName: "pause.fill")
                     Text("traffic_monitor_inactive_settings")
@@ -623,8 +627,10 @@ struct SettingsView: View {
                         disabled: hideMenubarIcon || !showEthernet,
                         onToggle: { value in
                             if (value == true) {
-                                manager.startEthernetMonitoring()
-                                Utils.killApp()
+                                if (manager.ethernet) {
+                                    manager.startEthernetMonitoring()
+                                    currentWindow = .devices
+                                }
                             } else {
                                 manager.stopEthernetMonitoring()
                                 trafficButton = false;
@@ -806,12 +812,23 @@ struct SettingsView: View {
                     
                     if (!anyBottomOptionInUse) {
                         Button(action: {
-                            if (internetMonitoring && !manager.trafficMonitorRunning) {
+                            if (isTrafficMonitoringPausedForSettings) {
                                 manager.startEthernetMonitoring()
                             }
                             currentWindow = .devices
                         }) {
-                            Label("back", systemImage: "arrow.uturn.backward")
+                            if (isTrafficMonitoringPausedForSettings) {
+                                Label("back_and_resume", systemImage: "arrow.uturn.backward")
+                                    .contextMenu {
+                                        Button {
+                                            currentWindow = .devices
+                                        } label: {
+                                            Label("back_without_resume", systemImage: "arrow.uturn.backward")
+                                        }
+                                    }
+                            } else {
+                                Label("back", systemImage: "arrow.uturn.backward")
+                            }
                         }
                     }
                     

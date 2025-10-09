@@ -187,3 +187,9 @@
 "paused" = "מושהה";
 "running" = "פועל";
 "traffic_monitor_inactive_settings" = "ניטור תעבורה מושהה בזמן שאתה נמצא בהגדרות";
+"hide_traffic_side_label" = "הסתר טקסט מצב";
+"show_traffic_side_label" = "הצג טקסט מצב";
+"stop_resume" = "עצור/המשך";
+"back_and_resume" = "חזור והמשך";
+"back_without_resume" = "חזור (ללא המשך)";
+"required_ethernet_to_monitor_traffic" = "נדרש כבל אתרנט מחובר כדי לשמור על ניטור הרשת פעיל";

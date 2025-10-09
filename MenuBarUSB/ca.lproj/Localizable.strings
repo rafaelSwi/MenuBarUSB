@@ -187,3 +187,9 @@
 "paused" = "Pausat";
 "running" = "En execució";
 "traffic_monitor_inactive_settings" = "El monitoratge de trànsit està pausat mentre es troba a la configuració";
+"hide_traffic_side_label" = "Amaga el text d'estat";
+"show_traffic_side_label" = "Mostra el text d'estat";
+"stop_resume" = "Atura/reprèn";
+"back_and_resume" = "Torna i reprèn";
+"back_without_resume" = "Torna (sense reprendre)";
+"required_ethernet_to_monitor_traffic" = "Cal un cable Ethernet connectat per mantenir la monitorització de la xarxa en funcionament";

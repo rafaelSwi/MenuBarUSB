@@ -187,3 +187,9 @@
 "paused" = "หยุดชั่วคราว";
 "running" = "กำลังทำงาน";
 "traffic_monitor_inactive_settings" = "การตรวจสอบการรับส่งข้อมูลถูกหยุดชั่วคราวขณะอยู่ในส่วนการตั้งค่า";
+"hide_traffic_side_label" = "ซ่อนข้อความสถานะ";
+"show_traffic_side_label" = "แสดงข้อความสถานะ";
+"stop_resume" = "หยุด/ดำเนินการต่อ";
+"back_and_resume" = "ย้อนกลับและดำเนินการต่อ";
+"back_without_resume" = "ย้อนกลับ (ไม่ดำเนินการต่อ)";
+"required_ethernet_to_monitor_traffic" = "จำเป็นต้องมีสายเคเบิลอีเทอร์เน็ตที่เชื่อมต่อเพื่อให้การตรวจสอบเครือข่ายทำงานต่อไป";

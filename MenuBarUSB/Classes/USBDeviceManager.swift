@@ -32,7 +32,7 @@ final class USBDeviceManager: ObservableObject {
         
         startMonitoring()
         
-        if (internetMonitoring) {
+        if (internetMonitoring && isEthernetConnected()) {
             startEthernetMonitoring()
         }
         

@@ -187,3 +187,9 @@
 "paused" = "一時停止中";
 "running" = "実行中";
 "traffic_monitor_inactive_settings" = "設定中はトラフィック監視が一時停止されます";
+"hide_traffic_side_label" = "ステータステキストを非表示";
+"show_traffic_side_label" = "ステータステキストを表示";
+"stop_resume" = "停止/再開";
+"back_and_resume" = "戻って再開";
+"back_without_resume" = "戻る（再開しない）";
+"required_ethernet_to_monitor_traffic" = "ネットワーク監視を続けるには、接続されたイーサネットケーブルが必要です";

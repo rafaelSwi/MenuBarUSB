@@ -187,3 +187,9 @@
 "paused" = "Pauzat";
 "running" = "Rulează";
 "traffic_monitor_inactive_settings" = "Monitorizarea traficului este întreruptă în timp ce sunteți în setări";
+"hide_traffic_side_label" = "Ascunde textul de stare";
+"show_traffic_side_label" = "Afișează textul de stare";
+"stop_resume" = "Oprire/relua";
+"back_and_resume" = "Înapoi și reia";
+"back_without_resume" = "Înapoi (fără reluare)";
+"required_ethernet_to_monitor_traffic" = "Un cablu Ethernet conectat este necesar pentru a menține monitorizarea rețelei activă";

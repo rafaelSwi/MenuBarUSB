@@ -187,3 +187,9 @@
 "paused" = "Σε παύση";
 "running" = "Σε λειτουργία";
 "traffic_monitor_inactive_settings" = "Η παρακολούθηση κίνησης είναι σε παύση ενώ βρίσκεστε στις ρυθμίσεις";
+"hide_traffic_side_label" = "Απόκρυψη κειμένου κατάστασης";
+"show_traffic_side_label" = "Εμφάνιση κειμένου κατάστασης";
+"stop_resume" = "Διακοπή/συνέχιση";
+"back_and_resume" = "Πίσω και συνέχιση";
+"back_without_resume" = "Πίσω (χωρίς συνέχιση)";
+"required_ethernet_to_monitor_traffic" = "Απαιτείται συνδεδεμένο καλώδιο Ethernet για να συνεχιστεί η παρακολούθηση δικτύου";

@@ -187,3 +187,9 @@
 "paused" = "Приостановлено";
 "running" = "Работает";
 "traffic_monitor_inactive_settings" = "Мониторинг трафика приостановлен, пока вы находитесь в настройках";
+"hide_traffic_side_label" = "Скрыть текст состояния";
+"show_traffic_side_label" = "Показать текст состояния";
+"stop_resume" = "Остановить/возобновить";
+"back_and_resume" = "Назад и возобновить";
+"back_without_resume" = "Назад (без возобновления)";
+"required_ethernet_to_monitor_traffic" = "Для поддержания мониторинга сети необходим подключенный кабель Ethernet";

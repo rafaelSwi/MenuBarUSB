@@ -187,3 +187,9 @@
 "paused" = "Sat på pause";
 "running" = "Kører";
 "traffic_monitor_inactive_settings" = "Trafikovervågning er sat på pause i indstillingerne";
+"hide_traffic_side_label" = "Skjul statustekst";
+"show_traffic_side_label" = "Vis statustekst";
+"stop_resume" = "Stop/genoptag";
+"back_and_resume" = "Tilbage og genoptag";
+"back_without_resume" = "Tilbage (uden at genoptage)";
+"required_ethernet_to_monitor_traffic" = "Et tilsluttet Ethernet-kabel er påkrævet for at holde netværksovervågning kørende";

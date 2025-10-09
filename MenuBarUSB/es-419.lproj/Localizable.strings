@@ -187,3 +187,9 @@
 "paused" = "En pausa";
 "running" = "En funcionamiento";
 "traffic_monitor_inactive_settings" = "El monitoreo de tráfico está en pausa mientras se encuentra en la configuración";
+"hide_traffic_side_label" = "Ocultar texto de estado";
+"show_traffic_side_label" = "Mostrar texto de estado";
+"stop_resume" = "Detener/reanudar";
+"back_and_resume" = "Regresar y reanudar";
+"back_without_resume" = "Regresar (sin reanudar)";
+"required_ethernet_to_monitor_traffic" = "Se necesita un cable Ethernet conectado para mantener el monitoreo de red activo";

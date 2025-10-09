@@ -32,6 +32,8 @@ extension USBDeviceManager {
         print("Starting Ethernet Monitoring...")
         print("Detected interfaces: \(monitoredEthernetInterfaces)")
         
+        if (!self.ethernet) { return }
+        
         startMonitoringEthernet()
         
         stopEthernetMonitoring()

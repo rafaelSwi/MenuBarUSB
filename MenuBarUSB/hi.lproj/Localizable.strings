@@ -187,3 +187,9 @@
 "paused" = "विराम दिया गया";
 "running" = "चल रहा है";
 "traffic_monitor_inactive_settings" = "सेटिंग्स में होने पर ट्रैफ़िक मॉनिटरिंग रोक दी जाती है";
+"hide_traffic_side_label" = "स्थिति पाठ छिपाएँ";
+"show_traffic_side_label" = "स्थिति पाठ दिखाएँ";
+"stop_resume" = "रोकें/जारी रखें";
+"back_and_resume" = "वापस जाएं और जारी रखें";
+"back_without_resume" = "वापस जाएं (जारी रखे बिना)";
+"required_ethernet_to_monitor_traffic" = "नेटवर्क मॉनिटरिंग चालू रखने के लिए एक कनेक्टेड ईथरनेट केबल आवश्यक है";

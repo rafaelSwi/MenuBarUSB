@@ -146,6 +146,39 @@ struct ContentView: View {
         }
     }
     
+    private func toggleTrafficMonitoring() {
+        if (manager.trafficMonitorRunning) {
+            manager.stopEthernetMonitoring()
+        } else {
+            manager.startEthernetMonitoring()
+        }
+    }
+    
+    private var noEthernetCableAndNoMonitoring: Bool {
+        return !manager.ethernet && trafficMonitorInactive
+    }
+    
+    private var trafficMonitorInactive: Bool {
+        return !manager.trafficMonitorRunning
+    }
+    
+    private func mainButtonLabel(_ text: LocalizedStringKey, _ systemImage: String) -> some View {
+        if noTextButtons {
+            return AnyView(Image(systemName: systemImage))
+        } else {
+            return AnyView(Label(text, systemImage: systemImage))
+        }
+    }
+    
+    private var isRenaming: Bool {
+        return isRenamingDeviceId != ""
+    }
+    
+    private var enoughSpaceForActiveTrafficButtonLabel: Bool {
+        return !camouflagedIndicator && trafficButtonLabel
+    }
+    
+
     func compactStringInformation(_ usb: USBDevice) -> String {
         var parts: [String] = []
         
@@ -306,7 +339,7 @@ struct ContentView: View {
                                             
                                             if showSecondaryInfo(for: dev) {
                                                 Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
-                                                    .font(.system(size: 10))
+                                                    .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                             }
                                         }
@@ -481,14 +514,11 @@ struct ContentView: View {
                 
                 if (trafficButton) {
                     
-                    if (!camouflagedIndicator && trafficButtonLabel) {
+                    if (enoughSpaceForActiveTrafficButtonLabel) {
                         if (manager.trafficMonitorRunning) {
-                            Group {
-                                Image(systemName: "arrow.up.arrow.down")
-                                    .opacity(0.5)
-                                Text("running")
-                                    .font(.footnote)
-                            }
+                            Label("running", systemImage: "arrow.up.arrow.down")
+                                .font(.footnote)
+                                .opacity(0.5)
                         } else {
                             Text("paused")
                                 .font(.footnote)
@@ -496,31 +526,25 @@ struct ContentView: View {
                     }
                     
                     Button {
-                        if (manager.trafficMonitorRunning) {
-                            manager.stopEthernetMonitoring()
-                        } else {
-                            manager.startEthernetMonitoring()
-                        }
+                        toggleTrafficMonitoring()
                     } label: {
-                        if (manager.trafficMonitorRunning) {
-                            Image(systemName: "pause.fill")
-                        } else {
-                            Image(systemName: "play.fill")
-                        }
+                        Image(systemName: manager.trafficMonitorRunning ? "pause.fill" : "play.fill")
                     }
                     .contextMenu {
-                        
                         Button {
-                            if (manager.trafficMonitorRunning) {
-                                manager.stopEthernetMonitoring()
-                            } else {
-                                manager.startEthernetMonitoring()
-                            }
+                            toggleTrafficMonitoring()
                         } label: {
                             Label("stop_resume", systemImage: "playpause.fill")
                         }
+                        .disabled(noEthernetCableAndNoMonitoring)
                         
                         Divider()
+                        
+                        Button {
+                            trafficButton = false;
+                        } label: {
+                            Label("hide", systemImage: "eye.slash")
+                        }
                         
                         Button {
                             trafficButtonLabel = !trafficButtonLabel;
@@ -538,90 +562,58 @@ struct ContentView: View {
                 Button {
                     goToSettings()
                 } label: {
-                    if (noTextButtons) {
-                        Image(systemName: "gear")
-                    } else {
-                        Label("settings", systemImage: "gear")
-                    }
+                    mainButtonLabel("settings", "gear")
                 }
                 .contextMenu {
                     Button {
                         goToSettings()
                     } label: {
-                        HStack {
-                            Image(systemName: "arrow.up.right.square")
-                            Text("open")
-                        }
+                        Label("open", systemImage: "arrow.up.right.square")
                     }
                     Button {
                         Utils.openSysInfo()
                     } label: {
-                        HStack {
-                            Image(systemName: "info.circle")
-                            Text("open_profiler")
-                        }
+                        Label("open_profiler", systemImage: "info.circle")
                     }
                     
                     if (showEthernet && internetMonitoring) {
                         
                         Divider()
                         
-                        if (manager.trafficMonitorRunning == false) {
+                        if (trafficMonitorInactive) {
                             Button {
                                 manager.startEthernetMonitoring()
                             } label: {
-                                HStack {
-                                    Image(systemName: "play.fill")
-                                    Text("resume_traffic_monitor")
-                                }
+                                Label("resume_traffic_monitor", systemImage: "play.fill")
                             }
                         } else {
                             Button {
                                 manager.stopEthernetMonitoring()
                             } label: {
-                                HStack {
-                                    Image(systemName: "pause.fill")
-                                    Text("stop_traffic_monitor")
-                                }
+                                Label("stop_traffic_monitor", systemImage: "pause.fill")
                             }
                         }
-                        
-                        
                     }
-                    
-                    
                 }
                 
                 Button {
                     manager.refresh()
                 } label: {
-                    if (noTextButtons) {
-                        Image(systemName: "arrow.clockwise")
-                    } else {
-                        Label("refresh", systemImage: "arrow.clockwise")
-                    }
+                    mainButtonLabel("refresh", "arrow.clockwise")
                 }
                 
                 if (restartButton) {
                     Button {
                         Utils.killApp()
                     } label: {
-                        if (noTextButtons) {
-                            Image(systemName: "arrow.2.squarepath")
-                        } else {
-                            Label("restart", systemImage: "arrow.2.squarepath")
-                        }
+                        mainButtonLabel("restart", "arrow.2.squarepath")
                     }
                 }
                 
                 Button(role: .destructive) {
                     NSApp.terminate(nil)
                 } label: {
-                    if (noTextButtons) {
-                        Image(systemName: "power")
-                    } else {
-                        Label("exit", systemImage: "power")
-                    }
+                    mainButtonLabel("exit", "power")
                 }
                 .contextMenu {
                     Button {
@@ -633,7 +625,7 @@ struct ContentView: View {
                 
             }
             .padding(10)
-            .disabled(isRenamingDeviceId != "")
+            .disabled(isRenaming)
         }
     }
 }

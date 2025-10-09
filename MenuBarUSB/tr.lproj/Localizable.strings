@@ -187,3 +187,9 @@
 "paused" = "Duraklatıldı";
 "running" = "Çalışıyor";
 "traffic_monitor_inactive_settings" = "Ayarlardayken trafik izleme duraklatılır";
+"hide_traffic_side_label" = "Durum metnini gizle";
+"show_traffic_side_label" = "Durum metnini göster";
+"stop_resume" = "Durdur/devam et";
+"back_and_resume" = "Geri dön ve devam et";
+"back_without_resume" = "Geri dön (devam etmeden)";
+"required_ethernet_to_monitor_traffic" = "Ağ izlemeyi sürdürmek için bağlı bir Ethernet kablosu gereklidir";

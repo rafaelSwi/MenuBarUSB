@@ -190,3 +190,6 @@
 "hide_traffic_side_label" = "Hide status text";
 "show_traffic_side_label" = "Show status text";
 "stop_resume" = "Stop/resume";
+"back_and_resume" = "Back and resume";
+"back_without_resume" = "Back (without resuming)";
+"required_ethernet_to_monitor_traffic" = "A connected ethernet cable is mandatory to keep network monitoring running";
