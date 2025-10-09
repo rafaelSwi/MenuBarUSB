@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "Symbol anzeigen, wenn ein LAN-Kabel verbunden ist";
 "ethernet_connected_icon_description" = "Wenn eine kabelgebundene Netzwerkverbindung erkannt wird (eine aktive IP-Adresse ist zur Erkennung erforderlich), wird ein Symbol angezeigt.";
 "internet_monitoring_icon" = "Netzwerkverkehr-Indikator";
-"internet_monitoring_icon_description" = "Ein Symbol erscheint neben dem Symbol für die kabelgebundene Verbindung, wenn Netzwerkverkehr stattfindet. Wenn Sie nicht möchten, dass etwas in Ihrer Menüleiste blinkt, wird die Aktivierung nicht empfohlen.";
+"internet_monitoring_icon_description" = "Das Ethernet-Kabelanzeigesymbol blinkt, wenn Kabelnetzwerkverkehr erkannt wird.";
 "stop_traffic_monitor_button" = "Schaltfläche zum Stoppen/Starten der Verkehrsüberwachung";
 "stop_traffic_monitor_button_description" = "Fügt eine dedizierte Schaltfläche zum Starten/Fortsetzen der Netzwerkverkehrsüberwachung hinzu.";
 "resume_traffic_monitor" = "Verkehrsüberwachung fortsetzen";

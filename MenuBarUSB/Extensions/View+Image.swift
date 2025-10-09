@@ -7,11 +7,15 @@
 
 import SwiftUI
 
+
 extension View {
     func asImage() -> NSImage {
-        let view = NSHostingView(rootView: self)
+        let styledRoot = self
+            .foregroundStyle(Color.white)
+            .environment(\.colorScheme, .dark)
+
+        let view = NSHostingView(rootView: styledRoot)
         let size = view.fittingSize
-        
         view.frame = CGRect(origin: .zero, size: size)
         
         let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds)!
@@ -19,6 +23,7 @@ extension View {
         
         let image = NSImage(size: size)
         image.addRepresentation(rep)
+        image.isTemplate = true
         return image
     }
 }

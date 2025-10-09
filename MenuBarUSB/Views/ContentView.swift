@@ -520,8 +520,10 @@ struct ContentView: View {
                                 .font(.footnote)
                                 .opacity(0.5)
                         } else {
-                            Text("paused")
+                            Label("paused", systemImage: "pause")
                                 .font(.footnote)
+                                .opacity(0.5)
+                                .help("required_ethernet_to_monitor_traffic")
                         }
                     }
                     
@@ -586,6 +588,7 @@ struct ContentView: View {
                             } label: {
                                 Label("resume_traffic_monitor", systemImage: "play.fill")
                             }
+                            .disabled(!manager.ethernet)
                         } else {
                             Button {
                                 manager.stopEthernetMonitoring()
@@ -607,6 +610,13 @@ struct ContentView: View {
                         Utils.killApp()
                     } label: {
                         mainButtonLabel("restart", "arrow.2.squarepath")
+                    }
+                    .contextMenu {
+                        Button {
+                            restartButton = false;
+                        } label: {
+                            Label("hide", systemImage: "eye.slash")
+                        }
                     }
                 }
                 

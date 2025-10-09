@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "Mostrar un icono si un cable LAN está conectado";
 "ethernet_connected_icon_description" = "Si se detecta una conexión de red por cable (requiere una dirección IP activa para reconocerla), aparecerá un icono.";
 "internet_monitoring_icon" = "Indicador de tráfico de red";
-"internet_monitoring_icon_description" = "Aparecerá un icono junto al icono de conexión por cable cada vez que haya tráfico de red. Si eres el tipo de persona a la que no le gusta que nada parpadee en la barra de menú, no se recomienda activarlo.";
+"internet_monitoring_icon_description" = "El icono indicador del cable LAN parpadeará siempre que se detecte tráfico de red de cable.";
 "stop_traffic_monitor_button" = "Botón para detener/iniciar la monitorización de tráfico";
 "stop_traffic_monitor_button_description" = "Añade un botón dedicado a iniciar/reanudar la monitorización de tráfico de red.";
 "resume_traffic_monitor" = "Reanudar la monitorización de tráfico";

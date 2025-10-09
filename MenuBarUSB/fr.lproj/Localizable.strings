@@ -1,5 +1,5 @@
 "exit" = "Quitter";
-"refresh" = "Rafraîchir";
+"refresh" = "Raf.";
 "open_on_startup" = "Démarrer automatiquement";
 "usb_device" = "Périphérique USB";
 "usb_devices" = "Périphériques USB";
@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "Afficher une icône si un câble LAN est connecté";
 "ethernet_connected_icon_description" = "Si une connexion réseau filaire est détectée (cela nécessite une adresse IP active pour être reconnue), une icône apparaîtra.";
 "internet_monitoring_icon" = "Indicateur de trafic réseau";
-"internet_monitoring_icon_description" = "Une icône apparaîtra à côté de l'icône de connexion filaire chaque fois qu'il y aura du trafic réseau. Si vous n'aimez pas que quelque chose clignote dans votre barre de menus, il n'est pas recommandé de l'activer.";
+"internet_monitoring_icon_description" = "L'icône de l'indicateur de câble Ethernet clignote chaque fois qu'un trafic réseau câblé est détecté.";
 "stop_traffic_monitor_button" = "Bouton pour arrêter/démarrer la surveillance du trafic";
 "stop_traffic_monitor_button_description" = "Ajoute un bouton dédié au démarrage/reprise de la surveillance du trafic réseau.";
 "resume_traffic_monitor" = "Reprendre la surveillance du trafic";

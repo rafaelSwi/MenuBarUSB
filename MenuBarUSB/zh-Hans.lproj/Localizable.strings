@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "如果连接了网线，显示一个图标";
 "ethernet_connected_icon_description" = "如果检测到有线网络连接（需要一个活动的IP地址才能识别），将显示一个图标。";
 "internet_monitoring_icon" = "网络流量指示器";
-"internet_monitoring_icon_description" = "每当有网络流量时，有线连接图标旁边就会出现一个图标。如果您不喜欢菜单栏上任何东西闪烁，则不建议激活此项。";
+"internet_monitoring_icon_description" = "每当检测到有线网络流量时，以太网电缆指示器图标就会闪烁。";
 "stop_traffic_monitor_button" = "停止/开始流量监控的按钮";
 "stop_traffic_monitor_button_description" = "添加一个专用于开始/恢复网络流量监控的按钮。";
 "resume_traffic_monitor" = "恢复流量监控";

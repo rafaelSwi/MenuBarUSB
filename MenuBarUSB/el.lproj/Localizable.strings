@@ -175,11 +175,11 @@
 "close" = "Cerrar";
 "legacy_settings" = "Configuración antigua";
 "legacy_settings_description" = "Estás usando la versión antigua de MenuBarUSB. Básicamente, es una versión adaptada para versiones de macOS anteriores a macOS Sequoia. Usar la versión antigua significa que no tienes acceso a algunas funciones, como herencia, personalización de íconos y algunas otras, pero en su mayoría, la aplicación es completamente funcional.";
-"ethernetCategory" = "Ethernet";
+"ethernetCategory" = "Καλώδιο δικτύου";
 "ethernet_connected_icon" = "Εμφάνιση εικονιδίου εάν είναι συνδεδεμένο καλώδιο LAN";
 "ethernet_connected_icon_description" = "Εάν εντοπιστεί ενσύρματη σύνδεση δικτύου (απαιτείται ενεργή διεύθυνση IP για αναγνώριση), θα εμφανιστεί ένα εικονίδιο.";
 "internet_monitoring_icon" = "Ένδειξη κίνησης δικτύου";
-"internet_monitoring_icon_description" = "Ένα εικονίδιο θα εμφανίζεται δίπλα στο εικονίδιο ενσύρματης σύνδεσης κάθε φορά που υπάρχει κίνηση δικτύου. Εάν είστε ο τύπος ατόμου που δεν θέλει τίποτα να αναβοσβήνει στη γραμμή μενού σας, δεν συνιστάται η ενεργοποίηση.";
+"internet_monitoring_icon_description" = "Το εικονίδιο ένδειξης καλωδίου ethernet θα αναβοσβήνει κάθε φορά που ανιχνεύεται κίνηση καλωδιακού δικτύου.";
 "stop_traffic_monitor_button" = "Κουμπί για διακοπή/έναρξη παρακολούθησης κίνησης";
 "stop_traffic_monitor_button_description" = "Προσθέτει ένα κουμπί αφιερωμένο στην έναρξη/συνέχιση της παρακολούθησης κίνησης δικτύου.";
 "resume_traffic_monitor" = "Συνέχιση παρακολούθησης κίνησης";

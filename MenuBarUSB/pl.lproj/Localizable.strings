@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "Pokaż ikonę, jeśli kabel LAN jest podłączony";
 "ethernet_connected_icon_description" = "Jeśli wykryte zostanie połączenie sieciowe przewodowe (do rozpoznania wymagany jest aktywny adres IP), pojawi się ikona.";
 "internet_monitoring_icon" = "Wskaźnik ruchu sieciowego";
-"internet_monitoring_icon_description" = "Ikona pojawi się obok ikony połączenia przewodowego, gdy tylko pojawi się ruch sieciowy. Jeśli nie lubisz, gdy coś miga na Twoim pasku menu, nie zaleca się aktywowania.";
+"internet_monitoring_icon_description" = "Ikona wskaźnika kabla Ethernet będzie migać za każdym razem, gdy zostanie wykryty ruch w sieci kablowej.";
 "stop_traffic_monitor_button" = "Przycisk do zatrzymywania/uruchamiania monitorowania ruchu";
 "stop_traffic_monitor_button_description" = "Dodaje dedykowany przycisk do rozpoczynania/wznawiania monitorowania ruchu sieciowego.";
 "resume_traffic_monitor" = "Wznów monitorowanie ruchu";

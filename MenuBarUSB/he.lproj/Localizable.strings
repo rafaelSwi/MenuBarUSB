@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "הצג אייקון אם כבל רשת מחובר";
 "ethernet_connected_icon_description" = "אם זוהה חיבור רשת קווי (נדרשת כתובת IP פעילה לזיהוי), יופיע אייקון.";
 "internet_monitoring_icon" = "מחוון תעבורת רשת";
-"internet_monitoring_icon_description" = "אייקון יופיע ליד אייקון החיבור הקווי בכל פעם שיש תעבורת רשת. אם אתה מהסוג שלא אוהב שמשהו מהבהב בסרגל הכלים, לא מומלץ להפעיל זאת.";
+"internet_monitoring_icon_description" = "סמל מחוון כבל ה-ethernet יהבהב בכל פעם שתזוהה תעבורת רשת כבלים.";
 "stop_traffic_monitor_button" = "כפתור לעצירה/התחלת ניטור תעבורה";
 "stop_traffic_monitor_button_description" = "מוסיף כפתור המיועד להתחלה/חידוש ניטור תעבורת רשת.";
 "resume_traffic_monitor" = "חדש ניטור תעבורה";

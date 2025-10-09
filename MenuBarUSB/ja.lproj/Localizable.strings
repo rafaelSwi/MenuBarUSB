@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "LANケーブルが接続されている場合にアイコンを表示";
 "ethernet_connected_icon_description" = "有線ネットワーク接続が検出された場合（認識にはアクティブなIPアドレスが必要です）、アイコンが表示されます。";
 "internet_monitoring_icon" = "ネットワークトラフィックインジケーター";
-"internet_monitoring_icon_description" = "ネットワークトラフィックがあるときはいつでも、有線接続アイコンの隣にアイコンが表示されます。メニューバーで何かが点滅するのが好きではない人には、有効化は推奨されません。";
+"internet_monitoring_icon_description" = "ケーブル ネットワーク トラフィックが検出されるたびに、イーサネット ケーブル インジケーター アイコンが点滅します。";
 "stop_traffic_monitor_button" = "トラフィック監視を停止/開始するボタン";
 "stop_traffic_monitor_button_description" = "ネットワークトラフィック監視を開始/再開するための専用ボタンを追加します。";
 "resume_traffic_monitor" = "トラフィック監視を再開";

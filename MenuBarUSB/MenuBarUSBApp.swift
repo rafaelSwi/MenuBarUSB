@@ -30,19 +30,20 @@ struct MenuBarUSBApp: App {
     }
     
     private var menuLabel: some View {
-        HStack(spacing: 5) {
+        return HStack(spacing: 5) {
             
             let image = HStack(spacing: 7) {
                 if manager.ethernetTraffic {
-                    Image(systemName: "arrow.up.arrow.down")
+                    Image("ETHERNET_DOT")
+                } else {
+                    Image("ETHERNET")
                 }
-                Image("ETHERNET")
                 Image(systemName: macBarIcon)
             }
             .asImage()
             
             if !hideMenubarIcon {
-                if showEthernet && manager.ethernet == true { Image(nsImage: image) }
+                if showEthernet && manager.ethernet { Image(nsImage: image) }
                 Image(systemName: macBarIcon)
             }
             if !hideCount { countText }

@@ -179,12 +179,12 @@
 "ethernet_connected_icon" = "Vis et ikon, hvis et LAN-kabel er tilsluttet";
 "ethernet_connected_icon_description" = "Hvis en kabelforbindelse registreres (kræver en aktiv IP-adresse for at blive genkendt), vises et ikon.";
 "internet_monitoring_icon" = "Netværkstrafikindikator";
-"internet_monitoring_icon_description" = "Et ikon vises ved siden af ikonet for kabelforbindelsen, når der er netværkstrafik. Hvis du er typen, der ikke bryder sig om, at noget blinker i menulinjen, anbefales det ikke at aktivere.";
+"internet_monitoring_icon_description" = "Indikatorikonet for ethernetkablet blinker, når der registreres kabelnetværkstrafik.";
 "stop_traffic_monitor_button" = "Knap til at stoppe/starte trafikovervågning";
 "stop_traffic_monitor_button_description" = "Tilføjer en knap dedikeret til at starte/genoptage netværkstrafikovervågning.";
 "resume_traffic_monitor" = "Genoptag trafikovervågning";
 "stop_traffic_monitor" = "Stop trafikovervågning";
-"paused" = "Sat på pause";
+"paused" = "Pause";
 "running" = "Kører";
 "traffic_monitor_inactive_settings" = "Trafikovervågning er sat på pause i indstillingerne";
 "hide_traffic_side_label" = "Skjul statustekst";

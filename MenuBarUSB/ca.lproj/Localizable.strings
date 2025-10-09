@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "Mostra una icona si un cable LAN està connectat";
 "ethernet_connected_icon_description" = "Si es detecta una connexió de xarxa per cable (requereix una adreça IP activa per ser reconeguda), apareixerà una icona.";
 "internet_monitoring_icon" = "Indicador de trànsit de xarxa";
-"internet_monitoring_icon_description" = "Apareixerà una icona al costat de la icona de connexió per cable quan hi hagi trànsit de xarxa. Si sou del tipus de persona que no li agrada res parpellejant a la barra de menú, no es recomana activar-ho.";
+"internet_monitoring_icon_description" = "La icona de l'indicador de cable Ethernet parpellejarà sempre que es detecti trànsit de xarxa per cable.";
 "stop_traffic_monitor_button" = "Botó per aturar/iniciar el monitoratge de trànsit";
 "stop_traffic_monitor_button_description" = "Afegeix un botó dedicat a iniciar/reprendre el monitoratge de trànsit de xarxa.";
 "resume_traffic_monitor" = "Reprendre el monitoratge de trànsit";

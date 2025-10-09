@@ -179,7 +179,7 @@
 "ethernet_connected_icon" = "Exibir ícone caso um cabo de Ethernet estiver conectado";
 "ethernet_connected_icon_description" = "Se uma conexão de rede com fio for detectada (requer um endereço IP ativo), um ícone será exibido.";
 "internet_monitoring_icon" = "Indicador de tráfego de rede";
-"internet_monitoring_icon_description" = "Um ícone aparecerá ao lado do ícone de conexão com fio sempre que houver tráfego de rede. Se você é o tipo de pessoa que não gosta de nada piscando no menu bar, não é recomendado ativar.";
+"internet_monitoring_icon_description" = "O icone indicador de cabo ethernet ficará piscando sempre que houver detectcão de trafego de rede via cabo.";
 "stop_traffic_monitor_button" = "Botão para iniciar/retomar o monitoramento de rede";
 "stop_traffic_monitor_button_description" = "Adiciona um botão dedicado para iniciar/retomar o monitoramento de tráfego de rede.";
 "resume_traffic_monitor" = "Retomar monitoramento de rede";
