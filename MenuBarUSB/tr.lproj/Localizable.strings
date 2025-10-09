@@ -175,3 +175,15 @@
 "close" = "Kapat";
 "legacy_settings" = "Eski Ayarlar";
 "legacy_settings_description" = "MenuBarUSB'nin eski sürümünü kullanıyorsunuz. Temelde, macOS Sequoia öncesi macOS sürümleri için uyarlanmış bir sürümdür. Eski sürümü kullanmak, miras, simge özelleştirme ve birkaç diğer özellik gibi bazı özelliklere erişiminiz olmadığı anlamına gelir, ancak çoğu durumda uygulama tamamen kullanılabilir durumdadır.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "LAN kablosu bağlıysa simge göster";
+"ethernet_connected_icon_description" = "Kablolu bir ağ bağlantısı algılanırsa (tanıması için etkin bir IP adresi gerekir), bir simge görünecektir.";
+"internet_monitoring_icon" = "Ağ trafiği göstergesi";
+"internet_monitoring_icon_description" = "Ağ trafiği olduğu zaman kablolu bağlantı simgesinin yanında bir simge görünecektir. Menü çubuğunuzda yanıp sönen bir şeyden hoşlanmıyorsanız etkinleştirmeniz önerilmez.";
+"stop_traffic_monitor_button" = "Trafik izlemeyi durdurma/başlatma düğmesi";
+"stop_traffic_monitor_button_description" = "Ağ trafiği izlemeyi başlatmaya/sürdürmeye adanmış bir düğme ekler.";
+"resume_traffic_monitor" = "Trafik izlemeyi sürdür";
+"stop_traffic_monitor" = "Trafik izlemeyi durdur";
+"paused" = "Duraklatıldı";
+"running" = "Çalışıyor";
+"traffic_monitor_inactive_settings" = "Ayarlardayken trafik izleme duraklatılır";

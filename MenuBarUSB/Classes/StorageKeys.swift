@@ -37,4 +37,8 @@ final class StorageKeys {
     static let profilerButton = "profilerButton";
     static let disableContextMenuSearch = "disableContextMenuSearch";
     static let searchEngine = "searchEngine";
+    static let showEthernet = "showEthernet";
+    static let internetMonitoring = "internetMonitoring";
+    static let trafficButton = "trafficButton";
+    static let trafficButtonLabel = "trafficButtonLabel";
 }

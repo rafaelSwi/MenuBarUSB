@@ -22,7 +22,6 @@ extension NumberConverter {
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = maxFractionDigits
         formatter.minimumFractionDigits = 0
-        // ajuste de locale se quiser vírgula em pt_BR: Locale.current
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: NSNumber(value: number)) ?? String(number)
     }

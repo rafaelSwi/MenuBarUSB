@@ -175,3 +175,15 @@
 "close" = "关闭";
 "legacy_settings" = "旧版设置";
 "legacy_settings_description" = "您正在使用 MenuBarUSB 的旧版。基本上，它是为 macOS Sequoia 之前的 macOS 版本适配的版本。使用旧版意味着您无法访问某些功能，例如继承、图标自定义和其他一些功能，但在大多数情况下，应用程序完全可用。";
+"ethernetCategory" = "以太网";
+"ethernet_connected_icon" = "如果连接了网线，显示一个图标";
+"ethernet_connected_icon_description" = "如果检测到有线网络连接（需要一个活动的IP地址才能识别），将显示一个图标。";
+"internet_monitoring_icon" = "网络流量指示器";
+"internet_monitoring_icon_description" = "每当有网络流量时，有线连接图标旁边就会出现一个图标。如果您不喜欢菜单栏上任何东西闪烁，则不建议激活此项。";
+"stop_traffic_monitor_button" = "停止/开始流量监控的按钮";
+"stop_traffic_monitor_button_description" = "添加一个专用于开始/恢复网络流量监控的按钮。";
+"resume_traffic_monitor" = "恢复流量监控";
+"stop_traffic_monitor" = "停止流量监控";
+"paused" = "已暂停";
+"running" = "正在运行";
+"traffic_monitor_inactive_settings" = "在设置中时，流量监控已暂停";

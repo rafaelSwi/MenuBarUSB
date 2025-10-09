@@ -35,6 +35,10 @@ struct ContentView: View {
     @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
     @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
     @AppStorage(StorageKeys.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AppStorage(StorageKeys.showEthernet) private var showEthernet = false
+    @AppStorage(StorageKeys.internetMonitoring) private var internetMonitoring = false
+    @AppStorage(StorageKeys.trafficButton) private var trafficButton = false
+    @AppStorage(StorageKeys.trafficButtonLabel) private var trafficButtonLabel = false
     @AppStorage(StorageKeys.searchEngine) private var searchEngine: SearchEngine = .google
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
@@ -123,6 +127,17 @@ struct ContentView: View {
         return CGFloat(level) * multiply
     }
     
+    func goToSettings() {
+        if (manager.trafficMonitorRunning) {
+            manager.stopEthernetMonitoring()
+        }
+        if #available(macOS 15.0, *) {
+            currentWindow = .settings
+        } else {
+            openWindow(id: "legacy_settings")
+        }
+    }
+    
     func showEyeSlash() -> Bool {
         if (noTextButtons) {
             return true;
@@ -185,12 +200,12 @@ struct ContentView: View {
     }
     
     func searchOnWeb(_ search: String) {
-            guard let query = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                  let url = URL(string: "\(searchEngine.searchURL)\(query)") else {
-                return
-            }
-            openURL(url)
+        guard let query = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: "\(searchEngine.searchURL)\(query)") else {
+            return
         }
+        openURL(url)
+    }
     
     var body: some View {
         VStack {
@@ -464,12 +479,64 @@ struct ContentView: View {
                     }
                 }
                 
-                Button {
-                    if #available(macOS 15.0, *) {
-                        currentWindow = .settings
-                    } else {
-                        openWindow(id: "legacy_settings")
+                if (trafficButton) {
+                    
+                    if (!camouflagedIndicator && trafficButtonLabel) {
+                        if (manager.trafficMonitorRunning) {
+                            Group {
+                                Image(systemName: "arrow.up.arrow.down")
+                                    .opacity(0.5)
+                                Text("running")
+                                    .font(.footnote)
+                            }
+                        } else {
+                            Text("paused")
+                                .font(.footnote)
+                        }
                     }
+                    
+                    Button {
+                        if (manager.trafficMonitorRunning) {
+                            manager.stopEthernetMonitoring()
+                        } else {
+                            manager.startEthernetMonitoring()
+                        }
+                    } label: {
+                        if (manager.trafficMonitorRunning) {
+                            Image(systemName: "pause.fill")
+                        } else {
+                            Image(systemName: "play.fill")
+                        }
+                    }
+                    .contextMenu {
+                        
+                        Button {
+                            if (manager.trafficMonitorRunning) {
+                                manager.stopEthernetMonitoring()
+                            } else {
+                                manager.startEthernetMonitoring()
+                            }
+                        } label: {
+                            Label("stop_resume", systemImage: "playpause.fill")
+                        }
+                        
+                        Divider()
+                        
+                        Button {
+                            trafficButtonLabel = !trafficButtonLabel;
+                        } label: {
+                            if (!trafficButtonLabel) {
+                                Label("show_traffic_side_label", systemImage: "eye")
+                            } else {
+                                Label("hide_traffic_side_label", systemImage: "eye.slash")
+                            }
+                        }
+                        .disabled(camouflagedIndicator)
+                    }
+                }
+                
+                Button {
+                    goToSettings()
                 } label: {
                     if (noTextButtons) {
                         Image(systemName: "gear")
@@ -479,11 +546,7 @@ struct ContentView: View {
                 }
                 .contextMenu {
                     Button {
-                        if #available(macOS 15.0, *) {
-                            currentWindow = .settings
-                        } else {
-                            openWindow(id: "legacy_settings")
-                        }
+                        goToSettings()
                     } label: {
                         HStack {
                             Image(systemName: "arrow.up.right.square")
@@ -498,6 +561,35 @@ struct ContentView: View {
                             Text("open_profiler")
                         }
                     }
+                    
+                    if (showEthernet && internetMonitoring) {
+                        
+                        Divider()
+                        
+                        if (manager.trafficMonitorRunning == false) {
+                            Button {
+                                manager.startEthernetMonitoring()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "play.fill")
+                                    Text("resume_traffic_monitor")
+                                }
+                            }
+                        } else {
+                            Button {
+                                manager.stopEthernetMonitoring()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "pause.fill")
+                                    Text("stop_traffic_monitor")
+                                }
+                            }
+                        }
+                        
+                        
+                    }
+                    
+                    
                 }
                 
                 Button {

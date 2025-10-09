@@ -175,3 +175,15 @@
 "close" = "Luk";
 "legacy_settings" = "Ældre indstillinger";
 "legacy_settings_description" = "Du bruger den ældre version af MenuBarUSB. Det er i bund og grund en version tilpasset macOS-versioner før macOS Sequoia. At bruge den ældre version betyder, at du ikke har adgang til nogle funktioner, såsom arv, ikontilpasning og nogle få andre, men for det meste er appen fuldt anvendelig.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "Vis et ikon, hvis et LAN-kabel er tilsluttet";
+"ethernet_connected_icon_description" = "Hvis en kabelforbindelse registreres (kræver en aktiv IP-adresse for at blive genkendt), vises et ikon.";
+"internet_monitoring_icon" = "Netværkstrafikindikator";
+"internet_monitoring_icon_description" = "Et ikon vises ved siden af ikonet for kabelforbindelsen, når der er netværkstrafik. Hvis du er typen, der ikke bryder sig om, at noget blinker i menulinjen, anbefales det ikke at aktivere.";
+"stop_traffic_monitor_button" = "Knap til at stoppe/starte trafikovervågning";
+"stop_traffic_monitor_button_description" = "Tilføjer en knap dedikeret til at starte/genoptage netværkstrafikovervågning.";
+"resume_traffic_monitor" = "Genoptag trafikovervågning";
+"stop_traffic_monitor" = "Stop trafikovervågning";
+"paused" = "Sat på pause";
+"running" = "Kører";
+"traffic_monitor_inactive_settings" = "Trafikovervågning er sat på pause i indstillingerne";

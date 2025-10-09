@@ -21,6 +21,7 @@ struct MenuBarUSBApp: App {
     @AppStorage(StorageKeys.hideCount) private var hideCount = false
     @AppStorage(StorageKeys.hideMenubarIcon) private var hideMenubarIcon = false
     @AppStorage(StorageKeys.macBarIcon) private var macBarIcon: String = "cable.connector"
+    @AppStorage(StorageKeys.showEthernet) private var showEthernet = false
     
     private var countText: some View {
         Text(convertedCount)
@@ -30,7 +31,20 @@ struct MenuBarUSBApp: App {
     
     private var menuLabel: some View {
         HStack(spacing: 5) {
-            if !hideMenubarIcon { Image(systemName: macBarIcon) }
+            
+            let image = HStack(spacing: 7) {
+                if manager.ethernetTraffic {
+                    Image(systemName: "arrow.up.arrow.down")
+                }
+                Image("ETHERNET")
+                Image(systemName: macBarIcon)
+            }
+            .asImage()
+            
+            if !hideMenubarIcon {
+                if showEthernet && manager.ethernet == true { Image(nsImage: image) }
+                Image(systemName: macBarIcon)
+            }
             if !hideCount { countText }
         }
     }
@@ -44,7 +58,9 @@ struct MenuBarUSBApp: App {
         MenuBarExtra {
             mainContent
         } label: {
-            menuLabel
+            HStack {
+                menuLabel
+            }
         }
         .menuBarExtraStyle(.window)
         

@@ -122,7 +122,7 @@
 "device_connected" = "\"%@\" connected.";
 "device_disconnected" = "\"%@\" disconnected.";
 "icon_category" = "Icon";
-"hide_count" = "Hide connected devices count";
+"hide_count" = "Hide the number of connected devices";
 "hide_count_description" = "Hide the number of connected devices, essentially leaving only the icon.";
 "numerical_representation" = "Numerical representation";
 "apply" = "Apply";
@@ -175,3 +175,18 @@
 "close" = "Close";
 "legacy_settings" = "Legacy Settings";
 "legacy_settings_description" = "You are using the legacy version of MenuBarUSB. Essentially, it is a version adapted for macOS versions prior to macOS Sequoia. Using the legacy version means you don’t have access to some features, such as inheritance, icon customization, and a few others, but for the most part, the app is fully usable.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "Show an icon if a LAN cable is connected";
+"ethernet_connected_icon_description" = "If a wired network connection is detected (it requires an active IP address to recognize), an icon will appear.";
+"internet_monitoring_icon" = "Network traffic indicator";
+"internet_monitoring_icon_description" = "An icon will appear next to the wired connection icon whenever there is network traffic. If you’re the type of person who doesn’t like anything blinking in your menubar, it is not recommended to activate.";
+"stop_traffic_monitor_button" = "Button to stop/start traffic monitoring";
+"stop_traffic_monitor_button_description" = "Adds a button dedicated to start/resume network traffic monitoring.";
+"resume_traffic_monitor" = "Resume traffic monitoring";
+"stop_traffic_monitor" = "Stop traffic monitoring";
+"paused" = "Paused";
+"running" = "Running";
+"traffic_monitor_inactive_settings" = "Traffic monitoring is paused while in settings";
+"hide_traffic_side_label" = "Hide status text";
+"show_traffic_side_label" = "Show status text";
+"stop_resume" = "Stop/resume";

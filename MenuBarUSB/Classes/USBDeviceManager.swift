@@ -2,11 +2,18 @@ import SwiftUI
 import Foundation
 import IOKit
 import IOKit.usb
+import IOKit.network
 import UserNotifications
+import SystemConfiguration
 
 final class USBDeviceManager: ObservableObject {
     @Published private(set) var devices: [USBDevice] = []
     @Published var connectedCamouflagedDevices: Int = 0
+    @Published var ethernet: Bool = false
+    @Published var ethernetTraffic: Bool = false
+    @Published var trafficCooldown: TimeInterval = 1.0
+    @Published var lastTrafficDetected: Date = .distantPast
+    @Published var trafficMonitorRunning: Bool = false
     
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
@@ -15,13 +22,22 @@ final class USBDeviceManager: ObservableObject {
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     @AppStorage(StorageKeys.showNotifications) private var showNotifications = false
     @AppStorage(StorageKeys.disableNotifCooldown) private var disableNotifCooldown = false
+    @AppStorage(StorageKeys.showEthernet) var showEthernet = false
+    @AppStorage(StorageKeys.internetMonitoring) var internetMonitoring = false
     
     private var lastNotificationDate: Date = .distantPast
     private let notificationCooldown: TimeInterval = 3
     
     init() {
+        
         startMonitoring()
+        
+        if (internetMonitoring) {
+            startEthernetMonitoring()
+        }
+        
         refresh()
+        
     }
     
     deinit {
@@ -73,12 +89,12 @@ final class USBDeviceManager: ObservableObject {
             let snapshot = self.fetchUSBDevices()
             let uniqueDevices = Set(snapshot)
             
-            // Atualiza lista visível (exclui camuflados)
+            // UPDATE LIST
             let filteredDevices = uniqueDevices.filter { dev in
                 self.camouflagedDevices.first { $0.deviceId == USBDevice.uniqueId(dev) } == nil
             }
             
-            // Conta quantos dispositivos conectados são camuflados
+            // HOW MANY HIDDEN DEVICES
             let camouflagedCount = uniqueDevices.filter { dev in
                 self.camouflagedDevices.contains { $0.deviceId == USBDevice.uniqueId(dev) }
             }.count
@@ -90,6 +106,22 @@ final class USBDeviceManager: ObservableObject {
                 })
                 
                 self.connectedCamouflagedDevices = camouflagedCount
+            }
+            
+            if self.showEthernet {
+                let ethernetStatus = self.isEthernetConnected()
+                DispatchQueue.main.async {
+                    self.ethernet = ethernetStatus
+                }
+
+                if !ethernetStatus {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.3) {
+                        let retryStatus = self.isEthernetConnected()
+                        DispatchQueue.main.async {
+                            self.ethernet = retryStatus
+                        }
+                    }
+                }
             }
         }
     }
@@ -106,8 +138,8 @@ final class USBDeviceManager: ObservableObject {
             if IOObjectGetClass(parent, classNameCString) == KERN_SUCCESS {
                 let className = String(cString: classNameCString)
                 if className.contains("IOUSBMassStorageInterface") ||
-                   className.contains("IOBlockStorageDevice") ||
-                   className.contains("IOMedia") {
+                    className.contains("IOBlockStorageDevice") ||
+                    className.contains("IOMedia") {
                     result = true
                     break
                 }

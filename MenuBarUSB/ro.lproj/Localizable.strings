@@ -175,3 +175,15 @@
 "close" = "Închide";
 "legacy_settings" = "Setări vechi";
 "legacy_settings_description" = "Utilizați versiunea veche a MenuBarUSB. Practic, este o versiune adaptată pentru versiunile macOS anterioare macOS Sequoia. Utilizarea versiunii vechi înseamnă că nu aveți acces la unele funcții, cum ar fi moștenirea, personalizarea pictogramelor și câteva altele, dar în mare parte, aplicația este complet funcțională.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "Afișați o pictogramă dacă un cablu LAN este conectat";
+"ethernet_connected_icon_description" = "Dacă este detectată o conexiune de rețea prin cablu (necesită o adresă IP activă pentru a fi recunoscută), va apărea o pictogramă.";
+"internet_monitoring_icon" = "Indicator de trafic de rețea";
+"internet_monitoring_icon_description" = "O pictogramă va apărea lângă pictograma de conexiune prin cablu ori de câte ori există trafic de rețea. Dacă sunteți genul de persoană căreia nu-i place să clipească nimic în bara de meniu, nu este recomandat să activați.";
+"stop_traffic_monitor_button" = "Buton pentru oprirea/pornirea monitorizării traficului";
+"stop_traffic_monitor_button_description" = "Adaugă un buton dedicat pentru a porni/relua monitorizarea traficului de rețea.";
+"resume_traffic_monitor" = "Reluați monitorizarea traficului";
+"stop_traffic_monitor" = "Opriți monitorizarea traficului";
+"paused" = "Pauzat";
+"running" = "Rulează";
+"traffic_monitor_inactive_settings" = "Monitorizarea traficului este întreruptă în timp ce sunteți în setări";

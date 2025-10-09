@@ -175,3 +175,15 @@
 "close" = "Schließen";
 "legacy_settings" = "Alte Einstellungen";
 "legacy_settings_description" = "Sie verwenden die Legacy-Version von MenuBarUSB. Im Wesentlichen handelt es sich um eine Version, die für macOS-Versionen vor macOS Sequoia angepasst wurde. Die Verwendung der Legacy-Version bedeutet, dass Sie keinen Zugriff auf einige Funktionen haben, wie Vererbung, Symbolanpassung und einige andere, aber größtenteils ist die App voll funktionsfähig.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "Symbol anzeigen, wenn ein LAN-Kabel verbunden ist";
+"ethernet_connected_icon_description" = "Wenn eine kabelgebundene Netzwerkverbindung erkannt wird (eine aktive IP-Adresse ist zur Erkennung erforderlich), wird ein Symbol angezeigt.";
+"internet_monitoring_icon" = "Netzwerkverkehr-Indikator";
+"internet_monitoring_icon_description" = "Ein Symbol erscheint neben dem Symbol für die kabelgebundene Verbindung, wenn Netzwerkverkehr stattfindet. Wenn Sie nicht möchten, dass etwas in Ihrer Menüleiste blinkt, wird die Aktivierung nicht empfohlen.";
+"stop_traffic_monitor_button" = "Schaltfläche zum Stoppen/Starten der Verkehrsüberwachung";
+"stop_traffic_monitor_button_description" = "Fügt eine dedizierte Schaltfläche zum Starten/Fortsetzen der Netzwerkverkehrsüberwachung hinzu.";
+"resume_traffic_monitor" = "Verkehrsüberwachung fortsetzen";
+"stop_traffic_monitor" = "Verkehrsüberwachung stoppen";
+"paused" = "Angehalten";
+"running" = "Läuft";
+"traffic_monitor_inactive_settings" = "Die Verkehrsüberwachung ist angehalten, solange Sie sich in den Einstellungen befinden";

@@ -38,6 +38,7 @@ struct SettingsView: View {
     @State private var showInfoOptions = false;
     @State private var showHeritageOptions = false;
     @State private var showContextMenuOptions = false;
+    @State private var showEthernetOptions = false;
     @State private var showOthersOptions = false;
     
     @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
@@ -66,6 +67,10 @@ struct SettingsView: View {
     @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
     @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
     @AppStorage(StorageKeys.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AppStorage(StorageKeys.showEthernet) private var showEthernet = false
+    @AppStorage(StorageKeys.internetMonitoring) private var internetMonitoring = false
+    @AppStorage(StorageKeys.trafficButton) private var trafficButton = false
+    @AppStorage(StorageKeys.trafficButtonLabel) private var trafficButtonLabel = false
     @AppStorage(StorageKeys.searchEngine) private var searchEngine: SearchEngine = .google
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
@@ -154,6 +159,7 @@ struct SettingsView: View {
         showHeritageOptions = false
         showOthersOptions = false
         showIconOptions = false
+        showEthernetOptions = false
         showContextMenuOptions = false
     }
     
@@ -269,7 +275,17 @@ struct SettingsView: View {
                 }
             }
             
-            Divider()
+            if (internetMonitoring && !manager.trafficMonitorRunning) {
+                HStack {
+                    Image(systemName: "pause.fill")
+                    Text("traffic_monitor_inactive_settings")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                }
+                .foregroundStyle(Color("Warning"))
+            } else {
+                Divider()
+            }
             
             VStack(alignment: .leading, spacing: 12) {
                 
@@ -580,6 +596,61 @@ struct SettingsView: View {
                     
                 }
                 
+                categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory")
+                
+                if (showEthernetOptions) {
+                    
+                    ToggleRow(
+                        label: String(localized: "ethernet_connected_icon"),
+                        description: String(localized: "ethernet_connected_icon_description"),
+                        binding: $showEthernet,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        disabled: hideMenubarIcon,
+                        onToggle: { value in
+                            manager.refresh()
+                            if (value == false) {
+                                manager.stopEthernetMonitoring()
+                            }
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "internet_monitoring_icon"),
+                        description: String(localized: "internet_monitoring_icon_description"),
+                        binding: $internetMonitoring,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        disabled: hideMenubarIcon || !showEthernet,
+                        onToggle: { value in
+                            if (value == true) {
+                                manager.startEthernetMonitoring()
+                                Utils.killApp()
+                            } else {
+                                manager.stopEthernetMonitoring()
+                                trafficButton = false;
+                            }
+                            
+                        }
+                    )
+                    ToggleRow(
+                        label: String(localized: "stop_traffic_monitor_button"),
+                        description: String(localized: "stop_traffic_monitor_button_description"),
+                        binding: $trafficButton,
+                        activeRowID: $activeRowID,
+                        incompatibilities: [profilerButton, restartButton],
+                        disabled: !showEthernet || !internetMonitoring,
+                        onToggle: { value in
+                            if (value == true) {
+                                profilerButton = false;
+                                restartButton = false;
+                                trafficButtonLabel = true;
+                            }
+                            
+                        }
+                    )
+                    
+                }
+                
                 categoryButton(toggle: $showHeritageOptions, label: "heritageCategory")
                 
                 if (showHeritageOptions) {
@@ -656,10 +727,11 @@ struct SettingsView: View {
                         description: String(localized: "restart_button_description"),
                         binding: $restartButton,
                         activeRowID: $activeRowID,
-                        incompatibilities: [profilerButton],
+                        incompatibilities: [profilerButton, trafficButton],
                         onToggle: { value in
                             if (value == true) {
                                 profilerButton = false;
+                                trafficButton = false;
                             }
                         }
                     )
@@ -668,10 +740,11 @@ struct SettingsView: View {
                         description: String(localized: "profiler_shortcut_description"),
                         binding: $profilerButton,
                         activeRowID: $activeRowID,
-                        incompatibilities: [restartButton],
+                        incompatibilities: [restartButton, trafficButton],
                         onToggle: { value in
                             if (value == true) {
                                 restartButton = false;
+                                trafficButton = false;
                             }
                         }
                     )
@@ -732,7 +805,12 @@ struct SettingsView: View {
                     Spacer()
                     
                     if (!anyBottomOptionInUse) {
-                        Button(action: {currentWindow = .devices}) {
+                        Button(action: {
+                            if (internetMonitoring && !manager.trafficMonitorRunning) {
+                                manager.startEthernetMonitoring()
+                            }
+                            currentWindow = .devices
+                        }) {
                             Label("back", systemImage: "arrow.uturn.backward")
                         }
                     }

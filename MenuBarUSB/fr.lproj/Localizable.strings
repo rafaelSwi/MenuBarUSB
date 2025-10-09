@@ -175,3 +175,15 @@
 "close" = "Fermer";
 "legacy_settings" = "Paramètres hérités";
 "legacy_settings_description" = "Vous utilisez la version héritée de MenuBarUSB. Essentiellement, il s'agit d'une version adaptée aux versions de macOS antérieures à macOS Sequoia. Utiliser la version héritée signifie que vous n'avez pas accès à certaines fonctionnalités, comme l'héritage, la personnalisation des icônes et quelques autres, mais dans l'ensemble, l'application est entièrement utilisable.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "Afficher une icône si un câble LAN est connecté";
+"ethernet_connected_icon_description" = "Si une connexion réseau filaire est détectée (cela nécessite une adresse IP active pour être reconnue), une icône apparaîtra.";
+"internet_monitoring_icon" = "Indicateur de trafic réseau";
+"internet_monitoring_icon_description" = "Une icône apparaîtra à côté de l'icône de connexion filaire chaque fois qu'il y aura du trafic réseau. Si vous n'aimez pas que quelque chose clignote dans votre barre de menus, il n'est pas recommandé de l'activer.";
+"stop_traffic_monitor_button" = "Bouton pour arrêter/démarrer la surveillance du trafic";
+"stop_traffic_monitor_button_description" = "Ajoute un bouton dédié au démarrage/reprise de la surveillance du trafic réseau.";
+"resume_traffic_monitor" = "Reprendre la surveillance du trafic";
+"stop_traffic_monitor" = "Arrêter la surveillance du trafic";
+"paused" = "En pause";
+"running" = "En cours d'exécution";
+"traffic_monitor_inactive_settings" = "La surveillance du trafic est en pause tant que vous êtes dans les réglages";

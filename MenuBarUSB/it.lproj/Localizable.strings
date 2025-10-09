@@ -175,3 +175,15 @@
 "close" = "Chiudi";
 "legacy_settings" = "Impostazioni legacy";
 "legacy_settings_description" = "Stai utilizzando la versione legacy di MenuBarUSB. Essenzialmente, è una versione adattata per le versioni di macOS precedenti a macOS Sequoia. Utilizzare la versione legacy significa che non hai accesso ad alcune funzionalità, come ereditarietà, personalizzazione delle icone e alcune altre, ma per la maggior parte, l'app è completamente utilizzabile.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "Mostra un'icona se un cavo LAN è connesso";
+"ethernet_connected_icon_description" = "Se viene rilevata una connessione di rete cablata (richiede un indirizzo IP attivo per il riconoscimento), apparirà un'icona.";
+"internet_monitoring_icon" = "Indicatore di traffico di rete";
+"internet_monitoring_icon_description" = "Un'icona apparirà accanto all'icona della connessione cablata ogni volta che c'è traffico di rete. Se sei il tipo di persona a cui non piace nulla che lampeggia nella barra dei menu, non è consigliabile attivare questa opzione.";
+"stop_traffic_monitor_button" = "Pulsante per interrompere/avviare il monitoraggio del traffico";
+"stop_traffic_monitor_button_description" = "Aggiunge un pulsante dedicato per avviare/riprendere il monitoraggio del traffico di rete.";
+"resume_traffic_monitor" = "Riprendi monitoraggio del traffico";
+"stop_traffic_monitor" = "Interrompi monitoraggio del traffico";
+"paused" = "In pausa";
+"running" = "In esecuzione";
+"traffic_monitor_inactive_settings" = "Il monitoraggio del traffico è in pausa durante la visualizzazione delle impostazioni";

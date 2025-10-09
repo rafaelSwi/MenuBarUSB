@@ -175,3 +175,15 @@
 "close" = "סגור";
 "legacy_settings" = "הגדרות ישנות";
 "legacy_settings_description" = "אתה משתמש בגרסת הלגסי של MenuBarUSB. למעשה, זו גרסה מותאמת לגרסאות macOS לפני macOS Sequoia. שימוש בגרסת הלגסי אומר שאין לך גישה לחלק מהפונקציות, כמו ירושה, התאמת אייקונים ועוד כמה, אך ברוב המקרים האפליקציה ניתנת לשימוש באופן מלא.";
+"ethernetCategory" = "אתרנט";
+"ethernet_connected_icon" = "הצג אייקון אם כבל רשת מחובר";
+"ethernet_connected_icon_description" = "אם זוהה חיבור רשת קווי (נדרשת כתובת IP פעילה לזיהוי), יופיע אייקון.";
+"internet_monitoring_icon" = "מחוון תעבורת רשת";
+"internet_monitoring_icon_description" = "אייקון יופיע ליד אייקון החיבור הקווי בכל פעם שיש תעבורת רשת. אם אתה מהסוג שלא אוהב שמשהו מהבהב בסרגל הכלים, לא מומלץ להפעיל זאת.";
+"stop_traffic_monitor_button" = "כפתור לעצירה/התחלת ניטור תעבורה";
+"stop_traffic_monitor_button_description" = "מוסיף כפתור המיועד להתחלה/חידוש ניטור תעבורת רשת.";
+"resume_traffic_monitor" = "חדש ניטור תעבורה";
+"stop_traffic_monitor" = "עצור ניטור תעבורה";
+"paused" = "מושהה";
+"running" = "פועל";
+"traffic_monitor_inactive_settings" = "ניטור תעבורה מושהה בזמן שאתה נמצא בהגדרות";

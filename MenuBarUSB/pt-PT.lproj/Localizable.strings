@@ -175,3 +175,15 @@
 "close" = "Fechar";
 "legacy_settings" = "Definições Legadas";
 "legacy_settings_description" = "Está a utilizar a versão legada do MenuBarUSB. Essencialmente, é uma versão adaptada para versões do macOS anteriores ao macOS Sequoia. Utilizar a versão legada significa que não tem acesso a algumas funcionalidades, como herança, personalização de ícones e algumas outras, mas na maioria dos casos, a aplicação é totalmente utilizável.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "Mostrar um ícone se um cabo LAN estiver ligado";
+"ethernet_connected_icon_description" = "Se for detetada uma ligação de rede com fios (requer um endereço IP ativo para ser reconhecida), um ícone será apresentado.";
+"internet_monitoring_icon" = "Indicador de tráfego de rede";
+"internet_monitoring_icon_description" = "Será apresentado um ícone junto ao ícone de ligação com fios sempre que houver tráfego de rede. Se é o tipo de pessoa que não gosta de nada a piscar na barra de menu, não é recomendada a ativação.";
+"stop_traffic_monitor_button" = "Botão para parar/iniciar a monitorização de tráfego";
+"stop_traffic_monitor_button_description" = "Adiciona um botão dedicado para iniciar/retomar a monitorização de tráfego de rede.";
+"resume_traffic_monitor" = "Retomar a monitorização de tráfego";
+"stop_traffic_monitor" = "Parar a monitorização de tráfego";
+"paused" = "Em pausa";
+"running" = "Em execução";
+"traffic_monitor_inactive_settings" = "A monitorização de tráfego está em pausa enquanto nas definições";

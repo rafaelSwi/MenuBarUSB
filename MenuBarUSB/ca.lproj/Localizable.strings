@@ -175,3 +175,15 @@
 "close" = "Tancar";
 "legacy_settings" = "Configuració antiga";
 "legacy_settings_description" = "Estàs utilitzant la versió antiga de MenuBarUSB. Essencialment, és una versió adaptada per a versions de macOS anteriors a macOS Sequoia. Utilitzar la versió antiga significa que no tens accés a algunes funcions, com la herència, la personalització d'icones i algunes altres, però, en general, l'aplicació és completament funcional.";
+"ethernetCategory" = "Ethernet";
+"ethernet_connected_icon" = "Mostra una icona si un cable LAN està connectat";
+"ethernet_connected_icon_description" = "Si es detecta una connexió de xarxa per cable (requereix una adreça IP activa per ser reconeguda), apareixerà una icona.";
+"internet_monitoring_icon" = "Indicador de trànsit de xarxa";
+"internet_monitoring_icon_description" = "Apareixerà una icona al costat de la icona de connexió per cable quan hi hagi trànsit de xarxa. Si sou del tipus de persona que no li agrada res parpellejant a la barra de menú, no es recomana activar-ho.";
+"stop_traffic_monitor_button" = "Botó per aturar/iniciar el monitoratge de trànsit";
+"stop_traffic_monitor_button_description" = "Afegeix un botó dedicat a iniciar/reprendre el monitoratge de trànsit de xarxa.";
+"resume_traffic_monitor" = "Reprendre el monitoratge de trànsit";
+"stop_traffic_monitor" = "Aturar el monitoratge de trànsit";
+"paused" = "Pausat";
+"running" = "En execució";
+"traffic_monitor_inactive_settings" = "El monitoratge de trànsit està pausat mentre es troba a la configuració";
