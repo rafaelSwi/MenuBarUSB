@@ -8,45 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @Environment(\.openWindow) private var openWindow
     @EnvironmentObject var manager: USBDeviceManager
     @Environment(\.openURL) var openURL
-    
+
     @State private var isHoveringDeviceId: String = ""
     @State private var isRenamingDeviceId: String = ""
-    @State private var inputText: String = "";
+    @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
-    @State private var devicesShowingMore: [UnsafePointer<USBDevice>] = []
-    
+    @State private var devicesShowingMore: [USBDeviceWrapper] = []
+
     @Binding var currentWindow: AppWindow
-    
-    @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
-    @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
-    @AppStorage(StorageKeys.longList) private var longList = false
-    @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
-    @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
-    @AppStorage(StorageKeys.hideTechInfo) private var hideTechInfo = false
-    @AppStorage(StorageKeys.disableInheritanceLayout) private var disableInheritanceLayout = false
-    @AppStorage(StorageKeys.increasedIndentationGap) private var increasedIndentationGap = false
-    @AppStorage(StorageKeys.hideSecondaryInfo) private var hideSecondaryInfo = false
-    @AppStorage(StorageKeys.noTextButtons) private var noTextButtons = false
-    @AppStorage(StorageKeys.restartButton) private var restartButton = false
-    @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
-    @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
-    @AppStorage(StorageKeys.disableContextMenuSearch) private var disableContextMenuSearch = false
-    @AppStorage(StorageKeys.showEthernet) private var showEthernet = false
-    @AppStorage(StorageKeys.internetMonitoring) private var internetMonitoring = false
-    @AppStorage(StorageKeys.trafficButton) private var trafficButton = false
-    @AppStorage(StorageKeys.trafficButtonLabel) private var trafficButtonLabel = false
-    @AppStorage(StorageKeys.searchEngine) private var searchEngine: SearchEngine = .google
-    
-    @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
-    @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
-    @CodableAppStorage(StorageKeys.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
-    
+
+    @AppStorage(Key.convertHexa) private var convertHexa = false
+    @AppStorage(Key.showPortMax) private var showPortMax = false
+    @AppStorage(Key.longList) private var longList = false
+    @AppStorage(Key.renamedIndicator) private var renamedIndicator = false
+    @AppStorage(Key.camouflagedIndicator) private var camouflagedIndicator = false
+    @AppStorage(Key.hideTechInfo) private var hideTechInfo = false
+    @AppStorage(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
+    @AppStorage(Key.increasedIndentationGap) private var increasedIndentationGap = false
+    @AppStorage(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
+    @AppStorage(Key.noTextButtons) private var noTextButtons = false
+    @AppStorage(Key.restartButton) private var restartButton = false
+    @AppStorage(Key.mouseHoverInfo) private var mouseHoverInfo = false
+    @AppStorage(Key.profilerButton) private var profilerButton = false
+    @AppStorage(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AppStorage(Key.showEthernet) private var showEthernet = false
+    @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
+    @AppStorage(Key.trafficButton) private var trafficButton = false
+    @AppStorage(Key.trafficButtonLabel) private var trafficButtonLabel = false
+    @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
+
+    @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
+    @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
+    @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
+
     private func windowHeight(longList: Bool, compactList: Bool) -> CGFloat? {
-        if (manager.devices.isEmpty) {
+        if manager.devices.isEmpty {
             return nil
         }
         let baseValue: CGFloat = 200
@@ -64,71 +63,71 @@ struct ContentView: View {
         }
         return sum >= max ? max : sum
     }
-    
-    private func sortedDevices() -> [UnsafePointer<USBDevice>] {
-        var sorted: [UnsafePointer<USBDevice>] = []
+
+    private func sortedDevices() -> [USBDeviceWrapper] {
+        var sorted: [USBDeviceWrapper] = []
         var visited: Set<String> = []
-        
+
         var childrenMap: [String: [String]] = [:]
         for relation in inheritedDevices {
             childrenMap[relation.inheritsFrom, default: []].append(relation.deviceId)
         }
-        
+
         func appendFamily(_ deviceId: String) {
             guard !visited.contains(deviceId) else { return }
-            guard let device = manager.devices.first(where: { USBDevice.uniqueId($0) == deviceId }) else { return }
-            
+            guard let device = manager.devices.first(where: { $0.item.uniqueId == deviceId }) else { return }
+
             sorted.append(device)
             visited.insert(deviceId)
-            
+
             if let children = childrenMap[deviceId] {
                 for childId in children {
                     appendFamily(childId)
                 }
             }
         }
-        
+
         let heirIds = Set(inheritedDevices.map { $0.deviceId })
-        let roots = manager.devices.filter { !heirIds.contains(USBDevice.uniqueId($0)) }
-        
+        let roots = manager.devices.filter { !heirIds.contains($0.item.uniqueId) }
+
         for root in roots {
-            appendFamily(USBDevice.uniqueId(root))
+            appendFamily(root.item.uniqueId)
         }
-        
+
         for device in manager.devices {
-            let id = USBDevice.uniqueId(device)
+            let id = device.item.uniqueId
             if !visited.contains(id) {
                 sorted.append(device)
             }
         }
-        
+
         return sorted
     }
-    
-    private func indentLevel(for device: UnsafePointer<USBDevice>) -> CGFloat {
-        if (isRenamingDeviceId == USBDevice.uniqueId(device)) {
-            return 0;
+
+    private func indentLevel(for device: borrowing USBDevice) -> CGFloat {
+        if isRenamingDeviceId == device.uniqueId {
+            return 0
         }
         var level = 0
-        var currentId = USBDevice.uniqueId(device)
-        
+        var currentId = device.uniqueId
+
         while let relation = inheritedDevices.first(where: { $0.deviceId == currentId }) {
             let parentId = relation.inheritsFrom
-            
-            if manager.devices.contains(where: { USBDevice.uniqueId($0) == parentId }) {
+
+            if manager.devices.contains(where: { $0.item.uniqueId == parentId }) {
                 level += 1
                 currentId = parentId
             } else {
                 break
             }
         }
-        
+
         let multiply: CGFloat = increasedIndentationGap ? 36 : 16
         return CGFloat(level) * multiply
     }
-    
+
     private func goToSettings() {
-        if (manager.trafficMonitorRunning) {
+        if manager.trafficMonitorRunning {
             manager.stopEthernetMonitoring()
         }
         if #available(macOS 15.0, *) {
@@ -137,31 +136,31 @@ struct ContentView: View {
             openWindow(id: "legacy_settings")
         }
     }
-    
+
     private func showEyeSlash() -> Bool {
-        if (noTextButtons) {
-            return true;
+        if noTextButtons {
+            return true
         } else {
-            return (!restartButton && !profilerButton);
+            return !restartButton && !profilerButton
         }
     }
-    
+
     private func toggleTrafficMonitoring() {
-        if (manager.trafficMonitorRunning) {
+        if manager.trafficMonitorRunning {
             manager.stopEthernetMonitoring()
         } else {
             manager.startEthernetMonitoring()
         }
     }
-    
+
     private var noEthernetCableAndNoMonitoring: Bool {
-        return !manager.ethernet && trafficMonitorInactive
+        return !manager.ethernetCableConnected && trafficMonitorInactive
     }
-    
+
     private var trafficMonitorInactive: Bool {
         return !manager.trafficMonitorRunning
     }
-    
+
     private func mainButtonLabel(_ text: LocalizedStringKey, _ systemImage: String) -> some View {
         if noTextButtons {
             return AnyView(Image(systemName: systemImage))
@@ -169,81 +168,90 @@ struct ContentView: View {
             return AnyView(Label(text, systemImage: systemImage))
         }
     }
-    
+
     private var isRenaming: Bool {
         return isRenamingDeviceId != ""
     }
-    
+
     private var enoughSpaceForActiveTrafficButtonLabel: Bool {
         return !camouflagedIndicator && trafficButtonLabel
     }
-    
+
     private var trafficMonitorOn: Bool {
         return showEthernet && internetMonitoring
     }
-    
 
-    private func compactStringInformation(_ ptr: UnsafePointer<USBDevice>) -> String {
+    private func compactStringInformation(_ device: borrowing USBDevice) -> String {
         var parts: [String] = []
-        
-        if !ptr.pointee.name.isEmpty {
-            parts.append(ptr.pointee.name)
+
+        if !device.name.isEmpty {
+            parts.append(device.name)
         } else {
             parts.append(String(localized: "usb_device"))
         }
-        
-        if let vendor = ptr.pointee.vendor, !vendor.isEmpty {
+
+        if let vendor = device.vendor, !vendor.isEmpty {
             parts.append(vendor)
         }
-        
-        parts.append(USBDevice.speedDescription(ptr))
-        
-        parts.append(String(format: "%04X:%04X", ptr.pointee.vendorId, ptr.pointee.productId))
-        
-        if let usbVer = ptr.pointee.usbVersionBCD {
-            if let usbVersion = USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa) {
+
+        parts.append(device.uniqueId)
+
+        parts.append(String(format: "%04X:%04X", device.vendorId, device.productId))
+
+        if let usbVer = device.usbVersionBCD {
+            if let usbVersion = Utils.USB.usbVersionLabel(from: usbVer, convertHexa: convertHexa) {
                 parts.append("\(String(localized: "usb_version")) \(usbVersion)")
             } else {
                 parts.append("\(String(localized: "usb_version")) 0x\(String(format: "%04X", usbVer))")
             }
         }
-        
-        if let serial = ptr.pointee.serialNumber, !serial.isEmpty {
+
+        if let serial = device.serialNumber, !serial.isEmpty {
             parts.append("\(String(localized: "serial_number")) \(serial)")
         }
-        
-        if let portMax = ptr.pointee.portMaxSpeedMbps {
+
+        if let portMax = device.portMaxSpeedMbps {
             let portStr = portMax >= 1000
-            ? String(format: "%.1f Gbps", Double(portMax) / 1000.0)
-            : "\(portMax) Mbps"
+                ? String(format: "%.1f Gbps", Double(portMax) / 1000.0)
+                : "\(portMax) Mbps"
             parts.append("\(String(localized: "port_max")) \(portStr)")
         }
-        
+
         return parts.joined(separator: "\n")
     }
-    
-    private func showSecondaryInfo(for device: UnsafePointer<USBDevice>) -> Bool {
-        if devicesShowingMore.contains(device) { return true }
-        if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
+
+    private func devicesShowingMoreHas(_ device: borrowing USBDevice) -> Bool {
+        for dev in devicesShowingMore {
+            if dev.item.id == device.id {
+                return true
+            }
+        }
+        return false
+    }
+
+    private func showSecondaryInfo(for device: borrowing USBDevice) -> Bool {
+        if devicesShowingMoreHas(device) { return true }
+        if isRenamingDeviceId == device.uniqueId { return false }
         if !hideSecondaryInfo { return true }
-        return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
+        return mouseHoverInfo && isHoveringDeviceId == device.uniqueId
     }
-    
-    private func showTechInfo(for device: UnsafePointer<USBDevice>) -> Bool {
-        if devicesShowingMore.contains(device) { return true }
-        if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
+
+    private func showTechInfo(for device: borrowing USBDevice) -> Bool {
+        if devicesShowingMoreHas(device) { return true }
+        if isRenamingDeviceId == device.uniqueId { return false }
         if !hideTechInfo { return true }
-        return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
+        return mouseHoverInfo && isHoveringDeviceId == device.uniqueId
     }
-    
+
     private func searchOnWeb(_ search: String) {
         guard let query = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "\(searchEngine.searchURL)\(query)") else {
+              let url = URL(string: "\(searchEngine.searchURL)\(query)")
+        else {
             return
         }
         openURL(url)
     }
-    
+
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 6) {
@@ -256,15 +264,13 @@ struct ContentView: View {
                 } else {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 4) {
-                            ForEach(sortedDevices(), id: \.self) { ptr in
-                                let uniqueId: String = USBDevice.uniqueId(ptr)
-                                let indent = disableInheritanceLayout ? 0 : indentLevel(for: ptr)
-                                
+                            ForEach(sortedDevices()) { device in
+                                let uniqueId: String = device.item.uniqueId
+                                let indent = disableInheritanceLayout ? 0 : indentLevel(for: device.item)
+
                                 VStack(alignment: .leading, spacing: 2) {
-                                    
                                     HStack {
-                                        
-                                        if (isRenamingDeviceId == uniqueId) {
+                                        if isRenamingDeviceId == uniqueId {
                                             CustomTextField(
                                                 text: $inputText,
                                                 placeholder: String(localized: "insert_new_name"),
@@ -273,15 +279,15 @@ struct ContentView: View {
                                             )
                                             .frame(width: 190)
                                             .help("renaming_help")
-                                            
+
                                             Button(role: .cancel) {
                                                 isRenamingDeviceId = ""
                                             } label: {
                                                 Text("cancel")
                                             }
-                                            
+
                                             Button("confirm") {
-                                                let uniqueId = USBDevice.uniqueId(ptr)
+                                                let uniqueId = device.item.uniqueId
                                                 if inputText.isEmpty {
                                                     renamedDevices.removeAll { $0.deviceId == uniqueId }
                                                 } else {
@@ -293,75 +299,73 @@ struct ContentView: View {
                                                 manager.refresh()
                                             }
                                             .buttonStyle(.borderedProminent)
-                                            
+
                                         } else {
                                             if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
                                                 let title: String = renamedIndicator ? "∙ \(device.name)" : device.name
                                                 let textView = Text(title)
                                                     .font(.system(size: 12, weight: .semibold))
                                                     .foregroundColor(.primary)
-                                                
+
                                                 textView
                                             } else {
-                                                let textView = Text(ptr.pointee.name.isEmpty ? "usb_device" : ptr.pointee.name)
+                                                let textView = Text(device.item.name.isEmpty ? "usb_device" : device.item.name)
                                                     .font(.system(size: 12, weight: .semibold))
                                                     .foregroundColor(.primary)
-                                                
+
                                                 textView
                                             }
                                         }
-                                        
+
                                         Spacer()
-                                        
-                                        if showSecondaryInfo(for: ptr) {
-                                            if let vendor = ptr.pointee.vendor, !vendor.isEmpty {
+
+                                        if showSecondaryInfo(for: device.item) {
+                                            if let vendor = device.item.vendor, !vendor.isEmpty {
                                                 Text(vendor)
                                                     .font(.system(size: 12, weight: .semibold))
                                                     .foregroundColor(.primary)
                                             }
                                         }
-                                        
                                     }
                                     .padding(.leading, indent)
                                     .onHover { hovering in
-                                        if (mouseHoverInfo) {
+                                        if mouseHoverInfo {
                                             if hovering {
                                                 isHoveringDeviceId = uniqueId
-                                                Utils.hapticFeedback()
+                                                Utils.System.hapticFeedback()
                                             } else if isHoveringDeviceId == uniqueId {
                                                 isHoveringDeviceId = ""
                                             }
                                         }
                                     }
-                                    
-                                    if showTechInfo(for: ptr) {
+
+                                    if showTechInfo(for: device.item) {
                                         HStack {
-                                            Text(USBDevice.speedDescription(ptr))
+                                            Text(device.item.speedDescription)
                                                 .font(.system(size: 9))
                                                 .foregroundStyle(.secondary)
                                             Spacer()
-                                            
-                                            if showSecondaryInfo(for: ptr) {
-                                                Text(String(format: "%04X:%04X", ptr.pointee.vendorId, ptr.pointee.productId))
+
+                                            if showSecondaryInfo(for: device.item) {
+                                                Text(String(format: "%04X:%04X", device.item.vendorId, device.item.productId))
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                             }
                                         }
                                         .padding(.leading, indent)
-                                        
+
                                         HStack {
-                                            
-                                            if let usbVer = ptr.pointee.usbVersionBCD {
-                                                let usbVersion: String? = USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa)
+                                            if let usbVer = device.item.usbVersionBCD {
+                                                let usbVersion: String? = Utils.USB.usbVersionLabel(from: usbVer, convertHexa: convertHexa)
                                                 Text("\(String(localized: "usb_version")) \(usbVersion ?? String(format: "0x%04X", usbVer))")
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                             }
-                                            
+
                                             Spacer()
-                                            
-                                            if showSecondaryInfo(for: ptr) {
-                                                if let serial = ptr.pointee.serialNumber, !serial.isEmpty {
+
+                                            if showSecondaryInfo(for: device.item) {
+                                                if let serial = device.item.serialNumber, !serial.isEmpty {
                                                     Text("\(String(localized: "serial_number")) \(serial)")
                                                         .font(.system(size: 9))
                                                         .foregroundStyle(.secondary)
@@ -369,39 +373,37 @@ struct ContentView: View {
                                             }
                                         }
                                         .padding(.leading, indent)
-                                        
+
                                         if showPortMax {
-                                            if let portMax = ptr.pointee.portMaxSpeedMbps {
-                                                Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
+                                            if let portMax = device.item.portMaxSpeedMbps {
+                                                Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax) / 1000.0) : "\(portMax) Mbps")")
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                                     .padding(.leading, indent)
                                             }
                                         }
                                     }
-                                    
                                 }
                                 .padding(.vertical, 3)
-                                .animation(.spring(duration: 0.15), value: showSecondaryInfo(for: ptr))
-                                .animation(.spring(duration: 0.15), value: showTechInfo(for: ptr))
+                                .animation(.spring(duration: 0.15), value: showSecondaryInfo(for: device.item))
+                                .animation(.spring(duration: 0.15), value: showTechInfo(for: device.item))
                                 .contextMenu {
-                                    
                                     Button {
                                         NSPasteboard.general.clearContents()
-                                        NSPasteboard.general.setString(compactStringInformation(ptr), forType: .string)
+                                        NSPasteboard.general.setString(compactStringInformation(device.item), forType: .string)
                                     } label: {
                                         Label("copy", systemImage: "square.on.square")
                                     }
-                                    
+
                                     Button {
                                         inputText = ""
                                         isRenamingDeviceId = uniqueId
                                     } label: {
                                         Label("rename", systemImage: "pencil.and.scribble")
                                     }
-                                    
+
                                     Button(role: .destructive) {
-                                        let uniqueId = USBDevice.uniqueId(ptr)
+                                        let uniqueId = device.item.uniqueId
                                         let newDevice = CamouflagedDevice(deviceId: uniqueId)
                                         camouflagedDevices.removeAll { $0.deviceId == uniqueId }
                                         camouflagedDevices.append(newDevice)
@@ -409,70 +411,65 @@ struct ContentView: View {
                                     } label: {
                                         Label("hide", systemImage: "eye.slash")
                                     }
-                                    .disabled(inheritedDevices.contains { $0.inheritsFrom == USBDevice.uniqueId(ptr) })
-                                    
-                                    if (!mouseHoverInfo && hideTechInfo) {
+                                    .disabled(inheritedDevices.contains { $0.inheritsFrom == device.item.uniqueId })
+
+                                    if !mouseHoverInfo && hideTechInfo {
                                         Divider()
-                                        if (!devicesShowingMore.contains(ptr)) {
+                                        if !devicesShowingMoreHas(device.item) {
                                             Button {
-                                                devicesShowingMore.append(ptr)
+                                                devicesShowingMore.append(device)
                                             } label: {
                                                 Label("show_more", systemImage: "line.3.horizontal")
                                             }
                                         } else {
                                             Button {
-                                                devicesShowingMore.removeAll { $0 == ptr }
+                                                devicesShowingMore.removeAll { $0 == device }
                                             } label: {
                                                 Label("show_less", systemImage: "ellipsis")
                                             }
                                         }
                                     }
-                                    
-                                    if (!disableContextMenuSearch) {
-                                        
+
+                                    if !disableContextMenuSearch {
                                         Divider()
-                                        
+
                                         Button {
-                                            searchOnWeb(ptr.pointee.name)
+                                            searchOnWeb(device.item.name)
                                         } label: {
                                             Label("search_name", systemImage: "globe")
                                         }
-                                        
+
                                         Button {
-                                            let id = String(format: "%04X:%04X", ptr.pointee.vendorId, ptr.pointee.productId)
+                                            let id = String(format: "%04X:%04X", device.item.vendorId, device.item.productId)
                                             searchOnWeb(id)
                                         } label: {
                                             Label("search_id", systemImage: "globe")
                                         }
-                                        
+
                                         Button {
-                                            searchOnWeb(ptr.pointee.serialNumber!)
+                                            searchOnWeb(device.item.serialNumber!)
                                         } label: {
                                             Label("search_sn", systemImage: "globe")
                                         }
-                                        .disabled(ptr.pointee.serialNumber == nil)
-                                        
+                                        .disabled(device.item.serialNumber == nil)
                                     }
-                                    
                                 }
-                                
+
                                 Divider()
                             }
                         }
                         .padding(.horizontal, 4)
                     }
-                    .frame(maxHeight: 1_000)
+                    .frame(maxHeight: 1000)
                 }
-                
             }
             .padding(3)
             .frame(width: 465, height: windowHeight(longList: longList, compactList: hideTechInfo))
-            
+
             HStack {
-                
                 if camouflagedIndicator {
                     Group {
-                        if (showEyeSlash()) {
+                        if showEyeSlash() {
                             Image(systemName: "eye.slash")
                         }
                         let first = NumberConverter(manager.connectedCamouflagedDevices).convert()
@@ -482,15 +479,14 @@ struct ContentView: View {
                     .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
                     .help("hidden_indicator")
                     .contextMenu {
-                        
                         Button {
                             camouflagedIndicator = false
                         } label: {
                             Label("disable_indicator", systemImage: "eye.slash")
                         }
-                        
+
                         Divider()
-                        
+
                         Button {
                             camouflagedDevices.removeAll()
                             manager.refresh()
@@ -498,28 +494,34 @@ struct ContentView: View {
                             Label("undo_all", systemImage: "trash")
                         }
                         .disabled(camouflagedDevices.isEmpty)
-                        
                     }
                 }
-                
+
                 Spacer()
-                
-                if (profilerButton) {
+
+                if profilerButton {
                     Button {
-                        Utils.openSysInfo()
+                        Utils.System.openSysInfo()
                     } label: {
-                        if (noTextButtons) {
+                        if noTextButtons {
                             Image(systemName: "info.circle")
                         } else {
                             Label("profiler_abbreviated", systemImage: "info.circle")
+                                .help("open_profiler")
+                                .contextMenu {
+                                    Button {
+                                        profilerButton = false
+                                    } label: {
+                                        Label("hide", systemImage: "eye.slash")
+                                    }
+                                }
                         }
                     }
                 }
-                
-                if (trafficButton) {
-                    
-                    if (enoughSpaceForActiveTrafficButtonLabel) {
-                        if (manager.trafficMonitorRunning) {
+
+                if trafficButton {
+                    if enoughSpaceForActiveTrafficButtonLabel {
+                        if manager.trafficMonitorRunning {
                             Label("running", systemImage: "arrow.up.arrow.down")
                                 .font(.footnote)
                                 .opacity(0.5)
@@ -530,7 +532,7 @@ struct ContentView: View {
                                 .help("required_ethernet_to_monitor_traffic")
                         }
                     }
-                    
+
                     Button {
                         toggleTrafficMonitoring()
                     } label: {
@@ -543,19 +545,19 @@ struct ContentView: View {
                             Label("stop_resume", systemImage: "playpause.fill")
                         }
                         .disabled(noEthernetCableAndNoMonitoring)
-                        
+
                         Divider()
-                        
+
                         Button {
-                            trafficButton = false;
+                            trafficButton = false
                         } label: {
                             Label("hide", systemImage: "eye.slash")
                         }
-                        
+
                         Button {
-                            trafficButtonLabel = !trafficButtonLabel;
+                            trafficButtonLabel = !trafficButtonLabel
                         } label: {
-                            if (!trafficButtonLabel) {
+                            if !trafficButtonLabel {
                                 Label("show_traffic_side_label", systemImage: "eye")
                             } else {
                                 Label("hide_traffic_side_label", systemImage: "eye.slash")
@@ -564,7 +566,7 @@ struct ContentView: View {
                         .disabled(camouflagedIndicator)
                     }
                 }
-                
+
                 Button {
                     goToSettings()
                 } label: {
@@ -577,66 +579,52 @@ struct ContentView: View {
                         Label("open", systemImage: "arrow.up.right.square")
                     }
                     Button {
-                        Utils.openSysInfo()
+                        Utils.System.openSysInfo()
                     } label: {
                         Label("open_profiler", systemImage: "info.circle")
                     }
-                    
-                    if (trafficMonitorOn) {
-                        
+
+                    if trafficMonitorOn {
                         Divider()
-                        
-                        if (trafficMonitorInactive) {
-                            Button {
-                                manager.startEthernetMonitoring()
-                            } label: {
+
+                        if trafficMonitorInactive {
+                            Button { manager.startEthernetMonitoring() } label: {
                                 Label("resume_traffic_monitor", systemImage: "play.fill")
                             }
-                            .disabled(!manager.ethernet)
+                            .disabled(!manager.ethernetCableConnected)
                         } else {
-                            Button {
-                                manager.stopEthernetMonitoring()
-                            } label: {
+                            Button { manager.stopEthernetMonitoring() } label: {
                                 Label("stop_traffic_monitor", systemImage: "pause.fill")
                             }
                         }
                     }
                 }
-                
-                Button {
-                    manager.refresh()
-                } label: {
+
+                Button { manager.refresh() } label: {
                     mainButtonLabel("refresh", "arrow.clockwise")
                 }
-                
-                if (restartButton) {
-                    Button {
-                        Utils.killApp()
-                    } label: {
+
+                if restartButton {
+                    Button { Utils.App.restart() } label: {
                         mainButtonLabel("restart", "arrow.2.squarepath")
                     }
                     .contextMenu {
-                        Button {
-                            restartButton = false;
-                        } label: {
+                        Button { restartButton = false } label: {
                             Label("hide", systemImage: "eye.slash")
                         }
                     }
                 }
-                
-                Button {
-                    NSApp.terminate(nil)
-                } label: {
+
+                Button { Utils.App.exit() } label: {
                     mainButtonLabel("exit", "power")
                 }
                 .contextMenu {
                     Button {
-                        Utils.killApp()
+                        Utils.App.restart()
                     } label: {
                         Label("restart", systemImage: "arrow.2.squarepath")
                     }
                 }
-                
             }
             .padding(10)
             .disabled(isRenaming)

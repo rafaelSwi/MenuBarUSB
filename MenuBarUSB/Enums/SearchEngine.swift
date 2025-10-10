@@ -24,7 +24,7 @@ enum SearchEngine: String, CaseIterable {
     case wolframAlpha = "Wolfram"
     case metager = "MetaGer"
     case swisscows = "Swisscows"
-    
+
     var searchURL: String {
         switch self {
         case .google: return "https://www.google.com/search?q="

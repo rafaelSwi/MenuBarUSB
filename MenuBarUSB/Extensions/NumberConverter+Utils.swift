@@ -8,14 +8,13 @@
 import Foundation
 
 extension NumberConverter {
-    
     private var integerPart: Int {
-            Int(number)
-        }
-        
-        private var fractionalPart: Double {
-            Double(number - integerPart)
-        }
+        Int(number)
+    }
+
+    private var fractionalPart: Double {
+        Double(number - integerPart)
+    }
 
     func toDecimal(maxFractionDigits: Int = 10) -> String {
         let formatter = NumberFormatter()
@@ -33,7 +32,7 @@ extension NumberConverter {
         if frac > 0 {
             var f = frac
             var bits = ""
-            for _ in 0..<maxFractionBits {
+            for _ in 0 ..< maxFractionBits {
                 f *= 2
                 if f >= 1 {
                     bits.append("1")
@@ -57,7 +56,7 @@ extension NumberConverter {
             var f = frac
             var digits = ""
             let hexDigits = Array("0123456789ABCDEF")
-            for _ in 0..<maxFractionDigits {
+            for _ in 0 ..< maxFractionDigits {
                 f *= 16
                 let idx = Int(floor(f))
                 digits.append(hexDigits[idx])
@@ -74,7 +73,7 @@ extension NumberConverter {
         let romanValues = [
             1000: "M", 900: "CM", 500: "D", 400: "CD",
             100: "C", 90: "XC", 50: "L", 40: "XL",
-            10: "X", 9: "IX", 5: "V", 4: "IV", 1: "I"
+            10: "X", 9: "IX", 5: "V", 4: "IV", 1: "I",
         ]
         var remainder = abs(integerPart)
         var result = ""
@@ -99,7 +98,7 @@ extension NumberConverter {
             90: "ϟ", 80: "π", 70: "ο", 60: "ξ", 50: "ν",
             40: "μ", 30: "λ", 20: "κ", 10: "ι",
             9: "θ", 8: "η", 7: "ζ", 6: "ϛ", 5: "ε",
-            4: "δ", 3: "γ", 2: "β", 1: "α"
+            4: "δ", 3: "γ", 2: "β", 1: "α",
         ]
 
         var remainder = abs(integerPart)
@@ -126,8 +125,8 @@ extension NumberConverter {
             100: "𓍢",
             1000: "𓆼",
             10000: "𓂭",
-            100000: "𓆐",
-            1000000: "𓁨"
+            100_000: "𓆐",
+            1_000_000: "𓁨",
         ]
 
         var remainder = abs(integerPart)
@@ -154,7 +153,7 @@ extension NumberConverter {
         var f = frac
         var terms: [Int] = []
         var count = 0
-        while f > 1e-12 && count < maxTerms {
+        while f > 1e-12, count < maxTerms {
             let denom = Int(ceil(1.0 / f))
             terms.append(denom)
             f -= 1.0 / Double(denom)
@@ -167,7 +166,7 @@ extension NumberConverter {
     private func approximateFraction(_ value: Double, maxDenominator: Int = 100) -> (n: Int, d: Int) {
         var bestN = 0, bestD = 1
         var bestError = Double.greatestFiniteMagnitude
-        for d in 1...maxDenominator {
+        for d in 1 ... maxDenominator {
             let n = Int(round(value * Double(d)))
             let error = abs(value - Double(n) / Double(d))
             if error < bestError {
