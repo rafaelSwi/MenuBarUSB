@@ -193,3 +193,13 @@
 "back_and_resume" = "Retour et reprise";
 "back_without_resume" = "Retour (sans reprise)";
 "required_ethernet_to_monitor_traffic" = "Un câble Ethernet connecté est requis pour maintenir la surveillance du réseau";
+"new_version_notification" = "Vérifier les mises à jour";
+"new_version_notification_description" = "Lorsque vous ouvrez l'application, vous recevez une notification si une nouvelle version est disponible, mais elle ne sera pas téléchargée automatiquement.";
+"update_notification_title" = "Mise à jour";
+"update_notification_body" = "Une nouvelle mise à jour est disponible.";
+"stop_traffic_monitor_button_disable_status" = "Désactiver le texte d'état du bouton arrêter/démarrer";
+"stop_traffic_monitor_button_disable_status_description" = "À côté du bouton, il y a un texte informant si le trafic réseau est surveillé ou non.";
+"export_settings" = "Exporter les paramètres";
+"import_settings" = "Importer les paramètres";
+"allow_copying_individual" = "Autoriser la copie de chaque propriété individuelle";
+"allow_copying_individual_description" = "Vous permet de copier des propriétés individuelles de l'appareil, telles que le nom, le fabricant et d'autres.";

@@ -37,7 +37,8 @@ struct ContentView: View {
     @AppStorage(Key.showEthernet) private var showEthernet = false
     @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
     @AppStorage(Key.trafficButton) private var trafficButton = false
-    @AppStorage(Key.trafficButtonLabel) private var trafficButtonLabel = false
+    @AppStorage(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
+    @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
 
     @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
@@ -173,12 +174,23 @@ struct ContentView: View {
         return isRenamingDeviceId != ""
     }
 
-    private var enoughSpaceForActiveTrafficButtonLabel: Bool {
-        return !camouflagedIndicator && trafficButtonLabel
+    private var showTrafficButtonLabel: Bool {
+        return !camouflagedIndicator && !disableTrafficButtonLabel
     }
 
     private var trafficMonitorOn: Bool {
         return showEthernet && internetMonitoring
+    }
+    
+    private func deviceId(_ device: borrowing USBDevice) -> String {
+        return String(format: "%04X:%04X", device.vendorId, device.productId)
+    }
+    
+    private func copyTextLabelView(_ text: String) -> some View {
+        let copy = String(localized: "copy")
+        let item = String(localized: "\(text)")
+        let label = "\(copy): \(item)"
+        return Label(label, systemImage: "square.on.square")
     }
 
     private func compactStringInformation(_ device: borrowing USBDevice) -> String {
@@ -196,7 +208,7 @@ struct ContentView: View {
 
         parts.append(device.uniqueId)
 
-        parts.append(String(format: "%04X:%04X", device.vendorId, device.productId))
+        parts.append(deviceId(device))
 
         if let usbVer = device.usbVersionBCD {
             if let usbVersion = Utils.USB.usbVersionLabel(from: usbVer, convertHexa: convertHexa) {
@@ -347,7 +359,7 @@ struct ContentView: View {
                                             Spacer()
 
                                             if showSecondaryInfo(for: device.item) {
-                                                Text(String(format: "%04X:%04X", device.item.vendorId, device.item.productId))
+                                                Text(deviceId(device.item))
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                             }
@@ -389,8 +401,7 @@ struct ContentView: View {
                                 .animation(.spring(duration: 0.15), value: showTechInfo(for: device.item))
                                 .contextMenu {
                                     Button {
-                                        NSPasteboard.general.clearContents()
-                                        NSPasteboard.general.setString(compactStringInformation(device.item), forType: .string)
+                                        Utils.System.copyToClipboard(compactStringInformation(device.item))
                                     } label: {
                                         Label("copy", systemImage: "square.on.square")
                                     }
@@ -428,6 +439,37 @@ struct ContentView: View {
                                                 Label("show_less", systemImage: "ellipsis")
                                             }
                                         }
+                                    }
+                                    
+                                    if (contextMenuCopyAll) {
+                                        Divider()
+                                        
+                                        Button {
+                                            Utils.System.copyToClipboard(device.item.name)
+                                        } label: {
+                                            copyTextLabelView(device.item.name)
+                                        }
+                                        
+                                        Button {
+                                            Utils.System.copyToClipboard(device.item.vendor ?? "?")
+                                        } label: {
+                                            copyTextLabelView(device.item.vendor ?? "?")
+                                        }
+                                        .disabled(device.item.vendor == nil)
+                                        
+                                        Button {
+                                            Utils.System.copyToClipboard(deviceId(device.item))
+                                        } label: {
+                                            copyTextLabelView(deviceId(device.item))
+                                        }
+                                        
+                                        Button {
+                                            Utils.System.copyToClipboard(device.item.serialNumber ?? "SN")
+                                        } label: {
+                                            copyTextLabelView(device.item.serialNumber ?? "SN")
+                                        }
+                                        .disabled(device.item.serialNumber == nil)
+                                        
                                     }
 
                                     if !disableContextMenuSearch {
@@ -520,7 +562,7 @@ struct ContentView: View {
                 }
 
                 if trafficButton {
-                    if enoughSpaceForActiveTrafficButtonLabel {
+                    if showTrafficButtonLabel {
                         if manager.trafficMonitorRunning {
                             Label("running", systemImage: "arrow.up.arrow.down")
                                 .font(.footnote)
@@ -555,9 +597,9 @@ struct ContentView: View {
                         }
 
                         Button {
-                            trafficButtonLabel = !trafficButtonLabel
+                            disableTrafficButtonLabel = !disableTrafficButtonLabel
                         } label: {
-                            if !trafficButtonLabel {
+                            if disableTrafficButtonLabel {
                                 Label("show_traffic_side_label", systemImage: "eye")
                             } else {
                                 Label("hide_traffic_side_label", systemImage: "eye.slash")

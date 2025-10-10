@@ -193,3 +193,13 @@
 "back_and_resume" = "返回并继续";
 "back_without_resume" = "返回（不继续）";
 "required_ethernet_to_monitor_traffic" = "需要连接以太网电缆以保持网络监控运行";
+"new_version_notification" = "检查更新";
+"new_version_notification_description" = "当您打开应用时，如果新版本可用，您将收到通知，但它不会自动下载。";
+"update_notification_title" = "更新";
+"update_notification_body" = "有新的更新可用。";
+"stop_traffic_monitor_button_disable_status" = "禁用停止/开始按钮状态文本";
+"stop_traffic_monitor_button_disable_status_description" = "按钮旁边有文本，指示网络流量是否正在被监控。";
+"export_settings" = "导出设置";
+"import_settings" = "导入设置";
+"allow_copying_individual" = "允许复制每个单独的属性";
+"allow_copying_individual_description" = "允许您复制单独的设备属性，例如名称、制造商等。";

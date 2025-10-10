@@ -193,3 +193,13 @@
 "back_and_resume" = "वापस जाएं और जारी रखें";
 "back_without_resume" = "वापस जाएं (जारी रखे बिना)";
 "required_ethernet_to_monitor_traffic" = "नेटवर्क मॉनिटरिंग चालू रखने के लिए एक कनेक्टेड ईथरनेट केबल आवश्यक है";
+"new_version_notification" = "अपडेट की जाँच करें";
+"new_version_notification_description" = "जब आप ऐप खोलेंगे, तो नई संस्करण उपलब्ध होने पर आपको एक सूचना मिलेगी, लेकिन यह स्वचालित रूप से डाउनलोड नहीं होगा।";
+"update_notification_title" = "अपडेट";
+"update_notification_body" = "एक नया अपडेट उपलब्ध है।";
+"stop_traffic_monitor_button_disable_status" = "रोकें/शुरू करें बटन की स्थिति पाठ को अक्षम करें";
+"stop_traffic_monitor_button_disable_status_description" = "बटन के आगे, एक पाठ है जो सूचित करता है कि नेटवर्क ट्रैफ़िक की निगरानी की जा रही है या नहीं।";
+"export_settings" = "सेटिंग्स निर्यात करें";
+"import_settings" = "सेटिंग्स आयात करें";
+"allow_copying_individual" = "प्रत्येक व्यक्तिगत गुण को कॉपी करने की अनुमति दें";
+"allow_copying_individual_description" = "आपको व्यक्तिगत डिवाइस गुणों, जैसे नाम, निर्माता और अन्य को कॉपी करने की अनुमति देता है।";

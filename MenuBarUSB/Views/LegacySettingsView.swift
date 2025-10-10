@@ -272,6 +272,8 @@ struct LegacySettingsView: View {
                         onToggle: { value in
                             if value == false {
                                 disableNotifCooldown = false
+                            } else {
+                                Utils.System.requestNotificationPermission()
                             }
                         }
                     )

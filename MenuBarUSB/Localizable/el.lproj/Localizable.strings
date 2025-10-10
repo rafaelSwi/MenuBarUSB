@@ -193,3 +193,13 @@
 "back_and_resume" = "Πίσω και συνέχιση";
 "back_without_resume" = "Πίσω (χωρίς συνέχιση)";
 "required_ethernet_to_monitor_traffic" = "Απαιτείται συνδεδεμένο καλώδιο Ethernet για να συνεχιστεί η παρακολούθηση δικτύου";
+"new_version_notification" = "Έλεγχος για ενημερώσεις";
+"new_version_notification_description" = "Όταν ανοίγετε την εφαρμογή, θα λάβετε μια ειδοποίηση εάν είναι διαθέσιμη μια νέα έκδοση, αλλά δεν θα γίνει αυτόματη λήψη.";
+"update_notification_title" = "Ενημέρωση";
+"update_notification_body" = "Μια νέα ενημέρωση είναι διαθέσιμη.";
+"stop_traffic_monitor_button_disable_status" = "Απενεργοποίηση κειμένου κατάστασης κουμπιού διακοπής/έναρξης";
+"stop_traffic_monitor_button_disable_status_description" = "Δίπλα στο κουμπί, υπάρχει κείμενο που ενημερώνει εάν παρακολουθείται η κίνηση δικτύου ή όχι.";
+"export_settings" = "Εξαγωγή ρυθμίσεων";
+"import_settings" = "Εισαγωγή ρυθμίσεων";
+"allow_copying_individual" = "Να επιτρέπεται η αντιγραφή κάθε μεμονωμένης ιδιότητας";
+"allow_copying_individual_description" = "Σας επιτρέπει να αντιγράψετε μεμονωμένες ιδιότητες συσκευής, όπως όνομα, κατασκευαστή και άλλα.";

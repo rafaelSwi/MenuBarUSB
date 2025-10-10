@@ -40,5 +40,7 @@ enum Key {
     static let showEthernet = "showEthernet"
     static let internetMonitoring = "internetMonitoring"
     static let trafficButton = "trafficButton"
-    static let trafficButtonLabel = "trafficButtonLabel"
+    static let disableTrafficButtonLabel = "disableTrafficButtonLabel"
+    static let newVersionNotification = "newVersionNotification"
+    static let contextMenuCopyAll = "contextMenuCopyAll"
 }

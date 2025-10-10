@@ -193,3 +193,13 @@
 "back_and_resume" = "Geri dön ve devam et";
 "back_without_resume" = "Geri dön (devam etmeden)";
 "required_ethernet_to_monitor_traffic" = "Ağ izlemeyi sürdürmek için bağlı bir Ethernet kablosu gereklidir";
+"new_version_notification" = "Güncellemeleri kontrol et";
+"new_version_notification_description" = "Uygulamayı açtığınızda, yeni bir sürüm varsa bildirim alırsınız, ancak otomatik olarak indirilmez.";
+"update_notification_title" = "Güncelleme";
+"update_notification_body" = "Yeni bir güncelleme mevcut.";
+"stop_traffic_monitor_button_disable_status" = "Durdur/başlat düğmesi durum metnini devre dışı bırak";
+"stop_traffic_monitor_button_disable_status_description" = "Düğmenin yanında, ağ trafiğinin izlenip izlenmediğini bildiren bir metin bulunur.";
+"export_settings" = "Ayarları dışa aktar";
+"import_settings" = "Ayarları içe aktar";
+"allow_copying_individual" = "Her bir özelliğin kopyalanmasına izin ver";
+"allow_copying_individual_description" = "Ad, üretici ve diğerleri gibi bireysel cihaz özelliklerini kopyalamanıza olanak tanır.";

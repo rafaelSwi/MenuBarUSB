@@ -193,3 +193,13 @@
 "back_and_resume" = "戻って再開";
 "back_without_resume" = "戻る（再開しない）";
 "required_ethernet_to_monitor_traffic" = "ネットワーク監視を続けるには、接続されたイーサネットケーブルが必要です";
+"new_version_notification" = "アップデートを確認";
+"new_version_notification_description" = "アプリを開いたときに、新しいバージョンが利用可能な場合は通知が届きますが、自動的にダウンロードはされません。";
+"update_notification_title" = "アップデート";
+"update_notification_body" = "新しいアップデートが利用可能です。";
+"stop_traffic_monitor_button_disable_status" = "停止/開始ボタンのステータステキストを無効にする";
+"stop_traffic_monitor_button_disable_status_description" = "ボタンの隣に、ネットワークトラフィックが監視されているかどうかを示すテキストが表示されます。";
+"export_settings" = "設定をエクスポート";
+"import_settings" = "設定をインポート";
+"allow_copying_individual" = "個々のプロパティのコピーを許可";
+"allow_copying_individual_description" = "名前、製造元などの個々のデバイスプロパティをコピーできます。";

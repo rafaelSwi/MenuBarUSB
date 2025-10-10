@@ -193,3 +193,13 @@
 "back_and_resume" = "Înapoi și reia";
 "back_without_resume" = "Înapoi (fără reluare)";
 "required_ethernet_to_monitor_traffic" = "Un cablu Ethernet conectat este necesar pentru a menține monitorizarea rețelei activă";
+"new_version_notification" = "Verificați actualizările";
+"new_version_notification_description" = "Când deschideți aplicația, veți primi o notificare dacă este disponibilă o versiune nouă, dar aceasta nu va fi descărcată automat.";
+"update_notification_title" = "Actualizare";
+"update_notification_body" = "O nouă actualizare este disponibilă.";
+"stop_traffic_monitor_button_disable_status" = "Dezactivați textul de stare al butonului oprire/pornire";
+"stop_traffic_monitor_button_disable_status_description" = "Lângă buton, există text care informează dacă traficul de rețea este monitorizat sau nu.";
+"export_settings" = "Exportați setările";
+"import_settings" = "Importați setările";
+"allow_copying_individual" = "Permiteți copierea fiecărei proprietăți individuale";
+"allow_copying_individual_description" = "Vă permite să copiați proprietăți individuale ale dispozitivului, cum ar fi numele, producătorul și altele.";

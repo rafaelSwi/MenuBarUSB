@@ -193,3 +193,13 @@
 "back_and_resume" = "חזור והמשך";
 "back_without_resume" = "חזור (ללא המשך)";
 "required_ethernet_to_monitor_traffic" = "נדרש כבל אתרנט מחובר כדי לשמור על ניטור הרשת פעיל";
+"new_version_notification" = "בדיקת עדכונים";
+"new_version_notification_description" = "כאשר תפתח את האפליקציה, תקבל הודעה אם גרסה חדשה זמינה, אך היא לא תורד אוטומטית.";
+"update_notification_title" = "עדכון";
+"update_notification_body" = "עדכון חדש זמין.";
+"stop_traffic_monitor_button_disable_status" = "השבתת טקסט מצב כפתור עצירה/התחלה";
+"stop_traffic_monitor_button_disable_status_description" = "ליד הכפתור, יש טקסט המיידע אם תעבורת הרשת מנוטרת או לא.";
+"export_settings" = "ייצוא הגדרות";
+"import_settings" = "ייבוא הגדרות";
+"allow_copying_individual" = "אפשר העתקה של כל מאפיין בנפרד";
+"allow_copying_individual_description" = "מאפשר לך להעתיק מאפייני מכשיר בודדים, כגון שם, יצרן ואחרים.";

@@ -193,3 +193,13 @@
 "back_and_resume" = "Back and resume";
 "back_without_resume" = "Back (without resuming)";
 "required_ethernet_to_monitor_traffic" = "A connected ethernet cable is mandatory to keep network monitoring running";
+"new_version_notification" = "Check for updates";
+"new_version_notification_description" = "When you open the app, you’ll get a notification if a new version is available, but it won’t be downloaded automatically.";
+"update_notification_title" = "Update";
+"update_notification_body" = "A new update is available.";
+"stop_traffic_monitor_button_disable_status" = "Disable stop/start button status text";
+"stop_traffic_monitor_button_disable_status_description" = "Next to the button, there is text informing whether network traffic is being monitored or not.";
+"export_settings" = "Export settings";
+"import_settings" = "Import settings";
+"allow_copying_individual" = "Allow copying each individual property";
+"allow_copying_individual_description" = "Allows you to copy individual device properties, such as name, manufacturer, and others.";

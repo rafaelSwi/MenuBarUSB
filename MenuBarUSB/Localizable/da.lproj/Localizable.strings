@@ -193,3 +193,13 @@
 "back_and_resume" = "Tilbage og genoptag";
 "back_without_resume" = "Tilbage (uden at genoptage)";
 "required_ethernet_to_monitor_traffic" = "Et tilsluttet Ethernet-kabel er påkrævet for at holde netværksovervågning kørende";
+"new_version_notification" = "Søg efter opdateringer";
+"new_version_notification_description" = "Når du åbner appen, får du en notifikation, hvis en ny version er tilgængelig, men den downloades ikke automatisk.";
+"update_notification_title" = "Opdatering";
+"update_notification_body" = "En ny opdatering er tilgængelig.";
+"stop_traffic_monitor_button_disable_status" = "Deaktiver status-tekst for stop/start-knap";
+"stop_traffic_monitor_button_disable_status_description" = "Ved siden af knappen er der tekst, der informerer om, hvorvidt netværkstrafikken overvåges eller ej.";
+"export_settings" = "Eksporter indstillinger";
+"import_settings" = "Importer indstillinger";
+"allow_copying_individual" = "Tillad kopiering af hver individuel egenskab";
+"allow_copying_individual_description" = "Tillader dig at kopiere individuelle enhedsegenskaber, såsom navn, producent og andre.";

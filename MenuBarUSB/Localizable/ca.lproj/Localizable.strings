@@ -193,3 +193,13 @@
 "back_and_resume" = "Torna i reprèn";
 "back_without_resume" = "Torna (sense reprendre)";
 "required_ethernet_to_monitor_traffic" = "Cal un cable Ethernet connectat per mantenir la monitorització de la xarxa en funcionament";
+"new_version_notification" = "Cerca actualitzacions";
+"new_version_notification_description" = "Quan obris l'aplicació, rebràs una notificació si hi ha una nova versió disponible, però no es baixarà automàticament.";
+"update_notification_title" = "Actualització";
+"update_notification_body" = "Hi ha una nova actualització disponible.";
+"stop_traffic_monitor_button_disable_status" = "Desactiva el text d'estat del botó aturar/iniciar";
+"stop_traffic_monitor_button_disable_status_description" = "Al costat del botó, hi ha un text que informa si el trànsit de xarxa s'està supervisant o no.";
+"export_settings" = "Exporta la configuració";
+"import_settings" = "Importa la configuració";
+"allow_copying_individual" = "Permet copiar cada propietat individual";
+"allow_copying_individual_description" = "Et permet copiar propietats individuals del dispositiu, com ara el nom, el fabricant i d'altres.";

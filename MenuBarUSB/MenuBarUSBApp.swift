@@ -21,6 +21,17 @@ struct MenuBarUSBApp: App {
     @AppStorage(Key.hideMenubarIcon) private var hideMenubarIcon = false
     @AppStorage(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AppStorage(Key.showEthernet) private var showEthernet = false
+    @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
+    
+    init() {
+        if newVersionNotification {
+            Task {
+                if (await Utils.App.hasUpdate()) {
+                    Utils.System.sendNotification(title: "update_notification_title", body: "update_notification_body")
+                }
+            }
+        }
+    }
 
     private var countText: some View {
         func updateCount() {

@@ -20,6 +20,11 @@ enum Utils {
             ]
             try? task.run()
         }
+        
+        static func copyToClipboard(_ content: String) {
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(content, forType: .string)
+        }
 
         static func hapticFeedback() {
             let performer = NSHapticFeedbackManager.defaultPerformer
@@ -43,7 +48,6 @@ enum Utils {
         }
 
         static func sendNotification(title: String, body: String) {
-            Utils.System.requestNotificationPermission()
             let content = UNMutableNotificationContent()
             content.title = title
             content.body = body
@@ -64,6 +68,19 @@ enum Utils {
     class App {
         static var appVersion: String {
             Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
+        }
+        
+        static func hasUpdate() async -> Bool {
+            guard let url = URL(string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest") else { return false }
+
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                let release = try JSONDecoder().decode(GitHubRelease.self, from: data)
+                let latest = release.tag_name.replacingOccurrences(of: "v", with: "")
+                return Utils.App.isVersion(Utils.App.appVersion, olderThan: latest)
+            } catch {
+                return false
+            }
         }
 
         static func exit() {

@@ -193,3 +193,13 @@
 "back_and_resume" = "Назад и возобновить";
 "back_without_resume" = "Назад (без возобновления)";
 "required_ethernet_to_monitor_traffic" = "Для поддержания мониторинга сети необходим подключенный кабель Ethernet";
+"new_version_notification" = "Проверить обновления";
+"new_version_notification_description" = "Когда вы откроете приложение, вы получите уведомление, если доступна новая версия, но она не будет загружена автоматически.";
+"update_notification_title" = "Обновление";
+"update_notification_body" = "Доступно новое обновление.";
+"stop_traffic_monitor_button_disable_status" = "Отключить текст состояния кнопки стоп/старт";
+"stop_traffic_monitor_button_disable_status_description" = "Рядом с кнопкой есть текст, информирующий о том, контролируется ли сетевой трафик.";
+"export_settings" = "Экспортировать настройки";
+"import_settings" = "Импортировать настройки";
+"allow_copying_individual" = "Разрешить копирование каждого отдельного свойства";
+"allow_copying_individual_description" = "Позволяет копировать отдельные свойства устройства, такие как имя, производитель и другие.";

@@ -193,3 +193,13 @@
 "back_and_resume" = "뒤로 가서 재개";
 "back_without_resume" = "뒤로 가기 (재개 안 함)";
 "required_ethernet_to_monitor_traffic" = "네트워크 모니터링을 유지하려면 이더넷 케이블이 연결되어 있어야 합니다";
+"new_version_notification" = "업데이트 확인";
+"new_version_notification_description" = "앱을 열면 새 버전이 있는 경우 알림을 받게 되지만, 자동으로 다운로드되지는 않습니다.";
+"update_notification_title" = "업데이트";
+"update_notification_body" = "새로운 업데이트를 사용할 수 있습니다.";
+"stop_traffic_monitor_button_disable_status" = "중지/시작 버튼 상태 텍스트 비활성화";
+"stop_traffic_monitor_button_disable_status_description" = "버튼 옆에 네트워크 트래픽이 모니터링되고 있는지 여부를 알려주는 텍스트가 있습니다.";
+"export_settings" = "설정 내보내기";
+"import_settings" = "설정 가져오기";
+"allow_copying_individual" = "각 개별 속성 복사 허용";
+"allow_copying_individual_description" = "이름, 제조업체 등 개별 장치 속성을 복사할 수 있습니다.";

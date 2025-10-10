@@ -182,6 +182,7 @@ struct ToggleRow: View {
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
+        .padding(.vertical, 1)
         .animation(.easeInOut(duration: 0.25), value: showDescription)
         .animation(.easeInOut(duration: 0.25), value: showIncompatibilityMessage)
         .onDisappear {

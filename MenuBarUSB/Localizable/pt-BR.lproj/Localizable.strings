@@ -193,3 +193,13 @@
 "back_and_resume" = "Voltar e retomar";
 "back_without_resume" = "Voltar (sem retomar)";
 "required_ethernet_to_monitor_traffic" = "É necessário um cabo Ethernet conectado para manter o monitoramento da rede ativo";
+"new_version_notification" = "Verificar atualizações";
+"new_version_notification_description" = "Ao abrir o MenuBarUSB, você receberá uma notificação se uma nova versão estiver disponível, mas ela não será baixada automaticamente.";
+"update_notification_title" = "Atualização";
+"update_notification_body" = "Nova atualização disponível.";
+"stop_traffic_monitor_button_disable_status" = "Desabilitar texto de status do botão parar/retormar";
+"stop_traffic_monitor_button_disable_status_description" = "Ao lado do botão, há um texto informando se o tráfego de rede está sendo monitorado ou não.";
+"export_settings" = "Exportar configurações";
+"import_settings" = "Importar configurações";
+"allow_copying_individual" = "Permitir copiar cada propriedade individual";
+"allow_copying_individual_description" = "Permite copiar propriedades individuais do dispositivo, como nome, fabricante e outros.";

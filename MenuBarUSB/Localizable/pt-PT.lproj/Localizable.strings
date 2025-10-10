@@ -193,3 +193,13 @@
 "back_and_resume" = "Voltar e retomar";
 "back_without_resume" = "Voltar (sem retomar)";
 "required_ethernet_to_monitor_traffic" = "É necessário um cabo Ethernet ligado para manter a monitorização da rede ativa";
+"new_version_notification" = "Verificar atualizações";
+"new_version_notification_description" = "Ao abrir a aplicação, receberá uma notificação se uma nova versão estiver disponível, mas não será transferida automaticamente.";
+"update_notification_title" = "Atualização";
+"update_notification_body" = "Uma nova atualização está disponível.";
+"stop_traffic_monitor_button_disable_status" = "Desativar texto de estado do botão parar/iniciar";
+"stop_traffic_monitor_button_disable_status_description" = "Ao lado do botão, existe um texto a informar se o tráfego de rede está a ser monitorizado ou não.";
+"export_settings" = "Exportar definições";
+"import_settings" = "Importar definições";
+"allow_copying_individual" = "Permitir copiar cada propriedade individual";
+"allow_copying_individual_description" = "Permite copiar propriedades individuais do dispositivo, como nome, fabricante e outras.";

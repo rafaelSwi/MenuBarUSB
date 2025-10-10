@@ -193,3 +193,13 @@
 "back_and_resume" = "ย้อนกลับและดำเนินการต่อ";
 "back_without_resume" = "ย้อนกลับ (ไม่ดำเนินการต่อ)";
 "required_ethernet_to_monitor_traffic" = "จำเป็นต้องมีสายเคเบิลอีเทอร์เน็ตที่เชื่อมต่อเพื่อให้การตรวจสอบเครือข่ายทำงานต่อไป";
+"new_version_notification" = "ตรวจสอบการอัปเดต";
+"new_version_notification_description" = "เมื่อคุณเปิดแอป คุณจะได้รับการแจ้งเตือนหากมีเวอร์ชันใหม่พร้อมใช้งาน แต่จะไม่ถูกดาวน์โหลดโดยอัตโนมัติ";
+"update_notification_title" = "อัปเดต";
+"update_notification_body" = "มีการอัปเดตใหม่";
+"stop_traffic_monitor_button_disable_status" = "ปิดใช้งานข้อความสถานะปุ่มหยุด/เริ่ม";
+"stop_traffic_monitor_button_disable_status_description" = "ถัดจากปุ่ม มีข้อความแจ้งว่ามีการตรวจสอบปริมาณการรับส่งข้อมูลเครือข่ายหรือไม่";
+"export_settings" = "ส่งออกการตั้งค่า";
+"import_settings" = "นำเข้าการตั้งค่า";
+"allow_copying_individual" = "อนุญาตให้คัดลอกคุณสมบัติแต่ละรายการ";
+"allow_copying_individual_description" = "อนุญาตให้คุณคัดลอกคุณสมบัติของอุปกรณ์แต่ละรายการ เช่น ชื่อ ผู้ผลิต และอื่นๆ";

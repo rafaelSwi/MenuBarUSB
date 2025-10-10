@@ -31,6 +31,8 @@ struct SettingsView: View {
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
 
+    @State private var categoryTitle: LocalizedStringKey?
+
     @State private var showSystemOptions = false
     @State private var showIconOptions = false
     @State private var showInterfaceOptions = false
@@ -69,7 +71,9 @@ struct SettingsView: View {
     @AppStorage(Key.showEthernet) private var showEthernet = false
     @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
     @AppStorage(Key.trafficButton) private var trafficButton = false
-    @AppStorage(Key.trafficButtonLabel) private var trafficButtonLabel = false
+    @AppStorage(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
+    @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
+    @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
 
     @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
@@ -77,22 +81,6 @@ struct SettingsView: View {
         [CamouflagedDevice] = []
     @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices:
         [HeritageDevice] = []
-
-    func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey) -> some View {
-        let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
-
-        return HStack {
-            Image(systemName: toggle.wrappedValue ? "chevron.down" : "chevron.up")
-            Text(label)
-                .font(.system(size: 13.5))
-                .fontWeight(.light)
-        }
-        .onTapGesture {
-            manageShowOptions(binding: toggle)
-        }
-        .opacity(anyBottomOptionInUse ? 0.4 : 1.0)
-        .disabled(anyBottomOptionInUse)
-    }
 
     private func checkForUpdate() {
         checkingUpdate = true
@@ -181,6 +169,32 @@ struct SettingsView: View {
 
     private var isTrafficMonitoringPausedForSettings: Bool {
         return internetMonitoring && !manager.trafficMonitorRunning && manager.ethernetCableConnected
+    }
+
+    func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey, _ systemImage: String) -> some View {
+        let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
+
+        return HStack {
+            VStack {
+                Button {
+                    manageShowOptions(binding: toggle)
+                    if toggle.wrappedValue {
+                        categoryTitle = label
+                    } else {
+                        categoryTitle = nil
+                    }
+                } label: {
+                    Image(systemName: systemImage)
+                        .frame(width: 17, height: 17)
+                        .opacity(anyBottomOptionInUse ? 0.4 : 1.0)
+                }
+                .disabled(anyBottomOptionInUse)
+                .background(toggle.wrappedValue ? Color.blue.opacity(0.25) : Color.clear)
+                .cornerRadius(10)
+                .help(label)
+            }
+            Spacer()
+        }
     }
 
     var body: some View {
@@ -295,9 +309,22 @@ struct SettingsView: View {
                 Divider()
             }
 
-            VStack(alignment: .leading, spacing: 12) {
-                
-                categoryButton(toggle: $showSystemOptions, label: "systemCategory")
+            VStack(alignment: .leading) {
+                HStack {
+                    Spacer()
+                    categoryButton(toggle: $showSystemOptions, label: "systemCategory", "gear")
+                    categoryButton(toggle: $showIconOptions, label: "icon_category", "photo.on.rectangle.angled.fill")
+                    categoryButton(toggle: $showInterfaceOptions, label: "uiCategory", "checklist.unchecked")
+                    categoryButton(toggle: $showInfoOptions, label: "usbCategory", "cable.connector")
+                    categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category", "filemenu.and.selection")
+                    categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory", "network")
+                    categoryButton(toggle: $showHeritageOptions, label: "heritageCategory", "crown.fill")
+                    categoryButton(toggle: $showOthersOptions, label: "othersCategory", "ellipsis.circle")
+                }
+
+                Text(categoryTitle ?? "")
+                    .font(.title)
+                    .padding(.vertical, 10)
 
                 if showSystemOptions {
                     ToggleRow(
@@ -350,7 +377,9 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { value in
-                            if value == false {
+                            if value {
+                                Utils.System.requestNotificationPermission()
+                            } else {
                                 disableNotifCooldown = false
                             }
                         }
@@ -364,9 +393,16 @@ struct SettingsView: View {
                         disabled: showNotifications == false,
                         onToggle: { _ in }
                     )
+                    ToggleRow(
+                        label: String(localized: "new_version_notification"),
+                        description: String(localized: "new_version_notification_description"),
+                        binding: $newVersionNotification,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        disabled: showNotifications == false,
+                        onToggle: { _ in }
+                    )
                 }
-
-                categoryButton(toggle: $showIconOptions, label: "icon_category")
 
                 if showIconOptions {
                     VStack(alignment: .leading, spacing: 16) {
@@ -451,8 +487,6 @@ struct SettingsView: View {
                     }
                 }
 
-                categoryButton(toggle: $showInterfaceOptions, label: "uiCategory")
-
                 if showInterfaceOptions {
                     ToggleRow(
                         label: String(localized: "hide_technical_info"),
@@ -508,8 +542,6 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                 }
-
-                categoryButton(toggle: $showInfoOptions, label: "usbCategory")
 
                 if showInfoOptions {
                     Button {
@@ -570,13 +602,19 @@ struct SettingsView: View {
                     )
                 }
 
-                categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category")
-
                 if showContextMenuOptions {
                     ToggleRow(
                         label: String(localized: "disable_context_menu_search"),
                         description: String(localized: "disable_context_menu_search_description"),
                         binding: $disableContextMenuSearch,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "allow_copying_individual"),
+                        description: String(localized: "allow_copying_individual_description"),
+                        binding: $contextMenuCopyAll,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
@@ -595,8 +633,6 @@ struct SettingsView: View {
                         .disabled(disableContextMenuSearch)
                     }
                 }
-
-                categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory")
 
                 if showEthernetOptions {
                     ToggleRow(
@@ -643,13 +679,19 @@ struct SettingsView: View {
                             if value == true {
                                 profilerButton = false
                                 restartButton = false
-                                trafficButtonLabel = true
                             }
                         }
                     )
+                    ToggleRow(
+                        label: String(localized: "stop_traffic_monitor_button_disable_status"),
+                        description: String(localized: "stop_traffic_monitor_button_disable_status_description"),
+                        binding: $disableTrafficButtonLabel,
+                        activeRowID: $activeRowID,
+                        incompatibilities: [profilerButton, restartButton],
+                        disabled: !showEthernet || !internetMonitoring,
+                        onToggle: { _ in }
+                    )
                 }
-
-                categoryButton(toggle: $showHeritageOptions, label: "heritageCategory")
 
                 if showHeritageOptions {
                     Button {
@@ -690,8 +732,6 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                 }
-
-                categoryButton(toggle: $showOthersOptions, label: "othersCategory")
 
                 if showOthersOptions {
                     ToggleRow(

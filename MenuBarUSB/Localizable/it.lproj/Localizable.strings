@@ -193,3 +193,13 @@
 "back_and_resume" = "Indietro e riprendi";
 "back_without_resume" = "Indietro (senza riprendere)";
 "required_ethernet_to_monitor_traffic" = "È necessario un cavo Ethernet collegato per mantenere attivo il monitoraggio della rete";
+"new_version_notification" = "Verifica la disponibilità di aggiornamenti";
+"new_version_notification_description" = "Quando apri l'app, riceverai una notifica se è disponibile una nuova versione, ma non verrà scaricata automaticamente.";
+"update_notification_title" = "Aggiornamento";
+"update_notification_body" = "È disponibile un nuovo aggiornamento.";
+"stop_traffic_monitor_button_disable_status" = "Disabilita il testo di stato del pulsante di arresto/avvio";
+"stop_traffic_monitor_button_disable_status_description" = "Accanto al pulsante è presente un testo che informa se il traffico di rete viene monitorato o meno.";
+"export_settings" = "Esporta impostazioni";
+"import_settings" = "Importa impostazioni";
+"allow_copying_individual" = "Consenti la copia di ogni singola proprietà";
+"allow_copying_individual_description" = "Ti consente di copiare le singole proprietà del dispositivo, come nome, produttore e altre.";

@@ -193,3 +193,13 @@
 "back_and_resume" = "Назад і відновити";
 "back_without_resume" = "Назад (без відновлення)";
 "required_ethernet_to_monitor_traffic" = "Для підтримки моніторингу мережі потрібен підключений кабель Ethernet";
+"new_version_notification" = "Перевірити оновлення";
+"new_version_notification_description" = "Коли ви відкриваєте програму, ви отримаєте сповіщення, якщо доступна нова версія, але вона не буде завантажена автоматично.";
+"update_notification_title" = "Оновлення";
+"update_notification_body" = "Доступне нове оновлення.";
+"stop_traffic_monitor_button_disable_status" = "Вимкнути текст стану кнопки зупинки/запуску";
+"stop_traffic_monitor_button_disable_status_description" = "Поруч із кнопкою є текст, який інформує, чи контролюється мережевий трафік.";
+"export_settings" = "Експортувати налаштування";
+"import_settings" = "Імпортувати налаштування";
+"allow_copying_individual" = "Дозволити копіювання кожної окремої властивості";
+"allow_copying_individual_description" = "Дозволяє копіювати окремі властивості пристрою, такі як назва, виробник та інші.";
