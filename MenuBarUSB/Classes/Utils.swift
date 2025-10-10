@@ -33,4 +33,14 @@ final class Utils {
         performer.perform(.generic, performanceTime: .now)
     }
     
+    static func isVersion(_ v1: String, olderThan v2: String) -> Bool {
+        let v1Components = v1.split(separator: ".").compactMap { Int($0) }
+        let v2Components = v2.split(separator: ".").compactMap { Int($0) }
+        for (a, b) in zip(v1Components, v2Components) {
+            if a < b { return true }
+            if a > b { return false }
+        }
+        return v1Components.count < v2Components.count
+    }
+    
 }

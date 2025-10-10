@@ -19,7 +19,13 @@ struct DonateView: View {
     private let btcAddress = "bc1qvluxh224489mt6svp23kr0u8y2upn009pa546t"
     private let ltcAddress = "ltc1qz42uw4plam83f2sud2rckzewvdwm9vs4rfazl5"
     
-    struct QRCodeView: View {
+    private func copyToClipboard(_ text: String) {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(text, forType: .string)
+    }
+    
+    private struct QRCodeView: View {
         let text: String
         
         var body: some View {
@@ -163,11 +169,5 @@ struct DonateView: View {
         }
         .padding(10)
         .frame(minWidth: 465, minHeight: 600)
-    }
-    
-    private func copyToClipboard(_ text: String) {
-        let pasteboard = NSPasteboard.general
-        pasteboard.clearContents()
-        pasteboard.setString(text, forType: .string)
     }
 }

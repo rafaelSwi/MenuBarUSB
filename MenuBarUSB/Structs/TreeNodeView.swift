@@ -36,7 +36,7 @@ struct TreeNodeView: View {
                     .frame(width: CGFloat(level) * 10, height: 1)
                     .opacity(level > 0 ? 0.5 : 0)
                 
-                if let device = manager.devices.first(where: { USBDevice.uniqueId($0) == deviceId }) {
+                if let device = manager.deviceIDs.first(where: { USBDevice.uniqueId($0) == deviceId }) {
                     Text(renamedDevices.first(where: { $0.deviceId == deviceId })?.name ?? device.name)
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.primary)

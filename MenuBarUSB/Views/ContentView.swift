@@ -45,7 +45,7 @@ struct ContentView: View {
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     @CodableAppStorage(StorageKeys.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
     
-    func windowHeight(longList: Bool, compactList: Bool) -> CGFloat? {
+    private func windowHeight(longList: Bool, compactList: Bool) -> CGFloat? {
         if (manager.devices.isEmpty) {
             return nil
         }
@@ -65,7 +65,7 @@ struct ContentView: View {
         return sum >= max ? max : sum
     }
     
-    func sortedDevices() -> [USBDevice] {
+    private func sortedDevices() -> [USBDevice] {
         var sorted: [USBDevice] = []
         var visited: Set<String> = []
         
@@ -105,7 +105,7 @@ struct ContentView: View {
         return sorted
     }
     
-    func indentLevel(for device: USBDevice) -> CGFloat {
+    private func indentLevel(for device: USBDevice) -> CGFloat {
         if (isRenamingDeviceId == USBDevice.uniqueId(device)) {
             return 0;
         }
@@ -127,7 +127,7 @@ struct ContentView: View {
         return CGFloat(level) * multiply
     }
     
-    func goToSettings() {
+    private func goToSettings() {
         if (manager.trafficMonitorRunning) {
             manager.stopEthernetMonitoring()
         }
@@ -138,7 +138,7 @@ struct ContentView: View {
         }
     }
     
-    func showEyeSlash() -> Bool {
+    private func showEyeSlash() -> Bool {
         if (noTextButtons) {
             return true;
         } else {
@@ -178,8 +178,12 @@ struct ContentView: View {
         return !camouflagedIndicator && trafficButtonLabel
     }
     
+    private var trafficMonitorOn: Bool {
+        return showEthernet && internetMonitoring
+    }
+    
 
-    func compactStringInformation(_ usb: USBDevice) -> String {
+    private func compactStringInformation(_ usb: USBDevice) -> String {
         var parts: [String] = []
         
         if !usb.name.isEmpty {
@@ -218,21 +222,21 @@ struct ContentView: View {
         return parts.joined(separator: "\n")
     }
     
-    func showSecondaryInfo(for device: USBDevice) -> Bool {
+    private func showSecondaryInfo(for device: USBDevice) -> Bool {
         if devicesShowingMore.contains(device) { return true }
         if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
         if !hideSecondaryInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
     }
     
-    func showTechInfo(for device: USBDevice) -> Bool {
+    private func showTechInfo(for device: USBDevice) -> Bool {
         if devicesShowingMore.contains(device) { return true }
         if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
         if !hideTechInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
     }
     
-    func searchOnWeb(_ search: String) {
+    private func searchOnWeb(_ search: String) {
         guard let query = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "\(searchEngine.searchURL)\(query)") else {
             return
@@ -578,7 +582,7 @@ struct ContentView: View {
                         Label("open_profiler", systemImage: "info.circle")
                     }
                     
-                    if (showEthernet && internetMonitoring) {
+                    if (trafficMonitorOn) {
                         
                         Divider()
                         
@@ -620,7 +624,7 @@ struct ContentView: View {
                     }
                 }
                 
-                Button(role: .destructive) {
+                Button {
                     NSApp.terminate(nil)
                 } label: {
                     mainButtonLabel("exit", "power")

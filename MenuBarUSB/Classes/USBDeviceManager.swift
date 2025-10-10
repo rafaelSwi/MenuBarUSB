@@ -7,7 +7,7 @@ import UserNotifications
 import SystemConfiguration
 
 final class USBDeviceManager: ObservableObject {
-    @Published private(set) var devices: [USBDevice] = []
+    @Published private(set) var deviceIDs: [UUID] = []
     @Published var connectedCamouflagedDevices: Int = 0
     @Published var ethernet: Bool = false
     @Published var ethernetTraffic: Bool = false
@@ -18,6 +18,8 @@ final class USBDeviceManager: ObservableObject {
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
     private var removedIterator: io_iterator_t = 0
+    
+    //private var devices: [UnsafePointer<USBDevice>] = []
     
     @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     @AppStorage(StorageKeys.showNotifications) private var showNotifications = false
@@ -87,16 +89,16 @@ final class USBDeviceManager: ObservableObject {
     func refresh() {
         DispatchQueue.global(qos: .userInitiated).async {
             let snapshot = self.fetchUSBDevices()
-            let uniqueDevices = Set(snapshot)
+            let uniqueDevices = Set<UnsafePointer<USBDevice>>(snapshot)
             
             // UPDATE LIST
-            let filteredDevices = uniqueDevices.filter { dev in
-                self.camouflagedDevices.first { $0.deviceId == USBDevice.uniqueId(dev) } == nil
+            let filteredDevices = uniqueDevices.filter { ptr in
+                self.camouflagedDevices.first { $0.deviceId == USBDevice.uniqueId(ptr) } == nil
             }
             
             // HOW MANY HIDDEN DEVICES
-            let camouflagedCount = uniqueDevices.filter { dev in
-                self.camouflagedDevices.contains { $0.deviceId == USBDevice.uniqueId(dev) }
+            let camouflagedCount = uniqueDevices.filter { ptr in
+                self.camouflagedDevices.contains { $0.deviceId == USBDevice.uniqueId(ptr) }
             }.count
             
             DispatchQueue.main.async {
@@ -152,14 +154,14 @@ final class USBDeviceManager: ObservableObject {
         return result
     }
     
-    private func fetchUSBDevices() -> [USBDevice] {
-        var result: [USBDevice] = []
+    private func fetchUSBDevices() -> [UnsafePointer<USBDevice>] {
+        var result: [UnsafePointer<USBDevice>] = []
         var seenDeviceIds = Set<String>()
         
         func addUniqueDevices(from name: String) {
             let devices = fetchMatchingDevices(name: name)
             for device in devices {
-                let deviceId = USBDevice.uniqueId(device)
+                let deviceId = USBDevice.uniqueId(device.pointee)
                 if !seenDeviceIds.contains(deviceId) {
                     result.append(device)
                     seenDeviceIds.insert(deviceId)
@@ -173,8 +175,8 @@ final class USBDeviceManager: ObservableObject {
         return result
     }
     
-    private func fetchMatchingDevices(name: String) -> [USBDevice] {
-        var result: [USBDevice] = []
+    private func fetchMatchingDevices(name: String) -> [UnsafePointer<USBDevice>] {
+        var result: [UnsafePointer<USBDevice>] = []
         let matching = IOServiceMatching(name)
         
         var iterator: io_iterator_t = 0
@@ -184,7 +186,9 @@ final class USBDeviceManager: ObservableObject {
         
         while case let entry = IOIteratorNext(iterator), entry != 0 {
             if let dev = makeDevice(from: entry) {
-                result.append(dev)
+                let ptr = UnsafeMutablePointer<USBDevice>.allocate(capacity: 1)
+                ptr.initialize(to: dev)
+                result.append(ptr)
             }
             IOObjectRelease(entry)
         }

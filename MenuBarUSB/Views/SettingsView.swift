@@ -118,6 +118,37 @@ struct SettingsView: View {
         }
     }
     
+    private func checkForUpdate() {
+        
+        checkingUpdate = true
+        updateAvailable = false
+        latestVersion = ""
+        releaseURL = nil
+        
+        guard let url = URL(string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest") else {
+            checkingUpdate = false
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            defer { checkingUpdate = false }
+            guard let data = data, error == nil else { return }
+            
+            if let release = try? JSONDecoder().decode(GitHubRelease.self, from: data) {
+                let latest = release.tag_name.replacingOccurrences(of: "v", with: "")
+                latestVersion = latest
+                releaseURL = URL(string: release.html_url)
+                
+                DispatchQueue.main.async {
+                    updateAvailable = Utils.isVersion(appVersion, olderThan: latest)
+                    if let sound = NSSound(named: NSSound.Name(updateAvailable ? "Submarine" : "Glass")) {
+                        sound.play()
+                    }
+                }
+            }
+        }.resume()
+    }
+    
     func getIcons() -> [String] {
         var icons: [String] = [
             "cable.connector",
@@ -944,43 +975,4 @@ struct SettingsView: View {
         .appBackground(reduceTransparency)
     }
     
-    private func checkForUpdate() {
-        checkingUpdate = true
-        updateAvailable = false
-        latestVersion = ""
-        releaseURL = nil
-        
-        guard let url = URL(string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest") else {
-            checkingUpdate = false
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            defer { checkingUpdate = false }
-            guard let data = data, error == nil else { return }
-            
-            if let release = try? JSONDecoder().decode(GitHubRelease.self, from: data) {
-                let latest = release.tag_name.replacingOccurrences(of: "v", with: "")
-                latestVersion = latest
-                releaseURL = URL(string: release.html_url)
-                
-                DispatchQueue.main.async {
-                    updateAvailable = isVersion(appVersion, olderThan: latest)
-                    if let sound = NSSound(named: NSSound.Name(updateAvailable ? "Submarine" : "Glass")) {
-                        sound.play()
-                    }
-                }
-            }
-        }.resume()
-    }
-    
-    private func isVersion(_ v1: String, olderThan v2: String) -> Bool {
-        let v1Components = v1.split(separator: ".").compactMap { Int($0) }
-        let v2Components = v2.split(separator: ".").compactMap { Int($0) }
-        for (a, b) in zip(v1Components, v2Components) {
-            if a < b { return true }
-            if a > b { return false }
-        }
-        return v1Components.count < v2Components.count
-    }
 }

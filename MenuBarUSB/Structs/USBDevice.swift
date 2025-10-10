@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct USBDevice: Identifiable, Hashable {
+struct USBDevice: ~Copyable {
     let id = UUID()
     let name: String
     let vendor: String?
@@ -70,31 +70,29 @@ struct USBDevice: Identifiable, Hashable {
             return "\(mbps) Mbps"
         }
     }
+    
+    static func speedDescription(_ device: borrowing USBDevice) -> String {
+        guard let devMbps = device.speedMbps else {
+            return String(localized: "unknown_speed")
+        }
+        var parts: [String] = [USBDevice.speedTierLabel(for: devMbps)]
+
+        if let port = device.portMaxSpeedMbps {
+            if devMbps < port {
+                parts.append("— \(String(localized: "supports_up_to")) \(device.prettyMbps(port))")
+            } else {
+                parts.append("— \(String(localized: "supports")) \(device.prettyMbps(port))")
+            }
+        }
+        return parts.joined(separator: " ")
+    }
 
     private func prettyMbps(_ mbps: Int) -> String {
         mbps >= 1000 ? String(format: "%.1f Gbps", Double(mbps)/1000.0) : "\(mbps) Mbps"
     }
     
-    static func uniqueId(_ device: USBDevice) -> String {
-        return "\(device.vendorId)-\(device.productId)-\(String(describing: device.locationId))";
+    static func uniqueId(_ ptr: UnsafePointer<USBDevice>) -> String {
+        return "\(ptr.pointee.vendorId)-\(ptr.pointee.productId)-\(String(describing: ptr.pointee.locationId))";
     }
 
-}
-
-extension USBDevice {
-    var speedDescription: String {
-        guard let devMbps = speedMbps else {
-            return String(localized: "unknown_speed")
-        }
-        var parts: [String] = [USBDevice.speedTierLabel(for: devMbps)]
-
-        if let port = (self as USBDevice).portMaxSpeedMbps {
-            if devMbps < port {
-                parts.append("— \(String(localized: "supports_up_to")) \(prettyMbps(port))")
-            } else {
-                parts.append("— \(String(localized: "supports")) \(prettyMbps(port))")
-            }
-        }
-        return parts.joined(separator: " ")
-    }
 }
