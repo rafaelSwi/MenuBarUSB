@@ -31,9 +31,9 @@ struct SettingsView: View {
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
 
-    @State private var categoryTitle: LocalizedStringKey?
+    @State private var categoryTitle: LocalizedStringKey? = "systemCategory"
 
-    @State private var showSystemOptions = false
+    @State private var showSystemOptions = true
     @State private var showIconOptions = false
     @State private var showInterfaceOptions = false
     @State private var showInfoOptions = false
@@ -299,12 +299,16 @@ struct SettingsView: View {
 
             if isTrafficMonitoringPausedForSettings {
                 HStack {
-                    Image(systemName: "pause.fill")
+                    Image(systemName: "network.slash")
                     Text("traffic_monitor_inactive_settings")
                         .font(.footnote)
-                        .fontWeight(.bold)
+                        //.fontWeight(.bold)
                 }
-                .foregroundStyle(Color("Warning"))
+                .foregroundStyle(.white)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 6)
+                .background(Color.black.opacity(0.7))
+                .cornerRadius(5)
             } else {
                 Divider()
             }
@@ -399,7 +403,6 @@ struct SettingsView: View {
                         binding: $newVersionNotification,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        disabled: showNotifications == false,
                         onToggle: { _ in }
                     )
                 }

@@ -186,7 +186,7 @@
 "stop_traffic_monitor" = "Interrompi monitoraggio del traffico";
 "paused" = "In pausa";
 "running" = "In esecuzione";
-"traffic_monitor_inactive_settings" = "Il monitoraggio del traffico è in pausa durante la visualizzazione delle impostazioni";
+"traffic_monitor_inactive_settings" = "Monitoraggio della rete temporaneamente sospeso";
 "hide_traffic_side_label" = "Nascondi testo di stato";
 "show_traffic_side_label" = "Mostra testo di stato";
 "stop_resume" = "Interrompi/riprendi";

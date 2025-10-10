@@ -63,7 +63,7 @@
 "usb_detected_info" = "Wykryto nowe urządzenie USB.";
 "usb_disconnected" = "USB odłączone";
 "usb_disconnected_info" = "Urządzenie USB zostało odłączone.";
-"show_notification" = "Pokaż powiadomienia";
+"show_notification" = "Pokaż powiadomienia urządzenia";
 "show_notification_description" = "Gdy urządzenie USB zostanie podłączone lub odłączone, pojawi się powiadomienie.\nMusisz zezwolić aplikacji na wysyłanie powiadomień, a w zależności od wersji macOS może być konieczna zmiana Alert Style powiadomień.\nPowiadomienia są opóźnione o krótki czas, aby uniknąć spamu.";
 "reduce_transparency" = "Zredukuj przezroczystość";
 "reduce_transparency_description" = "Zmniejsz przezroczystość, aby poprawić czytelność tekstu.";
@@ -186,7 +186,7 @@
 "stop_traffic_monitor" = "Zatrzymaj monitorowanie ruchu";
 "paused" = "Wstrzymano";
 "running" = "Działa";
-"traffic_monitor_inactive_settings" = "Monitorowanie ruchu jest wstrzymane w trakcie korzystania z ustawień";
+"traffic_monitor_inactive_settings" = "Monitorowanie sieci zostało tymczasowo wstrzymane";
 "hide_traffic_side_label" = "Ukryj tekst statusu";
 "show_traffic_side_label" = "Pokaż tekst statusu";
 "stop_resume" = "Zatrzymaj/wznów";

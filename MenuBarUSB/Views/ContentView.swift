@@ -562,25 +562,23 @@ struct ContentView: View {
                 }
 
                 if trafficButton {
-                    if showTrafficButtonLabel {
-                        if manager.trafficMonitorRunning {
-                            Label("running", systemImage: "arrow.up.arrow.down")
-                                .font(.footnote)
-                                .opacity(0.5)
-                        } else {
-                            Label("paused", systemImage: "pause")
-                                .font(.footnote)
-                                .opacity(0.5)
-                                .help("required_ethernet_to_monitor_traffic")
-                        }
-                    }
 
                     Button {
                         toggleTrafficMonitoring()
                     } label: {
-                        Image(systemName: manager.trafficMonitorRunning ? "pause.fill" : "play.fill")
+                        if (showTrafficButtonLabel) {
+                            Label(
+                                manager.trafficMonitorRunning ? "running" : "paused",
+                                systemImage: manager.trafficMonitorRunning ? "waveform.badge.magnifyingglass" : "stop.fill"
+                            )
+                        } else {
+                            Image(systemName: manager.trafficMonitorRunning ? "waveform.badge.magnifyingglass" : "stop.fill")
+                        }
                     }
                     .contextMenu {
+                        
+                        Text(manager.trafficMonitorRunning ? "running" : "paused")
+                        
                         Button {
                             toggleTrafficMonitoring()
                         } label: {
@@ -589,12 +587,6 @@ struct ContentView: View {
                         .disabled(noEthernetCableAndNoMonitoring)
 
                         Divider()
-
-                        Button {
-                            trafficButton = false
-                        } label: {
-                            Label("hide", systemImage: "eye.slash")
-                        }
 
                         Button {
                             disableTrafficButtonLabel = !disableTrafficButtonLabel
@@ -606,6 +598,15 @@ struct ContentView: View {
                             }
                         }
                         .disabled(camouflagedIndicator)
+                        
+                        Divider()
+                        
+                        Button {
+                            trafficButton = false
+                        } label: {
+                            Label("hide", systemImage: "eye.slash")
+                        }
+                        
                     }
                 }
 

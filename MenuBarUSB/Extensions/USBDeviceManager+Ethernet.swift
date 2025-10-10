@@ -54,6 +54,7 @@ extension USBDeviceManager {
     func stopEthernetMonitoring() {
         ethernetTimer?.invalidate()
         ethernetTimer = nil
+        ethernetTraffic = false
         trafficMonitorRunning = false
     }
 
@@ -73,6 +74,12 @@ extension USBDeviceManager {
 
     private func updateEthernetTraffic() {
         trafficMonitorRunning = true
+        
+        if (isEthernetConnected() == false) {
+            trafficMonitorRunning = false
+            return
+        }
+        
         var trafficDetected = false
         var ifaddrPtr: UnsafeMutablePointer<ifaddrs>? = nil
         guard getifaddrs(&ifaddrPtr) == 0, let firstAddr = ifaddrPtr else { return }
@@ -108,7 +115,7 @@ extension USBDeviceManager {
                     trafficDetected = true
                     lastTrafficDetected = Date()
                 }
-
+                
                 print("Interface: \(name)")
                 print("Received: \(currentIn) bytes, Sent: \(currentOut) bytes")
                 print("Delta In: \(deltaIn), Delta Out: \(deltaOut)")

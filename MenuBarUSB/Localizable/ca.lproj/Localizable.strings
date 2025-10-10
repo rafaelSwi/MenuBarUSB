@@ -63,7 +63,7 @@
 "usb_detected_info" = "S'ha detectat un nou dispositiu USB.";
 "usb_disconnected" = "USB desconnectat";
 "usb_disconnected_info" = "S'ha desconnectat un dispositiu USB.";
-"show_notification" = "Mostra notificacions";
+"show_notification" = "Mostra les notificacions del dispositiu";
 "show_notification_description" = "Quan es connecta o desconnecta un dispositiu USB, apareix una notificació.\nNecessites permetre que l'aplicació enviï notificacions, i depenent de la versió del macOS, potser hauràs de canviar l’Estil d’alerta per a les notificacions.";
 "reduce_transparency" = "Redueix la transparència";
 "reduce_transparency_description" = "Redueix la transparència per millorar la visibilitat del text.";

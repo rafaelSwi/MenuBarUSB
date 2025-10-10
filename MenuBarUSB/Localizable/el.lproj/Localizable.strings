@@ -63,7 +63,7 @@
 "usb_detected_info" = "Ένας νέος δίσκος USB ανιχνεύτηκε.";
 "usb_disconnected" = "USB αποσυνδέθηκε";
 "usb_disconnected_info" = "Ένας δίσκος USB αποσυνδέθηκε.";
-"show_notification" = "Εμφάνιση ειδοποιήσεων";
+"show_notification" = "Εμφάνιση ειδοποιήσεων συσκευής";
 "show_notification_description" = "Όταν εισάγεται ή αφαιρείται μια συσκευή USB, εμφανίζεται ειδοποίηση.\nΠρέπει να επιτρέψεις στην εφαρμογή να στέλνει ειδοποιήσεις. Ανάλογα με την έκδοση macOS, ίσως χρειαστεί να αλλάξεις το Στυλ ειδοποιήσεων (Alert Style).";
 "reduce_transparency" = "Μείωση διαφάνειας";
 "reduce_transparency_description" = "Μειώστε τη διαφάνεια για καλύτερη ορατότητα του κειμένου";

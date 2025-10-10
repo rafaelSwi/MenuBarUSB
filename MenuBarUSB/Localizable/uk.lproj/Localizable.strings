@@ -63,7 +63,7 @@
 "usb_detected_info" = "Виявлено новий USB-пристрій.";
 "usb_disconnected" = "USB відключено";
 "usb_disconnected_info" = "USB-пристрій було відключено.";
-"show_notification" = "Показувати сповіщення";
+"show_notification" = "Показывать уведомления устройства";
 "show_notification_description" = "Коли USB-пристрій підключається або відключається, з’являється сповіщення.\nПотрібно дозволити додатку надсилати сповіщення, а залежно від версії macOS, можливо, потрібно буде змінити Alert Style сповіщень.";
 "reduce_transparency" = "Зменшити прозорість";
 "reduce_transparency_description" = "Зменште прозорість, щоб покращити видимість тексту.";

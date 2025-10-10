@@ -63,7 +63,7 @@
 "usb_detected_info" = "Ein neues USB‑Gerät wurde erkannt.";
 "usb_disconnected" = "USB getrennt";
 "usb_disconnected_info" = "Ein USB‑Gerät wurde getrennt.";
-"show_notification" = "Benachrichtigungen anzeigen";
+"show_notification" = "Gerätebenachrichtigungen anzeigen";
 "show_notification_description" = "Wenn ein USB‑Gerät angeschlossen oder entfernt wird, erscheint eine Benachrichtigung.\nUm Spam zu vermeiden, werden zwischen den Benachrichtigungen kleine Zeitfenster angezeigt.\nDu skal muligvis ændre notifikationsstilen for at den fungerer korrekt.";
 "reduce_transparency" = "Transparenz reduzieren";
 "reduce_transparency_description" = "Reduzieren Sie die Transparenz, um die Lesbarkeit des Textes zu verbessern.";
@@ -186,7 +186,7 @@
 "stop_traffic_monitor" = "Verkehrsüberwachung stoppen";
 "paused" = "Angehalten";
 "running" = "Läuft";
-"traffic_monitor_inactive_settings" = "Die Verkehrsüberwachung ist angehalten, solange Sie sich in den Einstellungen befinden";
+"traffic_monitor_inactive_settings" = "Netzwerküberwachung vorübergehend angehalten";
 "hide_traffic_side_label" = "Statustext ausblenden";
 "show_traffic_side_label" = "Statustext anzeigen";
 "stop_resume" = "Anhalten/Fortsetzen";

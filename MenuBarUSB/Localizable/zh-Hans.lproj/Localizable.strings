@@ -63,7 +63,7 @@
 "usb_detected_info" = "已检测到新的 USB 设备。";
 "usb_disconnected" = "USB 已断开";
 "usb_disconnected_info" = "USB 设备已断开。";
-"show_notification" = "显示通知";
+"show_notification" = "显示设备通知";
 "show_notification_description" = "当插入或移除 USB 设备时，会显示通知。您需要允许应用发送通知，并且根据 macOS 版本，可能需要更改通知的 Alert Style。\n通知之间有一个小计时器，以避免垃圾邮件。";
 "reduce_transparency" = "降低透明度";
 "reduce_transparency_description" = "降低透明度以提高文字可见性";

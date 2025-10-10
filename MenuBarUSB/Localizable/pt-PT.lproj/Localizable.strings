@@ -63,7 +63,7 @@
 "usb_detected_info" = "Um novo dispositivo USB foi detetado.";
 "usb_disconnected" = "USB desligado";
 "usb_disconnected_info" = "Um dispositivo USB foi desligado.";
-"show_notification" = "Mostrar notificações";
+"show_notification" = "Mostrar notificações de dispositivos";
 "show_notification_description" = "Quando um dispositivo USB é inserido ou removido, aparece uma notificação.\nÉ necessário permitir que a app envie notificações e, dependendo da versão do macOS, poderá ser necessário alterar o Alert Style das notificações.\nÉ importante citar que existe um pequeno intervalo de 3 segundos entre notificações para evitar spam.";
 "reduce_transparency" = "Reduzir transparência";
 "reduce_transparency_description" = "Reduza a transparência para melhorar a visibilidade do texto.";
@@ -173,7 +173,7 @@
 "renamed_devices" = "Dispositivos Renomeados";
 "hidden_devices" = "Dispositivos Ocultos";
 "close" = "Fechar";
-"legacy_settings" = "Definições Legadas";
+"legacy_settings" = "Definições (Legacy)";
 "legacy_settings_description" = "Está a utilizar a versão legada do MenuBarUSB, adaptada para macOS Ventura e Sonoma.";
 "ethernetCategory" = "Ethernet";
 "ethernet_connected_icon" = "Mostrar um ícone se um cabo LAN estiver ligado";

@@ -63,7 +63,7 @@
 "usb_detected_info" = "Um novo dispositivo USB foi conectado.";
 "usb_disconnected" = "USB desconectado";
 "usb_disconnected_info" = "Um dispositivo USB foi desconectado.";
-"show_notification" = "Mostrar notificações";
+"show_notification" = "Mostrar notificações de dispositivos";
 "show_notification_description" = "Quando um dispositivo USB é inserido ou removido, uma notificação aparece.\nÉ importante observar que há um pequeno intervalo de buffer entre as notificações para evitar spam. Você precisa permitir que o app envie notificações e, dependendo da versão do macOS, talvez seja necessário alterar o \"Alert Style\".";
 "reduce_transparency" = "Reduzir transparência";
 "reduce_transparency_description" = "Diminua a transparência para melhorar a legibilidade do texto.";
@@ -186,7 +186,7 @@
 "stop_traffic_monitor" = "Parar monitoramento de rede";
 "paused" = "Pausado";
 "running" = "Monitorando";
-"traffic_monitor_inactive_settings" = "O monitoramento de rede está pausado enquanto nos ajustes";
+"traffic_monitor_inactive_settings" = "O monitoramento de rede pausado enquanto nos ajustes";
 "hide_traffic_side_label" = "Ocultar texto de status";
 "show_traffic_side_label" = "Mostrar texto de status";
 "stop_resume" = "Parar/retomar";

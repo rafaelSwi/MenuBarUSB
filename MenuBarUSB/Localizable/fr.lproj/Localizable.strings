@@ -63,7 +63,7 @@
 "usb_detected_info" = "Un nouveau périphérique USB a été détecté.";
 "usb_disconnected" = "USB déconnecté";
 "usb_disconnected_info" = "Un périphérique USB a été déconnecté.";
-"show_notification" = "Afficher les notifications";
+"show_notification" = "Afficher les notifications de l'appareil";
 "show_notification_description" = "Lorsqu’un périphérique USB est inséré ou retiré, une notification s’affiche.\nVous devez autoriser l’application à envoyer des notifications et, selon votre version de macOS, il se peut que vous deviez modifier le Style d’alerte (Alert Style) des notifications.\nLes notifications ont un petit minuteur entre elles pour éviter le spam.";
 "reduce_transparency" = "Réduire la transparence";
 "reduce_transparency_description" = "Réduisez la transparence pour améliorer la lisibilité du texte.";
