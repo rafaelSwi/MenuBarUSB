@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var isRenamingDeviceId: String = ""
     @State private var inputText: String = "";
     @State private var textFieldFocused: Bool = false
-    @State private var devicesShowingMore: [USBDevice] = []
+    @State private var devicesShowingMore: [UnsafePointer<USBDevice>] = []
     
     @Binding var currentWindow: AppWindow
     
@@ -65,8 +65,8 @@ struct ContentView: View {
         return sum >= max ? max : sum
     }
     
-    private func sortedDevices() -> [USBDevice] {
-        var sorted: [USBDevice] = []
+    private func sortedDevices() -> [UnsafePointer<USBDevice>] {
+        var sorted: [UnsafePointer<USBDevice>] = []
         var visited: Set<String> = []
         
         var childrenMap: [String: [String]] = [:]
@@ -105,7 +105,7 @@ struct ContentView: View {
         return sorted
     }
     
-    private func indentLevel(for device: USBDevice) -> CGFloat {
+    private func indentLevel(for device: UnsafePointer<USBDevice>) -> CGFloat {
         if (isRenamingDeviceId == USBDevice.uniqueId(device)) {
             return 0;
         }
@@ -183,24 +183,24 @@ struct ContentView: View {
     }
     
 
-    private func compactStringInformation(_ usb: USBDevice) -> String {
+    private func compactStringInformation(_ ptr: UnsafePointer<USBDevice>) -> String {
         var parts: [String] = []
         
-        if !usb.name.isEmpty {
-            parts.append(usb.name)
+        if !ptr.pointee.name.isEmpty {
+            parts.append(ptr.pointee.name)
         } else {
             parts.append(String(localized: "usb_device"))
         }
         
-        if let vendor = usb.vendor, !vendor.isEmpty {
+        if let vendor = ptr.pointee.vendor, !vendor.isEmpty {
             parts.append(vendor)
         }
         
-        parts.append(usb.speedDescription)
+        parts.append(USBDevice.speedDescription(ptr))
         
-        parts.append(String(format: "%04X:%04X", usb.vendorId, usb.productId))
+        parts.append(String(format: "%04X:%04X", ptr.pointee.vendorId, ptr.pointee.productId))
         
-        if let usbVer = usb.usbVersionBCD {
+        if let usbVer = ptr.pointee.usbVersionBCD {
             if let usbVersion = USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa) {
                 parts.append("\(String(localized: "usb_version")) \(usbVersion)")
             } else {
@@ -208,11 +208,11 @@ struct ContentView: View {
             }
         }
         
-        if let serial = usb.serialNumber, !serial.isEmpty {
+        if let serial = ptr.pointee.serialNumber, !serial.isEmpty {
             parts.append("\(String(localized: "serial_number")) \(serial)")
         }
         
-        if let portMax = usb.portMaxSpeedMbps {
+        if let portMax = ptr.pointee.portMaxSpeedMbps {
             let portStr = portMax >= 1000
             ? String(format: "%.1f Gbps", Double(portMax) / 1000.0)
             : "\(portMax) Mbps"
@@ -222,14 +222,14 @@ struct ContentView: View {
         return parts.joined(separator: "\n")
     }
     
-    private func showSecondaryInfo(for device: USBDevice) -> Bool {
+    private func showSecondaryInfo(for device: UnsafePointer<USBDevice>) -> Bool {
         if devicesShowingMore.contains(device) { return true }
         if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
         if !hideSecondaryInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == USBDevice.uniqueId(device)
     }
     
-    private func showTechInfo(for device: USBDevice) -> Bool {
+    private func showTechInfo(for device: UnsafePointer<USBDevice>) -> Bool {
         if devicesShowingMore.contains(device) { return true }
         if isRenamingDeviceId == USBDevice.uniqueId(device) { return false }
         if !hideTechInfo { return true }
@@ -256,9 +256,9 @@ struct ContentView: View {
                 } else {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 4) {
-                            ForEach(sortedDevices()) { dev in
-                                let uniqueId: String = USBDevice.uniqueId(dev)
-                                let indent = disableInheritanceLayout ? 0 : indentLevel(for: dev)
+                            ForEach(sortedDevices(), id: \.self) { ptr in
+                                let uniqueId: String = USBDevice.uniqueId(ptr)
+                                let indent = disableInheritanceLayout ? 0 : indentLevel(for: ptr)
                                 
                                 VStack(alignment: .leading, spacing: 2) {
                                     
@@ -281,7 +281,7 @@ struct ContentView: View {
                                             }
                                             
                                             Button("confirm") {
-                                                let uniqueId = USBDevice.uniqueId(dev)
+                                                let uniqueId = USBDevice.uniqueId(ptr)
                                                 if inputText.isEmpty {
                                                     renamedDevices.removeAll { $0.deviceId == uniqueId }
                                                 } else {
@@ -303,7 +303,7 @@ struct ContentView: View {
                                                 
                                                 textView
                                             } else {
-                                                let textView = Text(dev.name.isEmpty ? "usb_device" : dev.name)
+                                                let textView = Text(ptr.pointee.name.isEmpty ? "usb_device" : ptr.pointee.name)
                                                     .font(.system(size: 12, weight: .semibold))
                                                     .foregroundColor(.primary)
                                                 
@@ -313,8 +313,8 @@ struct ContentView: View {
                                         
                                         Spacer()
                                         
-                                        if showSecondaryInfo(for: dev) {
-                                            if let vendor = dev.vendor, !vendor.isEmpty {
+                                        if showSecondaryInfo(for: ptr) {
+                                            if let vendor = ptr.pointee.vendor, !vendor.isEmpty {
                                                 Text(vendor)
                                                     .font(.system(size: 12, weight: .semibold))
                                                     .foregroundColor(.primary)
@@ -334,15 +334,15 @@ struct ContentView: View {
                                         }
                                     }
                                     
-                                    if showTechInfo(for: dev) {
+                                    if showTechInfo(for: ptr) {
                                         HStack {
-                                            Text(dev.speedDescription)
+                                            Text(USBDevice.speedDescription(ptr))
                                                 .font(.system(size: 9))
                                                 .foregroundStyle(.secondary)
                                             Spacer()
                                             
-                                            if showSecondaryInfo(for: dev) {
-                                                Text(String(format: "%04X:%04X", dev.vendorId, dev.productId))
+                                            if showSecondaryInfo(for: ptr) {
+                                                Text(String(format: "%04X:%04X", ptr.pointee.vendorId, ptr.pointee.productId))
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                             }
@@ -351,7 +351,7 @@ struct ContentView: View {
                                         
                                         HStack {
                                             
-                                            if let usbVer = dev.usbVersionBCD {
+                                            if let usbVer = ptr.pointee.usbVersionBCD {
                                                 let usbVersion: String? = USBDevice.usbVersionLabel(from: usbVer, convertHexa: convertHexa)
                                                 Text("\(String(localized: "usb_version")) \(usbVersion ?? String(format: "0x%04X", usbVer))")
                                                     .font(.system(size: 9))
@@ -360,8 +360,8 @@ struct ContentView: View {
                                             
                                             Spacer()
                                             
-                                            if showSecondaryInfo(for: dev) {
-                                                if let serial = dev.serialNumber, !serial.isEmpty {
+                                            if showSecondaryInfo(for: ptr) {
+                                                if let serial = ptr.pointee.serialNumber, !serial.isEmpty {
                                                     Text("\(String(localized: "serial_number")) \(serial)")
                                                         .font(.system(size: 9))
                                                         .foregroundStyle(.secondary)
@@ -371,7 +371,7 @@ struct ContentView: View {
                                         .padding(.leading, indent)
                                         
                                         if showPortMax {
-                                            if let portMax = dev.portMaxSpeedMbps {
+                                            if let portMax = ptr.pointee.portMaxSpeedMbps {
                                                 Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax)/1000.0) : "\(portMax) Mbps")")
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
@@ -382,13 +382,13 @@ struct ContentView: View {
                                     
                                 }
                                 .padding(.vertical, 3)
-                                .animation(.spring(duration: 0.15), value: showSecondaryInfo(for: dev))
-                                .animation(.spring(duration: 0.15), value: showTechInfo(for: dev))
+                                .animation(.spring(duration: 0.15), value: showSecondaryInfo(for: ptr))
+                                .animation(.spring(duration: 0.15), value: showTechInfo(for: ptr))
                                 .contextMenu {
                                     
                                     Button {
                                         NSPasteboard.general.clearContents()
-                                        NSPasteboard.general.setString(compactStringInformation(dev), forType: .string)
+                                        NSPasteboard.general.setString(compactStringInformation(ptr), forType: .string)
                                     } label: {
                                         Label("copy", systemImage: "square.on.square")
                                     }
@@ -401,7 +401,7 @@ struct ContentView: View {
                                     }
                                     
                                     Button(role: .destructive) {
-                                        let uniqueId = USBDevice.uniqueId(dev)
+                                        let uniqueId = USBDevice.uniqueId(ptr)
                                         let newDevice = CamouflagedDevice(deviceId: uniqueId)
                                         camouflagedDevices.removeAll { $0.deviceId == uniqueId }
                                         camouflagedDevices.append(newDevice)
@@ -409,19 +409,19 @@ struct ContentView: View {
                                     } label: {
                                         Label("hide", systemImage: "eye.slash")
                                     }
-                                    .disabled(inheritedDevices.contains { $0.inheritsFrom == USBDevice.uniqueId(dev) })
+                                    .disabled(inheritedDevices.contains { $0.inheritsFrom == USBDevice.uniqueId(ptr) })
                                     
                                     if (!mouseHoverInfo && hideTechInfo) {
                                         Divider()
-                                        if (!devicesShowingMore.contains(dev)) {
+                                        if (!devicesShowingMore.contains(ptr)) {
                                             Button {
-                                                devicesShowingMore.append(dev)
+                                                devicesShowingMore.append(ptr)
                                             } label: {
                                                 Label("show_more", systemImage: "line.3.horizontal")
                                             }
                                         } else {
                                             Button {
-                                                devicesShowingMore.removeAll { $0 == dev }
+                                                devicesShowingMore.removeAll { $0 == ptr }
                                             } label: {
                                                 Label("show_less", systemImage: "ellipsis")
                                             }
@@ -433,24 +433,24 @@ struct ContentView: View {
                                         Divider()
                                         
                                         Button {
-                                            searchOnWeb(dev.name)
+                                            searchOnWeb(ptr.pointee.name)
                                         } label: {
                                             Label("search_name", systemImage: "globe")
                                         }
                                         
                                         Button {
-                                            let id = String(format: "%04X:%04X", dev.vendorId, dev.productId)
+                                            let id = String(format: "%04X:%04X", ptr.pointee.vendorId, ptr.pointee.productId)
                                             searchOnWeb(id)
                                         } label: {
                                             Label("search_id", systemImage: "globe")
                                         }
                                         
                                         Button {
-                                            searchOnWeb(dev.serialNumber!)
+                                            searchOnWeb(ptr.pointee.serialNumber!)
                                         } label: {
                                             Label("search_sn", systemImage: "globe")
                                         }
-                                        .disabled(dev.serialNumber == nil)
+                                        .disabled(ptr.pointee.serialNumber == nil)
                                         
                                     }
                                     

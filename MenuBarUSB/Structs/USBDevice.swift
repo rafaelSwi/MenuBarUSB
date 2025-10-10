@@ -71,17 +71,17 @@ struct USBDevice: ~Copyable {
         }
     }
     
-    static func speedDescription(_ device: borrowing USBDevice) -> String {
-        guard let devMbps = device.speedMbps else {
+    static func speedDescription(_ ptr: UnsafePointer<USBDevice>) -> String {
+        guard let devMbps = ptr.pointee.speedMbps else {
             return String(localized: "unknown_speed")
         }
         var parts: [String] = [USBDevice.speedTierLabel(for: devMbps)]
 
-        if let port = device.portMaxSpeedMbps {
+        if let port = ptr.pointee.portMaxSpeedMbps {
             if devMbps < port {
-                parts.append("— \(String(localized: "supports_up_to")) \(device.prettyMbps(port))")
+                parts.append("— \(String(localized: "supports_up_to")) \(ptr.pointee.prettyMbps(port))")
             } else {
-                parts.append("— \(String(localized: "supports")) \(device.prettyMbps(port))")
+                parts.append("— \(String(localized: "supports")) \(ptr.pointee.prettyMbps(port))")
             }
         }
         return parts.joined(separator: " ")

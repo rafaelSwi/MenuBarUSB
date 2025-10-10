@@ -31,13 +31,13 @@ struct HeritageView: View {
     
     @Binding var currentWindow: AppWindow
     
-    @State private var selectedDevice: USBDevice?
-    @State private var anotherSelectedDevice: USBDevice?
+    @State private var selectedDevice: UnsafePointer<USBDevice>?
+    @State private var anotherSelectedDevice: UnsafePointer<USBDevice>?
     
     @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(StorageKeys.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
     
-    func inheritanceStatus(for device: USBDevice) -> String {
+    func inheritanceStatus(for device: UnsafePointer<USBDevice>) -> String {
         let id = USBDevice.uniqueId(device)
         let inheritsFrom = inheritedDevices.contains { $0.deviceId == id }
         let hasHeirs = inheritedDevices.contains { $0.inheritsFrom == id }
@@ -53,7 +53,7 @@ struct HeritageView: View {
         }
     }
     
-    func canConfirmInheritance(master: USBDevice, heir: USBDevice) -> Bool {
+    func canConfirmInheritance(master: UnsafePointer<USBDevice>, heir: UnsafePointer<USBDevice>) -> Bool {
         let masterId = USBDevice.uniqueId(master)
         let heirId = USBDevice.uniqueId(heir)
         
@@ -108,9 +108,9 @@ struct HeritageView: View {
                             .font(.headline)
                         
                         Menu {
-                            ForEach(manager.devices) { device in
-                                Button(renamedDevices.first(where: { $0.deviceId == USBDevice.uniqueId(device) })?.name ?? device.name) {
-                                    selectedDevice = device
+                            ForEach(manager.devices, id: \.self) { ptr in
+                                Button(renamedDevices.first(where: { $0.deviceId == USBDevice.uniqueId(ptr) })?.name ?? ptr.pointee.name) {
+                                    selectedDevice = ptr
                                     step = .selectingRole
                                     role = .nothing
                                     anotherSelectedDevice = nil
@@ -118,7 +118,7 @@ struct HeritageView: View {
                             }
                         } label: {
                             HStack {
-                                Text(selectedDevice?.name ?? String(localized: "device"))
+                                Text(selectedDevice?.pointee.name ?? String(localized: "device"))
                             }
                             .padding(8)
                             .background(RoundedRectangle(cornerRadius: 6).stroke(.gray))
@@ -163,14 +163,14 @@ struct HeritageView: View {
                                 .font(.headline)
                             
                             Menu {
-                                ForEach(manager.devices) { device in
-                                    Button(renamedDevices.first(where: { $0.deviceId == USBDevice.uniqueId(device) })?.name ?? device.name) {
-                                        anotherSelectedDevice = device
+                                ForEach(manager.devices, id: \.self) { ptr in
+                                    Button(renamedDevices.first(where: { $0.deviceId == USBDevice.uniqueId(ptr) })?.name ?? ptr.pointee.name) {
+                                        anotherSelectedDevice = ptr
                                         step = .final
                                     }
                                 }
                             } label: {
-                                Text(anotherSelectedDevice?.name ?? String(localized: "device"))
+                                Text(anotherSelectedDevice?.pointee.name ?? String(localized: "device"))
                                 .padding(8)
                                 .background(RoundedRectangle(cornerRadius: 6).stroke(.gray))
                             }

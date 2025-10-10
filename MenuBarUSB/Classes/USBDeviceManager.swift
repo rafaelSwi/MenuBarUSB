@@ -7,7 +7,7 @@ import UserNotifications
 import SystemConfiguration
 
 final class USBDeviceManager: ObservableObject {
-    @Published private(set) var deviceIDs: [UUID] = []
+    @Published private(set) var devices: [UnsafePointer<USBDevice>] = []
     @Published var connectedCamouflagedDevices: Int = 0
     @Published var ethernet: Bool = false
     @Published var ethernetTraffic: Bool = false
@@ -87,29 +87,43 @@ final class USBDeviceManager: ObservableObject {
     }
     
     func refresh() {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async(execute: DispatchWorkItem {
             let snapshot = self.fetchUSBDevices()
-            let uniqueDevices = Set<UnsafePointer<USBDevice>>(snapshot)
-            
-            // UPDATE LIST
-            let filteredDevices = uniqueDevices.filter { ptr in
-                self.camouflagedDevices.first { $0.deviceId == USBDevice.uniqueId(ptr) } == nil
+
+            // Remover duplicados com base no deviceId
+            var seenIds = Set<String>()
+            var uniqueDevices: [UnsafePointer<USBDevice>] = []
+            for ptr in snapshot {
+                let id = USBDevice.uniqueId(ptr)
+                if !seenIds.contains(id) {
+                    seenIds.insert(id)
+                    uniqueDevices.append(ptr)
+                }
             }
-            
-            // HOW MANY HIDDEN DEVICES
-            let camouflagedCount = uniqueDevices.filter { ptr in
-                self.camouflagedDevices.contains { $0.deviceId == USBDevice.uniqueId(ptr) }
-            }.count
-            
-            DispatchQueue.main.async {
+
+            // Preparar listas
+            let camouflagedIds = Set(self.camouflagedDevices.map { $0.deviceId })
+            var filteredDevices: [UnsafePointer<USBDevice>] = []
+            var camouflagedCount = 0
+
+            for ptr in uniqueDevices {
+                let id = USBDevice.uniqueId(ptr)
+                if camouflagedIds.contains(id) {
+                    camouflagedCount += 1
+                } else {
+                    filteredDevices.append(ptr)
+                }
+            }
+
+            DispatchQueue.main.async(execute: DispatchWorkItem {
                 self.devices = filteredDevices.sorted(by: {
-                    ($0.vendor ?? "") < ($1.vendor ?? "") ||
-                    ($0.vendor == $1.vendor && $0.name < $1.name)
+                    ($0.pointee.vendor ?? "") < ($1.pointee.vendor ?? "") ||
+                    ($0.pointee.vendor == $1.pointee.vendor && $0.pointee.name < $1.pointee.name)
                 })
-                
+
                 self.connectedCamouflagedDevices = camouflagedCount
-            }
-            
+            })
+
             if self.showEthernet {
                 let ethernetStatus = self.isEthernetConnected()
                 DispatchQueue.main.async {
@@ -125,7 +139,7 @@ final class USBDeviceManager: ObservableObject {
                     }
                 }
             }
-        }
+        })
     }
     
     private func isExternalStorageDevice(_ entry: io_registry_entry_t) -> Bool {
@@ -161,7 +175,7 @@ final class USBDeviceManager: ObservableObject {
         func addUniqueDevices(from name: String) {
             let devices = fetchMatchingDevices(name: name)
             for device in devices {
-                let deviceId = USBDevice.uniqueId(device.pointee)
+                let deviceId = USBDevice.uniqueId(device)
                 if !seenDeviceIds.contains(deviceId) {
                     result.append(device)
                     seenDeviceIds.insert(deviceId)

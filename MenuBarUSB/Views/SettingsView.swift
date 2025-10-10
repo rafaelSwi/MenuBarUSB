@@ -20,8 +20,8 @@ struct SettingsView: View {
     @State private var showRenameDevices: Bool = false
     @State private var showCamouflagedDevices: Bool = false
     
-    @State private var selectedDeviceToCamouflage: USBDevice?;
-    @State private var selectedDeviceToRename: USBDevice?;
+    @State private var selectedDeviceToCamouflage: UnsafePointer<USBDevice>?;
+    @State private var selectedDeviceToRename: UnsafePointer<USBDevice>?;
     @State private var inputText: String = "";
     @State private var textFieldFocused: Bool = false
     @State private var activeRowID: UUID? = nil
@@ -872,15 +872,15 @@ struct SettingsView: View {
                 if showCamouflagedDevices {
                     HStack(spacing: 12) {
                         Menu {
-                            ForEach(manager.devices) { device in
-                                let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
-                                let buttonLabel = renamedDevice?.name ?? device.name
+                            ForEach(manager.devices, id: \.self) { ptr in
+                                let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(ptr) }
+                                let buttonLabel = renamedDevice?.name ?? ptr.pointee.name
                                 Button(buttonLabel) {
-                                    selectedDeviceToCamouflage = device
+                                    selectedDeviceToCamouflage = ptr
                                 }
                             }
                         } label: {
-                            Text(selectedDeviceToCamouflage?.name ?? String(localized: "device"))
+                            Text(selectedDeviceToCamouflage?.pointee.name ?? String(localized: "device"))
                         }
                         
                         if selectedDeviceToCamouflage != nil {
@@ -917,16 +917,16 @@ struct SettingsView: View {
                 if showRenameDevices {
                     HStack(spacing: 12) {
                         Menu {
-                            ForEach(manager.devices) { device in
-                                let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
-                                let buttonLabel = renamedDevice?.name ?? device.name
+                            ForEach(manager.devices, id: \.self) { ptr in
+                                let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(ptr) }
+                                let buttonLabel = renamedDevice?.name ?? ptr.pointee.name
                                 Button(buttonLabel) {
                                     inputText = ""
-                                    selectedDeviceToRename = device
+                                    selectedDeviceToRename = ptr
                                 }
                             }
                         } label: {
-                            Text(selectedDeviceToRename?.name ?? String(localized: "device"))
+                            Text(selectedDeviceToRename?.pointee.name ?? String(localized: "device"))
                         }
                         
                         if selectedDeviceToRename != nil {
