@@ -19,6 +19,11 @@ final class USBDeviceManager: ObservableObject {
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
     private var removedIterator: io_iterator_t = 0
+    
+     lazy var persistentEthernetStore: SCDynamicStore? = {
+        var context = SCDynamicStoreContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
+        return SCDynamicStoreCreate(nil, "EthernetStatus" as CFString, nil, &context)
+    }()
 
     @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     @AppStorage(Key.showNotifications) private var showNotifications = false
@@ -110,6 +115,9 @@ final class USBDeviceManager: ObservableObject {
     }
 
     private func isExternalStorageDevice(_ entry: io_registry_entry_t) -> Bool {
+        
+        return false; // TODO: NOT WORKING
+        
         var parent: io_registry_entry_t = 0
         var result = false
 

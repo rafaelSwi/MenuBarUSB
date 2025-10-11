@@ -203,3 +203,6 @@
 "import_settings" = "設定をインポート";
 "allow_copying_individual" = "個々のプロパティのコピーを許可";
 "allow_copying_individual_description" = "名前、製造元などの個々のデバイスプロパティをコピーできます。";
+"fast_traffic_monitor" = "非常に効率的な監視（高CPU使用率）";
+"fast_traffic_monitor_description" = "平均してネットワークトラフィックは2秒ごとに更新されます。このオプションを有効にすると、更新間隔が0.5秒未満に短縮され、CPU使用率が大幅に上昇します。";
+"status" = "ステータス:";

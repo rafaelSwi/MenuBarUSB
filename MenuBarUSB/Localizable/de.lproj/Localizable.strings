@@ -203,3 +203,6 @@
 "import_settings" = "Einstellungen importieren";
 "allow_copying_individual" = "Kopieren jeder einzelnen Eigenschaft zulassen";
 "allow_copying_individual_description" = "Ermöglicht das Kopieren individueller Geräteeigenschaften wie Name, Hersteller und andere.";
+"fast_traffic_monitor" = "Äußerst effiziente Überwachung (hohe CPU-Auslastung)";
+"fast_traffic_monitor_description" = "Im Durchschnitt wird der Netzwerkverkehr alle 2 Sekunden aktualisiert. Das Aktivieren dieser Option reduziert dies auf weniger als eine halbe Sekunde und erhöht die CPU-Auslastung erheblich.";
+"status" = "Status:";

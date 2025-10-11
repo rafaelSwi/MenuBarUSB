@@ -203,3 +203,6 @@
 "import_settings" = "导入设置";
 "allow_copying_individual" = "允许复制每个单独的属性";
 "allow_copying_individual_description" = "允许您复制单独的设备属性，例如名称、制造商等。";
+"fast_traffic_monitor" = "极高效的监控（高 CPU 使用率）";
+"fast_traffic_monitor_description" = "平均而言，网络流量每 2 秒更新一次。启用此选项后，更新间隔将缩短至不到半秒，从而显著增加 CPU 使用率。";
+"status" = "状态：";

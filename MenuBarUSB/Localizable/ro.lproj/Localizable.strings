@@ -203,3 +203,6 @@
 "import_settings" = "Importați setările";
 "allow_copying_individual" = "Permiteți copierea fiecărei proprietăți individuale";
 "allow_copying_individual_description" = "Vă permite să copiați proprietăți individuale ale dispozitivului, cum ar fi numele, producătorul și altele.";
+"fast_traffic_monitor" = "Monitorizare extrem de eficientă (utilizare mare a procesorului)";
+"fast_traffic_monitor_description" = "În medie, traficul de rețea se actualizează la fiecare 2 secunde. Activarea acestei opțiuni va reduce acest interval la mai puțin de o jumătate de secundă, crescând semnificativ utilizarea procesorului.";
+"status" = "Stare:";

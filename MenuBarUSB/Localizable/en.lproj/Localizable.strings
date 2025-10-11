@@ -203,3 +203,6 @@
 "import_settings" = "Import settings";
 "allow_copying_individual" = "Allow copying each individual property";
 "allow_copying_individual_description" = "Allows you to copy individual device properties, such as name, manufacturer, and others.";
+"fast_traffic_monitor" = "Extremely efficient monitoring (high CPU usage)";
+"fast_traffic_monitor_description" = "On average, network traffic updates every 2 seconds. Enabling this option will reduce this to less than half a second, causing CPU usage to increase dramatically.";
+"status" = "Status:";

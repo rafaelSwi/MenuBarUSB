@@ -203,3 +203,6 @@
 "import_settings" = "Importer indstillinger";
 "allow_copying_individual" = "Tillad kopiering af hver individuel egenskab";
 "allow_copying_individual_description" = "Tillader dig at kopiere individuelle enhedsegenskaber, såsom navn, producent og andre.";
+"fast_traffic_monitor" = "Ekstremt effektiv overvågning (høj CPU-brug)";
+"fast_traffic_monitor_description" = "I gennemsnit opdateres netværkstrafikken hver 2. sekund. Aktivering af denne indstilling vil reducere dette til under et halvt sekund, hvilket øger CPU-forbruget markant.";
+"status" = "Status:";

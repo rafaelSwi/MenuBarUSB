@@ -203,3 +203,6 @@
 "import_settings" = "Importar ajustes";
 "allow_copying_individual" = "Permitir copiar cada propiedad individual";
 "allow_copying_individual_description" = "Le permite copiar propiedades individuales del dispositivo, como el nombre, el fabricante y otras.";
+"fast_traffic_monitor" = "Supervisión extremadamente eficiente (alto uso de CPU)";
+"fast_traffic_monitor_description" = "En promedio, el tráfico de red se actualiza cada 2 segundos. Habilitar esta opción reducirá esto a menos de medio segundo, aumentando considerablemente el uso de la CPU.";
+"status" = "Estado:";

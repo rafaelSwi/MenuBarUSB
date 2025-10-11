@@ -43,4 +43,5 @@ enum Key {
     static let disableTrafficButtonLabel = "disableTrafficButtonLabel"
     static let newVersionNotification = "newVersionNotification"
     static let contextMenuCopyAll = "contextMenuCopyAll"
+    static let fastMonitor = "fastMonitor"
 }

@@ -203,3 +203,6 @@
 "import_settings" = "Ayarları içe aktar";
 "allow_copying_individual" = "Her bir özelliğin kopyalanmasına izin ver";
 "allow_copying_individual_description" = "Ad, üretici ve diğerleri gibi bireysel cihaz özelliklerini kopyalamanıza olanak tanır.";
+"fast_traffic_monitor" = "Son derece verimli izleme (yüksek CPU kullanımı)";
+"fast_traffic_monitor_description" = "Ortalama olarak ağ trafiği her 2 saniyede bir güncellenir. Bu seçeneği etkinleştirmek, süreyi yarım saniyeden azına düşürür ve CPU kullanımını önemli ölçüde artırır.";
+"status" = "Durum:";

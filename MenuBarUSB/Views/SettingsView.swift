@@ -10,29 +10,30 @@ import ServiceManagement
 import SwiftUI
 
 struct SettingsView: View {
+    
     @Environment(\.openURL) var openURL
     @EnvironmentObject var manager: USBDeviceManager
-
+    
     @Binding var currentWindow: AppWindow
-
+    
     @State private var showMessage: Bool = false
     @State private var showRenameDevices: Bool = false
     @State private var showCamouflagedDevices: Bool = false
-
+    
     @State private var selectedDeviceToCamouflage: USBDeviceWrapper?
     @State private var selectedDeviceToRename: USBDeviceWrapper?
     @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
     @State private var activeRowID: UUID? = nil
-
+    
     @State private var tryingToResetSettings = false
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
-
+    
     @State private var categoryTitle: LocalizedStringKey? = "systemCategory"
-
+    
     @State private var showSystemOptions = true
     @State private var showIconOptions = false
     @State private var showInterfaceOptions = false
@@ -41,7 +42,7 @@ struct SettingsView: View {
     @State private var showContextMenuOptions = false
     @State private var showEthernetOptions = false
     @State private var showOthersOptions = false
-
+    
     @AppStorage(Key.launchAtLogin) private var launchAtLogin = false
     @AppStorage(Key.convertHexa) private var convertHexa = false
     @AppStorage(Key.longList) private var longList = false
@@ -74,13 +75,14 @@ struct SettingsView: View {
     @AppStorage(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
     @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
     @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
+    @AppStorage(Key.fastMonitor) private var fastMonitor = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
-
+    
     @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices:
-        [CamouflagedDevice] = []
+    [CamouflagedDevice] = []
     @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices:
-        [HeritageDevice] = []
+    [HeritageDevice] = []
 
     private func checkForUpdate() {
         checkingUpdate = true
@@ -171,7 +173,7 @@ struct SettingsView: View {
         return internetMonitoring && !manager.trafficMonitorRunning && manager.ethernetCableConnected
     }
 
-    func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey, _ systemImage: String) -> some View {
+    func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey, _ image: String) -> some View {
         let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
 
         return HStack {
@@ -184,13 +186,18 @@ struct SettingsView: View {
                         categoryTitle = nil
                     }
                 } label: {
-                    Image(systemName: systemImage)
-                        .frame(width: 17, height: 17)
+                    Image(image)
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                        .scaledToFit()
+                        .padding(2)
+                        
                         .opacity(anyBottomOptionInUse ? 0.4 : 1.0)
                 }
                 .disabled(anyBottomOptionInUse)
                 .background(toggle.wrappedValue ? Color.blue.opacity(0.25) : Color.clear)
-                .cornerRadius(10)
+                .cornerRadius(5)
                 .help(label)
             }
             Spacer()
@@ -302,13 +309,15 @@ struct SettingsView: View {
                     Image(systemName: "network.slash")
                     Text("traffic_monitor_inactive_settings")
                         .font(.footnote)
-                        //.fontWeight(.bold)
                 }
                 .foregroundStyle(.white)
                 .padding(.vertical, 4)
                 .padding(.horizontal, 6)
                 .background(Color.black.opacity(0.7))
                 .cornerRadius(5)
+                .onAppear {
+                    manager.stopEthernetMonitoring()
+                }
             } else {
                 Divider()
             }
@@ -316,15 +325,19 @@ struct SettingsView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Spacer()
-                    categoryButton(toggle: $showSystemOptions, label: "systemCategory", "gear")
-                    categoryButton(toggle: $showIconOptions, label: "icon_category", "photo.on.rectangle.angled.fill")
-                    categoryButton(toggle: $showInterfaceOptions, label: "uiCategory", "checklist.unchecked")
-                    categoryButton(toggle: $showInfoOptions, label: "usbCategory", "cable.connector")
-                    categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category", "filemenu.and.selection")
-                    categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory", "network")
-                    categoryButton(toggle: $showHeritageOptions, label: "heritageCategory", "crown.fill")
-                    categoryButton(toggle: $showOthersOptions, label: "othersCategory", "ellipsis.circle")
+                    categoryButton(toggle: $showSystemOptions, label: "systemCategory", "settings_general")
+                    categoryButton(toggle: $showIconOptions, label: "icon_category", "settings_icon")
+                    categoryButton(toggle: $showInterfaceOptions, label: "uiCategory", "settings_interface")
+                    categoryButton(toggle: $showInfoOptions, label: "usbCategory", "settings_info")
+                    categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category", "settings_contextmenu")
+                    categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory", "settings_ethernet")
+                    categoryButton(toggle: $showHeritageOptions, label: "heritageCategory", "settings_heritage")
+                    categoryButton(toggle: $showOthersOptions, label: "othersCategory", "settings_others")
                 }
+                .padding(.horizontal, 4)
+                .padding(.vertical, 8)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(5)
 
                 Text(categoryTitle ?? "")
                     .font(.title)
@@ -692,6 +705,15 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: [profilerButton, restartButton],
                         disabled: !showEthernet || !internetMonitoring,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "fast_traffic_monitor"),
+                        description: String(localized: "fast_traffic_monitor_description"),
+                        binding: $fastMonitor,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        disabled: !internetMonitoring,
                         onToggle: { _ in }
                     )
                 }

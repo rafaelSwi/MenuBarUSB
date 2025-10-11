@@ -203,3 +203,6 @@
 "import_settings" = "Importa la configuració";
 "allow_copying_individual" = "Permet copiar cada propietat individual";
 "allow_copying_individual_description" = "Et permet copiar propietats individuals del dispositiu, com ara el nom, el fabricant i d'altres.";
+"fast_traffic_monitor" = "Supervisió extremadament eficient (alt ús de CPU)";
+"fast_traffic_monitor_description" = "De mitjana, el trànsit de xarxa s'actualitza cada 2 segons. Activar aquesta opció reduirà aquest temps a menys de mig segon, augmentant considerablement l'ús de la CPU.";
+"status" = "Estat:";

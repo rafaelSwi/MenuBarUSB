@@ -203,3 +203,6 @@
 "import_settings" = "설정 가져오기";
 "allow_copying_individual" = "각 개별 속성 복사 허용";
 "allow_copying_individual_description" = "이름, 제조업체 등 개별 장치 속성을 복사할 수 있습니다.";
+"fast_traffic_monitor" = "매우 효율적인 모니터링 (높은 CPU 사용량)";
+"fast_traffic_monitor_description" = "평균적으로 네트워크 트래픽은 2초마다 업데이트됩니다. 이 옵션을 활성화하면 업데이트 주기가 0.5초 미만으로 줄어들어 CPU 사용량이 크게 증가합니다.";
+"status" = "상태:";

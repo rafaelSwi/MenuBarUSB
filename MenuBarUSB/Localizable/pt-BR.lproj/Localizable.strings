@@ -181,7 +181,7 @@
 "internet_monitoring_icon" = "Indicador de tráfego de rede";
 "internet_monitoring_icon_description" = "O icone indicador de cabo ethernet ficará piscando sempre que houver detectcão de trafego de rede via cabo.";
 "stop_traffic_monitor_button" = "Botão para iniciar/retomar o monitoramento de rede";
-"stop_traffic_monitor_button_description" = "Adiciona um botão dedicado para iniciar/retomar o monitoramento de tráfego de rede.";
+"stop_traffic_monitor_button_description" = "Adiciona um botão dedicado para parar/retomar o monitoramento de tráfego de rede.";
 "resume_traffic_monitor" = "Retomar monitoramento de rede";
 "stop_traffic_monitor" = "Parar monitoramento de rede";
 "paused" = "Pausado";
@@ -197,9 +197,12 @@
 "new_version_notification_description" = "Ao abrir o MenuBarUSB, você receberá uma notificação se uma nova versão estiver disponível, mas ela não será baixada automaticamente.";
 "update_notification_title" = "Atualização";
 "update_notification_body" = "Nova atualização disponível.";
-"stop_traffic_monitor_button_disable_status" = "Desabilitar texto de status do botão parar/retormar";
+"stop_traffic_monitor_button_disable_status" = "Desabilitar texto de status do botão parar/retomar";
 "stop_traffic_monitor_button_disable_status_description" = "Ao lado do botão, há um texto informando se o tráfego de rede está sendo monitorado ou não.";
 "export_settings" = "Exportar configurações";
 "import_settings" = "Importar configurações";
 "allow_copying_individual" = "Permitir copiar cada propriedade individual";
 "allow_copying_individual_description" = "Permite copiar propriedades individuais do dispositivo, como nome, fabricante e outros.";
+"fast_traffic_monitor" = "Monitoramento eficiente (alto uso de CPU)";
+"fast_traffic_monitor_description" = "Em média, o tráfego de rede é atualizado a cada 2 segundos. Ativar esta opção reduzirá esse tempo para menos de meio segundo, aumentando significativamente o uso da CPU.";
+"status" = "Status:";

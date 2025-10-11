@@ -569,15 +569,17 @@ struct ContentView: View {
                         if (showTrafficButtonLabel) {
                             Label(
                                 manager.trafficMonitorRunning ? "running" : "paused",
-                                systemImage: manager.trafficMonitorRunning ? "waveform.badge.magnifyingglass" : "stop.fill"
+                                systemImage: manager.trafficMonitorRunning ? "stop.fill" : "waveform.badge.magnifyingglass"
                             )
                         } else {
-                            Image(systemName: manager.trafficMonitorRunning ? "waveform.badge.magnifyingglass" : "stop.fill")
+                            Image(systemName: manager.trafficMonitorRunning ? "stop.fill" : "waveform.badge.magnifyingglass")
                         }
                     }
                     .contextMenu {
-                        
+                        Text("status")
                         Text(manager.trafficMonitorRunning ? "running" : "paused")
+                        
+                        Divider()
                         
                         Button {
                             toggleTrafficMonitoring()
