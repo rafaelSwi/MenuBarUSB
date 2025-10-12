@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "Extremely efficient monitoring (high CPU usage)";
 "fast_traffic_monitor_description" = "On average, network traffic updates every 2 seconds. Enabling this option will reduce this to less than half a second, causing CPU usage to increase dramatically.";
 "status" = "Status:";
+"exit_settings_and_resume" = "Exit settings and resume monitoring";
+"make_all_visible_again" = "Make all visible again";
+"show_previously_connected" = "Show all previously connected devices";
+"show_previously_connected_description" = "Normally, the list only displays connected devices. However, this option is useful if you want the list to continue displaying devices even after they're disconnected.";
+"stored_indicator" = "Indicator for previously connected devices";
+"stored_indicator_description" = "USB devices that have been disconnected will have a little icon before their name.";
+"disconnected" = "Disconnected";
+"delete_device_history" = "Forget all previously connected devices";

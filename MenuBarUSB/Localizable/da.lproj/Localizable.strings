@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "Ekstremt effektiv overvågning (høj CPU-brug)";
 "fast_traffic_monitor_description" = "I gennemsnit opdateres netværkstrafikken hver 2. sekund. Aktivering af denne indstilling vil reducere dette til under et halvt sekund, hvilket øger CPU-forbruget markant.";
 "status" = "Status:";
+"exit_settings_and_resume" = "Afslut indstillinger og genoptag overvågning";
+"make_all_visible_again" = "Gør alle synlige igen";
+"show_previously_connected" = "Vis alle tidligere tilsluttede enheder";
+"show_previously_connected_description" = "Normalt viser listen kun tilsluttede enheder. Men denne indstilling er nyttig, hvis du vil have listen til at fortsætte med at vise enheder, selv efter de er frakoblet.";
+"stored_indicator" = "Indikator for tidligere tilsluttede enheder";
+"stored_indicator_description" = "USB-enheder, der er blevet frakoblet, vil have et lille ikon før deres navn.";
+"disconnected" = "Frakoblet";
+"delete_device_history" = "Ryd historik over tilsluttede enheder";

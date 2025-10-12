@@ -27,7 +27,10 @@ struct MenuBarUSBApp: App {
         if newVersionNotification {
             Task {
                 if (await Utils.App.hasUpdate()) {
-                    Utils.System.sendNotification(title: "update_notification_title", body: "update_notification_body")
+                    Utils.System.sendNotification(
+                        title: String(localized: "update_notification_title"),
+                        body: String(localized: "update_notification_body")
+                    )
                 }
             }
         }
@@ -46,6 +49,9 @@ struct MenuBarUSBApp: App {
     private var menuLabel: some View {
         return HStack(spacing: 5) {
             let image = HStack(spacing: 7) {
+                if (manager.trafficMonitorRunning == false) {
+                    Image(systemName: "pause.fill")
+                }
                 Image(manager.ethernetTraffic ? "ETHERNET_DOT" : "ETHERNET")
                 Image(systemName: macBarIcon)
             }

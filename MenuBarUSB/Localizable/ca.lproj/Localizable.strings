@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "Supervisió extremadament eficient (alt ús de CPU)";
 "fast_traffic_monitor_description" = "De mitjana, el trànsit de xarxa s'actualitza cada 2 segons. Activar aquesta opció reduirà aquest temps a menys de mig segon, augmentant considerablement l'ús de la CPU.";
 "status" = "Estat:";
+"exit_settings_and_resume" = "Sortir dels paràmetres i reprendre el monitoratge";
+"make_all_visible_again" = "Fer tot visible de nou";
+"show_previously_connected" = "Mostrar tots els dispositius connectats prèviament";
+"show_previously_connected_description" = "Normalment, la llista només mostra els dispositius connectats. Tanmateix, aquesta opció és útil si voleu que la llista continuï mostrant dispositius fins i tot després que estiguin desconnectats.";
+"stored_indicator" = "Indicador per a dispositius connectats prèviament";
+"stored_indicator_description" = "Els dispositius USB que s'han desconnectat tindran una icona petita abans del seu nom.";
+"disconnected" = "Desconnectat";
+"delete_device_history" = "Esborrar l’historial de dispositius connectats";

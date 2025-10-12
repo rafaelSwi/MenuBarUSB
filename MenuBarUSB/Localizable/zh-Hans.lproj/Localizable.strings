@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "极高效的监控（高 CPU 使用率）";
 "fast_traffic_monitor_description" = "平均而言，网络流量每 2 秒更新一次。启用此选项后，更新间隔将缩短至不到半秒，从而显著增加 CPU 使用率。";
 "status" = "状态：";
+"exit_settings_and_resume" = "退出设置并恢复监控";
+"make_all_visible_again" = "重新显示全部";
+"show_previously_connected" = "显示所有曾连接的设备";
+"show_previously_connected_description" = "通常，列表仅显示已连接的设备。但如果你希望列表在设备断开后仍继续显示设备，这个选项很有用。";
+"stored_indicator" = "先前连接设备的指示器";
+"stored_indicator_description" = "已断开连接的 USB 设备将其名称前面带有一个小图标。";
+"disconnected" = "已断开";
+"delete_device_history" = "清除已连接设备历史";

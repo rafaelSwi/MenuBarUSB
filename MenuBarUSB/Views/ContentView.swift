@@ -39,6 +39,8 @@ struct ContentView: View {
     @AppStorage(Key.trafficButton) private var trafficButton = false
     @AppStorage(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
     @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
+    @AppStorage(Key.storeDevices) private var storeDevices = false
+    @AppStorage(Key.storedIndicator) private var storedIndicator = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
 
     @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
@@ -46,7 +48,7 @@ struct ContentView: View {
     @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
 
     private func windowHeight(longList: Bool, compactList: Bool) -> CGFloat? {
-        if manager.devices.isEmpty {
+        if isTrulyEmpty {
             return nil
         }
         let baseValue: CGFloat = 200
@@ -263,11 +265,22 @@ struct ContentView: View {
         }
         openURL(url)
     }
+    
+    private var isTrulyEmpty: Bool {
+        let devicesListEmpty: Bool = manager.devices.isEmpty
+        let storedDevicesEmpty = CodableStorageManager.Stored.filteredDevices(manager.devices).isEmpty
+        
+        if (devicesListEmpty && storedDevicesEmpty) {
+            return true
+        }
+        
+        return false
+    }
 
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 6) {
-                if manager.devices.isEmpty {
+                if isTrulyEmpty {
                     ScrollView {
                         Text("no_devices_found")
                             .foregroundStyle(.secondary)
@@ -499,6 +512,54 @@ struct ContentView: View {
 
                                 Divider()
                             }
+                            if (storeDevices) {
+                                ForEach(CodableStorageManager.Stored.filteredDevices(manager.devices)) { device in
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        HStack {
+                                            if (storedIndicator) {
+                                                Image("offline")
+                                                    .renderingMode(.template)
+                                                    .resizable()
+                                                    .frame(width: 14, height: 14)
+                                                    .scaledToFit()
+                                                    .padding(3)
+                                            }
+                                            Text(device.name)
+                                                .font(.system(size: 12, weight: .semibold))
+                                                .foregroundColor(.primary)
+                                            
+                                            Spacer()
+                                        }
+                                        if (!hideTechInfo || isHoveringDeviceId == device.deviceId) {
+                                            Text("disconnected")
+                                                .font(.system(size: 9))
+                                                .foregroundStyle(.secondary)
+                                        }
+                                        
+                                        Divider()
+                                            .padding(.top, 3)
+                                    }
+                                    .opacity(0.5)
+                                    .padding(.vertical, 3)
+                                    .onHover { hovering in
+                                        if mouseHoverInfo {
+                                            if hovering {
+                                                isHoveringDeviceId = device.deviceId
+                                                Utils.System.hapticFeedback()
+                                            } else if isHoveringDeviceId == device.deviceId {
+                                                isHoveringDeviceId = ""
+                                            }
+                                        }
+                                    }
+                                    .contextMenu {
+                                        Button {
+                                            manager.refresh()
+                                        } label: {
+                                            Label("refresh", systemImage: "arrow.clockwise")
+                                        }
+                                    }
+                                }
+                            }
                         }
                         .padding(.horizontal, 4)
                     }
@@ -533,7 +594,7 @@ struct ContentView: View {
                             camouflagedDevices.removeAll()
                             manager.refresh()
                         } label: {
-                            Label("undo_all", systemImage: "trash")
+                            Label("make_all_visible_again", systemImage: "eye")
                         }
                         .disabled(camouflagedDevices.isEmpty)
                     }
@@ -576,8 +637,8 @@ struct ContentView: View {
                         }
                     }
                     .contextMenu {
-                        Text("status")
-                        Text(manager.trafficMonitorRunning ? "running" : "paused")
+                        let status =  LocalizedStringKey(manager.trafficMonitorRunning ? "running" : "paused")
+                        Text("status") + Text(" ") + Text(status)
                         
                         Divider()
                         

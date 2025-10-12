@@ -32,16 +32,7 @@ struct SettingsView: View {
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
     
-    @State private var categoryTitle: LocalizedStringKey? = "systemCategory"
-    
-    @State private var showSystemOptions = true
-    @State private var showIconOptions = false
-    @State private var showInterfaceOptions = false
-    @State private var showInfoOptions = false
-    @State private var showHeritageOptions = false
-    @State private var showContextMenuOptions = false
-    @State private var showEthernetOptions = false
-    @State private var showOthersOptions = false
+    @AppStorage(Key.settingsCategory) private var settingsCategory: SettingsCategory = .system
     
     @AppStorage(Key.launchAtLogin) private var launchAtLogin = false
     @AppStorage(Key.convertHexa) private var convertHexa = false
@@ -76,8 +67,11 @@ struct SettingsView: View {
     @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
     @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AppStorage(Key.fastMonitor) private var fastMonitor = false
+    @AppStorage(Key.storeDevices) private var storeDevices = false
+    @AppStorage(Key.storedIndicator) private var storedIndicator = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
     
+    @CodableAppStorage(Key.storedDevices) private var storedDevices: [StoredDevice] = []
     @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
     @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices:
     [CamouflagedDevice] = []
@@ -137,26 +131,6 @@ struct SettingsView: View {
         "dog.fill",
     ]
 
-    func untoggleShowOptions() {
-        showSystemOptions = false
-        showInterfaceOptions = false
-        showInfoOptions = false
-        showHeritageOptions = false
-        showOthersOptions = false
-        showIconOptions = false
-        showEthernetOptions = false
-        showContextMenuOptions = false
-    }
-
-    func manageShowOptions(binding: Binding<Bool>) {
-        if binding.wrappedValue {
-            binding.wrappedValue.toggle()
-        } else {
-            untoggleShowOptions()
-            binding.wrappedValue = true
-        }
-    }
-
     func toggleLoginItem(enabled: Bool) {
         do {
             if enabled {
@@ -171,37 +145,6 @@ struct SettingsView: View {
 
     private var isTrafficMonitoringPausedForSettings: Bool {
         return internetMonitoring && !manager.trafficMonitorRunning && manager.ethernetCableConnected
-    }
-
-    func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey, _ image: String) -> some View {
-        let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
-
-        return HStack {
-            VStack {
-                Button {
-                    manageShowOptions(binding: toggle)
-                    if toggle.wrappedValue {
-                        categoryTitle = label
-                    } else {
-                        categoryTitle = nil
-                    }
-                } label: {
-                    Image(image)
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width: 14, height: 14)
-                        .scaledToFit()
-                        .padding(2)
-                        
-                        .opacity(anyBottomOptionInUse ? 0.4 : 1.0)
-                }
-                .disabled(anyBottomOptionInUse)
-                .background(toggle.wrappedValue ? Color.blue.opacity(0.25) : Color.clear)
-                .cornerRadius(5)
-                .help(label)
-            }
-            Spacer()
-        }
     }
 
     var body: some View {
@@ -318,6 +261,14 @@ struct SettingsView: View {
                 .onAppear {
                     manager.stopEthernetMonitoring()
                 }
+                .contextMenu {
+                    Button {
+                       manager.startEthernetMonitoring()
+                        currentWindow = .devices
+                    } label: {
+                        Label("exit_settings_and_resume", systemImage: "arrow.uturn.backward")
+                    }
+                }
             } else {
                 Divider()
             }
@@ -325,25 +276,25 @@ struct SettingsView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Spacer()
-                    categoryButton(toggle: $showSystemOptions, label: "systemCategory", "settings_general")
-                    categoryButton(toggle: $showIconOptions, label: "icon_category", "settings_icon")
-                    categoryButton(toggle: $showInterfaceOptions, label: "uiCategory", "settings_interface")
-                    categoryButton(toggle: $showInfoOptions, label: "usbCategory", "settings_info")
-                    categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category", "settings_contextmenu")
-                    categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory", "settings_ethernet")
-                    categoryButton(toggle: $showHeritageOptions, label: "heritageCategory", "settings_heritage")
-                    categoryButton(toggle: $showOthersOptions, label: "othersCategory", "settings_others")
+                    CategoryButton(category: .system, label: "systemCategory", image: "settings_general", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .icon, label: "icon_category", image: "settings_icon", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .interface, label: "uiCategory", image: "settings_interface", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .usb, label: "usbCategory", image: "settings_info", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .contextMenu, label: "context_menu_category", image: "settings_contextmenu", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .ethernet, label: "ethernetCategory", image: "settings_ethernet", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .heritage, label: "heritageCategory", image: "settings_heritage", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .others, label: "othersCategory", image: "settings_others", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
                 }
                 .padding(.horizontal, 4)
                 .padding(.vertical, 8)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(5)
 
-                Text(categoryTitle ?? "")
+                Text(LocalizedStringKey(settingsCategory.rawValue))
                     .font(.title)
                     .padding(.vertical, 10)
 
-                if showSystemOptions {
+                if settingsCategory == .system {
                     ToggleRow(
                         label: String(localized: "open_on_startup"),
                         description: String(localized: "open_on_startup_description"),
@@ -420,7 +371,7 @@ struct SettingsView: View {
                     )
                 }
 
-                if showIconOptions {
+                if settingsCategory == .icon {
                     VStack(alignment: .leading, spacing: 16) {
                         ToggleRow(
                             label: String(localized: "hide_menubar_icon"),
@@ -503,7 +454,7 @@ struct SettingsView: View {
                     }
                 }
 
-                if showInterfaceOptions {
+                if settingsCategory == .interface {
                     ToggleRow(
                         label: String(localized: "hide_technical_info"),
                         description: String(localized: "hide_technical_info_description"),
@@ -542,6 +493,22 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
+                        label: String(localized: "show_previously_connected"),
+                        description: String(localized: "show_previously_connected_description"),
+                        binding: $storeDevices,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "stored_indicator"),
+                        description: String(localized: "stored_indicator_description"),
+                        binding: $storedIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
                         label: String(localized: "hidden_indicator"),
                         description: String(localized: "hidden_indicator_description"),
                         binding: $camouflagedIndicator,
@@ -559,7 +526,7 @@ struct SettingsView: View {
                     )
                 }
 
-                if showInfoOptions {
+                if settingsCategory == .usb {
                     Button {
                         showRenameDevices.toggle()
                     } label: {
@@ -618,7 +585,7 @@ struct SettingsView: View {
                     )
                 }
 
-                if showContextMenuOptions {
+                if settingsCategory == .contextMenu {
                     ToggleRow(
                         label: String(localized: "disable_context_menu_search"),
                         description: String(localized: "disable_context_menu_search_description"),
@@ -650,7 +617,7 @@ struct SettingsView: View {
                     }
                 }
 
-                if showEthernetOptions {
+                if settingsCategory == .ethernet {
                     ToggleRow(
                         label: String(localized: "ethernet_connected_icon"),
                         description: String(localized: "ethernet_connected_icon_description"),
@@ -718,7 +685,7 @@ struct SettingsView: View {
                     )
                 }
 
-                if showHeritageOptions {
+                if settingsCategory == .heritage {
                     Button {
                         currentWindow = .heritage
                     } label: {
@@ -758,7 +725,7 @@ struct SettingsView: View {
                     )
                 }
 
-                if showOthersOptions {
+                if settingsCategory == .others {
                     ToggleRow(
                         label: String(localized: "hide_check_update"),
                         description: String(localized: "hide_check_update_description"),
@@ -829,7 +796,6 @@ struct SettingsView: View {
                             Button("yes_confirm") {
                                 Utils.App.deleteStorageData()
                                 tryingToResetSettings = false
-                                showOthersOptions = false
                                 Utils.System.playSound("Bottle")
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                     Utils.App.restart()

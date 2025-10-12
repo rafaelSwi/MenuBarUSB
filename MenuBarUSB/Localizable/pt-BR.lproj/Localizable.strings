@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "Monitoramento eficiente (alto uso de CPU)";
 "fast_traffic_monitor_description" = "Em média, o tráfego de rede é atualizado a cada 2 segundos. Ativar esta opção reduzirá esse tempo para menos de meio segundo, aumentando significativamente o uso da CPU.";
 "status" = "Status:";
+"exit_settings_and_resume" = "Sair dos ajustes e retomar monitoramento de rede";
+"make_all_visible_again" = "Tornar todos visíveis novamente";
+"show_previously_connected" = "Exibir todos os dispositivos conectados previamente";
+"show_previously_connected_description" = "Normalmente, a lista exibe apenas dispositivos conectados. No entanto, esta opção é útil se você quiser que a lista continue exibindo dispositivos mesmo após desconectados.";
+"stored_indicator" = "Indicador para dispositivos previamente conectados";
+"stored_indicator_description" = "Dispositivos que foram desconectados terão um pequeno ícone ao lado do seu nome.";
+"disconnected" = "Desconectado";
+"delete_device_history" = "Limpar histórico de dispositivos";

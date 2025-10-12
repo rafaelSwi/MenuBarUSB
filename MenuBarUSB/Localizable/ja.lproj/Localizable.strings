@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "非常に効率的な監視（高CPU使用率）";
 "fast_traffic_monitor_description" = "平均してネットワークトラフィックは2秒ごとに更新されます。このオプションを有効にすると、更新間隔が0.5秒未満に短縮され、CPU使用率が大幅に上昇します。";
 "status" = "ステータス:";
+"exit_settings_and_resume" = "設定を終了して監視を再開";
+"make_all_visible_again" = "すべてを再び表示";
+"show_previously_connected" = "以前接続されたすべてのデバイスを表示";
+"show_previously_connected_description" = "通常、リストには接続されているデバイスのみが表示されます。ただし、このオプションは、切断後もデバイスを表示し続けたい場合に便利です。";
+"stored_indicator" = "以前接続されたデバイスのインジケーター";
+"stored_indicator_description" = "切断された USB デバイスには、その名前の前に小さなアイコンが表示されます。";
+"disconnected" = "切断済み";
+"delete_device_history" = "接続されたデバイスの履歴を消去";

@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "ניטור יעיל במיוחד (שימוש גבוה במעבד)";
 "fast_traffic_monitor_description" = "בממוצע, עדכון תעבורת הרשת מתבצע כל שתי שניות. הפעלת אפשרות זו תקצר את הזמן לפחות מחצי שנייה, ותגדיל באופן משמעותי את השימוש במעבד.";
 "status" = "מצב:";
+"exit_settings_and_resume" = "צא מהגדרות והמשך ניטור";
+"make_all_visible_again" = "הפוך הכל גלוי שוב";
+"show_previously_connected" = "הצג את כל המכשירים שהתחברו בעבר";
+"show_previously_connected_description" = "בדרך כלל הרשימה מציגה רק מכשירים שמחוברים כעת. עם זאת, אפשרות זו שימושית אם ברצונך כי הרשימה תמשיך להציג מכשירים גם לאחר שהם ינותקו.";
+"stored_indicator" = "מחוון למכשירים שהתחברו בעבר";
+"stored_indicator_description" = "מכשירי USB שנותקו יכללו סמל קטן לפני שמם.";
+"disconnected" = "מנותק";
+"delete_device_history" = "נקה היסטוריית מכשירים מחוברים";

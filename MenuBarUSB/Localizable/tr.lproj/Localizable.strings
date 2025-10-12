@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "Son derece verimli izleme (yüksek CPU kullanımı)";
 "fast_traffic_monitor_description" = "Ortalama olarak ağ trafiği her 2 saniyede bir güncellenir. Bu seçeneği etkinleştirmek, süreyi yarım saniyeden azına düşürür ve CPU kullanımını önemli ölçüde artırır.";
 "status" = "Durum:";
+"exit_settings_and_resume" = "Ayarları kapat ve izlemeye devam et";
+"make_all_visible_again" = "Her şeyi yeniden görünür yap";
+"show_previously_connected" = "Daha önce bağlanmış tüm cihazları göster";
+"show_previously_connected_description" = "Normalde liste yalnızca bağlı cihazları gösterir. Ancak, bu seçenek cihazlar bağlantısı kesilip de olsa listede görünmeye devam etmesini istiyorsanız faydalıdır.";
+"stored_indicator" = "Önceden bağlı cihazlar için gösterge";
+"stored_indicator_description" = "Bağlantısı kesilen USB cihazlarının isimlerinden önce küçük bir simge olacaktır.";
+"disconnected" = "Bağlantısı kesildi";
+"delete_device_history" = "Bağlı cihazların geçmişini temizle";

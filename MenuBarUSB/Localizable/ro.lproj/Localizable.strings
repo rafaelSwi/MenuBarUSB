@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "Monitorizare extrem de eficientă (utilizare mare a procesorului)";
 "fast_traffic_monitor_description" = "În medie, traficul de rețea se actualizează la fiecare 2 secunde. Activarea acestei opțiuni va reduce acest interval la mai puțin de o jumătate de secundă, crescând semnificativ utilizarea procesorului.";
 "status" = "Stare:";
+"exit_settings_and_resume" = "Ieși din setări și reia monitorizarea";
+"make_all_visible_again" = "Fă totul vizibil din nou";
+"show_previously_connected" = "Afișează toate dispozitivele conectate anterior";
+"show_previously_connected_description" = "În mod normal, lista afișează doar dispozitivele conectate. Totuși, această opțiune este utilă dacă vrei ca lista să continue să afișeze dispozitive chiar și după ce sunt deconectate.";
+"stored_indicator" = "Indicator pentru dispozitive conectate anterior";
+"stored_indicator_description" = "Dispozitive USB care au fost deconectate vor avea o mică pictogramă înaintea numelui lor.";
+"disconnected" = "Deconectat";
+"delete_device_history" = "Șterge istoricul dispozitivelor conectate";

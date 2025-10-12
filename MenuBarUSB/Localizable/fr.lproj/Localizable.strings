@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "Surveillance extrêmement efficace (forte utilisation du CPU)";
 "fast_traffic_monitor_description" = "En moyenne, le trafic réseau est mis à jour toutes les 2 secondes. Activer cette option réduira ce délai à moins d'une demi-seconde, ce qui augmentera considérablement l'utilisation du processeur.";
 "status" = "Statut :";
+"exit_settings_and_resume" = "Quitter les réglages et reprendre la surveillance";
+"make_all_visible_again" = "Rendre tout visible à nouveau";
+"show_previously_connected" = "Afficher tous les appareils précédemment connectés";
+"show_previously_connected_description" = "Normalement, la liste n’affiche que les appareils connectés. Cependant, cette option est utile si vous souhaitez que la liste continue d’afficher les appareils même après leur déconnexion.";
+"stored_indicator" = "Indicateur pour les appareils connectés précédemment";
+"stored_indicator_description" = "Les périphériques USB qui ont été déconnectés auront une petite icône avant leur nom.";
+"disconnected" = "Déconnecté";
+"delete_device_history" = "Effacer l’historique des appareils connectés";

@@ -12,6 +12,7 @@ enum Key {
     static let longList = "longList"
     static let hideTechInfo = "hideTechInfo"
     static let renamedDevices = "renamedDevices"
+    static let storedDevices = "storedDevices"
     static let inheritedDevices = "inheritedDevices"
     static let camouflagedDevices = "camouflagedDevices"
     static let renamedIndicator = "renamedIndicator"
@@ -44,4 +45,7 @@ enum Key {
     static let newVersionNotification = "newVersionNotification"
     static let contextMenuCopyAll = "contextMenuCopyAll"
     static let fastMonitor = "fastMonitor"
+    static let settingsCategory = "settingsCategory"
+    static let storeDevices = "storeDevices"
+    static let storedIndicator = "storedIndicator"
 }

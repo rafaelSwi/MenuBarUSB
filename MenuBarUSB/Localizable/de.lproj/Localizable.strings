@@ -206,3 +206,11 @@
 "fast_traffic_monitor" = "Äußerst effiziente Überwachung (hohe CPU-Auslastung)";
 "fast_traffic_monitor_description" = "Im Durchschnitt wird der Netzwerkverkehr alle 2 Sekunden aktualisiert. Das Aktivieren dieser Option reduziert dies auf weniger als eine halbe Sekunde und erhöht die CPU-Auslastung erheblich.";
 "status" = "Status:";
+"exit_settings_and_resume" = "Einstellungen verlassen und Überwachung fortsetzen";
+"make_all_visible_again" = "Alle wieder sichtbar machen";
+"show_previously_connected" = "Zeige alle zuvor verbundenen Geräte";
+"show_previously_connected_description" = "Normalerweise zeigt die Liste nur verbundene Geräte. Diese Option ist jedoch nützlich, wenn Sie möchten, dass die Liste Geräte weiterhin anzeigt, auch wenn sie getrennt wurden.";
+"stored_indicator" = "Indikator für zuvor verbundene Geräte";
+"stored_indicator_description" = "USB-Geräte, die getrennt wurden, haben ein kleines Symbol vor ihrem Namen.";
+"disconnected" = "Getrennt";
+"delete_device_history" = "Verlauf verbundener Geräte löschen";

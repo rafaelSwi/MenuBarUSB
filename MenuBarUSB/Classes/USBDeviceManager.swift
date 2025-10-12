@@ -26,10 +26,13 @@ final class USBDeviceManager: ObservableObject {
     }()
 
     @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
+    @CodableAppStorage(Key.storedDevices) private var storedDevices: [StoredDevice] = []
+    
     @AppStorage(Key.showNotifications) private var showNotifications = false
     @AppStorage(Key.disableNotifCooldown) private var disableNotifCooldown = false
     @AppStorage(Key.showEthernet) var showEthernet = false
     @AppStorage(Key.internetMonitoring) var internetMonitoring = false
+    @AppStorage(Key.storeDevices) private var storeDevices = false
 
     private var lastNotificationDate: Date = .distantPast
     private let notificationCooldown: TimeInterval = 3
@@ -176,6 +179,9 @@ final class USBDeviceManager: ObservableObject {
 
         while case let entry = IOIteratorNext(iterator), entry != 0 {
             if let dev = makeDevice(from: entry) {
+                if (storeDevices) {
+                    CodableStorageManager.Stored.add(dev)
+                }
                 result.append(dev)
             }
             IOObjectRelease(entry)
@@ -255,7 +261,7 @@ final class USBDeviceManager: ObservableObject {
         let usbVersionBCD = bcdUSBCandidates.compactMap { intValue($0) }.first
         let speedMbps = linkSpeedMbpsFromDevice ?? speedMbpsFromCode
 
-        return USBDeviceWrapper(USBDevice(
+        let wrapper = USBDeviceWrapper(USBDevice(
             name: productString ?? registryName,
             vendor: vendorString,
             vendorId: vendorId,
@@ -267,6 +273,8 @@ final class USBDeviceManager: ObservableObject {
             usbVersionBCD: usbVersionBCD,
             isExternalStorage: isExternalStorageDevice(entry)
         ))
+        
+        return wrapper
     }
 
     private func tryGetIORegistryName(_ entry: io_registry_entry_t) -> String? {
