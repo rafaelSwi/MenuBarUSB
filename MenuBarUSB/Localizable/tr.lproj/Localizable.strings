@@ -214,3 +214,8 @@
 "stored_indicator_description" = "Bağlantısı kesilen USB cihazlarının isimlerinden önce küçük bir simge olacaktır.";
 "disconnected" = "Bağlantısı kesildi";
 "delete_device_history" = "Bağlı cihazların geçmişini temizle";
+"remove_from_history" = "Geçmişten kaldır";
+"enabling_this_will_cause_restart" = "Bunu etkinleştirmek uygulamanın yeniden başlatılmasına neden olur";
+"hide_button" = "Düğmeyi gizle";
+"force_english" = "İngilizceye zorla";
+"force_english_description" = "Varsayılan dil, işletim sisteminizin dilinden bağımsız olarak her zaman İngilizce olacaktır.";

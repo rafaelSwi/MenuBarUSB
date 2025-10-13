@@ -214,3 +214,8 @@
 "stored_indicator_description" = "Els dispositius USB que s'han desconnectat tindran una icona petita abans del seu nom.";
 "disconnected" = "Desconnectat";
 "delete_device_history" = "Esborrar l’historial de dispositius connectats";
+"remove_from_history" = "Elimina de l'historial";
+"enabling_this_will_cause_restart" = "Activar això farà que l'aplicació es reiniciï";
+"hide_button" = "Amaga el botó";
+"force_english" = "Força l'anglès";
+"force_english_description" = "L'idioma per defecte sempre serà l'anglès independentment de l'idioma del teu sistema operatiu.";

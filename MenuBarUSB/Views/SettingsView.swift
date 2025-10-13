@@ -70,6 +70,7 @@ struct SettingsView: View {
     @AppStorage(Key.fastMonitor) private var fastMonitor = false
     @AppStorage(Key.storeDevices) private var storeDevices = false
     @AppStorage(Key.storedIndicator) private var storedIndicator = false
+    @AppStorage(Key.forceEnglish) private var forceEnglish = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
     
     @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices:
@@ -212,10 +213,11 @@ struct SettingsView: View {
                                 } label: {
                                     Label("open_github_page", systemImage: "globe")
                                 }
+                                Divider()
                                 Button {
                                     hideUpdate = true
                                 } label: {
-                                    Label("hide", systemImage: "eye.slash")
+                                    Label("hide_button", systemImage: "eye.slash")
                                 }
                             }
                         }
@@ -233,10 +235,11 @@ struct SettingsView: View {
                                 } label: {
                                     Label("open", systemImage: "arrow.up.right.square")
                                 }
+                                Divider()
                                 Button {
                                     hideDonate = true
                                 } label: {
-                                    Label("hide", systemImage: "eye.slash")
+                                    Label("hide_button", systemImage: "eye.slash")
                                 }
                             }
                         }
@@ -631,8 +634,9 @@ struct SettingsView: View {
                                 }
                             }
                         }
-                        .frame(width: 120)
+                        .frame(width: 130)
                         .disabled(disableContextMenuSearch)
+                        .padding(.vertical, 5)
                     }
                 }
 
@@ -648,6 +652,8 @@ struct SettingsView: View {
                             manager.refresh()
                             if value == false {
                                 manager.stopEthernetMonitoring()
+                                internetMonitoring = false
+                                trafficButton = false
                             }
                         }
                     )
@@ -739,6 +745,16 @@ struct SettingsView: View {
                 }
 
                 if settingsCategory == .others {
+                    if Locale.current.language.languageCode?.identifier != "en" {
+                        ToggleRow(
+                            label: String(localized: "force_english"),
+                            description: String(localized: "force_english_description"),
+                            binding: $forceEnglish,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in Utils.App.restart() }
+                        )
+                    }
                     ToggleRow(
                         label: String(localized: "hide_check_update"),
                         description: String(localized: "hide_check_update_description"),

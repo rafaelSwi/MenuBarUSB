@@ -214,3 +214,8 @@
 "stored_indicator_description" = "切断された USB デバイスには、その名前の前に小さなアイコンが表示されます。";
 "disconnected" = "切断済み";
 "delete_device_history" = "接続されたデバイスの履歴を消去";
+"remove_from_history" = "履歴から削除";
+"enabling_this_will_cause_restart" = "これを有効にするとアプリが再起動します";
+"hide_button" = "ボタンを非表示にする";
+"force_english" = "英語を強制する";
+"force_english_description" = "デフォルトの言語は常に英語になり、OSの言語設定には関係ありません。";

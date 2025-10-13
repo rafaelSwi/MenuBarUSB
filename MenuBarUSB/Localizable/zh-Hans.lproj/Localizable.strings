@@ -214,3 +214,8 @@
 "stored_indicator_description" = "已断开连接的 USB 设备将其名称前面带有一个小图标。";
 "disconnected" = "已断开";
 "delete_device_history" = "清除已连接设备历史";
+"remove_from_history" = "从历史记录中移除";
+"enabling_this_will_cause_restart" = "启用此选项将导致应用重新启动";
+"hide_button" = "隐藏按钮";
+"force_english" = "强制使用英语";
+"force_english_description" = "无论操作系统的语言为何，默认语言始终为英语。";

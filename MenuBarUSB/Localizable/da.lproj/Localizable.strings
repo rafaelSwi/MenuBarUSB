@@ -214,3 +214,8 @@
 "stored_indicator_description" = "USB-enheder, der er blevet frakoblet, vil have et lille ikon før deres navn.";
 "disconnected" = "Frakoblet";
 "delete_device_history" = "Ryd historik over tilsluttede enheder";
+"remove_from_history" = "Fjern fra historik";
+"enabling_this_will_cause_restart" = "Aktivering af dette vil få appen til at genstarte";
+"hide_button" = "Skjul knap";
+"force_english" = "Tving engelsk";
+"force_english_description" = "Standardsproget vil altid være engelsk, uanset hvilket sprog dit operativsystem bruger.";

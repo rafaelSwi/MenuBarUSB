@@ -48,4 +48,5 @@ enum Key {
     static let settingsCategory = "settingsCategory"
     static let storeDevices = "storeDevices"
     static let storedIndicator = "storedIndicator"
+    static let forceEnglish = "forceEnglish"
 }

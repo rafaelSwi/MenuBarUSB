@@ -433,7 +433,7 @@ struct ContentView: View {
                                         Label("rename", systemImage: "pencil.and.scribble")
                                     }
 
-                                    Button(role: .destructive) {
+                                    Button {
                                         CodableStorageManager.Camouflaged.add(device)
                                         manager.refresh()
                                     } label: {
@@ -561,6 +561,13 @@ struct ContentView: View {
                                         } label: {
                                             Label("refresh", systemImage: "arrow.clockwise")
                                         }
+                                        Divider()
+                                        Button {
+                                            CodableStorageManager.Stored.remove(withId: device.deviceId)
+                                            manager.refresh()
+                                        } label: {
+                                            Label("remove_from_history", systemImage: "trash")
+                                        }
                                     }
                                 }
                             }
@@ -619,7 +626,7 @@ struct ContentView: View {
                                     Button {
                                         profilerButton = false
                                     } label: {
-                                        Label("hide", systemImage: "eye.slash")
+                                        Label("hide_button", systemImage: "eye.slash")
                                     }
                                 }
                         }
@@ -656,7 +663,7 @@ struct ContentView: View {
                         Divider()
 
                         Button {
-                            disableTrafficButtonLabel = !disableTrafficButtonLabel
+                            disableTrafficButtonLabel.toggle()
                         } label: {
                             if disableTrafficButtonLabel {
                                 Label("show_traffic_side_label", systemImage: "eye")
@@ -671,7 +678,7 @@ struct ContentView: View {
                         Button {
                             trafficButton = false
                         } label: {
-                            Label("hide", systemImage: "eye.slash")
+                            Label("hide_button", systemImage: "eye.slash")
                         }
                         
                     }
@@ -720,7 +727,7 @@ struct ContentView: View {
                     }
                     .contextMenu {
                         Button { restartButton = false } label: {
-                            Label("hide", systemImage: "eye.slash")
+                            Label("hide_button", systemImage: "eye.slash")
                         }
                     }
                 }

@@ -214,3 +214,8 @@
 "stored_indicator_description" = "Dispozitive USB care au fost deconectate vor avea o mică pictogramă înaintea numelui lor.";
 "disconnected" = "Deconectat";
 "delete_device_history" = "Șterge istoricul dispozitivelor conectate";
+"remove_from_history" = "Elimină din istoric";
+"enabling_this_will_cause_restart" = "Activarea acestei opțiuni va reporni aplicația";
+"hide_button" = "Ascunde butonul";
+"force_english" = "Forțează engleza";
+"force_english_description" = "Limba implicită va fi întotdeauna engleza, indiferent de limba sistemului tău de operare.";

@@ -214,3 +214,8 @@
 "stored_indicator_description" = "분리된 USB 장치에는 이름 앞에 작은 아이콘이 표시됩니다.";
 "disconnected" = "연결 해제됨";
 "delete_device_history" = "연결된 장치 기록 지우기";
+"remove_from_history" = "기록에서 제거";
+"enabling_this_will_cause_restart" = "이 기능을 활성화하면 앱이 다시 시작됩니다";
+"hide_button" = "버튼 숨기기";
+"force_english" = "영어로 강제 설정";
+"force_english_description" = "기본 언어는 운영체제 언어와 관계없이 항상 영어로 설정됩니다.";

@@ -214,3 +214,8 @@
 "stored_indicator_description" = "जो USB उपकरण डिस्कनेक्ट हो चुके हैं, उनके नाम से पहले एक छोटा आइकन होगा।";
 "disconnected" = "डिस्कनेक्टेड";
 "delete_device_history" = "कनेक्टेड उपकरणों का इतिहास साफ़ करें";
+"remove_from_history" = "इतिहास से हटाएं";
+"enabling_this_will_cause_restart" = "इसे सक्षम करने से ऐप पुनः आरंभ होगा";
+"hide_button" = "बटन छिपाएं";
+"force_english" = "अंग्रेज़ी को मजबूर करें";
+"force_english_description" = "डिफ़ॉल्ट भाषा हमेशा अंग्रेज़ी रहेगी, चाहे आपके ऑपरेटिंग सिस्टम की भाषा कुछ भी हो।";

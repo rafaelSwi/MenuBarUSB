@@ -214,3 +214,8 @@
 "stored_indicator_description" = "Les périphériques USB qui ont été déconnectés auront une petite icône avant leur nom.";
 "disconnected" = "Déconnecté";
 "delete_device_history" = "Effacer l’historique des appareils connectés";
+"remove_from_history" = "Supprimer de l’historique";
+"enabling_this_will_cause_restart" = "Activer cette option redémarrera l’application";
+"hide_button" = "Masquer le bouton";
+"force_english" = "Forcer l’anglais";
+"force_english_description" = "La langue par défaut sera toujours l’anglais, quel que soit la langue de votre système d’exploitation.";

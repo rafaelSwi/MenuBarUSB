@@ -214,3 +214,8 @@
 "stored_indicator_description" = "Dispositivos que foram desconectados terão um pequeno ícone ao lado do seu nome.";
 "disconnected" = "Desconectado";
 "delete_device_history" = "Limpar histórico de dispositivos";
+"remove_from_history" = "Remover do histórico";
+"enabling_this_will_cause_restart" = "Ativar isso fará o MenuBarUSB reiniciar";
+"hide_button" = "Esconder botão";
+"force_english" = "Forçar idioma inglês";
+"force_english_description" = "O idioma padrão será sempre o inglês, independentemente do idioma do seu macOS.";

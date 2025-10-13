@@ -214,3 +214,8 @@
 "stored_indicator_description" = "USB devices that have been disconnected will have a little icon before their name.";
 "disconnected" = "Disconnected";
 "delete_device_history" = "Forget all previously connected devices";
+"remove_from_history" = "Remove from history";
+"enabling_this_will_cause_restart" = "Enabling this will cause the app to restart";
+"hide_button" = "Hide button";
+"force_english" = "Force English";
+"force_english_description" = "The default language will always be English regardless of your operating system language.";

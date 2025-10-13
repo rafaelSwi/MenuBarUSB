@@ -45,6 +45,7 @@ struct LegacySettingsView: View {
     @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
     @AppStorage(Key.reduceTransparency) private var reduceTransparency = false
     @AppStorage(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AppStorage(Key.forceEnglish) private var forceEnglish = false
     @AppStorage(Key.showEthernet) private var showEthernet = false
     @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
     @AppStorage(Key.forceDarkMode) private var forceDarkMode = false
@@ -489,7 +490,7 @@ struct LegacySettingsView: View {
                             }
                         }
                     )
-                    Text("changes_restart_warning")
+                    Text("enabling_this_will_cause_restart")
                         .font(.footnote)
                         .padding(.bottom, 3)
                 }
@@ -497,6 +498,16 @@ struct LegacySettingsView: View {
                 categoryButton(toggle: $showOthersOptions, label: "othersCategory")
                 
                 if showOthersOptions {
+                    if Locale.current.language.languageCode?.identifier != "en" {
+                        ToggleRow(
+                            label: String(localized: "force_english"),
+                            description: String(localized: "force_english_description"),
+                            binding: $forceEnglish,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in Utils.App.restart() }
+                        )
+                    }
                     ToggleRow(
                         label: String(localized: "hide_check_update"),
                         description: String(localized: "hide_check_update_description"),

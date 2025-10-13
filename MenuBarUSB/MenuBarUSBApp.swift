@@ -21,7 +21,9 @@ struct MenuBarUSBApp: App {
     @AppStorage(Key.hideMenubarIcon) private var hideMenubarIcon = false
     @AppStorage(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AppStorage(Key.showEthernet) private var showEthernet = false
+    @AppStorage(Key.forceEnglish) private var forceEnglish = false
     @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
+    @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
     
     init() {
         if newVersionNotification {
@@ -49,7 +51,7 @@ struct MenuBarUSBApp: App {
     private var menuLabel: some View {
         return HStack(spacing: 5) {
             let image = HStack(spacing: 7) {
-                if (manager.trafficMonitorRunning == false) {
+                if (manager.trafficMonitorRunning == false && internetMonitoring) {
                     Image(systemName: "pause.fill")
                 }
                 Image(manager.ethernetTraffic ? "ETHERNET_DOT" : "ETHERNET")
@@ -89,6 +91,7 @@ struct MenuBarUSBApp: App {
             .appBackground(isReduceTransparencyOn)
             .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
             .environmentObject(manager)
+            .environment(\.locale, forceEnglish ? Locale(identifier: "en") : Locale.current)
     }
 
     @ViewBuilder

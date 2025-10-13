@@ -214,3 +214,8 @@
 "stored_indicator_description" = "מכשירי USB שנותקו יכללו סמל קטן לפני שמם.";
 "disconnected" = "מנותק";
 "delete_device_history" = "נקה היסטוריית מכשירים מחוברים";
+"remove_from_history" = "הסר מההיסטוריה";
+"enabling_this_will_cause_restart" = "הפעלת אפשרות זו תגרום לאפליקציה להפעיל מחדש";
+"hide_button" = "הסתר כפתור";
+"force_english" = "כפה אנגלית";
+"force_english_description" = "שפת ברירת המחדל תהיה תמיד אנגלית, ללא קשר לשפת מערכת ההפעלה שלך.";

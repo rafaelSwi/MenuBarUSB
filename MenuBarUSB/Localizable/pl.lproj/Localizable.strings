@@ -214,3 +214,8 @@
 "stored_indicator_description" = "Urządzenia USB, które zostały odłączone, będą miały małą ikonę przed swoją nazwą.";
 "disconnected" = "Rozłączony";
 "delete_device_history" = "Wyczyść historię połączonych urządzeń";
+"remove_from_history" = "Usuń z historii";
+"enabling_this_will_cause_restart" = "Włączenie tej opcji spowoduje ponowne uruchomienie aplikacji";
+"hide_button" = "Ukryj przycisk";
+"force_english" = "Wymuś język angielski";
+"force_english_description" = "Domyślnym językiem zawsze będzie angielski, niezależnie od języka systemu operacyjnego.";

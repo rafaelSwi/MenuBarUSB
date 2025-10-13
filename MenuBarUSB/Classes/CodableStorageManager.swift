@@ -23,6 +23,14 @@ final class CodableStorageManager {
                 let notContain = !connectedDevices.contains { $0.item.uniqueId == device.deviceId }
                 let isHidden = CodableStorageManager.Camouflaged.devices.contains { $0.deviceId == device.deviceId }
                 return (notContain && !isHidden)
+            }.map { device in
+                let renamed: RenamedDevice? = CodableStorageManager.Renamed.devices.first { $0.deviceId == device.deviceId }
+                if (renamed != nil) {
+                    var newDevice = device
+                    newDevice.name = renamed!.name
+                    return newDevice
+                }
+                return device
             }
         }
         

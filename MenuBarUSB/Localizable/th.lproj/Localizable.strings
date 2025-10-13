@@ -214,3 +214,8 @@
 "stored_indicator_description" = "อุปกรณ์ USB ที่ถูกตัดการเชื่อมต่อจะมีไอคอนเล็ก ๆ อยู่หน้าชื่อ";
 "disconnected" = "ถูกตัดการเชื่อมต่อ";
 "delete_device_history" = "ล้างประวัติอุปกรณ์ที่เชื่อมต่อ";
+"remove_from_history" = "ลบออกจากประวัติ";
+"enabling_this_will_cause_restart" = "การเปิดใช้งานนี้จะทำให้แอปเริ่มต้นใหม่";
+"hide_button" = "ซ่อนปุ่ม";
+"force_english" = "บังคับภาษาอังกฤษ";
+"force_english_description" = "ภาษาหลักจะเป็นภาษาอังกฤษเสมอโดยไม่ขึ้นอยู่กับภาษาของระบบปฏิบัติการของคุณ";

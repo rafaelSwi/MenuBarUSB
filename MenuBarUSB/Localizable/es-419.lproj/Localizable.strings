@@ -214,3 +214,8 @@
 "stored_indicator_description" = "Los dispositivos USB que han sido desconectados tendrán un pequeño ícono antes de su nombre.";
 "disconnected" = "Desconectado";
 "delete_device_history" = "Limpiar historial de dispositivos conectados";
+"remove_from_history" = "Eliminar del historial";
+"enabling_this_will_cause_restart" = "Activar esto hará que la app se reinicie";
+"hide_button" = "Ocultar botón";
+"force_english" = "Forzar inglés";
+"force_english_description" = "El idioma predeterminado siempre será inglés sin importar el idioma de tu sistema operativo.";

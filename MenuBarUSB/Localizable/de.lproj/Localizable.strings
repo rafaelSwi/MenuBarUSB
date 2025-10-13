@@ -214,3 +214,8 @@
 "stored_indicator_description" = "USB-Geräte, die getrennt wurden, haben ein kleines Symbol vor ihrem Namen.";
 "disconnected" = "Getrennt";
 "delete_device_history" = "Verlauf verbundener Geräte löschen";
+"remove_from_history" = "Aus Verlauf entfernen";
+"enabling_this_will_cause_restart" = "Das Aktivieren dieser Option führt zum Neustart der App";
+"hide_button" = "Schaltfläche ausblenden";
+"force_english" = "Englisch erzwingen";
+"force_english_description" = "Die Standardsprache ist immer Englisch, unabhängig von der Sprache deines Betriebssystems.";
