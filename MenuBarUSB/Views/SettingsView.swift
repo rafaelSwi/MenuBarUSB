@@ -906,7 +906,7 @@ struct SettingsView: View {
                                     .font(.subheadline)
                             } else {
                                 Button("confirm") {
-                                    CodableStorageManager.Camouflaged.add(selectedDeviceToCamouflage)
+                                    CodableStorageManager.Camouflaged.add(withId: selectedDeviceToCamouflage?.item.uniqueId)
                                     selectedDeviceToCamouflage = nil
                                     showCamouflagedDevices = false
                                     manager.refresh()

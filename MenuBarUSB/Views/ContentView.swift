@@ -270,6 +270,16 @@ struct ContentView: View {
         openURL(url)
     }
     
+    private func deviceTitle(_ name: String?, deviceId: String) -> some View {
+        let baseName = name ?? "usb_device"
+        let renamed = CodableStorageManager.Renamed.devices.first { $0.deviceId == deviceId }
+        let title = renamed != nil ? "∙ \(renamed?.name ?? "")" : baseName
+
+        return Text(title)
+            .font(.system(size: 12, weight: .semibold))
+            .foregroundColor(.primary)
+    }
+    
     private var isTrulyEmpty: Bool {
         let connectedCount: Int = manager.devices.count
         let storedCount: Int = CodableStorageManager.Stored.filteredDevices(manager.devices).count
@@ -333,20 +343,7 @@ struct ContentView: View {
                                             .buttonStyle(.borderedProminent)
 
                                         } else {
-                                            if let device = CodableStorageManager.Renamed.devices.first(where: { $0.deviceId == uniqueId }) {
-                                                let title: String = renamedIndicator ? "∙ \(device.name)" : device.name
-                                                let textView = Text(title)
-                                                    .font(.system(size: 12, weight: .semibold))
-                                                    .foregroundColor(.primary)
-
-                                                textView
-                                            } else {
-                                                let textView = Text(device.item.name.isEmpty ? "usb_device" : device.item.name)
-                                                    .font(.system(size: 12, weight: .semibold))
-                                                    .foregroundColor(.primary)
-
-                                                textView
-                                            }
+                                            deviceTitle(device.item.name, deviceId: device.item.uniqueId)
                                         }
 
                                         Spacer()
@@ -434,7 +431,7 @@ struct ContentView: View {
                                     }
 
                                     Button {
-                                        CodableStorageManager.Camouflaged.add(device)
+                                        CodableStorageManager.Camouflaged.add(withId: device.item.uniqueId)
                                         manager.refresh()
                                     } label: {
                                         Label("hide", systemImage: "eye.slash")
@@ -528,10 +525,7 @@ struct ContentView: View {
                                                     .scaledToFit()
                                                     .padding(3)
                                             }
-                                            Text(device.name)
-                                                .font(.system(size: 12, weight: .semibold))
-                                                .foregroundColor(.primary)
-                                            
+                                            deviceTitle(device.name, deviceId: device.deviceId)
                                             Spacer()
                                         }
                                         if (!hideTechInfo || isHoveringDeviceId == device.deviceId) {
@@ -562,6 +556,12 @@ struct ContentView: View {
                                             Label("refresh", systemImage: "arrow.clockwise")
                                         }
                                         Divider()
+                                        Button {
+                                            CodableStorageManager.Camouflaged.add(withId: device.deviceId)
+                                            manager.refresh()
+                                        } label: {
+                                            Label("hide", systemImage: "eye.slash")
+                                        }
                                         Button {
                                             CodableStorageManager.Stored.remove(withId: device.deviceId)
                                             manager.refresh()
