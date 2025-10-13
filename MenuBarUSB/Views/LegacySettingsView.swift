@@ -12,49 +12,53 @@ import SwiftUI
 struct LegacySettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) var openURL
-
+    
     @State private var showMessage: Bool = false
-
+    
     @State private var activeRowID: UUID? = nil
-
+    
     @State private var tryingToResetSettings = false
+    @State private var tryingToDeleteDeviceHistory = false
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
-
+    
     @State private var hoveringInfo: Bool = false
-
+    
     @State private var showSystemOptions = false
     @State private var showInterfaceOptions = false
     @State private var showInfoOptions = false
     @State private var showContextMenuOptions = false
+    @State private var showEthernetOptions = false
     @State private var showOthersOptions = false
-
+    
     @AppStorage(Key.launchAtLogin) private var launchAtLogin = false
     @AppStorage(Key.convertHexa) private var convertHexa = false
     @AppStorage(Key.longList) private var longList = false
     @AppStorage(Key.hideTechInfo) private var hideTechInfo = false
     @AppStorage(Key.showPortMax) private var showPortMax = false
+    @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AppStorage(Key.renamedIndicator) private var renamedIndicator = false
     @AppStorage(Key.camouflagedIndicator) private var camouflagedIndicator = false
     @AppStorage(Key.showNotifications) private var showNotifications = false
+    @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
     @AppStorage(Key.reduceTransparency) private var reduceTransparency = false
     @AppStorage(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AppStorage(Key.showEthernet) private var showEthernet = false
+    @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
     @AppStorage(Key.forceDarkMode) private var forceDarkMode = false
     @AppStorage(Key.forceLightMode) private var forceLightMode = false
     @AppStorage(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
     @AppStorage(Key.hideUpdate) private var hideUpdate = false
     @AppStorage(Key.noTextButtons) private var noTextButtons = false
+    @AppStorage(Key.storeDevices) private var storeDevices = false
+    @AppStorage(Key.storedIndicator) private var storedIndicator = false
     @AppStorage(Key.restartButton) private var restartButton = false
     @AppStorage(Key.mouseHoverInfo) private var mouseHoverInfo = false
     @AppStorage(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
-
-    @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
-    @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices:
-        [CamouflagedDevice] = []
-
+    
     func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey) -> some View {
         return HStack {
             Image(systemName: toggle.wrappedValue ? "chevron.down" : "chevron.up")
@@ -66,7 +70,7 @@ struct LegacySettingsView: View {
             manageShowOptions(binding: toggle)
         }
     }
-
+    
     func getIcons() -> [String] {
         var icons: [String] = [
             "cable.connector",
@@ -100,15 +104,16 @@ struct LegacySettingsView: View {
         }
         return icons
     }
-
+    
     func untoggleShowOptions() {
         showSystemOptions = false
         showInterfaceOptions = false
         showInfoOptions = false
         showOthersOptions = false
         showContextMenuOptions = false
+        showEthernetOptions = false
     }
-
+    
     func manageShowOptions(binding: Binding<Bool>) {
         if binding.wrappedValue {
             binding.wrappedValue.toggle()
@@ -117,7 +122,7 @@ struct LegacySettingsView: View {
             binding.wrappedValue = true
         }
     }
-
+    
     func toggleLoginItem(enabled: Bool) {
         do {
             if enabled {
@@ -129,13 +134,13 @@ struct LegacySettingsView: View {
             print("Error:", error)
         }
     }
-
+    
     private func checkForUpdate() {
         checkingUpdate = true
         updateAvailable = false
         latestVersion = ""
         releaseURL = nil
-
+        
         guard
             let url = URL(
                 string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest")
@@ -143,16 +148,16 @@ struct LegacySettingsView: View {
             checkingUpdate = false
             return
         }
-
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
             defer { checkingUpdate = false }
             guard let data = data, error == nil else { return }
-
+            
             if let release = try? JSONDecoder().decode(GitHubRelease.self, from: data) {
                 let latest = release.tag_name.replacingOccurrences(of: "v", with: "")
                 latestVersion = latest
                 releaseURL = URL(string: release.html_url)
-
+                
                 DispatchQueue.main.async {
                     updateAvailable = Utils.App.isVersion(Utils.App.appVersion, olderThan: latest)
                     Utils.System.playSound(updateAvailable ? "Submarine" : "Glass")
@@ -160,7 +165,7 @@ struct LegacySettingsView: View {
             }
         }.resume()
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
@@ -178,7 +183,7 @@ struct LegacySettingsView: View {
                     .foregroundColor(.secondary)
                 }
                 Spacer()
-
+                
                 if updateAvailable, let releaseURL {
                     HStack(alignment: .center, spacing: 6) {
                         Button(action: {
@@ -187,7 +192,7 @@ struct LegacySettingsView: View {
                         }) {
                             Image(systemName: "x.circle")
                         }
-
+                        
                         Link(
                             "\(String(localized: "open_download_page")) (v\(latestVersion))",
                             destination: releaseURL
@@ -195,7 +200,7 @@ struct LegacySettingsView: View {
                         .buttonStyle(.borderedProminent)
                     }
                 }
-
+                
                 if !updateAvailable {
                     HStack {
                         if !hideUpdate {
@@ -237,12 +242,12 @@ struct LegacySettingsView: View {
                     }
                 }
             }
-
+            
             Divider()
-
+            
             VStack(alignment: .leading, spacing: 12) {
                 categoryButton(toggle: $showSystemOptions, label: "systemCategory")
-
+                
                 if showSystemOptions {
                     ToggleRow(
                         label: String(localized: "open_on_startup"),
@@ -253,6 +258,14 @@ struct LegacySettingsView: View {
                         onToggle: { value in
                             toggleLoginItem(enabled: value)
                         }
+                    )
+                    ToggleRow(
+                        label: String(localized: "new_version_notification"),
+                        description: String(localized: "new_version_notification_description"),
+                        binding: $newVersionNotification,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "reduce_transparency"),
@@ -287,9 +300,9 @@ struct LegacySettingsView: View {
                         onToggle: { _ in }
                     )
                 }
-
+                
                 categoryButton(toggle: $showInterfaceOptions, label: "uiCategory")
-
+                
                 if showInterfaceOptions {
                     ToggleRow(
                         label: String(localized: "hide_technical_info"),
@@ -329,6 +342,22 @@ struct LegacySettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
+                        label: String(localized: "show_previously_connected"),
+                        description: String(localized: "show_previously_connected_description"),
+                        binding: $storeDevices,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "stored_indicator"),
+                        description: String(localized: "stored_indicator_description"),
+                        binding: $storedIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
                         label: String(localized: "hidden_indicator"),
                         description: String(localized: "hidden_indicator_description"),
                         binding: $camouflagedIndicator,
@@ -344,31 +373,52 @@ struct LegacySettingsView: View {
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
+                    
+                    HStack {
+                        
+                        Button("delete_device_history") {
+                            tryingToDeleteDeviceHistory = true
+                        }
+                        .disabled(tryingToDeleteDeviceHistory || CodableStorageManager.Stored.devices.isEmpty)
+                        .help("(\(CodableStorageManager.Stored.devices.count))")
+                        
+                        if (tryingToDeleteDeviceHistory) {
+                            Button("cancel") {
+                                tryingToDeleteDeviceHistory = false
+                            }
+                            Button("confirm") {
+                                CodableStorageManager.Stored.clear()
+                                tryingToDeleteDeviceHistory = false
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                    }
                 }
-
+                
                 categoryButton(toggle: $showInfoOptions, label: "usbCategory")
-
+                
                 if showInfoOptions {
                     Text("renamed_devices")
                         .font(.title2)
-
+                    
                     Button {
-                        renamedDevices.removeAll()
+                        CodableStorageManager.Renamed.clear()
                     } label: {
                         Label("undo_all", systemImage: "trash")
                     }
-                    .disabled(renamedDevices.isEmpty)
-
+                    .disabled(CodableStorageManager.Renamed.devices.isEmpty)
+                    
                     Text("hidden_devices")
                         .font(.title2)
-
+                    
                     Button {
-                        camouflagedDevices.removeAll()
+                        CodableStorageManager.Camouflaged.clear()
                     } label: {
                         Label("undo_all", systemImage: "trash")
                     }
-                    .disabled(camouflagedDevices.isEmpty)
-
+                    .disabled(CodableStorageManager.Camouflaged.devices.isEmpty)
+                    .help("make_all_visible_again")
+                    
                     ToggleRow(
                         label: String(localized: "show_port_max"),
                         description: String(localized: "show_port_max_description"),
@@ -388,14 +438,22 @@ struct LegacySettingsView: View {
                         onToggle: { _ in }
                     )
                 }
-
+                
                 categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category")
-
+                
                 if showContextMenuOptions {
                     ToggleRow(
                         label: String(localized: "disable_context_menu_search"),
                         description: String(localized: "disable_context_menu_search_description"),
                         binding: $disableContextMenuSearch,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "allow_copying_individual"),
+                        description: String(localized: "allow_copying_individual_description"),
+                        binding: $contextMenuCopyAll,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
@@ -415,9 +473,29 @@ struct LegacySettingsView: View {
                         .frame(maxWidth: 100)
                     }
                 }
-
+                
+                categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory")
+                
+                if (showEthernetOptions) {
+                    ToggleRow(
+                        label: String(localized: "ethernet_connected_icon"),
+                        description: String(localized: "ethernet_connected_icon_description"),
+                        binding: $showEthernet,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { value in
+                            if (value == true) {
+                                Utils.App.restart()
+                            }
+                        }
+                    )
+                    Text("changes_restart_warning")
+                        .font(.footnote)
+                        .padding(.bottom, 3)
+                }
+                
                 categoryButton(toggle: $showOthersOptions, label: "othersCategory")
-
+                
                 if showOthersOptions {
                     ToggleRow(
                         label: String(localized: "hide_check_update"),
@@ -443,7 +521,7 @@ struct LegacySettingsView: View {
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
-
+                    
                     Button {
                         tryingToResetSettings = true
                     } label: {
@@ -453,7 +531,7 @@ struct LegacySettingsView: View {
                         }
                     }
                     .disabled(tryingToResetSettings)
-
+                    
                     if tryingToResetSettings {
                         HStack(spacing: 12) {
                             Text("are_you_sure")
@@ -475,36 +553,31 @@ struct LegacySettingsView: View {
                 }
             }
             Spacer()
-
-            ZStack(alignment: .bottomLeading) {
-                if hoveringInfo {
-                    Text("legacy_settings_description")
-                        .font(.caption)
-                        .foregroundColor(.white)
-                        .padding(8)
-                        .background(
-                            RoundedRectangle(cornerRadius: 6)
-                                .fill(Color.black.opacity(0.4))
-                        )
-                        .fixedSize(horizontal: false, vertical: true)
-                        .offset(y: -40)
-                        .transition(.opacity.combined(with: .move(edge: .bottom)))
-                        .animation(.easeInOut(duration: 0.2), value: hoveringInfo)
-                }
-
-                Image(systemName: "info.circle")
-                    .font(.title2)
-                    .foregroundColor(.primary)
-                    .scaleEffect(hoveringInfo ? 1.1 : 1.0)
-                    .animation(.spring(response: 0.3, dampingFraction: 0.5), value: hoveringInfo)
-                    .onHover { hovering in
-                        hoveringInfo = hovering
+            
+            HStack {
+                ZStack(alignment: .bottomLeading) {
+                    if hoveringInfo {
+                        Text("legacy_settings_description")
+                            .font(.caption)
+                            .offset(y: -40)
                     }
-                    .padding(4)
+                    
+                    Image(systemName: "info.circle")
+                        .font(.title2)
+                        .foregroundColor(.primary)
+                        .onHover { hovering in
+                            hoveringInfo = hovering
+                        }
+                        .padding(4)
+                }
+                Spacer()
+                Button("close") {
+                    dismiss()
+                }
             }
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 600)
+        .frame(minWidth: 465, minHeight: 650)
         .appBackground(reduceTransparency)
     }
 }

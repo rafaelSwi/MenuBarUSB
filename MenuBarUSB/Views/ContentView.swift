@@ -43,8 +43,6 @@ struct ContentView: View {
     @AppStorage(Key.storedIndicator) private var storedIndicator = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
 
-    @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
-    @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
     @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
 
     private func windowHeight(longList: Bool, compactList: Bool) -> CGFloat? {
@@ -59,7 +57,13 @@ struct ContentView: View {
         if compactList {
             multiplier = 12
         }
-        let sum: CGFloat = baseValue + (CGFloat(manager.devices.count) * multiplier)
+        
+        var total = manager.devices.count
+        if (storeDevices) {
+            total += CodableStorageManager.Stored.filteredDevices(manager.devices).count
+        }
+        
+        let sum: CGFloat = baseValue + (CGFloat(total) * multiplier)
         var max: CGFloat = 380
         if longList {
             max += 315
@@ -140,19 +144,27 @@ struct ContentView: View {
         }
     }
 
-    private func showEyeSlash() -> Bool {
-        if noTextButtons {
-            return true
-        } else {
-            return !restartButton && !profilerButton
-        }
-    }
-
     private func toggleTrafficMonitoring() {
         if manager.trafficMonitorRunning {
             manager.stopEthernetMonitoring()
         } else {
             manager.startEthernetMonitoring()
+        }
+    }
+    
+    private func mainButtonLabel(_ text: LocalizedStringKey, _ systemImage: String) -> some View {
+        if noTextButtons {
+            return AnyView(Image(systemName: systemImage))
+        } else {
+            return AnyView(Label(text, systemImage: systemImage))
+        }
+    }
+    
+    private var showEyeSlash: Bool {
+        if noTextButtons {
+            return true
+        } else {
+            return !restartButton && !profilerButton
         }
     }
 
@@ -162,14 +174,6 @@ struct ContentView: View {
 
     private var trafficMonitorInactive: Bool {
         return !manager.trafficMonitorRunning
-    }
-
-    private func mainButtonLabel(_ text: LocalizedStringKey, _ systemImage: String) -> some View {
-        if noTextButtons {
-            return AnyView(Image(systemName: systemImage))
-        } else {
-            return AnyView(Label(text, systemImage: systemImage))
-        }
     }
 
     private var isRenaming: Bool {
@@ -267,10 +271,14 @@ struct ContentView: View {
     }
     
     private var isTrulyEmpty: Bool {
-        let devicesListEmpty: Bool = manager.devices.isEmpty
-        let storedDevicesEmpty = CodableStorageManager.Stored.filteredDevices(manager.devices).isEmpty
+        let connectedCount: Int = manager.devices.count
+        let storedCount: Int = CodableStorageManager.Stored.filteredDevices(manager.devices).count
         
-        if (devicesListEmpty && storedDevicesEmpty) {
+        if (connectedCount == 0 && storeDevices == false) {
+            return true
+        }
+        
+        if (connectedCount == 0 && storedCount == 0) {
             return true
         }
         
@@ -314,10 +322,9 @@ struct ContentView: View {
                                             Button("confirm") {
                                                 let uniqueId = device.item.uniqueId
                                                 if inputText.isEmpty {
-                                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
+                                                    CodableStorageManager.Renamed.remove(withId: uniqueId)
                                                 } else {
-                                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
-                                                    renamedDevices.append(RenamedDevice(deviceId: uniqueId, name: inputText))
+                                                    CodableStorageManager.Renamed.add(device, inputText)
                                                 }
                                                 inputText = ""
                                                 isRenamingDeviceId = ""
@@ -326,7 +333,7 @@ struct ContentView: View {
                                             .buttonStyle(.borderedProminent)
 
                                         } else {
-                                            if let device = renamedDevices.first(where: { $0.deviceId == uniqueId }) {
+                                            if let device = CodableStorageManager.Renamed.devices.first(where: { $0.deviceId == uniqueId }) {
                                                 let title: String = renamedIndicator ? "∙ \(device.name)" : device.name
                                                 let textView = Text(title)
                                                     .font(.system(size: 12, weight: .semibold))
@@ -427,10 +434,7 @@ struct ContentView: View {
                                     }
 
                                     Button(role: .destructive) {
-                                        let uniqueId = device.item.uniqueId
-                                        let newDevice = CamouflagedDevice(deviceId: uniqueId)
-                                        camouflagedDevices.removeAll { $0.deviceId == uniqueId }
-                                        camouflagedDevices.append(newDevice)
+                                        CodableStorageManager.Camouflaged.add(device)
                                         manager.refresh()
                                     } label: {
                                         Label("hide", systemImage: "eye.slash")
@@ -572,11 +576,11 @@ struct ContentView: View {
             HStack {
                 if camouflagedIndicator {
                     Group {
-                        if showEyeSlash() {
+                        if showEyeSlash {
                             Image(systemName: "eye.slash")
                         }
                         let first = NumberConverter(manager.connectedCamouflagedDevices).convert()
-                        let second = NumberConverter(camouflagedDevices.count).convert()
+                        let second = NumberConverter(CodableStorageManager.Camouflaged.devices.count).convert()
                         Text("\(first)/\(second)")
                     }
                     .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
@@ -591,12 +595,12 @@ struct ContentView: View {
                         Divider()
 
                         Button {
-                            camouflagedDevices.removeAll()
+                            CodableStorageManager.Camouflaged.clear()
                             manager.refresh()
                         } label: {
                             Label("make_all_visible_again", systemImage: "eye")
                         }
-                        .disabled(camouflagedDevices.isEmpty)
+                        .disabled(CodableStorageManager.Camouflaged.devices.isEmpty)
                     }
                 }
 

@@ -27,6 +27,7 @@ struct SettingsView: View {
     @State private var activeRowID: UUID? = nil
     
     @State private var tryingToResetSettings = false
+    @State private var tryingToDeleteDeviceHistory = false
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
     @State private var latestVersion: String = ""
@@ -71,10 +72,6 @@ struct SettingsView: View {
     @AppStorage(Key.storedIndicator) private var storedIndicator = false
     @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
     
-    @CodableAppStorage(Key.storedDevices) private var storedDevices: [StoredDevice] = []
-    @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
-    @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices:
-    [CamouflagedDevice] = []
     @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices:
     [HeritageDevice] = []
 
@@ -273,7 +270,7 @@ struct SettingsView: View {
                 Divider()
             }
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 3) {
                 HStack {
                     Spacer()
                     CategoryButton(category: .system, label: "systemCategory", image: "settings_general", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
@@ -339,6 +336,14 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
+                        label: String(localized: "new_version_notification"),
+                        description: String(localized: "new_version_notification_description"),
+                        binding: $newVersionNotification,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
                         label: String(localized: "show_notification"),
                         description: String(localized: "show_notification_description"),
                         binding: $showNotifications,
@@ -359,14 +364,6 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: showNotifications == false,
-                        onToggle: { _ in }
-                    )
-                    ToggleRow(
-                        label: String(localized: "new_version_notification"),
-                        description: String(localized: "new_version_notification_description"),
-                        binding: $newVersionNotification,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
                         onToggle: { _ in }
                     )
                 }
@@ -524,47 +521,30 @@ struct SettingsView: View {
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
+                    
+                        Button("delete_device_history") {
+                            tryingToDeleteDeviceHistory = true
+                        }
+                        .disabled(tryingToDeleteDeviceHistory || CodableStorageManager.Stored.devices.isEmpty)
+                        .help("(\(CodableStorageManager.Stored.devices.count))")
+                        .padding(.vertical, 5)
+                    
+                    if (tryingToDeleteDeviceHistory) {
+                        HStack(spacing: 6) {
+                            Text("are_you_sure")
+                            Button("no") {
+                                tryingToDeleteDeviceHistory = false
+                            }
+                            Button("yes_confirm") {
+                                CodableStorageManager.Stored.clear()
+                                tryingToDeleteDeviceHistory = false
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                    }
                 }
 
                 if settingsCategory == .usb {
-                    Button {
-                        showRenameDevices.toggle()
-                    } label: {
-                        HStack {
-                            Image(systemName: "pencil.and.scribble")
-                            Text("rename_device")
-                        }
-                    }
-                    .disabled(anyBottomOptionInUse)
-                    .contextMenu {
-                        Button {
-                            renamedDevices.removeAll()
-                            manager.refresh()
-                        } label: {
-                            Label("undo_all", systemImage: "trash")
-                        }
-                        .disabled(renamedDevices.isEmpty)
-                    }
-
-                    Button {
-                        showCamouflagedDevices.toggle()
-                    } label: {
-                        HStack {
-                            Image(systemName: "eye.slash")
-                            Text("hide_device")
-                        }
-                    }
-                    .disabled(anyBottomOptionInUse)
-                    .contextMenu {
-                        Button {
-                            camouflagedDevices.removeAll()
-                            manager.refresh()
-                        } label: {
-                            Label("undo_all", systemImage: "trash")
-                        }
-                        .disabled(camouflagedDevices.isEmpty)
-                    }
-
                     ToggleRow(
                         label: String(localized: "show_port_max"),
                         description: String(localized: "show_port_max_description"),
@@ -583,6 +563,44 @@ struct SettingsView: View {
                         disabled: hideTechInfo && !mouseHoverInfo,
                         onToggle: { _ in }
                     )
+                    Button {
+                        showRenameDevices.toggle()
+                    } label: {
+                        HStack {
+                            Image(systemName: "pencil.and.scribble")
+                            Text("rename_device")
+                        }
+                    }
+                    .disabled(anyBottomOptionInUse)
+                    .padding(.vertical, 5)
+                    .contextMenu {
+                        Button {
+                            CodableStorageManager.Renamed.clear()
+                            manager.refresh()
+                        } label: {
+                            Label("undo_all", systemImage: "trash")
+                        }
+                        .disabled(CodableStorageManager.Renamed.devices.isEmpty)
+                    }
+
+                    Button {
+                        showCamouflagedDevices.toggle()
+                    } label: {
+                        HStack {
+                            Image(systemName: "eye.slash")
+                            Text("hide_device")
+                        }
+                    }
+                    .disabled(anyBottomOptionInUse)
+                    .contextMenu {
+                        Button {
+                            CodableStorageManager.Camouflaged.clear()
+                            manager.refresh()
+                        } label: {
+                            Label("undo_all", systemImage: "trash")
+                        }
+                        .disabled(CodableStorageManager.Camouflaged.devices.isEmpty)
+                    }
                 }
 
                 if settingsCategory == .contextMenu {
@@ -613,6 +631,7 @@ struct SettingsView: View {
                                 }
                             }
                         }
+                        .frame(width: 120)
                         .disabled(disableContextMenuSearch)
                     }
                 }
@@ -686,26 +705,6 @@ struct SettingsView: View {
                 }
 
                 if settingsCategory == .heritage {
-                    Button {
-                        currentWindow = .heritage
-                    } label: {
-                        HStack {
-                            Image(systemName: "plus")
-                            Text("create_inheritance")
-                        }
-                    }
-                    .disabled(anyBottomOptionInUse)
-
-                    Button {
-                        currentWindow = .inheritanceTree
-                    } label: {
-                        HStack {
-                            Image(systemName: "tree")
-                            Text("view_inheritance_tree")
-                        }
-                    }
-                    .disabled(anyBottomOptionInUse)
-
                     ToggleRow(
                         label: String(localized: "disable_inheritance_layout"),
                         description: String(localized: "disable_inheritance_layout_description"),
@@ -723,6 +722,20 @@ struct SettingsView: View {
                         disabled: disableInheritanceLayout,
                         onToggle: { _ in }
                     )
+                    Button {
+                        currentWindow = .heritage
+                    } label: {
+                        Label("create_inheritance", systemImage: "plus")
+                    }
+                    .disabled(anyBottomOptionInUse)
+                    .padding(.vertical, 5)
+
+                    Button {
+                        currentWindow = .inheritanceTree
+                    } label: {
+                        Label("view_inheritance_tree", systemImage: "arrow.trianglehead.branch")
+                    }
+                    .disabled(anyBottomOptionInUse)
                 }
 
                 if settingsCategory == .others {
@@ -786,9 +799,10 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(tryingToResetSettings)
+                    .padding(.vertical, 5)
 
                     if tryingToResetSettings {
-                        HStack(spacing: 12) {
+                        HStack(spacing: 6) {
                             Text("are_you_sure")
                             Button("no") {
                                 tryingToResetSettings = false
@@ -836,10 +850,7 @@ struct SettingsView: View {
                                         Button {
                                             currentWindow = .devices
                                         } label: {
-                                            Label(
-                                                "back_without_resume",
-                                                systemImage: "arrow.uturn.backward"
-                                            )
+                                            Label("back_without_resume", systemImage: "arrow.uturn.backward")
                                         }
                                     }
                             } else {
@@ -857,7 +868,7 @@ struct SettingsView: View {
                     HStack(spacing: 12) {
                         Menu {
                             ForEach(manager.devices, id: \.self) { device in
-                                let renamedDevice = renamedDevices.first {
+                                let renamedDevice = CodableStorageManager.Renamed.devices.first {
                                     $0.deviceId == device.item.uniqueId
                                 }
                                 let buttonLabel = renamedDevice?.name ?? device.item.name
@@ -879,10 +890,7 @@ struct SettingsView: View {
                                     .font(.subheadline)
                             } else {
                                 Button("confirm") {
-                                    let uniqueId = selectedDeviceToCamouflage!.item.uniqueId
-                                    let newDevice = CamouflagedDevice(deviceId: uniqueId)
-                                    camouflagedDevices.removeAll { $0.deviceId == uniqueId }
-                                    camouflagedDevices.append(newDevice)
+                                    CodableStorageManager.Camouflaged.add(selectedDeviceToCamouflage)
                                     selectedDeviceToCamouflage = nil
                                     showCamouflagedDevices = false
                                     manager.refresh()
@@ -891,9 +899,9 @@ struct SettingsView: View {
                             }
                         }
 
-                        if selectedDeviceToCamouflage == nil && !camouflagedDevices.isEmpty {
+                        if selectedDeviceToCamouflage == nil && !CodableStorageManager.Camouflaged.devices.isEmpty {
                             Button("undo_all") {
-                                camouflagedDevices.removeAll()
+                                CodableStorageManager.Camouflaged.clear()
                                 showCamouflagedDevices = false
                                 manager.refresh()
                             }
@@ -907,7 +915,7 @@ struct SettingsView: View {
                     HStack(spacing: 12) {
                         Menu {
                             ForEach(manager.devices, id: \.self) { device in
-                                let renamedDevice = renamedDevices.first {
+                                let renamedDevice = CodableStorageManager.Renamed.devices.first {
                                     $0.deviceId == device.item.uniqueId
                                 }
                                 let buttonLabel = renamedDevice?.name ?? device.item.name
@@ -933,11 +941,9 @@ struct SettingsView: View {
                             Button(String(localized: "confirm")) {
                                 let uniqueId = selectedDeviceToRename!.item.uniqueId
                                 if inputText.isEmpty {
-                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
+                                    CodableStorageManager.Renamed.remove(withId: uniqueId)
                                 } else {
-                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
-                                    renamedDevices.append(
-                                        RenamedDevice(deviceId: uniqueId, name: inputText))
+                                    CodableStorageManager.Renamed.add(selectedDeviceToRename, inputText)
                                 }
                                 inputText = ""
                                 selectedDeviceToRename = nil
@@ -947,9 +953,9 @@ struct SettingsView: View {
                             .buttonStyle(.borderedProminent)
                         }
 
-                        if selectedDeviceToRename == nil && !renamedDevices.isEmpty {
+                        if selectedDeviceToRename == nil && !CodableStorageManager.Renamed.devices.isEmpty {
                             Button(String(localized: "undo_all")) {
-                                renamedDevices.removeAll()
+                                CodableStorageManager.Renamed.clear()
                                 showRenameDevices = false
                                 manager.refresh()
                             }

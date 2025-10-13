@@ -21,7 +21,7 @@ final class CodableStorageManager {
         static func filteredDevices(_ connectedDevices: [USBDeviceWrapper]) -> [StoredDevice] {
             return items.filter { device in
                 let notContain = !connectedDevices.contains { $0.item.uniqueId == device.deviceId }
-                let isHidden = CodableStorageManager.Hidden.devices.contains { $0.deviceId == device.deviceId }
+                let isHidden = CodableStorageManager.Camouflaged.devices.contains { $0.deviceId == device.deviceId }
                 return (notContain && !isHidden)
             }
         }
@@ -49,9 +49,10 @@ final class CodableStorageManager {
             return items
         }
         
-        static func add(_ d: USBDeviceWrapper) {
-            items.removeAll { $0.deviceId == d.item.uniqueId }
-            items.append(RenamedDevice(deviceId: d.item.uniqueId, name: d.item.name))
+        static func add(_ d: USBDeviceWrapper?, _ name: String) {
+            if (d == nil) { return }
+            items.removeAll { $0.deviceId == d!.item.uniqueId }
+            items.append(RenamedDevice(deviceId: d!.item.uniqueId, name: name))
         }
         
         static func remove(withId id: String) {
@@ -64,7 +65,7 @@ final class CodableStorageManager {
         
     }
     
-    final class Hidden {
+    final class Camouflaged {
         
         @CodableAppStorage(Key.camouflagedDevices)
         static var items: [CamouflagedDevice] = []
@@ -73,9 +74,10 @@ final class CodableStorageManager {
             return items
         }
         
-        static func add(_ d: USBDeviceWrapper) {
-            items.removeAll { $0.deviceId == d.item.uniqueId }
-            items.append(CamouflagedDevice(deviceId: d.item.uniqueId))
+        static func add(_ d: USBDeviceWrapper?) {
+            if (d == nil) { return }
+            items.removeAll { $0.deviceId == d!.item.uniqueId }
+            items.append(CamouflagedDevice(deviceId: d!.item.uniqueId))
         }
         
         static func remove(withId id: String) {

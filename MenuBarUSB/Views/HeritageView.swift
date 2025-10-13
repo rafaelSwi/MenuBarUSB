@@ -89,9 +89,11 @@ struct HeritageView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
                     HStack {
-                        Button("delete_all_inheritances") {
+                        Button() {
                             tryingToDeleteAllInheritances = true
                             step = .beginning
+                        } label: {
+                            Label("delete_all_inheritances", systemImage: "trash")
                         }
                         .disabled(tryingToDeleteAllInheritances)
 
@@ -125,12 +127,17 @@ struct HeritageView: View {
                             .padding(8)
                             .background(RoundedRectangle(cornerRadius: 6).stroke(.gray))
                         }
+                        .disabled(manager.devices.isEmpty)
 
                         if let selectedDevice {
                             Text(inheritanceStatus(for: selectedDevice.item))
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }
+                    }
+                    
+                    if (manager.devices.isEmpty) {
+                        Text("no_devices_found")
                     }
 
                     if step.rawValue > Step.beginning.rawValue {

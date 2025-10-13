@@ -64,7 +64,7 @@
 "usb_disconnected" = "USB Disconnected";
 "usb_disconnected_info" = "A USB device has been disconnected.";
 "show_notification" = "Show device notifications";
-"show_notification_description" = "You may to allow the app to send notifications, and depending on your macOS version, you may need to change the Alert Style.\nIt is important to note that there is a small 3-sec buffer between notifications to avoid spam in cases of devices connecting and disconnecting frequently.";
+"show_notification_description" = "You may need to allow MenuBarUSB to send notifications, and depending on your macOS version, you may need to change the Alert Style. There is a small 3-sec buffer between notifications to avoid spam in cases of devices connecting and disconnecting frequently.";
 "reduce_transparency" = "Reduce transparency";
 "reduce_transparency_description" = "Turns down transparency to enhance text visibility.";
 "contact" = "Contact: %@";
