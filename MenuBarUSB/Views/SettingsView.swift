@@ -1,13 +1,13 @@
 //
-//  AboutView.swift
+//  SettingsView.swift
 //  MenuBarUSB
 //
 //  Created by Rafael Neuwirth on 28/08/25.
 //
 
-import SwiftUI
-import ServiceManagement
 import AppKit
+import ServiceManagement
+import SwiftUI
 
 struct SettingsView: View {
     
@@ -20,159 +20,116 @@ struct SettingsView: View {
     @State private var showRenameDevices: Bool = false
     @State private var showCamouflagedDevices: Bool = false
     
-    @State private var selectedDeviceToCamouflage: USBDevice?;
-    @State private var selectedDeviceToRename: USBDevice?;
-    @State private var inputText: String = "";
+    @State private var selectedDeviceToCamouflage: USBDeviceWrapper?
+    @State private var selectedDeviceToRename: USBDeviceWrapper?
+    @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
     @State private var activeRowID: UUID? = nil
     
-    @State private var tryingToResetSettings = false;
+    @State private var tryingToResetSettings = false
+    @State private var tryingToDeleteDeviceHistory = false
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
     
-    @State private var showSystemOptions = false;
-    @State private var showIconOptions = false;
-    @State private var showInterfaceOptions = false;
-    @State private var showInfoOptions = false;
-    @State private var showHeritageOptions = false;
-    @State private var showContextMenuOptions = false;
-    @State private var showEthernetOptions = false;
-    @State private var showOthersOptions = false;
+    @AppStorage(Key.settingsCategory) private var settingsCategory: SettingsCategory = .system
     
-    @AppStorage(StorageKeys.launchAtLogin) private var launchAtLogin = false
-    @AppStorage(StorageKeys.convertHexa) private var convertHexa = false
-    @AppStorage(StorageKeys.longList) private var longList = false
-    @AppStorage(StorageKeys.hideTechInfo) private var hideTechInfo = false
-    @AppStorage(StorageKeys.showPortMax) private var showPortMax = false
-    @AppStorage(StorageKeys.renamedIndicator) private var renamedIndicator = false
-    @AppStorage(StorageKeys.camouflagedIndicator) private var camouflagedIndicator = false
-    @AppStorage(StorageKeys.showNotifications) private var showNotifications = false
-    @AppStorage(StorageKeys.reduceTransparency) private var reduceTransparency = false
-    @AppStorage(StorageKeys.disableNotifCooldown) private var disableNotifCooldown = false
-    @AppStorage(StorageKeys.disableInheritanceLayout) private var disableInheritanceLayout = false
-    @AppStorage(StorageKeys.forceDarkMode) private var forceDarkMode = false
-    @AppStorage(StorageKeys.forceLightMode) private var forceLightMode = false
-    @AppStorage(StorageKeys.increasedIndentationGap) private var increasedIndentationGap = false
-    @AppStorage(StorageKeys.hideSecondaryInfo) private var hideSecondaryInfo = false
-    @AppStorage(StorageKeys.hideUpdate) private var hideUpdate = false
-    @AppStorage(StorageKeys.hideDonate) private var hideDonate = false
-    @AppStorage(StorageKeys.noTextButtons) private var noTextButtons = false
-    @AppStorage(StorageKeys.hideCount) private var hideCount = false
-    @AppStorage(StorageKeys.numberRepresentation) private var numberRepresentation: NumberRepresentation = .base10
-    @AppStorage(StorageKeys.macBarIcon) private var macBarIcon: String = "cable.connector"
-    @AppStorage(StorageKeys.hideMenubarIcon) private var hideMenubarIcon = false
-    @AppStorage(StorageKeys.restartButton) private var restartButton = false
-    @AppStorage(StorageKeys.mouseHoverInfo) private var mouseHoverInfo = false
-    @AppStorage(StorageKeys.profilerButton) private var profilerButton = false
-    @AppStorage(StorageKeys.disableContextMenuSearch) private var disableContextMenuSearch = false
-    @AppStorage(StorageKeys.showEthernet) private var showEthernet = false
-    @AppStorage(StorageKeys.internetMonitoring) private var internetMonitoring = false
-    @AppStorage(StorageKeys.trafficButton) private var trafficButton = false
-    @AppStorage(StorageKeys.trafficButtonLabel) private var trafficButtonLabel = false
-    @AppStorage(StorageKeys.searchEngine) private var searchEngine: SearchEngine = .google
+    @AppStorage(Key.launchAtLogin) private var launchAtLogin = false
+    @AppStorage(Key.convertHexa) private var convertHexa = false
+    @AppStorage(Key.longList) private var longList = false
+    @AppStorage(Key.hideTechInfo) private var hideTechInfo = false
+    @AppStorage(Key.showPortMax) private var showPortMax = false
+    @AppStorage(Key.renamedIndicator) private var renamedIndicator = false
+    @AppStorage(Key.camouflagedIndicator) private var camouflagedIndicator = false
+    @AppStorage(Key.showNotifications) private var showNotifications = false
+    @AppStorage(Key.reduceTransparency) private var reduceTransparency = false
+    @AppStorage(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AppStorage(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
+    @AppStorage(Key.forceDarkMode) private var forceDarkMode = false
+    @AppStorage(Key.forceLightMode) private var forceLightMode = false
+    @AppStorage(Key.increasedIndentationGap) private var increasedIndentationGap = false
+    @AppStorage(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
+    @AppStorage(Key.hideUpdate) private var hideUpdate = false
+    @AppStorage(Key.hideDonate) private var hideDonate = false
+    @AppStorage(Key.noTextButtons) private var noTextButtons = false
+    @AppStorage(Key.hideCount) private var hideCount = false
+    @AppStorage(Key.numberRepresentation) private var numberRepresentation: NumberRepresentation = .base10
+    @AppStorage(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
+    @AppStorage(Key.hideMenubarIcon) private var hideMenubarIcon = false
+    @AppStorage(Key.restartButton) private var restartButton = false
+    @AppStorage(Key.mouseHoverInfo) private var mouseHoverInfo = false
+    @AppStorage(Key.profilerButton) private var profilerButton = false
+    @AppStorage(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AppStorage(Key.showEthernet) private var showEthernet = false
+    @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
+    @AppStorage(Key.trafficButton) private var trafficButton = false
+    @AppStorage(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
+    @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
+    @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
+    @AppStorage(Key.fastMonitor) private var fastMonitor = false
+    @AppStorage(Key.storeDevices) private var storeDevices = false
+    @AppStorage(Key.storedIndicator) private var storedIndicator = false
+    @AppStorage(Key.forceEnglish) private var forceEnglish = false
+    @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
     
-    @CodableAppStorage(StorageKeys.renamedDevices) private var renamedDevices: [RenamedDevice] = []
-    @CodableAppStorage(StorageKeys.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
-    @CodableAppStorage(StorageKeys.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
-    
-    var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
+    @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices:
+    [HeritageDevice] = []
+
+    private func checkForUpdate() {
+        checkingUpdate = true
+        updateAvailable = false
+        latestVersion = ""
+        releaseURL = nil
+
+        guard
+            let url = URL(
+                string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest")
+        else {
+            checkingUpdate = false
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            defer { checkingUpdate = false }
+            guard let data = data, error == nil else { return }
+
+            if let release = try? JSONDecoder().decode(GitHubRelease.self, from: data) {
+                let latest = release.tag_name.replacingOccurrences(of: "v", with: "")
+                latestVersion = latest
+                releaseURL = URL(string: release.html_url)
+
+                DispatchQueue.main.async {
+                    updateAvailable = Utils.App.isVersion(Utils.App.appVersion, olderThan: latest)
+                    Utils.System.playSound(updateAvailable ? "Submarine" : "Glass")
+                }
+            }
+        }.resume()
     }
-    
-    func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey) -> some View {
-        
-        let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
-        
-        return HStack {
-            Image(systemName: toggle.wrappedValue ? "chevron.down" : "chevron.up")
-            Text(label)
-                .font(.system(size: 13.5))
-                .fontWeight(.light)
-        }
-        .onTapGesture {
-            manageShowOptions(binding: toggle)
-        }
-        .opacity(anyBottomOptionInUse ? 0.4 : 1.0)
-        .disabled(anyBottomOptionInUse)
-    }
-    
-    func resetAppData() {
-        let fileManager = FileManager.default
-        
-        if let bundleID = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: bundleID)
-            UserDefaults.standard.synchronize()
-        }
-        
-        if let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
-           let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first,
-           let bundleID = Bundle.main.bundleIdentifier {
-            
-            let appSupportPath = appSupport.appendingPathComponent(bundleID).path
-            let cachesPath = caches.appendingPathComponent(bundleID).path
-            
-            try? fileManager.removeItem(atPath: appSupportPath)
-            try? fileManager.removeItem(atPath: cachesPath)
-        }
-    }
-    
-    func getIcons() -> [String] {
-        var icons: [String] = [
-            "cable.connector",
-            "app.connected.to.app.below.fill",
-            "rectangle.connected.to.line.below",
-            "mediastick",
-            "sdcard",
-            "sdcard.fill",
-            "bolt.ring.closed",
-            "bolt",
-            "bolt.fill",
-            "wrench.and.screwdriver",
-            "wrench.and.screwdriver.fill",
-            "externaldrive.connected.to.line.below",
-            "externaldrive.connected.to.line.below.fill",
-        ]
-        if #available(macOS 15.0, *) {
-            icons.append(contentsOf: [
-                "powerplug.portrait",
-                "powerplug.portrait.fill",
-                "powercord",
-                "powercord.fill",
-                "cat.fill",
-                "dog.fill",
-            ])
-        }
-        if #available(macOS 26.0, *) {
-            icons.append(contentsOf: [
-                "inset.filled.topthird.middlethird.bottomthird.rectangle",
-            ])
-        }
-        return icons
-    }
-    
-    func untoggleShowOptions() {
-        showSystemOptions = false
-        showInterfaceOptions = false
-        showInfoOptions = false
-        showHeritageOptions = false
-        showOthersOptions = false
-        showIconOptions = false
-        showEthernetOptions = false
-        showContextMenuOptions = false
-    }
-    
-    func manageShowOptions(binding: Binding<Bool>) {
-        if binding.wrappedValue {
-            binding.wrappedValue.toggle()
-        } else {
-            untoggleShowOptions()
-            binding.wrappedValue = true
-        }
-    }
-    
-    public func toggleLoginItem(enabled: Bool) {
+
+    private let icons: [String] = [
+        "cable.connector",
+        "app.connected.to.app.below.fill",
+        "rectangle.connected.to.line.below",
+        "mediastick",
+        "sdcard",
+        "sdcard.fill",
+        "bolt.ring.closed",
+        "bolt",
+        "bolt.fill",
+        "wrench.and.screwdriver",
+        "wrench.and.screwdriver.fill",
+        "externaldrive.connected.to.line.below",
+        "externaldrive.connected.to.line.below.fill",
+        "powerplug.portrait",
+        "powerplug.portrait.fill",
+        "powercord",
+        "powercord.fill",
+        "cat.fill",
+        "dog.fill",
+    ]
+
+    func toggleLoginItem(enabled: Bool) {
         do {
             if enabled {
                 try SMAppService.mainApp.register()
@@ -183,28 +140,31 @@ struct SettingsView: View {
             print("Error:", error)
         }
     }
-    
+
     private var isTrafficMonitoringPausedForSettings: Bool {
-        return internetMonitoring && !manager.trafficMonitorRunning && manager.ethernet
+        return internetMonitoring && !manager.trafficMonitorRunning && manager.ethernetCableConnected
     }
-    
+
     var body: some View {
-        
         let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
-        
+
         VStack(alignment: .leading, spacing: 20) {
-            
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("MenuBarUSB")
                         .font(.title2)
                         .bold()
-                    Text(String(format: NSLocalizedString("version", comment: "APP VERSION"), appVersion))
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
+                    Text(
+                        String(
+                            format: NSLocalizedString("version", comment: "APP VERSION"),
+                            Utils.App.appVersion
+                        )
+                    )
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
                 }
                 Spacer()
-                
+
                 if updateAvailable, let releaseURL {
                     HStack(alignment: .center, spacing: 6) {
                         Button(action: {
@@ -213,23 +173,28 @@ struct SettingsView: View {
                         }) {
                             Image(systemName: "x.circle")
                         }
-                        
-                        Link("\(String(localized: "open_download_page")) (v\(latestVersion))", destination: releaseURL)
-                            .buttonStyle(.borderedProminent)
+
+                        Link(
+                            "\(String(localized: "open_download_page")) (v\(latestVersion))",
+                            destination: releaseURL
+                        )
+                        .buttonStyle(.borderedProminent)
                     }
                 }
-                
+
                 if !updateAvailable {
-                    
                     HStack {
-                        if (!hideUpdate) {
+                        if !hideUpdate {
                             Button {
                                 checkForUpdate()
                             } label: {
                                 if checkingUpdate {
                                     ProgressView()
                                 } else {
-                                    Label(!latestVersion.isEmpty ? "updated" : "check_for_updates", systemImage: "checkmark.circle")
+                                    Label(
+                                        !latestVersion.isEmpty ? "updated" : "check_for_updates",
+                                        systemImage: "checkmark.circle"
+                                    )
                                 }
                             }
                             .buttonStyle(.bordered)
@@ -240,62 +205,96 @@ struct SettingsView: View {
                                     Label("check_for_updates", systemImage: "magnifyingglass")
                                 }
                                 Button {
-                                    if let url = URL(string: "https://github.com/rafaelSwi/MenuBarUSB") {
+                                    if let url = URL(
+                                        string: "https://github.com/rafaelSwi/MenuBarUSB")
+                                    {
                                         openURL(url)
                                     }
                                 } label: {
                                     Label("open_github_page", systemImage: "globe")
                                 }
+                                Divider()
                                 Button {
-                                    hideUpdate = true;
+                                    hideUpdate = true
                                 } label: {
-                                    Label("hide", systemImage: "eye.slash")
+                                    Label("hide_button", systemImage: "eye.slash")
                                 }
                             }
                         }
-                        
-                            if (!hideDonate) {
+
+                        if !hideDonate {
+                            Button {
+                                currentWindow = .donate
+                            } label: {
+                                Label("donate", systemImage: "hand.thumbsup.circle")
+                            }
+                            .disabled(anyBottomOptionInUse)
+                            .contextMenu {
                                 Button {
                                     currentWindow = .donate
                                 } label: {
-                                    Label("donate", systemImage: "hand.thumbsup.circle")
+                                    Label("open", systemImage: "arrow.up.right.square")
                                 }
-                                .disabled(anyBottomOptionInUse)
-                                .contextMenu {
-                                    Button {
-                                        currentWindow = .donate
-                                    } label: {
-                                        Label("open", systemImage: "arrow.up.right.square")
-                                    }
-                                    Button {
-                                        hideDonate = true;
-                                    } label: {
-                                        Label("hide", systemImage: "eye.slash")
-                                    }
+                                Divider()
+                                Button {
+                                    hideDonate = true
+                                } label: {
+                                    Label("hide_button", systemImage: "eye.slash")
                                 }
-                            
+                            }
                         }
                     }
                 }
             }
-            
-            if (isTrafficMonitoringPausedForSettings) {
+
+            if isTrafficMonitoringPausedForSettings {
                 HStack {
-                    Image(systemName: "pause.fill")
+                    Image(systemName: "network.slash")
                     Text("traffic_monitor_inactive_settings")
                         .font(.footnote)
-                        .fontWeight(.bold)
                 }
-                .foregroundStyle(Color("Warning"))
+                .foregroundStyle(.white)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 6)
+                .background(Color.black.opacity(0.7))
+                .cornerRadius(5)
+                .onAppear {
+                    manager.stopEthernetMonitoring()
+                }
+                .contextMenu {
+                    Button {
+                       manager.startEthernetMonitoring()
+                        currentWindow = .devices
+                    } label: {
+                        Label("exit_settings_and_resume", systemImage: "arrow.uturn.backward")
+                    }
+                }
             } else {
                 Divider()
             }
-            
-            VStack(alignment: .leading, spacing: 12) {
-                
-                categoryButton(toggle: $showSystemOptions, label: "systemCategory")
-                
-                if (showSystemOptions) {
+
+            VStack(alignment: .leading, spacing: 3) {
+                HStack {
+                    Spacer()
+                    CategoryButton(category: .system, label: "systemCategory", image: "settings_general", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .icon, label: "icon_category", image: "settings_icon", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .interface, label: "uiCategory", image: "settings_interface", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .usb, label: "usbCategory", image: "settings_info", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .contextMenu, label: "context_menu_category", image: "settings_contextmenu", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .ethernet, label: "ethernetCategory", image: "settings_ethernet", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .heritage, label: "heritageCategory", image: "settings_heritage", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    CategoryButton(category: .others, label: "othersCategory", image: "settings_others", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                }
+                .padding(.horizontal, 4)
+                .padding(.vertical, 8)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(5)
+
+                Text(LocalizedStringKey(settingsCategory.rawValue))
+                    .font(.title)
+                    .padding(.vertical, 10)
+
+                if settingsCategory == .system {
                     ToggleRow(
                         label: String(localized: "open_on_startup"),
                         description: String(localized: "open_on_startup_description"),
@@ -313,7 +312,7 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: forceDarkMode || forceLightMode,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "force_dark_mode"),
@@ -322,7 +321,7 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: [forceLightMode],
                         onToggle: { value in
-                            if (value == true) {
+                            if value == true {
                                 forceLightMode = false
                             }
                         }
@@ -334,10 +333,18 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: [forceDarkMode],
                         onToggle: { value in
-                            if (value == true) {
+                            if value == true {
                                 forceDarkMode = false
                             }
                         }
+                    )
+                    ToggleRow(
+                        label: String(localized: "new_version_notification"),
+                        description: String(localized: "new_version_notification_description"),
+                        binding: $newVersionNotification,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "show_notification"),
@@ -346,7 +353,9 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { value in
-                            if (value == false) {
+                            if value {
+                                Utils.System.requestNotificationPermission()
+                            } else {
                                 disableNotifCooldown = false
                             }
                         }
@@ -358,13 +367,11 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: showNotifications == false,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
                     )
                 }
-                
-                categoryButton(toggle: $showIconOptions, label: "icon_category")
-                
-                if (showIconOptions) {
+
+                if settingsCategory == .icon {
                     VStack(alignment: .leading, spacing: 16) {
                         ToggleRow(
                             label: String(localized: "hide_menubar_icon"),
@@ -384,7 +391,7 @@ struct SettingsView: View {
                             disabled: hideMenubarIcon,
                             onToggle: { _ in hideMenubarIcon = false }
                         )
-                        
+
                         HStack(spacing: 12) {
                             if !hideMenubarIcon {
                                 Text("icon")
@@ -397,33 +404,39 @@ struct SettingsView: View {
                             }
                             Spacer()
                         }
-                        
-                        HStack{
+
+                        HStack {
                             Menu {
-                                ForEach(getIcons(), id: \.self) { item in
+                                ForEach(icons, id: \.self) { item in
                                     Button {
                                         macBarIcon = item
                                     } label: {
                                         HStack {
                                             Image(systemName: item)
                                             if !hideCount {
-                                                Text(NumberConverter(manager.devices.count).convert())
+                                                Text(
+                                                    NumberConverter(manager.devices.count).convert()
+                                                )
                                             }
                                         }
                                     }
                                 }
                             } label: {
                                 Label("icon", systemImage: macBarIcon)
-                                    .background(RoundedRectangle(cornerRadius: 6).stroke(Color.gray.opacity(0.3)))
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 6).stroke(
+                                            Color.gray.opacity(0.3)))
                             }
                             .disabled(hideMenubarIcon)
-                            
+
                             Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
-                                let nr: [NumberRepresentation] = [.base10, .egyptian, .greek, .roman]
+                                let nr: [NumberRepresentation] = [
+                                    .base10, .egyptian, .greek, .roman,
+                                ]
                                 ForEach(nr, id: \.self) { item in
                                     Button {
                                         numberRepresentation = item
-                                        Utils.killApp()
+                                        Utils.App.restart()
                                     } label: {
                                         Text(LocalizedStringKey(item.rawValue))
                                     }
@@ -432,19 +445,16 @@ struct SettingsView: View {
                             .disabled(hideCount)
                             .help("numerical_representation")
                         }
-                        
+
                         Text("changes_restart_warning")
                             .font(.footnote)
                             .foregroundColor(.primary)
                             .opacity(0.7)
                             .padding(.bottom, 3)
                     }
-                    
                 }
-                
-                categoryButton(toggle: $showInterfaceOptions, label: "uiCategory")
-                
-                if (showInterfaceOptions) {
+
+                if settingsCategory == .interface {
                     ToggleRow(
                         label: String(localized: "hide_technical_info"),
                         description: String(localized: "hide_technical_info_description"),
@@ -452,7 +462,7 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { value in
-                            if (value == false) {
+                            if value == false {
                                 mouseHoverInfo = false
                             }
                         }
@@ -464,7 +474,7 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: !hideTechInfo,
-                        onToggle: { _ in}
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "hide_secondary_info"),
@@ -472,7 +482,7 @@ struct SettingsView: View {
                         binding: $hideSecondaryInfo,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        onToggle: { _ in}
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "long_list"),
@@ -480,7 +490,23 @@ struct SettingsView: View {
                         binding: $longList,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "show_previously_connected"),
+                        description: String(localized: "show_previously_connected_description"),
+                        binding: $storeDevices,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "stored_indicator"),
+                        description: String(localized: "stored_indicator_description"),
+                        binding: $storedIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "hidden_indicator"),
@@ -488,7 +514,7 @@ struct SettingsView: View {
                         binding: $camouflagedIndicator,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "renamed_indicator"),
@@ -496,14 +522,50 @@ struct SettingsView: View {
                         binding: $renamedIndicator,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
                     )
-                }
-                
-                categoryButton(toggle: $showInfoOptions, label: "usbCategory")
-                
-                if (showInfoOptions) {
                     
+                        Button("delete_device_history") {
+                            tryingToDeleteDeviceHistory = true
+                        }
+                        .disabled(tryingToDeleteDeviceHistory || CodableStorageManager.Stored.devices.isEmpty)
+                        .help("(\(CodableStorageManager.Stored.devices.count))")
+                        .padding(.vertical, 5)
+                    
+                    if (tryingToDeleteDeviceHistory) {
+                        HStack(spacing: 6) {
+                            Text("are_you_sure")
+                            Button("no") {
+                                tryingToDeleteDeviceHistory = false
+                            }
+                            Button("yes_confirm") {
+                                CodableStorageManager.Stored.clear()
+                                tryingToDeleteDeviceHistory = false
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                    }
+                }
+
+                if settingsCategory == .usb {
+                    ToggleRow(
+                        label: String(localized: "show_port_max"),
+                        description: String(localized: "show_port_max_description"),
+                        binding: $showPortMax,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        disabled: hideTechInfo && !mouseHoverInfo,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "convert_hexa"),
+                        description: String(localized: "convert_hexa_description"),
+                        binding: $convertHexa,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        disabled: hideTechInfo && !mouseHoverInfo,
+                        onToggle: { _ in }
+                    )
                     Button {
                         showRenameDevices.toggle()
                     } label: {
@@ -513,16 +575,17 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(anyBottomOptionInUse)
+                    .padding(.vertical, 5)
                     .contextMenu {
                         Button {
-                            renamedDevices.removeAll()
+                            CodableStorageManager.Renamed.clear()
                             manager.refresh()
                         } label: {
                             Label("undo_all", systemImage: "trash")
                         }
-                        .disabled(renamedDevices.isEmpty)
+                        .disabled(CodableStorageManager.Renamed.devices.isEmpty)
                     }
-                    
+
                     Button {
                         showCamouflagedDevices.toggle()
                     } label: {
@@ -534,55 +597,31 @@ struct SettingsView: View {
                     .disabled(anyBottomOptionInUse)
                     .contextMenu {
                         Button {
-                            camouflagedDevices.removeAll()
+                            CodableStorageManager.Camouflaged.clear()
                             manager.refresh()
                         } label: {
                             Label("undo_all", systemImage: "trash")
                         }
-                        .disabled(camouflagedDevices.isEmpty)
+                        .disabled(CodableStorageManager.Camouflaged.devices.isEmpty)
                     }
-                    
-                    Button {
-                        Utils.openSysInfo()
-                    } label: {
-                        HStack {
-                            Image(systemName: "info.circle")
-                            Text("open_profiler")
-                        }
-                    }
-                    .disabled(tryingToResetSettings || anyBottomOptionInUse)
-                    
-                    ToggleRow(
-                        label: String(localized: "show_port_max"),
-                        description: String(localized: "show_port_max_description"),
-                        binding: $showPortMax,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        disabled: hideTechInfo && !mouseHoverInfo,
-                        onToggle: {_ in}
-                    )
-                    ToggleRow(
-                        label: String(localized: "convert_hexa"),
-                        description: String(localized: "convert_hexa_description"),
-                        binding: $convertHexa,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        disabled: hideTechInfo && !mouseHoverInfo,
-                        onToggle: {_ in}
-                    )
                 }
-                
-                categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category")
-                
-                if (showContextMenuOptions) {
-                    
+
+                if settingsCategory == .contextMenu {
                     ToggleRow(
                         label: String(localized: "disable_context_menu_search"),
                         description: String(localized: "disable_context_menu_search_description"),
                         binding: $disableContextMenuSearch,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "allow_copying_individual"),
+                        description: String(localized: "allow_copying_individual_description"),
+                        binding: $contextMenuCopyAll,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
                     )
                     HStack {
                         Text("search_engine")
@@ -595,15 +634,13 @@ struct SettingsView: View {
                                 }
                             }
                         }
+                        .frame(width: 130)
                         .disabled(disableContextMenuSearch)
+                        .padding(.vertical, 5)
                     }
-                    
                 }
-                
-                categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory")
-                
-                if (showEthernetOptions) {
-                    
+
+                if settingsCategory == .ethernet {
                     ToggleRow(
                         label: String(localized: "ethernet_connected_icon"),
                         description: String(localized: "ethernet_connected_icon_description"),
@@ -613,8 +650,10 @@ struct SettingsView: View {
                         disabled: hideMenubarIcon,
                         onToggle: { value in
                             manager.refresh()
-                            if (value == false) {
+                            if value == false {
                                 manager.stopEthernetMonitoring()
+                                internetMonitoring = false
+                                trafficButton = false
                             }
                         }
                     )
@@ -626,16 +665,15 @@ struct SettingsView: View {
                         incompatibilities: nil,
                         disabled: hideMenubarIcon || !showEthernet,
                         onToggle: { value in
-                            if (value == true) {
-                                if (manager.ethernet) {
+                            if value == true {
+                                if manager.ethernetCableConnected {
                                     manager.startEthernetMonitoring()
                                     currentWindow = .devices
                                 }
                             } else {
                                 manager.stopEthernetMonitoring()
-                                trafficButton = false;
+                                trafficButton = false
                             }
-                            
                         }
                     )
                     ToggleRow(
@@ -646,48 +684,40 @@ struct SettingsView: View {
                         incompatibilities: [profilerButton, restartButton],
                         disabled: !showEthernet || !internetMonitoring,
                         onToggle: { value in
-                            if (value == true) {
-                                profilerButton = false;
-                                restartButton = false;
-                                trafficButtonLabel = true;
+                            if value == true {
+                                profilerButton = false
+                                restartButton = false
                             }
-                            
                         }
                     )
-                    
+                    ToggleRow(
+                        label: String(localized: "stop_traffic_monitor_button_disable_status"),
+                        description: String(localized: "stop_traffic_monitor_button_disable_status_description"),
+                        binding: $disableTrafficButtonLabel,
+                        activeRowID: $activeRowID,
+                        incompatibilities: [profilerButton, restartButton],
+                        disabled: !showEthernet || !internetMonitoring,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "fast_traffic_monitor"),
+                        description: String(localized: "fast_traffic_monitor_description"),
+                        binding: $fastMonitor,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        disabled: !internetMonitoring,
+                        onToggle: { _ in }
+                    )
                 }
-                
-                categoryButton(toggle: $showHeritageOptions, label: "heritageCategory")
-                
-                if (showHeritageOptions) {
-                    
-                    Button {
-                        currentWindow = .heritage
-                    } label: {
-                        HStack {
-                            Image(systemName: "plus")
-                            Text("create_inheritance")
-                        }
-                    }
-                    .disabled(anyBottomOptionInUse)
-                    
-                    Button {
-                        currentWindow = .inheritanceTree
-                    } label: {
-                        HStack {
-                            Image(systemName: "tree")
-                            Text("view_inheritance_tree")
-                        }
-                    }
-                    .disabled(anyBottomOptionInUse)
-                    
+
+                if settingsCategory == .heritage {
                     ToggleRow(
                         label: String(localized: "disable_inheritance_layout"),
                         description: String(localized: "disable_inheritance_layout_description"),
                         binding: $disableInheritanceLayout,
                         activeRowID: $activeRowID,
                         incompatibilities: [increasedIndentationGap],
-                        onToggle: {_ in increasedIndentationGap = false}
+                        onToggle: { _ in increasedIndentationGap = false }
                     )
                     ToggleRow(
                         label: String(localized: "increased_indentation_gap"),
@@ -696,21 +726,42 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         disabled: disableInheritanceLayout,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
                     )
+                    Button {
+                        currentWindow = .heritage
+                    } label: {
+                        Label("create_inheritance", systemImage: "plus")
+                    }
+                    .disabled(anyBottomOptionInUse)
+                    .padding(.vertical, 5)
+
+                    Button {
+                        currentWindow = .inheritanceTree
+                    } label: {
+                        Label("view_inheritance_tree", systemImage: "arrow.trianglehead.branch")
+                    }
+                    .disabled(anyBottomOptionInUse)
                 }
-                
-                categoryButton(toggle: $showOthersOptions, label: "othersCategory")
-                
-                if (showOthersOptions) {
-                    
+
+                if settingsCategory == .others {
+                    if Locale.current.language.languageCode?.identifier != "en" {
+                        ToggleRow(
+                            label: String(localized: "force_english"),
+                            description: String(localized: "force_english_description"),
+                            binding: $forceEnglish,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in Utils.App.restart() }
+                        )
+                    }
                     ToggleRow(
                         label: String(localized: "hide_check_update"),
                         description: String(localized: "hide_check_update_description"),
                         binding: $hideUpdate,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "hide_donate"),
@@ -718,7 +769,7 @@ struct SettingsView: View {
                         binding: $hideDonate,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "no_text_buttons"),
@@ -726,7 +777,7 @@ struct SettingsView: View {
                         binding: $noTextButtons,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
-                        onToggle: {_ in}
+                        onToggle: { _ in }
                     )
                     ToggleRow(
                         label: String(localized: "restart_button"),
@@ -735,9 +786,9 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: [profilerButton, trafficButton],
                         onToggle: { value in
-                            if (value == true) {
-                                profilerButton = false;
-                                trafficButton = false;
+                            if value == true {
+                                profilerButton = false
+                                trafficButton = false
                             }
                         }
                     )
@@ -748,15 +799,15 @@ struct SettingsView: View {
                         activeRowID: $activeRowID,
                         incompatibilities: [restartButton, trafficButton],
                         onToggle: { value in
-                            if (value == true) {
-                                restartButton = false;
-                                trafficButton = false;
+                            if value == true {
+                                restartButton = false
+                                trafficButton = false
                             }
                         }
                     )
-                    
+
                     Button {
-                        tryingToResetSettings = true;
+                        tryingToResetSettings = true
                     } label: {
                         HStack {
                             Image(systemName: "folder.fill.badge.gearshape")
@@ -764,39 +815,32 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(tryingToResetSettings)
-                    
-                    if (tryingToResetSettings) {
-                        HStack(spacing: 12) {
+                    .padding(.vertical, 5)
+
+                    if tryingToResetSettings {
+                        HStack(spacing: 6) {
                             Text("are_you_sure")
                             Button("no") {
-                                tryingToResetSettings = false;
+                                tryingToResetSettings = false
                             }
                             Button("yes_confirm") {
-                                resetAppData()
-                                tryingToResetSettings = false;
-                                showOthersOptions = false;
-                                if let sound = NSSound(named: NSSound.Name("Bottle")) {
-                                    sound.play()
-                                }
+                                Utils.App.deleteStorageData()
+                                tryingToResetSettings = false
+                                Utils.System.playSound("Bottle")
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                    Utils.killApp()
+                                    Utils.App.restart()
                                 }
                             }
                             .buttonStyle(.borderedProminent)
                         }
                     }
-                    
                 }
-                
-                
-                
             }
-            
+
             Spacer()
-            
+
             VStack(alignment: .leading) {
-                
-                if (anyBottomOptionInUse) {
+                if anyBottomOptionInUse {
                     Button("cancel") {
                         showRenameDevices = false
                         showCamouflagedDevices = false
@@ -805,19 +849,18 @@ struct SettingsView: View {
                         inputText = ""
                     }
                 }
-                
+
                 HStack {
-                    
                     Spacer()
-                    
-                    if (!anyBottomOptionInUse) {
+
+                    if !anyBottomOptionInUse {
                         Button(action: {
-                            if (isTrafficMonitoringPausedForSettings) {
+                            if isTrafficMonitoringPausedForSettings {
                                 manager.startEthernetMonitoring()
                             }
                             currentWindow = .devices
                         }) {
-                            if (isTrafficMonitoringPausedForSettings) {
+                            if isTrafficMonitoringPausedForSettings {
                                 Label("back_and_resume", systemImage: "arrow.uturn.backward")
                                     .contextMenu {
                                         Button {
@@ -831,38 +874,39 @@ struct SettingsView: View {
                             }
                         }
                     }
-                    
                 }
-                
-                if (anyBottomOptionInUse) {
+
+                if anyBottomOptionInUse {
                     Divider()
                 }
-                
+
                 if showCamouflagedDevices {
                     HStack(spacing: 12) {
                         Menu {
-                            ForEach(manager.devices) { device in
-                                let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
-                                let buttonLabel = renamedDevice?.name ?? device.name
+                            ForEach(manager.devices, id: \.self) { device in
+                                let renamedDevice = CodableStorageManager.Renamed.devices.first {
+                                    $0.deviceId == device.item.uniqueId
+                                }
+                                let buttonLabel = renamedDevice?.name ?? device.item.name
                                 Button(buttonLabel) {
                                     selectedDeviceToCamouflage = device
                                 }
                             }
                         } label: {
-                            Text(selectedDeviceToCamouflage?.name ?? String(localized: "device"))
+                            Text(
+                                selectedDeviceToCamouflage?.item.name ?? String(localized: "device")
+                            )
                         }
-                        
+
                         if selectedDeviceToCamouflage != nil {
-                            
-                            if (inheritedDevices.contains { $0.inheritsFrom == USBDevice.uniqueId(selectedDeviceToCamouflage!) }) {
+                            if (inheritedDevices.contains {
+                                $0.inheritsFrom == selectedDeviceToCamouflage!.item.uniqueId
+                            }) {
                                 Text("cant_hide_heir")
                                     .font(.subheadline)
                             } else {
                                 Button("confirm") {
-                                    let uniqueId = USBDevice.uniqueId(selectedDeviceToCamouflage!)
-                                    let newDevice = CamouflagedDevice(deviceId: uniqueId)
-                                    camouflagedDevices.removeAll { $0.deviceId == uniqueId }
-                                    camouflagedDevices.append(newDevice)
+                                    CodableStorageManager.Camouflaged.add(withId: selectedDeviceToCamouflage?.item.uniqueId)
                                     selectedDeviceToCamouflage = nil
                                     showCamouflagedDevices = false
                                     manager.refresh()
@@ -870,34 +914,36 @@ struct SettingsView: View {
                                 .buttonStyle(.borderedProminent)
                             }
                         }
-                        
-                        if selectedDeviceToCamouflage == nil && !camouflagedDevices.isEmpty {
+
+                        if selectedDeviceToCamouflage == nil && !CodableStorageManager.Camouflaged.devices.isEmpty {
                             Button("undo_all") {
-                                camouflagedDevices.removeAll()
+                                CodableStorageManager.Camouflaged.clear()
                                 showCamouflagedDevices = false
                                 manager.refresh()
                             }
                         }
-                        
+
                         Spacer()
                     }
                 }
-                
+
                 if showRenameDevices {
                     HStack(spacing: 12) {
                         Menu {
-                            ForEach(manager.devices) { device in
-                                let renamedDevice = renamedDevices.first { $0.deviceId == USBDevice.uniqueId(device) }
-                                let buttonLabel = renamedDevice?.name ?? device.name
+                            ForEach(manager.devices, id: \.self) { device in
+                                let renamedDevice = CodableStorageManager.Renamed.devices.first {
+                                    $0.deviceId == device.item.uniqueId
+                                }
+                                let buttonLabel = renamedDevice?.name ?? device.item.name
                                 Button(buttonLabel) {
                                     inputText = ""
                                     selectedDeviceToRename = device
                                 }
                             }
                         } label: {
-                            Text(selectedDeviceToRename?.name ?? String(localized: "device"))
+                            Text(selectedDeviceToRename?.item.name ?? String(localized: "device"))
                         }
-                        
+
                         if selectedDeviceToRename != nil {
                             CustomTextField(
                                 text: $inputText,
@@ -907,14 +953,13 @@ struct SettingsView: View {
                             )
                             .frame(width: 190)
                             .help("renaming_help")
-                            
+
                             Button(String(localized: "confirm")) {
-                                let uniqueId = USBDevice.uniqueId(selectedDeviceToRename!)
+                                let uniqueId = selectedDeviceToRename!.item.uniqueId
                                 if inputText.isEmpty {
-                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
+                                    CodableStorageManager.Renamed.remove(withId: uniqueId)
                                 } else {
-                                    renamedDevices.removeAll { $0.deviceId == uniqueId }
-                                    renamedDevices.append(RenamedDevice(deviceId: uniqueId, name: inputText))
+                                    CodableStorageManager.Renamed.add(selectedDeviceToRename, inputText)
                                 }
                                 inputText = ""
                                 selectedDeviceToRename = nil
@@ -923,64 +968,22 @@ struct SettingsView: View {
                             }
                             .buttonStyle(.borderedProminent)
                         }
-                        
-                        if selectedDeviceToRename == nil && !renamedDevices.isEmpty {
+
+                        if selectedDeviceToRename == nil && !CodableStorageManager.Renamed.devices.isEmpty {
                             Button(String(localized: "undo_all")) {
-                                renamedDevices.removeAll()
+                                CodableStorageManager.Renamed.clear()
                                 showRenameDevices = false
                                 manager.refresh()
                             }
                         }
-                        
+
                         Spacer()
                     }
                 }
             }
-            
-            
         }
         .padding(10)
         .frame(minWidth: 465, minHeight: 600)
         .appBackground(reduceTransparency)
-    }
-    
-    private func checkForUpdate() {
-        checkingUpdate = true
-        updateAvailable = false
-        latestVersion = ""
-        releaseURL = nil
-        
-        guard let url = URL(string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest") else {
-            checkingUpdate = false
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            defer { checkingUpdate = false }
-            guard let data = data, error == nil else { return }
-            
-            if let release = try? JSONDecoder().decode(GitHubRelease.self, from: data) {
-                let latest = release.tag_name.replacingOccurrences(of: "v", with: "")
-                latestVersion = latest
-                releaseURL = URL(string: release.html_url)
-                
-                DispatchQueue.main.async {
-                    updateAvailable = isVersion(appVersion, olderThan: latest)
-                    if let sound = NSSound(named: NSSound.Name(updateAvailable ? "Submarine" : "Glass")) {
-                        sound.play()
-                    }
-                }
-            }
-        }.resume()
-    }
-    
-    private func isVersion(_ v1: String, olderThan v2: String) -> Bool {
-        let v1Components = v1.split(separator: ".").compactMap { Int($0) }
-        let v2Components = v2.split(separator: ".").compactMap { Int($0) }
-        for (a, b) in zip(v1Components, v2Components) {
-            if a < b { return true }
-            if a > b { return false }
-        }
-        return v1Components.count < v2Components.count
     }
 }

@@ -5,57 +5,73 @@
 //  Created by Rafael Neuwirth on 28/08/25.
 //
 
-import SwiftUI
 import ServiceManagement
+import SwiftUI
 
 @main
 struct MenuBarUSBApp: App {
-    
     @StateObject private var manager = USBDeviceManager()
     @State private var currentWindow: AppWindow = .devices
     @State private var convertedCount: String = ""
+
+    @AppStorage(Key.reduceTransparency) private var isReduceTransparencyOn = false
+    @AppStorage(Key.forceDarkMode) private var forceDarkMode = false
+    @AppStorage(Key.forceLightMode) private var forceLightMode = false
+    @AppStorage(Key.hideCount) private var hideCount = false
+    @AppStorage(Key.hideMenubarIcon) private var hideMenubarIcon = false
+    @AppStorage(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
+    @AppStorage(Key.showEthernet) private var showEthernet = false
+    @AppStorage(Key.forceEnglish) private var forceEnglish = false
+    @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
+    @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
     
-    @AppStorage(StorageKeys.reduceTransparency) private var isReduceTransparencyOn = false
-    @AppStorage(StorageKeys.forceDarkMode) private var forceDarkMode = false
-    @AppStorage(StorageKeys.forceLightMode) private var forceLightMode = false
-    @AppStorage(StorageKeys.hideCount) private var hideCount = false
-    @AppStorage(StorageKeys.hideMenubarIcon) private var hideMenubarIcon = false
-    @AppStorage(StorageKeys.macBarIcon) private var macBarIcon: String = "cable.connector"
-    @AppStorage(StorageKeys.showEthernet) private var showEthernet = false
-    
+    init() {
+        if newVersionNotification {
+            Task {
+                if (await Utils.App.hasUpdate()) {
+                    Utils.System.sendNotification(
+                        title: String(localized: "update_notification_title"),
+                        body: String(localized: "update_notification_body")
+                    )
+                }
+            }
+        }
+    }
+
     private var countText: some View {
-        Text(convertedCount)
+        func updateCount() {
+            convertedCount = NumberConverter(manager.devices.count).convert()
+        }
+
+        return Text(convertedCount)
             .onAppear(perform: updateCount)
             .onChange(of: manager.devices) { _ in updateCount() }
     }
-    
+
     private var menuLabel: some View {
         return HStack(spacing: 5) {
-            
             let image = HStack(spacing: 7) {
-                if manager.ethernetTraffic {
-                    Image("ETHERNET_DOT")
-                } else {
-                    Image("ETHERNET")
+                if (manager.trafficMonitorRunning == false && internetMonitoring) {
+                    Image(systemName: "pause.fill")
                 }
+                Image(manager.ethernetTraffic ? "ETHERNET_DOT" : "ETHERNET")
                 Image(systemName: macBarIcon)
             }
             .asImage()
-            
+
+            var ethernetCableConnectedAndShowEthernet: Bool {
+                return showEthernet && manager.ethernetCableConnected
+            }
+
             if !hideMenubarIcon {
-                if showEthernet && manager.ethernet { Image(nsImage: image) }
+                if ethernetCableConnectedAndShowEthernet { Image(nsImage: image) }
                 Image(systemName: macBarIcon)
             }
             if !hideCount { countText }
         }
     }
-    
-    private func updateCount() {
-        convertedCount = NumberConverter(manager.devices.count).convert()
-    }
-    
+
     var body: some Scene {
-        
         MenuBarExtra {
             mainContent
         } label: {
@@ -64,44 +80,33 @@ struct MenuBarUSBApp: App {
             }
         }
         .menuBarExtraStyle(.window)
-        
+
         Window("legacy_settings", id: "legacy_settings") {
-            LegacySettingsView(currentWindow: $currentWindow)
+            LegacySettingsView()
         }
     }
-    
+
+    private func view<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
+        content()
+            .appBackground(isReduceTransparencyOn)
+            .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
+            .environmentObject(manager)
+            .environment(\.locale, forceEnglish ? Locale(identifier: "en") : Locale.current)
+    }
+
     @ViewBuilder
     private var mainContent: some View {
-        
         switch currentWindow {
         case .devices:
-            ContentView(currentWindow: $currentWindow)
-                .appBackground(isReduceTransparencyOn)
-                .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
-                .environmentObject(manager)
-            
+            view { ContentView(currentWindow: $currentWindow) }
         case .settings:
-            SettingsView(currentWindow: $currentWindow)
-                .appBackground(isReduceTransparencyOn)
-                .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
-                .environmentObject(manager)
-            
+            view { SettingsView(currentWindow: $currentWindow) }
         case .donate:
-            DonateView(currentWindow: $currentWindow)
-                .appBackground(isReduceTransparencyOn)
-                .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
-            
+            view { DonateView(currentWindow: $currentWindow) }
         case .heritage:
-            HeritageView(currentWindow: $currentWindow)
-                .appBackground(isReduceTransparencyOn)
-                .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
-                .environmentObject(manager)
-            
+            view { HeritageView(currentWindow: $currentWindow) }
         case .inheritanceTree:
-            InheritanceTreeView(currentWindow: $currentWindow)
-                .appBackground(isReduceTransparencyOn)
-                .colorSchemeForce(light: forceLightMode, dark: forceDarkMode)
-                .environmentObject(manager)
+            view { InheritanceTreeView(currentWindow: $currentWindow) }
         }
     }
 }

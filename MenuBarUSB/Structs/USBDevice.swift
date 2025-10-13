@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct USBDevice: Identifiable, Hashable {
+struct USBDevice: ~Copyable {
     let id = UUID()
     let name: String
     let vendor: String?
@@ -19,80 +19,22 @@ struct USBDevice: Identifiable, Hashable {
     let portMaxSpeedMbps: Int?
     let usbVersionBCD: Int?
     let isExternalStorage: Bool?
-    
-    
-    
-    static func usbVersionLabel(from bcd: Int?, convertHexa: Bool) -> String? {
-        guard let bcd = bcd else { return nil }
-        switch bcd {
-        case 0x0100: return "USB 1.0"
-        case 0x0110: return "USB 1.1"
-        case 0x0200: return "USB 2.0"
-        case 0x0300: return "USB 3.0"
-        case 0x0310: return "USB 3.1"
-        case 0x0320: return "USB 3.2"
-        case 0x0400: return "USB4"
-        case 0x0420: return "USB4 2.0"
-        default:
-            let major = (bcd >> 8) & 0xFF
-            let minorHigh = (bcd >> 4) & 0x0F
-            let minorLow  = bcd & 0x0F
-            let minor = minorHigh * 10 + minorLow
 
-            let versionString = minor == 0 ? "\(major)" : "\(major).\(minor)"
-            if (convertHexa) {
-                return String(
-                    format: "USB %@ (\(String(localized: "unknown")))",
-                    versionString
-                )
-            } else {
-                return String(
-                    format: "\(String(localized: "unknown")) (0x%04X)",
-                    bcd
-                )
-            }
-            
-        }
+    var uniqueId: String {
+        return "\(vendorId)-\(productId)-\(String(describing: locationId))"
     }
 
-    static func speedTierLabel(for mbps: Int) -> String {
-        switch mbps {
-        case 1, 2:       return "USB 1.0 \(String(localized: "low_speed")) (1.5 Mbps)"
-        case 12:         return "USB 1.1 \(String(localized: "full_speed")) (12 Mbps)"
-        case 480:        return "USB 2.0 \(String(localized: "high_speed")) (480 Mbps)"
-        case 5000:       return "USB 3.0 / 3.1 Gen1 / 3.2 Gen1x1 (5 Gbps)"
-        case 10000:      return "USB 3.1 Gen2 / 3.2 Gen2x1 (10 Gbps)"
-        case 20000:      return "USB 3.2 Gen2x2 / USB4 Gen2x2 (20 Gbps)"
-        case 40000:      return "USB4 Gen3x2 / Thunderbolt 3/4 (40 Gbps)"
-        case 80000:      return "USB4 v2 Gen4x2 / Thunderbolt 5 (80 Gbps)"
-        default:
-            if mbps >= 1000 { return String(format: "%.1f Gbps", Double(mbps) / 1000.0) }
-            return "\(mbps) Mbps"
-        }
-    }
-
-    private func prettyMbps(_ mbps: Int) -> String {
-        mbps >= 1000 ? String(format: "%.1f Gbps", Double(mbps)/1000.0) : "\(mbps) Mbps"
-    }
-    
-    static func uniqueId(_ device: USBDevice) -> String {
-        return "\(device.vendorId)-\(device.productId)-\(String(describing: device.locationId))";
-    }
-
-}
-
-extension USBDevice {
     var speedDescription: String {
         guard let devMbps = speedMbps else {
             return String(localized: "unknown_speed")
         }
-        var parts: [String] = [USBDevice.speedTierLabel(for: devMbps)]
+        var parts: [String] = [Utils.USB.speedTierLabel(for: devMbps)]
 
-        if let port = (self as USBDevice).portMaxSpeedMbps {
+        if let port = portMaxSpeedMbps {
             if devMbps < port {
-                parts.append("— \(String(localized: "supports_up_to")) \(prettyMbps(port))")
+                parts.append("— \(String(localized: "supports_up_to")) \(Utils.USB.prettyMbps(port))")
             } else {
-                parts.append("— \(String(localized: "supports")) \(prettyMbps(port))")
+                parts.append("— \(String(localized: "supports")) \(Utils.USB.prettyMbps(port))")
             }
         }
         return parts.joined(separator: " ")
