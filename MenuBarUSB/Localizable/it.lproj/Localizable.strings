@@ -219,3 +219,5 @@
 "hide_button" = "Nascondi pulsante";
 "force_english" = "Forza inglese";
 "force_english_description" = "La lingua predefinita sarà sempre l'inglese, indipendentemente dalla lingua del tuo sistema operativo.";
+"disable_haptic_feedback" = "Disattiva feedback aptico";
+"disable_haptic_feedback_description" = "Alcune azioni attivano una leggera vibrazione sul trackpad, offrendo una sensazione di interazione raffinata, soprattutto tramite gesti di passaggio.";

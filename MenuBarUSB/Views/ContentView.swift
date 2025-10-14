@@ -534,11 +534,9 @@ struct ContentView: View {
                                                 .foregroundStyle(.secondary)
                                         }
                                         
-                                        Divider()
-                                            .padding(.top, 3)
                                     }
                                     .opacity(0.5)
-                                    .padding(.vertical, 3)
+                                    .padding(.top, 3)
                                     .onHover { hovering in
                                         if mouseHoverInfo {
                                             if hovering {
@@ -569,6 +567,8 @@ struct ContentView: View {
                                             Label("remove_from_history", systemImage: "trash")
                                         }
                                     }
+                                    Divider()
+                                        .padding(.top, 3)
                                 }
                             }
                         }

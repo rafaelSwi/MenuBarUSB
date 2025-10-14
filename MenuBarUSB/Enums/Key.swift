@@ -40,6 +40,7 @@ enum Key {
     static let searchEngine = "searchEngine"
     static let showEthernet = "showEthernet"
     static let internetMonitoring = "internetMonitoring"
+    static let disableHaptic = "disableHaptic"
     static let trafficButton = "trafficButton"
     static let disableTrafficButtonLabel = "disableTrafficButtonLabel"
     static let newVersionNotification = "newVersionNotification"

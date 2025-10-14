@@ -8,6 +8,7 @@
 import AppKit
 import Foundation
 import UserNotifications
+import SwiftUI
 
 enum Utils {
     enum System {
@@ -27,6 +28,8 @@ enum Utils {
         }
 
         static func hapticFeedback() {
+            @AppStorage(Key.disableHaptic) var disableHaptic = false
+            if (disableHaptic) { return }
             let performer = NSHapticFeedbackManager.defaultPerformer
             performer.perform(.generic, performanceTime: .now)
         }

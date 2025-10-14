@@ -219,3 +219,5 @@
 "hide_button" = "버튼 숨기기";
 "force_english" = "영어로 강제 설정";
 "force_english_description" = "기본 언어는 운영체제 언어와 관계없이 항상 영어로 설정됩니다.";
+"disable_haptic_feedback" = "햅틱 피드백 비활성화";
+"disable_haptic_feedback_description" = "특정 동작이 트랙패드에서 부드러운 진동을 트리거하여, 특히 호버 제스처를 통해 정교한 상호작용 경험을 제공합니다.";

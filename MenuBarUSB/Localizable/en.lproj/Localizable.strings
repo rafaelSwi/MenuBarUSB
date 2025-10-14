@@ -219,3 +219,5 @@
 "hide_button" = "Hide button";
 "force_english" = "Force English";
 "force_english_description" = "The default language will always be English regardless of your operating system language.";
+"disable_haptic_feedback" = "Disable haptic feedback";
+"disable_haptic_feedback_description" = "Specific actions trigger a soft vibration on the trackpad, providing a refined sense of interaction, especially through hover gestures.";

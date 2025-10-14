@@ -219,3 +219,5 @@
 "hide_button" = "Esconder botão";
 "force_english" = "Forçar idioma inglês";
 "force_english_description" = "O idioma padrão será sempre o inglês, independentemente do idioma do seu macOS.";
+"disable_haptic_feedback" = "Desativar vibração no trackpad";
+"disable_haptic_feedback_description" = "Ações específicas ativam uma leve vibração no trackpad, especialmente por meio de gestos de passar o cursor.";

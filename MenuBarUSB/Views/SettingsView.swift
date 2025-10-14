@@ -63,6 +63,7 @@ struct SettingsView: View {
     @AppStorage(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AppStorage(Key.showEthernet) private var showEthernet = false
     @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
+    @AppStorage(Key.disableHaptic) private var disableHaptic = false
     @AppStorage(Key.trafficButton) private var trafficButton = false
     @AppStorage(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
     @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
@@ -767,6 +768,14 @@ struct SettingsView: View {
                         label: String(localized: "hide_donate"),
                         description: String(localized: "hide_donate_description"),
                         binding: $hideDonate,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "disable_haptic_feedback"),
+                        description: String(localized: "disable_haptic_feedback_description"),
+                        binding: $disableHaptic,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }

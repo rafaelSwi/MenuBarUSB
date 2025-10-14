@@ -219,3 +219,5 @@
 "hide_button" = "隐藏按钮";
 "force_english" = "强制使用英语";
 "force_english_description" = "无论操作系统的语言为何，默认语言始终为英语。";
+"disable_haptic_feedback" = "禁用触觉反馈";
+"disable_haptic_feedback_description" = "某些操作会触发触控板上的轻微振动，从而提供精致的交互体验，尤其是在悬停手势时。";

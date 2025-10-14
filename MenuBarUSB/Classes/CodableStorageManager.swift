@@ -19,19 +19,30 @@ final class CodableStorageManager {
         }
         
         static func filteredDevices(_ connectedDevices: [USBDeviceWrapper]) -> [StoredDevice] {
-            return items.filter { device in
+            let filtered = items.filter { device in
                 let notContain = !connectedDevices.contains { $0.item.uniqueId == device.deviceId }
                 let isHidden = CodableStorageManager.Camouflaged.devices.contains { $0.deviceId == device.deviceId }
-                return (notContain && !isHidden)
+                return notContain && !isHidden
             }.map { device in
-                let renamed: RenamedDevice? = CodableStorageManager.Renamed.devices.first { $0.deviceId == device.deviceId }
-                if (renamed != nil) {
+                if let renamed = CodableStorageManager.Renamed.devices.first(where: { $0.deviceId == device.deviceId }) {
                     var newDevice = device
-                    newDevice.name = renamed!.name
+                    newDevice.name = renamed.name
                     return newDevice
                 }
                 return device
             }
+
+            var seenIds = Set<String>()
+            let uniqueDevices = filtered.filter { device in
+                if seenIds.contains(device.deviceId) {
+                    return false
+                } else {
+                    seenIds.insert(device.deviceId)
+                    return true
+                }
+            }
+
+            return uniqueDevices
         }
         
         static func add(_ d: USBDeviceWrapper) {

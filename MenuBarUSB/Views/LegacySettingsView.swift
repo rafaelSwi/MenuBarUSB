@@ -45,6 +45,7 @@ struct LegacySettingsView: View {
     @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
     @AppStorage(Key.reduceTransparency) private var reduceTransparency = false
     @AppStorage(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AppStorage(Key.disableHaptic) private var disableHaptic = false
     @AppStorage(Key.forceEnglish) private var forceEnglish = false
     @AppStorage(Key.showEthernet) private var showEthernet = false
     @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
@@ -528,6 +529,14 @@ struct LegacySettingsView: View {
                         label: String(localized: "restart_button"),
                         description: String(localized: "restart_button_description"),
                         binding: $restartButton,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "disable_haptic_feedback"),
+                        description: String(localized: "disable_haptic_feedback_description"),
+                        binding: $disableHaptic,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }

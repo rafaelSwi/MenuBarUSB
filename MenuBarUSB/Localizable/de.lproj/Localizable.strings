@@ -219,3 +219,5 @@
 "hide_button" = "Schaltfläche ausblenden";
 "force_english" = "Englisch erzwingen";
 "force_english_description" = "Die Standardsprache ist immer Englisch, unabhängig von der Sprache deines Betriebssystems.";
+"disable_haptic_feedback" = "Haptisches Feedback deaktivieren";
+"disable_haptic_feedback_description" = "Bestimmte Aktionen lösen eine sanfte Vibration auf dem Trackpad aus, was ein verfeinertes Interaktionsgefühl vermittelt, insbesondere bei Hover-Gesten.";

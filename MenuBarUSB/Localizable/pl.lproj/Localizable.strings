@@ -219,3 +219,5 @@
 "hide_button" = "Ukryj przycisk";
 "force_english" = "Wymuś język angielski";
 "force_english_description" = "Domyślnym językiem zawsze będzie angielski, niezależnie od języka systemu operacyjnego.";
+"disable_haptic_feedback" = "Wyłącz sprzężenie dotykowe";
+"disable_haptic_feedback_description" = "Niektóre działania wywołują delikatną wibrację na panelu dotykowym, zapewniając wyrafinowane wrażenie interakcji, zwłaszcza przy gestach najechania.";
