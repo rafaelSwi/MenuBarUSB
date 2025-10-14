@@ -68,10 +68,10 @@ final class CodableStorageManager {
             return items
         }
         
-        static func add(_ d: USBDeviceWrapper?, _ name: String) {
-            if (d == nil) { return }
-            items.removeAll { $0.deviceId == d!.item.uniqueId }
-            items.append(RenamedDevice(deviceId: d!.item.uniqueId, name: name))
+        static func add(_ deviceId: String?, _ name: String) {
+            if (deviceId == nil) { return }
+            items.removeAll { $0.deviceId == deviceId }
+            items.append(RenamedDevice(deviceId: deviceId!, name: name))
         }
         
         static func remove(withId id: String) {

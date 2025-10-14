@@ -221,3 +221,4 @@
 "force_english_description" = "L'idioma per defecte sempre serà l'anglès independentment de l'idioma del teu sistema operatiu.";
 "disable_haptic_feedback" = "Desactiva la retroalimentació hàptica";
 "disable_haptic_feedback_description" = "Accions específiques activen una vibració suau al trackpad, proporcionant una sensació d’interacció refinada, especialment a través de gestos de passar per sobre.";
+"restore_name" = "Restaura el nom";

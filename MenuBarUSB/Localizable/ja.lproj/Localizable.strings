@@ -221,3 +221,4 @@
 "force_english_description" = "デフォルトの言語は常に英語になり、OSの言語設定には関係ありません。";
 "disable_haptic_feedback" = "ハプティックフィードバックを無効にする";
 "disable_haptic_feedback_description" = "特定の操作でトラックパッドが軽く振動し、特にホバージェスチャーによって洗練された操作感を提供します。";
+"restore_name" = "名前を復元";

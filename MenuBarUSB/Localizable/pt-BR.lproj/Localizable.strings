@@ -113,7 +113,7 @@
 "hide_secondary_info_description" = "As informações no canto direito (como número de série e fabricante) não serão exibidas.";
 "othersCategory" = "Outros";
 "hide_check_update" = "Ocultar botão de buscar atualizações";
-"hide_check_update_description" = "Se você já tem o MenuBarUSB instalado via brew, ou simplesmente não gosta desse botão, você pode ocultá-lo.";
+"hide_check_update_description" = "Se você já tem o MenuBarUSB instalado via brew, você pode ocultá-lo.";
 "hide_donate" = "Ocultar botão de \"Contribuir\"";
 "hide_donate_description" = "O desenvolvedor ficaria um pouco triste, mas se quiser, você pode ocultar o botão de \"Contribuir\".";
 "no_text_buttons" = "Botões principais não têm texto, apenas ícones";
@@ -218,6 +218,7 @@
 "enabling_this_will_cause_restart" = "Ativar isso fará o MenuBarUSB reiniciar";
 "hide_button" = "Esconder botão";
 "force_english" = "Forçar idioma inglês";
-"force_english_description" = "O idioma padrão será sempre o inglês, independentemente do idioma do seu macOS.";
+"force_english_description" = "Força o idioma inglês no MenuBarUSB.";
 "disable_haptic_feedback" = "Desativar vibração no trackpad";
 "disable_haptic_feedback_description" = "Ações específicas ativam uma leve vibração no trackpad, especialmente por meio de gestos de passar o cursor.";
+"restore_name" = "Apagar nome";

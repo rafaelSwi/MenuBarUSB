@@ -221,3 +221,4 @@
 "force_english_description" = "Limba implicită va fi întotdeauna engleza, indiferent de limba sistemului tău de operare.";
 "disable_haptic_feedback" = "Dezactivează feedback-ul haptic";
 "disable_haptic_feedback_description" = "Anumite acțiuni declanșează o vibrație ușoară pe trackpad, oferind o senzație rafinată de interacțiune, mai ales prin gesturi de plutire.";
+"restore_name" = "Restaurează numele";

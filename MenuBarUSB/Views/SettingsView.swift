@@ -968,7 +968,7 @@ struct SettingsView: View {
                                 if inputText.isEmpty {
                                     CodableStorageManager.Renamed.remove(withId: uniqueId)
                                 } else {
-                                    CodableStorageManager.Renamed.add(selectedDeviceToRename, inputText)
+                                    CodableStorageManager.Renamed.add(selectedDeviceToRename?.item.uniqueId, inputText)
                                 }
                                 inputText = ""
                                 selectedDeviceToRename = nil

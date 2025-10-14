@@ -221,3 +221,4 @@
 "force_english_description" = "El idioma predeterminado siempre será el inglés, sin importar el idioma de tu sistema operativo.";
 "disable_haptic_feedback" = "Desactivar la respuesta háptica";
 "disable_haptic_feedback_description" = "Ciertas acciones activan una suave vibración en el trackpad, proporcionando una sensación de interacción refinada, especialmente mediante gestos al pasar el cursor.";
+"restore_name" = "Restaurar nombre";

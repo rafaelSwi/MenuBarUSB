@@ -221,3 +221,4 @@
 "force_english_description" = "Standardsproget vil altid være engelsk, uanset hvilket sprog dit operativsystem bruger.";
 "disable_haptic_feedback" = "Deaktiver haptisk feedback";
 "disable_haptic_feedback_description" = "Bestemte handlinger udløser en blød vibration på trackpaden, hvilket giver en forfinet følelse af interaktion, især gennem svævebevægelser.";
+"restore_name" = "Gendan navn";

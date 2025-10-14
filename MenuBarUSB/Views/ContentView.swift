@@ -260,6 +260,20 @@ struct ContentView: View {
         if !hideTechInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == device.uniqueId
     }
+    
+    private func showDisconnectedText(for deviceId: String) -> Bool {
+        if (isRenamingDeviceId == deviceId) { return false }
+        return !hideTechInfo || isHoveringDeviceId == deviceId
+    }
+    
+    private func isRenaming(device id: String) -> Bool {
+        return isRenamingDeviceId == id
+    }
+    
+    private func showRestoreName(for deviceId: String) -> Bool {
+        let renamed = CodableStorageManager.Renamed.devices.first { $0.deviceId == deviceId }
+        return renamed != nil
+    }
 
     private func searchOnWeb(_ search: String) {
         guard let query = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -270,14 +284,46 @@ struct ContentView: View {
         openURL(url)
     }
     
-    private func deviceTitle(_ name: String?, deviceId: String) -> some View {
-        let baseName = name ?? "usb_device"
+    private func deviceTitleView(_ name: String?, deviceId: String) -> some View {
         let renamed = CodableStorageManager.Renamed.devices.first { $0.deviceId == deviceId }
-        let title = renamed != nil ? "∙ \(renamed?.name ?? "")" : baseName
+        let baseName = renamed?.name ?? name ?? String(localized: "usb_device")
+        let title = (renamed != nil && renamedIndicator) ? "∙ \(baseName)" : baseName
 
         return Text(title)
             .font(.system(size: 12, weight: .semibold))
             .foregroundColor(.primary)
+    }
+    
+    private func deviceRenameView(deviceId: String) -> some View {
+        return HStack {
+            CustomTextField(
+                text: $inputText,
+                placeholder: String(localized: "insert_new_name"),
+                maxLength: 30,
+                isFocused: $textFieldFocused
+            )
+            .frame(width: 190)
+            .help("renaming_help")
+
+            Button(role: .cancel) {
+                isRenamingDeviceId = ""
+            } label: {
+                Text("cancel")
+            }
+
+            Button("confirm") {
+                let uniqueId = deviceId
+                if inputText.isEmpty {
+                    CodableStorageManager.Renamed.remove(withId: uniqueId)
+                } else {
+                    CodableStorageManager.Renamed.add(deviceId, inputText)
+                }
+                inputText = ""
+                isRenamingDeviceId = ""
+                manager.refresh()
+            }
+            .buttonStyle(.borderedProminent)
+        }
     }
     
     private var isTrulyEmpty: Bool {
@@ -313,37 +359,10 @@ struct ContentView: View {
 
                                 VStack(alignment: .leading, spacing: 2) {
                                     HStack {
-                                        if isRenamingDeviceId == uniqueId {
-                                            CustomTextField(
-                                                text: $inputText,
-                                                placeholder: String(localized: "insert_new_name"),
-                                                maxLength: 30,
-                                                isFocused: $textFieldFocused
-                                            )
-                                            .frame(width: 190)
-                                            .help("renaming_help")
-
-                                            Button(role: .cancel) {
-                                                isRenamingDeviceId = ""
-                                            } label: {
-                                                Text("cancel")
-                                            }
-
-                                            Button("confirm") {
-                                                let uniqueId = device.item.uniqueId
-                                                if inputText.isEmpty {
-                                                    CodableStorageManager.Renamed.remove(withId: uniqueId)
-                                                } else {
-                                                    CodableStorageManager.Renamed.add(device, inputText)
-                                                }
-                                                inputText = ""
-                                                isRenamingDeviceId = ""
-                                                manager.refresh()
-                                            }
-                                            .buttonStyle(.borderedProminent)
-
+                                        if isRenaming(device: uniqueId) {
+                                            deviceRenameView(deviceId: device.item.uniqueId)
                                         } else {
-                                            deviceTitle(device.item.name, deviceId: device.item.uniqueId)
+                                            deviceTitleView(device.item.name, deviceId: device.item.uniqueId)
                                         }
 
                                         Spacer()
@@ -422,14 +441,7 @@ struct ContentView: View {
                                     } label: {
                                         Label("copy", systemImage: "square.on.square")
                                     }
-
-                                    Button {
-                                        inputText = ""
-                                        isRenamingDeviceId = uniqueId
-                                    } label: {
-                                        Label("rename", systemImage: "pencil.and.scribble")
-                                    }
-
+                                    Divider()
                                     Button {
                                         CodableStorageManager.Camouflaged.add(withId: device.item.uniqueId)
                                         manager.refresh()
@@ -437,6 +449,21 @@ struct ContentView: View {
                                         Label("hide", systemImage: "eye.slash")
                                     }
                                     .disabled(inheritedDevices.contains { $0.inheritsFrom == device.item.uniqueId })
+
+                                    Button {
+                                        inputText = ""
+                                        isRenamingDeviceId = uniqueId
+                                    } label: {
+                                        Label("rename", systemImage: "pencil.and.scribble")
+                                    }
+                                    
+                                    if showRestoreName(for: uniqueId) {
+                                        Button {
+                                            CodableStorageManager.Renamed.remove(withId: uniqueId)
+                                        } label: {
+                                            Label("restore_name", systemImage: "eraser.line.dashed")
+                                        }
+                                    }
 
                                     if !mouseHoverInfo && hideTechInfo {
                                         Divider()
@@ -464,12 +491,13 @@ struct ContentView: View {
                                             copyTextLabelView(device.item.name)
                                         }
                                         
-                                        Button {
-                                            Utils.System.copyToClipboard(device.item.vendor ?? "?")
-                                        } label: {
-                                            copyTextLabelView(device.item.vendor ?? "?")
+                                        if (device.item.vendor  != nil) {
+                                            Button {
+                                                Utils.System.copyToClipboard(device.item.vendor ?? "?")
+                                            } label: {
+                                                copyTextLabelView(device.item.vendor ?? "?")
+                                            }
                                         }
-                                        .disabled(device.item.vendor == nil)
                                         
                                         Button {
                                             Utils.System.copyToClipboard(deviceId(device.item))
@@ -477,12 +505,13 @@ struct ContentView: View {
                                             copyTextLabelView(deviceId(device.item))
                                         }
                                         
-                                        Button {
-                                            Utils.System.copyToClipboard(device.item.serialNumber ?? "SN")
-                                        } label: {
-                                            copyTextLabelView(device.item.serialNumber ?? "SN")
+                                        if device.item.serialNumber != nil {
+                                            Button {
+                                                Utils.System.copyToClipboard(device.item.serialNumber ?? "SN")
+                                            } label: {
+                                                copyTextLabelView(device.item.serialNumber ?? "SN")
+                                            }
                                         }
-                                        .disabled(device.item.serialNumber == nil)
                                         
                                     }
 
@@ -525,17 +554,21 @@ struct ContentView: View {
                                                     .scaledToFit()
                                                     .padding(3)
                                             }
-                                            deviceTitle(device.name, deviceId: device.deviceId)
+                                            if isRenaming(device: device.deviceId) {
+                                                deviceRenameView(deviceId: device.deviceId)
+                                            } else {
+                                                deviceTitleView(device.name, deviceId: device.deviceId)
+                                            }
                                             Spacer()
                                         }
-                                        if (!hideTechInfo || isHoveringDeviceId == device.deviceId) {
+                                        if showDisconnectedText(for: device.deviceId) {
                                             Text("disconnected")
                                                 .font(.system(size: 9))
                                                 .foregroundStyle(.secondary)
                                         }
                                         
                                     }
-                                    .opacity(0.5)
+                                    .opacity(isRenaming(device: device.deviceId) ? 1.0 : 0.5)
                                     .padding(.top, 3)
                                     .onHover { hovering in
                                         if mouseHoverInfo {
@@ -560,6 +593,20 @@ struct ContentView: View {
                                         } label: {
                                             Label("hide", systemImage: "eye.slash")
                                         }
+                                        Button {
+                                            inputText = ""
+                                            isRenamingDeviceId = device.deviceId
+                                        } label: {
+                                            Label("rename", systemImage: "pencil.and.scribble")
+                                        }
+                                        if showRestoreName(for: device.deviceId) {
+                                            Button {
+                                                CodableStorageManager.Renamed.remove(withId: device.deviceId)
+                                            } label: {
+                                                Label("restore_name", systemImage: "eraser.line.dashed")
+                                            }
+                                        }
+                                        Divider()
                                         Button {
                                             CodableStorageManager.Stored.remove(withId: device.deviceId)
                                             manager.refresh()
