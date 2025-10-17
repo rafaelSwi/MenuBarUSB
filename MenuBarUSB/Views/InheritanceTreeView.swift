@@ -41,7 +41,9 @@ struct InheritanceTreeView: View {
                         TreeNodeView(
                             deviceId: rootId,
                             level: 0,
-                            manager: manager
+                            manager: manager,
+                            xmarked: false,
+                            onRefresh: { refresh() }
                         )
                     }
                 }
