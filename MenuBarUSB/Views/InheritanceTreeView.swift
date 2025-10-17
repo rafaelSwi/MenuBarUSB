@@ -10,10 +10,18 @@ import SwiftUI
 struct InheritanceTreeView: View {
     @EnvironmentObject var manager: USBDeviceManager
     @Binding var currentWindow: AppWindow
-
-    @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
-    @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices:
-        [HeritageDevice] = []
+    
+    @State private var refreshID = UUID()
+    @State var hoveringInfo: Bool = false
+    
+    typealias CSM = CodableStorageManager
+    
+    @AppStorage(Key.storeDevices) private var storeDevices = false
+    
+    private func refresh() {
+        manager.refresh()
+        refreshID = UUID()
+    }
 
     var body: some View {
         VStack {
@@ -24,18 +32,16 @@ struct InheritanceTreeView: View {
                         .padding(.bottom, 10)
 
                     let allIds = Set(
-                        inheritedDevices.map { $0.deviceId }
-                            + inheritedDevices.map { $0.inheritsFrom })
-                    let childIds = Set(inheritedDevices.map { $0.deviceId })
+                        CSM.Heritage.devices.map { $0.deviceId }
+                            + CSM.Heritage.devices.map { $0.inheritsFrom })
+                    let childIds = Set(CSM.Heritage.devices.map { $0.deviceId })
                     let rootIds = Array(allIds.subtracting(childIds))
 
                     ForEach(rootIds, id: \.self) { rootId in
                         TreeNodeView(
                             deviceId: rootId,
                             level: 0,
-                            inheritedDevices: $inheritedDevices,
-                            manager: manager,
-                            renamedDevices: renamedDevices
+                            manager: manager
                         )
                     }
                 }
@@ -43,17 +49,38 @@ struct InheritanceTreeView: View {
             }
 
             Spacer()
-
+            
             HStack {
-                Text("inheritance_tree_warning")
-                    .font(.footnote)
+                ZStack(alignment: .bottomLeading) {
+                    if hoveringInfo {
+                        Text("inheritance_tree_warning")
+                            .font(.caption)
+                            .offset(y: -35)
+                    }
+                    
+                    if (!storeDevices) {
+                        Image(systemName: "info.circle")
+                            .onHover { hovering in
+                                hoveringInfo = hovering
+                            }
+                    }
+                }
                 Spacer()
-                Button(action: { currentWindow = .settings }) {
+                Button {
+                    refresh()
+                } label: {
+                    Label("refresh", systemImage: "arrow.clockwise")
+                }
+                Button {
+                    currentWindow = .settings
+                } label: {
                     Label("back", systemImage: "arrow.uturn.backward")
                 }
             }
+            .animation(.bouncy, value: hoveringInfo)
         }
         .padding(10)
         .frame(minWidth: 465, minHeight: 600)
+        .id(refreshID)
     }
 }

@@ -10,56 +10,59 @@ import SwiftUI
 struct TreeNodeView: View {
     let deviceId: String
     let level: Int
-    @Binding var inheritedDevices: [HeritageDevice]
     let manager: USBDeviceManager
-    let renamedDevices: [RenamedDevice]
-
-    private func removeInheritance(for deviceId: String) {
-        inheritedDevices.removeAll { $0.deviceId == deviceId }
-
-        let directChildren = inheritedDevices
-            .filter { $0.inheritsFrom == deviceId }
-            .map { $0.deviceId }
-
-        for childId in directChildren {
-            removeInheritance(for: childId)
+    
+    typealias CSM = CodableStorageManager
+    
+    private var deviceName: String? {
+        let device: USBDeviceWrapper? = manager.devices.first(where: { $0.item.uniqueId == deviceId })
+        if (device == nil) {
+            let stored: StoredDevice? = CSM.Stored.get(withId: deviceId)
+            return stored?.name
+        } else {
+            return device?.item.name
         }
-
-        inheritedDevices.removeAll { $0.inheritsFrom == deviceId }
+    }
+    
+    private var isConnected: Bool {
+        let device = manager.devices.first(where: { $0.item.uniqueId == deviceId })
+        return device != nil
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 6) {
+                
+                Circle()
+                    .foregroundStyle(isConnected ? .green : .red)
+                    .frame(width: 10, height: 10)
+                    
+                Spacer()
+                    .frame(width: 6)
+                
+                Button {
+                    if (level > 0) { CSM.Heritage.remove(withId: deviceId) }
+                    manager.refresh()
+                } label: {
+                    Image(systemName: "trash")
+                        .foregroundColor(level > 0 ? .red : .gray)
+                        .imageScale(.small)
+                        .opacity(0.7)
+                }
+                .buttonStyle(.plain)
+                .help("destroy_all_inheritances_device")
+                
                 Rectangle()
                     .frame(width: CGFloat(level) * 10, height: 1)
                     .opacity(level > 0 ? 0.5 : 0)
+                
+                Text(deviceName ?? String(localized: "no_info"))
+                    .font(.system(size: 14, weight: deviceName == nil ? .regular : .semibold))
+                    .foregroundColor(deviceName == nil ? .secondary : .primary)
 
-                if let device = manager.devices.first(where: { $0.item.uniqueId == deviceId }) {
-                    Text(renamedDevices.first(where: { $0.deviceId == deviceId })?.name ?? device.item.name)
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.primary)
-                } else {
-                    Text("(\(String(localized: "no_info")))")
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.secondary)
-                }
-
-                if level > 0 {
-                    Button {
-                        removeInheritance(for: deviceId)
-                    } label: {
-                        Image(systemName: "trash")
-                            .foregroundColor(.red)
-                            .imageScale(.small)
-                            .opacity(0.7)
-                    }
-                    .buttonStyle(.plain)
-                    .help("destroy_all_inheritances_device")
-                }
             }
 
-            let children = inheritedDevices
+            let children = CSM.Heritage.devices
                 .filter { $0.inheritsFrom == deviceId }
                 .map { $0.deviceId }
 
@@ -67,9 +70,7 @@ struct TreeNodeView: View {
                 TreeNodeView(
                     deviceId: childId,
                     level: level + 1,
-                    inheritedDevices: $inheritedDevices,
                     manager: manager,
-                    renamedDevices: renamedDevices
                 )
             }
         }

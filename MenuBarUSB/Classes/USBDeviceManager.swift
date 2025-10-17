@@ -15,6 +15,9 @@ final class USBDeviceManager: ObservableObject {
     @Published var trafficCooldown: TimeInterval = 1.0
     @Published var lastTrafficDetected: Date = .distantPast
     @Published var trafficMonitorRunning: Bool = false
+    
+    typealias CSM = CodableStorageManager
+    typealias AS = AppStorage
 
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
@@ -24,15 +27,12 @@ final class USBDeviceManager: ObservableObject {
         var context = SCDynamicStoreContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
         return SCDynamicStoreCreate(nil, "EthernetStatus" as CFString, nil, &context)
     }()
-
-    @CodableAppStorage(Key.camouflagedDevices) private var camouflagedDevices: [CamouflagedDevice] = []
-    @CodableAppStorage(Key.storedDevices) private var storedDevices: [StoredDevice] = []
     
-    @AppStorage(Key.showNotifications) private var showNotifications = false
-    @AppStorage(Key.disableNotifCooldown) private var disableNotifCooldown = false
-    @AppStorage(Key.showEthernet) var showEthernet = false
-    @AppStorage(Key.internetMonitoring) var internetMonitoring = false
-    @AppStorage(Key.storeDevices) private var storeDevices = false
+    @AS(Key.showNotifications) private var showNotifications = false
+    @AS(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AS(Key.showEthernet) var showEthernet = false
+    @AS(Key.internetMonitoring) var internetMonitoring = false
+    @AS(Key.storeDevices) private var storeDevices = false
 
     private var lastNotificationDate: Date = .distantPast
     private let notificationCooldown: TimeInterval = 3
@@ -77,7 +77,7 @@ final class USBDeviceManager: ObservableObject {
                 }
             }
 
-            let camouflagedIds = Set(self.camouflagedDevices.map { $0.deviceId })
+            let camouflagedIds = Set(CSM.Camouflaged.devices.map { $0.deviceId })
             var filteredDevices: [USBDeviceWrapper] = []
             var camouflagedCount = 0
 
@@ -180,7 +180,7 @@ final class USBDeviceManager: ObservableObject {
         while case let entry = IOIteratorNext(iterator), entry != 0 {
             if let dev = makeDevice(from: entry) {
                 if (storeDevices) {
-                    CodableStorageManager.Stored.add(dev)
+                    CSM.Stored.add(dev)
                 }
                 result.append(dev)
             }

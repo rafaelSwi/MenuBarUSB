@@ -10,20 +10,28 @@ import SwiftUI
 
 @propertyWrapper
 struct CodableAppStorage<T: Codable>: DynamicProperty {
-    @AppStorage private var data: Data
+    private let key: String
     private let defaultValue: T
 
     init(wrappedValue: T, _ key: String) {
-        defaultValue = wrappedValue
-        _data = AppStorage(wrappedValue: try! JSONEncoder().encode(wrappedValue), key)
+        self.key = key
+        self.defaultValue = wrappedValue
+        if UserDefaults.standard.data(forKey: key) == nil {
+            let data = try? JSONEncoder().encode(wrappedValue)
+            UserDefaults.standard.set(data, forKey: key)
+        }
     }
 
     var wrappedValue: T {
         get {
-            (try? JSONDecoder().decode(T.self, from: data)) ?? defaultValue
+            guard let data = UserDefaults.standard.data(forKey: key),
+                  let value = try? JSONDecoder().decode(T.self, from: data)
+            else { return defaultValue }
+            return value
         }
         nonmutating set {
-            data = (try? JSONEncoder().encode(newValue)) ?? Data()
+            let data = try? JSONEncoder().encode(newValue)
+            UserDefaults.standard.set(data, forKey: key)
         }
     }
 

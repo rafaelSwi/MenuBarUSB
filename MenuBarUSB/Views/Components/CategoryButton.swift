@@ -11,14 +11,14 @@ struct CategoryButton: View {
     let category: SettingsCategory
     let label: LocalizedStringKey
     let image: String
-    @Binding var settingsCategory: SettingsCategory
+    @Binding var binding: SettingsCategory
     let disabled: Bool
 
     @State private var hovering = false
 
     var body: some View {
         let backgroundColor: Color = {
-            if settingsCategory == category {
+            if binding == category {
                 return Color.blue.opacity(0.25)
             } else if hovering && !disabled {
                 return Color.blue.opacity(0.10)
@@ -30,7 +30,7 @@ struct CategoryButton: View {
         return HStack {
             VStack {
                 Button {
-                    settingsCategory = category
+                    binding = category
                 } label: {
                     Image(image)
                         .renderingMode(.template)

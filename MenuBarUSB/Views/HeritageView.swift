@@ -14,62 +14,66 @@ struct HeritageView: View {
         case selectingSecondDevice = 2
         case final = 3
     }
-
+    
     enum DeviceRole {
         case nothing
         case willGiveInheritance
         case willReceiveInheritance
     }
-
+    
     @EnvironmentObject var manager: USBDeviceManager
-
+    
     @State private var step: Step = .beginning
     @State private var role: DeviceRole = .nothing
-
+    
     @State private var tryingToDeleteAllInheritances = false
-
+    
+    typealias CSM = CodableStorageManager
+    
     @Binding var currentWindow: AppWindow
-
+    
     @State private var selectedDevice: USBDeviceWrapper?
     @State private var anotherSelectedDevice: USBDeviceWrapper?
-
-    @CodableAppStorage(Key.renamedDevices) private var renamedDevices: [RenamedDevice] = []
-    @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices: [HeritageDevice] = []
-
-    private func inheritanceStatus(for device: borrowing USBDevice) -> String {
-        let inheritsFrom = inheritedDevices.contains { $0.deviceId == device.uniqueId }
-        let hasHeirs = inheritedDevices.contains { $0.inheritsFrom == device.uniqueId }
+    
+    private func inheritanceStatus(for deviceId: String?) -> String {
+        if (deviceId == nil) { return String(localized: "no_info") }
+        
+        let inheritsFrom = CSM.Heritage.devices.contains { $0.deviceId == deviceId }
+        let hasHeirs =  CSM.Heritage.devices.contains { $0.inheritsFrom == deviceId }
+        
+        let st = String(localized: "status") + " "
 
         if inheritsFrom && hasHeirs {
-            return String(localized: "both_inheriting_and_being_inherited")
+            return st + String(localized: "both_inheriting_and_being_inherited")
         } else if inheritsFrom {
-            return String(localized: "inheriting_from_another")
+            return st + String(localized: "inheriting_from_another")
         } else if hasHeirs {
-            return String(localized: "passing_inheritance_to_others")
+            return st + String(localized: "passing_inheritance_to_others")
         } else {
-            return String(localized: "this_device_has_no_inheritance_ties")
+            return st + String(localized: "this_device_has_no_inheritance_ties")
         }
     }
 
-    private func canConfirmInheritance(first: borrowing USBDevice, second: borrowing USBDevice) -> Bool {
+    private var canConfirmInheritance: Bool {
+        
         let masterId: String
         let heirId: String
 
         if role == .willGiveInheritance {
-            masterId = first.uniqueId
-            heirId = second.uniqueId
+            masterId = selectedDevice?.item.uniqueId ?? ""
+            heirId = anotherSelectedDevice?.item.uniqueId ?? ""
         } else {
-            masterId = second.uniqueId
-            heirId = first.uniqueId
+            masterId = anotherSelectedDevice?.item.uniqueId ?? ""
+            heirId = selectedDevice?.item.uniqueId ?? ""
         }
 
         if masterId == heirId { return false }
-
-        if let parent = inheritedDevices.first(where: { $0.deviceId == masterId })?.inheritsFrom,
+        
+        if let parent = CSM.Heritage.get(withId: masterId)?.inheritsFrom,
            parent == heirId { return false }
 
         var currentId = masterId
-        while let parent = inheritedDevices.first(where: { $0.deviceId == currentId })?.inheritsFrom {
+        while let parent = CSM.Heritage.get(withId: currentId)?.inheritsFrom {
             if parent == heirId { return false }
             currentId = parent
         }
@@ -78,7 +82,7 @@ struct HeritageView: View {
     }
 
     private func deleteAllInheritances() {
-        inheritedDevices.removeAll()
+        CSM.Heritage.clear()
         tryingToDeleteAllInheritances = false
         selectedDevice = nil
         anotherSelectedDevice = nil
@@ -88,24 +92,6 @@ struct HeritageView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
-                    HStack {
-                        Button() {
-                            tryingToDeleteAllInheritances = true
-                            step = .beginning
-                        } label: {
-                            Label("delete_all_inheritances", systemImage: "trash")
-                        }
-                        .disabled(tryingToDeleteAllInheritances)
-
-                        if tryingToDeleteAllInheritances {
-                            Button("cancel") {
-                                tryingToDeleteAllInheritances = false
-                            }
-
-                            Button("confirm") { deleteAllInheritances() }
-                                .buttonStyle(.borderedProminent)
-                        }
-                    }
 
                     VStack(alignment: .leading, spacing: 6) {
                         Text(String(localized: "select_device"))
@@ -113,7 +99,7 @@ struct HeritageView: View {
 
                         Menu {
                             ForEach(manager.devices, id: \.self) { device in
-                                Button(renamedDevices.first(where: { $0.deviceId == device.item.uniqueId })?.name ?? device.item.name) {
+                                Button(CSM.Renamed.getName(withId: device.item.uniqueId, placeholder: device.item.name)) {
                                     selectedDevice = device
                                     step = .selectingRole
                                     role = .nothing
@@ -130,7 +116,7 @@ struct HeritageView: View {
                         .disabled(manager.devices.isEmpty)
 
                         if let selectedDevice {
-                            Text(inheritanceStatus(for: selectedDevice.item))
+                            Text(inheritanceStatus(for: selectedDevice.item.uniqueId))
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }
@@ -173,7 +159,7 @@ struct HeritageView: View {
 
                             Menu {
                                 ForEach(manager.devices, id: \.self) { device in
-                                    Button(renamedDevices.first(where: { $0.deviceId == device.item.uniqueId })?.name ?? device.item.name) {
+                                    Button(CSM.Renamed.getName(withId: device.item.uniqueId, placeholder: device.item.name)) {
                                         anotherSelectedDevice = device
                                         step = .final
                                     }
@@ -185,7 +171,7 @@ struct HeritageView: View {
                             }
 
                             if let anotherSelectedDevice {
-                                Text(inheritanceStatus(for: anotherSelectedDevice.item))
+                                Text(inheritanceStatus(for: anotherSelectedDevice.item.uniqueId))
                                     .font(.footnote)
                                     .foregroundStyle(.secondary)
                             }
@@ -195,7 +181,7 @@ struct HeritageView: View {
 
                     if step.rawValue > Step.selectingSecondDevice.rawValue {
                         VStack(alignment: .leading, spacing: 8) {
-                            if !canConfirmInheritance(first: selectedDevice!.item, second: anotherSelectedDevice!.item) {
+                            if !canConfirmInheritance {
                                 Text("invalid_inheritance")
                                     .fontWeight(.bold)
                             }
@@ -214,28 +200,47 @@ struct HeritageView: View {
                                     uniqueIdHeir = selectedDevice!.item.uniqueId
                                 }
 
-                                let hDevice = HeritageDevice(deviceId: uniqueIdHeir, inheritsFrom: uniqueIdMaster)
-                                inheritedDevices.removeAll { $0.deviceId == uniqueIdHeir }
-                                inheritedDevices.append(hDevice)
+                                CSM.Heritage.add(withId: uniqueIdHeir, inheritsFrom: uniqueIdMaster)
 
                                 selectedDevice = nil
                                 anotherSelectedDevice = nil
                                 role = .nothing
                                 step = .beginning
                             }
-                            .disabled(!canConfirmInheritance(first: selectedDevice!.item, second: anotherSelectedDevice!.item))
+                            .disabled(!canConfirmInheritance)
                         }
                     }
                 }
             }
 
             Spacer()
-
+            
             HStack {
-                Spacer()
+                Button() {
+                    tryingToDeleteAllInheritances = true
+                    step = .beginning
+                } label: {
+                    Label("delete_all_inheritances", systemImage: "trash")
+                }
+                .disabled(tryingToDeleteAllInheritances)
 
-                Button(action: { currentWindow = .settings }) {
-                    Label("back", systemImage: "arrow.uturn.backward")
+                if tryingToDeleteAllInheritances {
+                    Button() {
+                        tryingToDeleteAllInheritances = false
+                    } label: {
+                        Image(systemName: "x.circle")
+                    }
+
+                    Button("confirm") { deleteAllInheritances() }
+                        .buttonStyle(.borderedProminent)
+                }
+                
+                Spacer()
+                
+                if (!tryingToDeleteAllInheritances) {
+                    Button(action: { currentWindow = .settings }) {
+                        Label("back", systemImage: "arrow.uturn.backward")
+                    }
                 }
             }
         }

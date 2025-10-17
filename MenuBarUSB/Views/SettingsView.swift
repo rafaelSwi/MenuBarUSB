@@ -33,49 +33,49 @@ struct SettingsView: View {
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
     
-    @AppStorage(Key.settingsCategory) private var settingsCategory: SettingsCategory = .system
+    typealias CSM = CodableStorageManager
+    typealias AS = AppStorage
     
-    @AppStorage(Key.launchAtLogin) private var launchAtLogin = false
-    @AppStorage(Key.convertHexa) private var convertHexa = false
-    @AppStorage(Key.longList) private var longList = false
-    @AppStorage(Key.hideTechInfo) private var hideTechInfo = false
-    @AppStorage(Key.showPortMax) private var showPortMax = false
-    @AppStorage(Key.renamedIndicator) private var renamedIndicator = false
-    @AppStorage(Key.camouflagedIndicator) private var camouflagedIndicator = false
-    @AppStorage(Key.showNotifications) private var showNotifications = false
-    @AppStorage(Key.reduceTransparency) private var reduceTransparency = false
-    @AppStorage(Key.disableNotifCooldown) private var disableNotifCooldown = false
-    @AppStorage(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
-    @AppStorage(Key.forceDarkMode) private var forceDarkMode = false
-    @AppStorage(Key.forceLightMode) private var forceLightMode = false
-    @AppStorage(Key.increasedIndentationGap) private var increasedIndentationGap = false
-    @AppStorage(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
-    @AppStorage(Key.hideUpdate) private var hideUpdate = false
-    @AppStorage(Key.hideDonate) private var hideDonate = false
-    @AppStorage(Key.noTextButtons) private var noTextButtons = false
-    @AppStorage(Key.hideCount) private var hideCount = false
-    @AppStorage(Key.numberRepresentation) private var numberRepresentation: NumberRepresentation = .base10
-    @AppStorage(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
-    @AppStorage(Key.hideMenubarIcon) private var hideMenubarIcon = false
-    @AppStorage(Key.restartButton) private var restartButton = false
-    @AppStorage(Key.mouseHoverInfo) private var mouseHoverInfo = false
-    @AppStorage(Key.profilerButton) private var profilerButton = false
-    @AppStorage(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
-    @AppStorage(Key.showEthernet) private var showEthernet = false
-    @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
-    @AppStorage(Key.disableHaptic) private var disableHaptic = false
-    @AppStorage(Key.trafficButton) private var trafficButton = false
-    @AppStorage(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
-    @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
-    @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
-    @AppStorage(Key.fastMonitor) private var fastMonitor = false
-    @AppStorage(Key.storeDevices) private var storeDevices = false
-    @AppStorage(Key.storedIndicator) private var storedIndicator = false
-    @AppStorage(Key.forceEnglish) private var forceEnglish = false
-    @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
+    @AS(Key.settingsCategory) private var category: SettingsCategory = .system
     
-    @CodableAppStorage(Key.inheritedDevices) private var inheritedDevices:
-    [HeritageDevice] = []
+    @AS(Key.launchAtLogin) private var launchAtLogin = false
+    @AS(Key.convertHexa) private var convertHexa = false
+    @AS(Key.longList) private var longList = false
+    @AS(Key.hideTechInfo) private var hideTechInfo = false
+    @AS(Key.showPortMax) private var showPortMax = false
+    @AS(Key.renamedIndicator) private var renamedIndicator = false
+    @AS(Key.camouflagedIndicator) private var camouflagedIndicator = false
+    @AS(Key.showNotifications) private var showNotifications = false
+    @AS(Key.reduceTransparency) private var reduceTransparency = false
+    @AS(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AS(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
+    @AS(Key.forceDarkMode) private var forceDarkMode = false
+    @AS(Key.forceLightMode) private var forceLightMode = false
+    @AS(Key.increasedIndentationGap) private var increasedIndentationGap = false
+    @AS(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
+    @AS(Key.hideUpdate) private var hideUpdate = false
+    @AS(Key.hideDonate) private var hideDonate = false
+    @AS(Key.noTextButtons) private var noTextButtons = false
+    @AS(Key.hideCount) private var hideCount = false
+    @AS(Key.numberRepresentation) private var numberRepresentation: NumberRepresentation = .base10
+    @AS(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
+    @AS(Key.hideMenubarIcon) private var hideMenubarIcon = false
+    @AS(Key.restartButton) private var restartButton = false
+    @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
+    @AS(Key.profilerButton) private var profilerButton = false
+    @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AS(Key.showEthernet) private var showEthernet = false
+    @AS(Key.internetMonitoring) private var internetMonitoring = false
+    @AS(Key.disableHaptic) private var disableHaptic = false
+    @AS(Key.trafficButton) private var trafficButton = false
+    @AS(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
+    @AS(Key.newVersionNotification) private var newVersionNotification = false
+    @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
+    @AS(Key.fastMonitor) private var fastMonitor = false
+    @AS(Key.storeDevices) private var storeDevices = false
+    @AS(Key.storedIndicator) private var storedIndicator = false
+    @AS(Key.forceEnglish) private var forceEnglish = false
+    @AS(Key.searchEngine) private var searchEngine: SearchEngine = .google
 
     private func checkForUpdate() {
         checkingUpdate = true
@@ -277,25 +277,26 @@ struct SettingsView: View {
             VStack(alignment: .leading, spacing: 3) {
                 HStack {
                     Spacer()
-                    CategoryButton(category: .system, label: "systemCategory", image: "settings_general", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
-                    CategoryButton(category: .icon, label: "icon_category", image: "settings_icon", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
-                    CategoryButton(category: .interface, label: "uiCategory", image: "settings_interface", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
-                    CategoryButton(category: .usb, label: "usbCategory", image: "settings_info", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
-                    CategoryButton(category: .contextMenu, label: "context_menu_category", image: "settings_contextmenu", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
-                    CategoryButton(category: .ethernet, label: "ethernetCategory", image: "settings_ethernet", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
-                    CategoryButton(category: .heritage, label: "heritageCategory", image: "settings_heritage", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
-                    CategoryButton(category: .others, label: "othersCategory", image: "settings_others", settingsCategory: $settingsCategory, disabled: anyBottomOptionInUse)
+                    let off = anyBottomOptionInUse
+                    CategoryButton(category: .system, label: "systemCategory", image: "settings_general", binding: $category, disabled: off)
+                    CategoryButton(category: .icon, label: "icon_category", image: "settings_icon", binding: $category, disabled: off)
+                    CategoryButton(category: .interface, label: "uiCategory", image: "settings_interface", binding: $category, disabled: off)
+                    CategoryButton(category: .usb, label: "usbCategory", image: "settings_info", binding: $category, disabled: off)
+                    CategoryButton(category: .contextMenu, label: "context_menu_category", image: "settings_contextmenu", binding: $category, disabled: off)
+                    CategoryButton(category: .ethernet, label: "ethernetCategory", image: "settings_ethernet", binding: $category, disabled: off)
+                    CategoryButton(category: .heritage, label: "heritageCategory", image: "settings_heritage", binding: $category, disabled: off)
+                    CategoryButton(category: .others, label: "othersCategory", image: "settings_others", binding: $category, disabled: off)
                 }
                 .padding(.horizontal, 4)
                 .padding(.vertical, 8)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(5)
 
-                Text(LocalizedStringKey(settingsCategory.rawValue))
+                Text(LocalizedStringKey(category.rawValue))
                     .font(.title)
                     .padding(.vertical, 10)
 
-                if settingsCategory == .system {
+                if category == .system {
                     ToggleRow(
                         label: String(localized: "open_on_startup"),
                         description: String(localized: "open_on_startup_description"),
@@ -372,7 +373,7 @@ struct SettingsView: View {
                     )
                 }
 
-                if settingsCategory == .icon {
+                if category == .icon {
                     VStack(alignment: .leading, spacing: 16) {
                         ToggleRow(
                             label: String(localized: "hide_menubar_icon"),
@@ -455,7 +456,7 @@ struct SettingsView: View {
                     }
                 }
 
-                if settingsCategory == .interface {
+                if category == .interface {
                     ToggleRow(
                         label: String(localized: "hide_technical_info"),
                         description: String(localized: "hide_technical_info_description"),
@@ -529,8 +530,8 @@ struct SettingsView: View {
                         Button("delete_device_history") {
                             tryingToDeleteDeviceHistory = true
                         }
-                        .disabled(tryingToDeleteDeviceHistory || CodableStorageManager.Stored.devices.isEmpty)
-                        .help("(\(CodableStorageManager.Stored.devices.count))")
+                        .disabled(tryingToDeleteDeviceHistory || CSM.Stored.devices.isEmpty)
+                        .help("(\(CSM.Stored.devices.count))")
                         .padding(.vertical, 5)
                     
                     if (tryingToDeleteDeviceHistory) {
@@ -540,7 +541,7 @@ struct SettingsView: View {
                                 tryingToDeleteDeviceHistory = false
                             }
                             Button("yes_confirm") {
-                                CodableStorageManager.Stored.clear()
+                                CSM.Stored.clear()
                                 tryingToDeleteDeviceHistory = false
                             }
                             .buttonStyle(.borderedProminent)
@@ -548,7 +549,7 @@ struct SettingsView: View {
                     }
                 }
 
-                if settingsCategory == .usb {
+                if category == .usb {
                     ToggleRow(
                         label: String(localized: "show_port_max"),
                         description: String(localized: "show_port_max_description"),
@@ -579,12 +580,12 @@ struct SettingsView: View {
                     .padding(.vertical, 5)
                     .contextMenu {
                         Button {
-                            CodableStorageManager.Renamed.clear()
+                            CSM.Renamed.clear()
                             manager.refresh()
                         } label: {
                             Label("undo_all", systemImage: "trash")
                         }
-                        .disabled(CodableStorageManager.Renamed.devices.isEmpty)
+                        .disabled(CSM.Renamed.devices.isEmpty)
                     }
 
                     Button {
@@ -598,16 +599,16 @@ struct SettingsView: View {
                     .disabled(anyBottomOptionInUse)
                     .contextMenu {
                         Button {
-                            CodableStorageManager.Camouflaged.clear()
+                            CSM.Camouflaged.clear()
                             manager.refresh()
                         } label: {
                             Label("undo_all", systemImage: "trash")
                         }
-                        .disabled(CodableStorageManager.Camouflaged.devices.isEmpty)
+                        .disabled(CSM.Camouflaged.devices.isEmpty)
                     }
                 }
 
-                if settingsCategory == .contextMenu {
+                if category == .contextMenu {
                     ToggleRow(
                         label: String(localized: "disable_context_menu_search"),
                         description: String(localized: "disable_context_menu_search_description"),
@@ -641,7 +642,7 @@ struct SettingsView: View {
                     }
                 }
 
-                if settingsCategory == .ethernet {
+                if category == .ethernet {
                     ToggleRow(
                         label: String(localized: "ethernet_connected_icon"),
                         description: String(localized: "ethernet_connected_icon_description"),
@@ -711,7 +712,7 @@ struct SettingsView: View {
                     )
                 }
 
-                if settingsCategory == .heritage {
+                if category == .heritage {
                     ToggleRow(
                         label: String(localized: "disable_inheritance_layout"),
                         description: String(localized: "disable_inheritance_layout_description"),
@@ -745,7 +746,7 @@ struct SettingsView: View {
                     .disabled(anyBottomOptionInUse)
                 }
 
-                if settingsCategory == .others {
+                if category == .others {
                     if Locale.current.language.languageCode?.identifier != "en" {
                         ToggleRow(
                             label: String(localized: "force_english"),
@@ -893,7 +894,7 @@ struct SettingsView: View {
                     HStack(spacing: 12) {
                         Menu {
                             ForEach(manager.devices, id: \.self) { device in
-                                let renamedDevice = CodableStorageManager.Renamed.devices.first {
+                                let renamedDevice = CSM.Renamed.devices.first {
                                     $0.deviceId == device.item.uniqueId
                                 }
                                 let buttonLabel = renamedDevice?.name ?? device.item.name
@@ -908,14 +909,14 @@ struct SettingsView: View {
                         }
 
                         if selectedDeviceToCamouflage != nil {
-                            if (inheritedDevices.contains {
+                            if (CSM.Heritage.devices.contains {
                                 $0.inheritsFrom == selectedDeviceToCamouflage!.item.uniqueId
                             }) {
                                 Text("cant_hide_heir")
                                     .font(.subheadline)
                             } else {
                                 Button("confirm") {
-                                    CodableStorageManager.Camouflaged.add(withId: selectedDeviceToCamouflage?.item.uniqueId)
+                                    CSM.Camouflaged.add(withId: selectedDeviceToCamouflage?.item.uniqueId)
                                     selectedDeviceToCamouflage = nil
                                     showCamouflagedDevices = false
                                     manager.refresh()
@@ -924,9 +925,9 @@ struct SettingsView: View {
                             }
                         }
 
-                        if selectedDeviceToCamouflage == nil && !CodableStorageManager.Camouflaged.devices.isEmpty {
+                        if selectedDeviceToCamouflage == nil && !CSM.Camouflaged.devices.isEmpty {
                             Button("undo_all") {
-                                CodableStorageManager.Camouflaged.clear()
+                                CSM.Camouflaged.clear()
                                 showCamouflagedDevices = false
                                 manager.refresh()
                             }
@@ -940,7 +941,7 @@ struct SettingsView: View {
                     HStack(spacing: 12) {
                         Menu {
                             ForEach(manager.devices, id: \.self) { device in
-                                let renamedDevice = CodableStorageManager.Renamed.devices.first {
+                                let renamedDevice = CSM.Renamed.devices.first {
                                     $0.deviceId == device.item.uniqueId
                                 }
                                 let buttonLabel = renamedDevice?.name ?? device.item.name
@@ -966,9 +967,9 @@ struct SettingsView: View {
                             Button(String(localized: "confirm")) {
                                 let uniqueId = selectedDeviceToRename!.item.uniqueId
                                 if inputText.isEmpty {
-                                    CodableStorageManager.Renamed.remove(withId: uniqueId)
+                                    CSM.Renamed.remove(withId: uniqueId)
                                 } else {
-                                    CodableStorageManager.Renamed.add(selectedDeviceToRename?.item.uniqueId, inputText)
+                                    CSM.Renamed.add(selectedDeviceToRename?.item.uniqueId, inputText)
                                 }
                                 inputText = ""
                                 selectedDeviceToRename = nil
@@ -978,9 +979,9 @@ struct SettingsView: View {
                             .buttonStyle(.borderedProminent)
                         }
 
-                        if selectedDeviceToRename == nil && !CodableStorageManager.Renamed.devices.isEmpty {
+                        if selectedDeviceToRename == nil && !CSM.Renamed.devices.isEmpty {
                             Button(String(localized: "undo_all")) {
-                                CodableStorageManager.Renamed.clear()
+                                CSM.Renamed.clear()
                                 showRenameDevices = false
                                 manager.refresh()
                             }

@@ -33,33 +33,36 @@ struct LegacySettingsView: View {
     @State private var showEthernetOptions = false
     @State private var showOthersOptions = false
     
-    @AppStorage(Key.launchAtLogin) private var launchAtLogin = false
-    @AppStorage(Key.convertHexa) private var convertHexa = false
-    @AppStorage(Key.longList) private var longList = false
-    @AppStorage(Key.hideTechInfo) private var hideTechInfo = false
-    @AppStorage(Key.showPortMax) private var showPortMax = false
-    @AppStorage(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
-    @AppStorage(Key.renamedIndicator) private var renamedIndicator = false
-    @AppStorage(Key.camouflagedIndicator) private var camouflagedIndicator = false
-    @AppStorage(Key.showNotifications) private var showNotifications = false
-    @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
-    @AppStorage(Key.reduceTransparency) private var reduceTransparency = false
-    @AppStorage(Key.disableNotifCooldown) private var disableNotifCooldown = false
-    @AppStorage(Key.disableHaptic) private var disableHaptic = false
-    @AppStorage(Key.forceEnglish) private var forceEnglish = false
-    @AppStorage(Key.showEthernet) private var showEthernet = false
-    @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
-    @AppStorage(Key.forceDarkMode) private var forceDarkMode = false
-    @AppStorage(Key.forceLightMode) private var forceLightMode = false
-    @AppStorage(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
-    @AppStorage(Key.hideUpdate) private var hideUpdate = false
-    @AppStorage(Key.noTextButtons) private var noTextButtons = false
-    @AppStorage(Key.storeDevices) private var storeDevices = false
-    @AppStorage(Key.storedIndicator) private var storedIndicator = false
-    @AppStorage(Key.restartButton) private var restartButton = false
-    @AppStorage(Key.mouseHoverInfo) private var mouseHoverInfo = false
-    @AppStorage(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
-    @AppStorage(Key.searchEngine) private var searchEngine: SearchEngine = .google
+    typealias CSM = CodableStorageManager
+    typealias AS = AppStorage
+    
+    @AS(Key.launchAtLogin) private var launchAtLogin = false
+    @AS(Key.convertHexa) private var convertHexa = false
+    @AS(Key.longList) private var longList = false
+    @AS(Key.hideTechInfo) private var hideTechInfo = false
+    @AS(Key.showPortMax) private var showPortMax = false
+    @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
+    @AS(Key.renamedIndicator) private var renamedIndicator = false
+    @AS(Key.camouflagedIndicator) private var camouflagedIndicator = false
+    @AS(Key.showNotifications) private var showNotifications = false
+    @AS(Key.newVersionNotification) private var newVersionNotification = false
+    @AS(Key.reduceTransparency) private var reduceTransparency = false
+    @AS(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AS(Key.disableHaptic) private var disableHaptic = false
+    @AS(Key.forceEnglish) private var forceEnglish = false
+    @AS(Key.showEthernet) private var showEthernet = false
+    @AS(Key.internetMonitoring) private var internetMonitoring = false
+    @AS(Key.forceDarkMode) private var forceDarkMode = false
+    @AS(Key.forceLightMode) private var forceLightMode = false
+    @AS(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
+    @AS(Key.hideUpdate) private var hideUpdate = false
+    @AS(Key.noTextButtons) private var noTextButtons = false
+    @AS(Key.storeDevices) private var storeDevices = false
+    @AS(Key.storedIndicator) private var storedIndicator = false
+    @AS(Key.restartButton) private var restartButton = false
+    @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
+    @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AS(Key.searchEngine) private var searchEngine: SearchEngine = .google
     
     func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey) -> some View {
         return HStack {
@@ -71,40 +74,6 @@ struct LegacySettingsView: View {
         .onTapGesture {
             manageShowOptions(binding: toggle)
         }
-    }
-    
-    func getIcons() -> [String] {
-        var icons: [String] = [
-            "cable.connector",
-            "app.connected.to.app.below.fill",
-            "rectangle.connected.to.line.below",
-            "mediastick",
-            "sdcard",
-            "sdcard.fill",
-            "bolt.ring.closed",
-            "bolt",
-            "bolt.fill",
-            "wrench.and.screwdriver",
-            "wrench.and.screwdriver.fill",
-            "externaldrive.connected.to.line.below",
-            "externaldrive.connected.to.line.below.fill",
-        ]
-        if #available(macOS 15.0, *) {
-            icons.append(contentsOf: [
-                "powerplug.portrait",
-                "powerplug.portrait.fill",
-                "powercord",
-                "powercord.fill",
-                "cat.fill",
-                "dog.fill",
-            ])
-        }
-        if #available(macOS 26.0, *) {
-            icons.append(contentsOf: [
-                "inset.filled.topthird.middlethird.bottomthird.rectangle",
-            ])
-        }
-        return icons
     }
     
     func untoggleShowOptions() {
@@ -381,15 +350,15 @@ struct LegacySettingsView: View {
                         Button("delete_device_history") {
                             tryingToDeleteDeviceHistory = true
                         }
-                        .disabled(tryingToDeleteDeviceHistory || CodableStorageManager.Stored.devices.isEmpty)
-                        .help("(\(CodableStorageManager.Stored.devices.count))")
+                        .disabled(tryingToDeleteDeviceHistory || CSM.Stored.devices.isEmpty)
+                        .help("(\(CSM.Stored.devices.count))")
                         
                         if (tryingToDeleteDeviceHistory) {
                             Button("cancel") {
                                 tryingToDeleteDeviceHistory = false
                             }
                             Button("confirm") {
-                                CodableStorageManager.Stored.clear()
+                                CSM.Stored.clear()
                                 tryingToDeleteDeviceHistory = false
                             }
                             .buttonStyle(.borderedProminent)
@@ -404,21 +373,21 @@ struct LegacySettingsView: View {
                         .font(.title2)
                     
                     Button {
-                        CodableStorageManager.Renamed.clear()
+                        CSM.Renamed.clear()
                     } label: {
                         Label("undo_all", systemImage: "trash")
                     }
-                    .disabled(CodableStorageManager.Renamed.devices.isEmpty)
+                    .disabled(CSM.Renamed.devices.isEmpty)
                     
                     Text("hidden_devices")
                         .font(.title2)
                     
                     Button {
-                        CodableStorageManager.Camouflaged.clear()
+                        CSM.Camouflaged.clear()
                     } label: {
                         Label("undo_all", systemImage: "trash")
                     }
-                    .disabled(CodableStorageManager.Camouflaged.devices.isEmpty)
+                    .disabled(CSM.Camouflaged.devices.isEmpty)
                     .help("make_all_visible_again")
                     
                     ToggleRow(
