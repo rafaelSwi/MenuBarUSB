@@ -27,7 +27,7 @@
 "unknown" = "Неизвестно";
 "contact" = "Контакт:";
 "donate" = "Донат";
-"endereço" = "Адрес";
+"address" = "Адрес";
 "settings" = "Опции";
 "donate_description" = "Любая помощь очень ценится!";
 "open_on_startup_description" = "Запускает приложение автоматически при входе в систему. Это можно отключить в любое время.";
@@ -72,10 +72,10 @@
 "updated" = "Обновлено";
 "disable_notification_cooldown" = "Отключить паузу уведомлений";
 "disable_notification_cooldown_description" = "Неисправные устройства или USB-порты могут привести к разочаровывающему опыту, не рекомендуется для повседневного использования.";
-"systemCategory" = "Система";
-"uiCategory" = "Список";
-"usbCategory" = "USB";
-"heritageCategory" = "Наследование";
+"system_category" = "Система";
+"ui_category" = "Список";
+"usb_category" = "USB";
+"heritage_category" = "Наследование";
 "force_dark_mode" = "Принудительный тёмный режим";
 "force_dark_mode_description" = "Если у вас уже включен темный режим на macOS, вы не увидите большой разницы, за исключением того, что фон всегда будет иметь пониженную прозрачность.";
 "force_light_mode" = "Принудительный светлый режим";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Неподключенные устройства не будут иметь имени.";
 "hide_secondary_info" = "Скрыть вторичную информацию";
 "hide_secondary_info_description" = "Информация в правом углу (например, серийный номер и производитель) отображаться не будет.";
-"othersCategory" = "Другие";
+"others_category" = "Другие";
 "hide_check_update" = "Скрыть кнопку проверки обновлений";
 "hide_check_update_description" = "Если MenuBarUSB уже установлен через brew, или просто не нравится эта кнопка, вы можете её скрыть.";
 "hide_donate" = "Скрыть кнопку пожертвования";
@@ -175,7 +175,7 @@
 "close" = "Закрыть";
 "legacy_settings" = "Устаревшие настройки";
 "legacy_settings_description" = "Вы используете устаревшую версию MenuBarUSB, портированную на macOS Ventura и Sonoma.";
-"ethernetCategory" = "Ethernet";
+"ethernet_category" = "Ethernet";
 "ethernet_connected_icon" = "Показывать значок, если подключен кабель LAN";
 "ethernet_connected_icon_description" = "Если обнаружено проводное сетевое соединение (для распознавания требуется активный IP-адрес), появится значок.";
 "internet_monitoring_icon" = "Индикатор сетевого трафика";

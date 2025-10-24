@@ -14,9 +14,7 @@ struct InheritanceTreeView: View {
     @State private var refreshID = UUID()
     @State var hoveringInfo: Bool = false
     
-    typealias CSM = CodableStorageManager
-    
-    @AppStorage(Key.storeDevices) private var storeDevices = false
+    @AS(Key.storeDevices) private var storeDevices = false
     
     private func refresh() {
         manager.refresh()

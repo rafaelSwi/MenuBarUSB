@@ -6,12 +6,12 @@
 //
 
 enum SettingsCategory: String {
-    case system = "systemCategory"
+    case system = "system_category"
     case icon = "icon_category"
-    case interface = "uiCategory"
-    case usb = "usbCategory"
-    case heritage = "heritageCategory"
-    case others = "othersCategory"
+    case interface = "ui_category"
+    case usb = "usb_category"
+    case heritage = "heritage_category"
+    case others = "others_category"
     case contextMenu = "context_menu_category"
-    case ethernet = "ethernetCategory"
+    case ethernet = "ethernet_category"
 }

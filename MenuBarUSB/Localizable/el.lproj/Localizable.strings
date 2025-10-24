@@ -27,7 +27,7 @@
 "unknown" = "Άγνωστο"; 
 "contact" = "Επικοινωνία:";
 "donate" = "Δωρεά";
-"endereço" = "Διεύθυνση";
+"address" = "Διεύθυνση";
 "settings" = "Ρυθμίσεις";
 "donate_description" = "Κάθε βοήθεια εκτιμάται πραγματικά!";
 "open_on_startup_description" = "Η εφαρμογή θα ξεκινά αυτόματα όταν συνδέεστε. Μπορείτε να το απενεργοποιήσετε οποιαδήποτε στιγμή.";
@@ -72,10 +72,10 @@
 "updated" = "Ενημερώθηκε";
 "disable_notification_cooldown" = "Απενεργοποίηση καθυστέρησης ειδοποίησης";
 "disable_notification_cooldown_description" = "Συσκευές ή θύρες USB με δυσλειτουργία μπορεί να προκαλέσουν απογοητευτική εμπειρία, δεν συνιστάται για καθημερινή χρήση.";
-"systemCategory" = "Σύστημα";
-"uiCategory" = "Λίστα";
-"usbCategory" = "USB";
-"heritageCategory" = "Κληρονομιά";
+"system_category" = "Σύστημα";
+"ui_category" = "Λίστα";
+"usb_category" = "USB";
+"heritage_category" = "Κληρονομιά";
 "force_dark_mode" = "Αναγκαστική σκοτεινή λειτουργία";
 "force_dark_mode_description" = "Αν έχετε ήδη ενεργοποιημένη τη σκοτεινή λειτουργία, δεν θα δείτε καμία διαφορά.";
 "force_light_mode" = "Αναγκαστική φωτεινή λειτουργία";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Μόνο οι συνδεδεμένες συσκευές θα εμφανίζουν το όνομά τους στη λίστα";
 "hide_secondary_info" = "Απόκρυψη δευτερεύουσας πληροφορίας";
 "hide_secondary_info_description" = "Οι πληροφορίες στη δεξιά γωνία (όπως ο σειριακός αριθμός και ο κατασκευαστής) δεν θα εμφανίζονται.";
-"othersCategory" = "Άλλα";
+"others_category" = "Άλλα";
 "hide_check_update" = "Απόκρυψη κουμπιού για έλεγχο ενημερώσεων";
 "hide_check_update_description" = "Αν έχετε ήδη εγκαταστήσει το MenuBarUSB μέσω brew, ή απλώς δεν σας αρέσει το κουμπί, μπορείτε να το αποκρύψετε.";
 "hide_donate" = "Απόκρυψη κουμπιού δωρεάς";
@@ -175,7 +175,7 @@
 "close" = "Κλείσιμο";
 "legacy_settings" = "Παλιές ρυθμίσεις";
 "legacy_settings_description" = "Χρησιμοποιείτε την παλαιότερη έκδοση του MenuBarUSB, η οποία έχει μεταφερθεί σε macOS Ventura και Sonoma.";
-"ethernetCategory" = "Καλώδιο δικτύου";
+"ethernet_category" = "Καλώδιο δικτύου";
 "ethernet_connected_icon" = "Εμφάνιση εικονιδίου εάν είναι συνδεδεμένο καλώδιο LAN";
 "ethernet_connected_icon_description" = "Εάν εντοπιστεί ενσύρματη σύνδεση δικτύου (απαιτείται ενεργή διεύθυνση IP για αναγνώριση), θα εμφανιστεί ένα εικονίδιο.";
 "internet_monitoring_icon" = "Ένδειξη κίνησης δικτύου";

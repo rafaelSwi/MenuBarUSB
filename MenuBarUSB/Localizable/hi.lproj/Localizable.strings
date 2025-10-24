@@ -27,7 +27,7 @@
 "unknown" = "अज्ञात";
 "contact" = "संपर्क:";
 "donate" = "विकास में योगदान दें";
-"endereço" = "पता";
+"address" = "पता";
 "settings" = "सेटिंग्स";
 "donate_description" = "आपकी कोई भी मदद हमारे लिए बहुत मायने रखती है!";
 "open_on_startup_description" = "ऐप को लॉगिन करते ही अपने आप शुरू करता है। आप इसे कभी भी बंद कर सकते हैं।";
@@ -72,10 +72,10 @@
 "updated" = "अपडेट किया गया";
 "disable_notification_cooldown" = "सूचना कूलडाउन अक्षम करें";
 "disable_notification_cooldown_description" = "खराब काम करने वाले उपकरण या USB पोर्ट निराशाजनक अनुभव पैदा कर सकते हैं, इसे रोजमर्रा के उपयोग के लिए अनुशंसित नहीं किया जाता है।";
-"systemCategory" = "सिस्टम";
-"uiCategory" = "सामान्य इंटरफ़ेस";
-"usbCategory" = "USB";
-"heritageCategory" = "विरासत";
+"system_category" = "सिस्टम";
+"ui_category" = "सामान्य इंटरफ़ेस";
+"usb_category" = "USB";
+"heritage_category" = "विरासत";
 "force_dark_mode" = "डार्क मोड मजबूर करें";
 "force_dark_mode_description" = "यदि आपने पहले ही सिस्टम पर डार्क मोड सक्षम कर लिया है, तो आपको कोई अंतर दिखाई नहीं देगा।";
 "force_light_mode" = "लाइट मोड मजबूर करें";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "केवल जुड़े हुए उपकरणों के नाम सूची में दिखाए जाएंगे";
 "hide_secondary_info" = "द्वितीयक जानकारी छिपाएँ";
 "hide_secondary_info_description" = "दाएँ कोने में जानकारी (जैसे सीरियल नंबर और निर्माता) प्रदर्शित नहीं होगी।";
-"othersCategory" = "अन्य";
+"others_category" = "अन्य";
 "hide_check_update" = "अपडेट जांचने के बटन को छुपाएँ";
 "hide_check_update_description" = "यदि आपने MenuBarUSB को पहले ही brew के माध्यम से इंस्टॉल कर रखा है, या बस बटन पसंद नहीं है, आप इसे छुपा सकते हैं।";
 "hide_donate" = "दान बटन छुपाएँ";
@@ -175,7 +175,7 @@
 "close" = "बंद करें";
 "legacy_settings" = "पुरानी सेटिंग्स";
 "legacy_settings_description" = "आप MenuBarUSB का पुराना संस्करण उपयोग कर रहे हैं। मूल रूप से, यह macOS Sequoia से पहले के macOS संस्करणों के लिए अनुकूलित एक संस्करण है। पुराने संस्करण का उपयोग करने का मतलब है कि आपके पास कुछ विशेषताओं तक पहुंच नहीं है, जैसे विरासत, आइकन अनुकूलन और कुछ अन्य, लेकिन अधिकांश भाग के लिए, एप्लिकेशन पूरी तरह से उपयोग योग्य है।";
-"ethernetCategory" = "ईथरनेट";
+"ethernet_category" = "ईथरनेट";
 "ethernet_connected_icon" = "यदि लैन केबल जुड़ा है तो एक आइकन दिखाएं";
 "ethernet_connected_icon_description" = "यदि एक वायर्ड नेटवर्क कनेक्शन का पता चलता है (पहचानने के लिए एक सक्रिय आईपी पता आवश्यक है), तो एक आइकन दिखाई देगा।";
 "internet_monitoring_icon" = "नेटवर्क ट्रैफ़िक संकेतक";

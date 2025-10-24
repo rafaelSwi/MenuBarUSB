@@ -27,7 +27,7 @@
 "unknown" = "Unbekannt"; 
 "contact" = "Kontakt:";
 "donate" = "Beitragen";
-"endereço" = "Adresse";
+"address" = "Adresse";
 "settings" = "Konfig";
 "donate_description" = "Jede Unterstützung wird sehr geschätzt!";
 "open_on_startup_description" = "Startet die App automatisch, wenn du dich anmeldest. Dies kann jederzeit deaktiviert werden.";
@@ -72,10 +72,10 @@
 "updated" = "Aktualisiert";
 "disable_notification_cooldown" = "Benachrichtigungspause deaktivieren";
 "disable_notification_cooldown_description" = "Fehlfunktionierende Geräte oder USB-Ports können zu einer frustrierenden Erfahrung führen, für den täglichen Gebrauch nicht empfohlen.";
-"systemCategory" = "System";
-"uiCategory" = "Liste";
-"usbCategory" = "USB";
-"heritageCategory" = "Vererbung";
+"system_category" = "System";
+"ui_category" = "Liste";
+"usb_category" = "USB";
+"heritage_category" = "Vererbung";
 "force_dark_mode" = "Dunkelmodus erzwingen";
 "force_dark_mode_description" = "Wenn Sie den Dunkelmodus unter macOS bereits aktiviert haben, werden Sie keinen großen Unterschied feststellen, außer dass der Hintergrund immer eine geringere Transparenz aufweist.";
 "force_light_mode" = "Hellmodus erzwingen";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Bei nicht verbundenen Geräten wird der Name nicht angezeigt.";
 "hide_secondary_info" = "Sekundäre Informationen ausblenden";
 "hide_secondary_info_description" = "Informationen in der rechten Ecke (z. B. Seriennummer und Hersteller) werden nicht angezeigt.";
-"othersCategory" = "Andere";
+"others_category" = "Andere";
 "hide_check_update" = "Schaltfläche zum Überprüfen auf Updates ausblenden";
 "hide_check_update_description" = "Wenn du MenuBarUSB bereits via Brew installiert hast oder den Button einfach nicht magst, kannst du ihn ausblenden.";
 "hide_donate" = "Spendenknopf ausblenden";
@@ -175,7 +175,7 @@
 "close" = "Schließen";
 "legacy_settings" = "Alte Einstellungen";
 "legacy_settings_description" = "Sie verwenden die ältere Version von MenuBarUSB, portiert auf macOS Ventura und Sonoma.";
-"ethernetCategory" = "Ethernet";
+"ethernet_category" = "Ethernet";
 "ethernet_connected_icon" = "Symbol anzeigen, wenn ein LAN-Kabel verbunden ist";
 "ethernet_connected_icon_description" = "Wenn eine kabelgebundene Netzwerkverbindung erkannt wird (eine aktive IP-Adresse ist zur Erkennung erforderlich), wird ein Symbol angezeigt.";
 "internet_monitoring_icon" = "Netzwerkverkehr-Indikator";

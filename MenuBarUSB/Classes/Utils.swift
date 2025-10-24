@@ -10,8 +10,8 @@ import Foundation
 import UserNotifications
 import SwiftUI
 
-enum Utils {
-    enum System {
+final class Utils {
+    final class System {
         static func openSysInfo() {
             let task = Process()
             task.launchPath = "/usr/bin/open"
@@ -28,7 +28,7 @@ enum Utils {
         }
 
         static func hapticFeedback() {
-            @AppStorage(Key.disableHaptic) var disableHaptic = false
+            @AS(Key.disableHaptic) var disableHaptic = false
             if (disableHaptic) { return }
             let performer = NSHapticFeedbackManager.defaultPerformer
             performer.perform(.generic, performanceTime: .now)
@@ -68,7 +68,7 @@ enum Utils {
         }
     }
 
-    class App {
+    final class App {
         static var appVersion: String {
             Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
         }
@@ -129,7 +129,7 @@ enum Utils {
         }
     }
 
-    class USB {
+    final class USB {
         static func usbVersionLabel(from bcd: Int?, convertHexa: Bool) -> String? {
             guard let bcd = bcd else { return nil }
             switch bcd {

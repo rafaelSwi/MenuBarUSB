@@ -27,7 +27,7 @@
 "unknown" = "Desconocido"; 
 "contact" = "Contacto:";
 "donate" = "Donar";
-"endereço" = "Dirección";
+"address" = "Dirección";
 "settings" = "Ajustes";
 "donate_description" = "¡Cualquier ayuda es muy agradecida!";
 "open_on_startup_description" = "Hace que la aplicación se inicie automáticamente al iniciar sesión. Esto puede desactivarse en cualquier momento.";
@@ -72,10 +72,10 @@
 "updated" = "Actualizado";
 "disable_notification_cooldown" = "Desactivar el tiempo de espera de notificaciones";
 "disable_notification_cooldown_description" = "Los dispositivos o puertos USB que funcionan mal pueden generar una experiencia frustrante, no se recomienda para uso diario.";
-"systemCategory" = "Sistema";
-"uiCategory" = "Lista";
-"usbCategory" = "USB";
-"heritageCategory" = "Herencia";
+"system_category" = "Sistema";
+"ui_category" = "Lista";
+"usb_category" = "USB";
+"heritage_category" = "Herencia";
 "force_dark_mode" = "Forzar modo oscuro";
 "force_dark_mode_description" = "Si ya tienes habilitado el modo oscuro en el sistema, no notarás ninguna diferencia.";
 "force_light_mode" = "Forzar modo claro";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Solo los dispositivos conectados mostrarán su nombre en la lista";
 "hide_secondary_info" = "Ocultar información secundaria";
 "hide_secondary_info_description" = "La información en la esquina derecha (como el número de serie y el fabricante) no se mostrará.";
-"othersCategory" = "Otros";
+"others_category" = "Otros";
 "hide_check_update" = "Ocultar botón de comprobar actualizaciones";
 "hide_check_update_description" = "Si ya tienes MenuBarUSB instalado vía brew, o simplemente no te gusta el botón, puedes ocultarlo.";
 "hide_donate" = "Ocultar botón de donación";
@@ -175,7 +175,7 @@
 "close" = "Cerrar";
 "legacy_settings" = "Configuración antigua";
 "legacy_settings_description" = "Estás utilizando la versión heredada de MenuBarUSB, trasladada a macOS Ventura y Sonoma.";
-"ethernetCategory" = "Ethernet";
+"ethernet_category" = "Ethernet";
 "ethernet_connected_icon" = "Mostrar un icono si un cable LAN está conectado";
 "ethernet_connected_icon_description" = "Si se detecta una conexión de red por cable (requiere una dirección IP activa para reconocerla), aparecerá un icono.";
 "internet_monitoring_icon" = "Indicador de tráfico de red";

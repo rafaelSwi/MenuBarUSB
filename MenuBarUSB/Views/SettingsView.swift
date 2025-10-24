@@ -33,9 +33,6 @@ struct SettingsView: View {
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
     
-    typealias CSM = CodableStorageManager
-    typealias AS = AppStorage
-    
     @AS(Key.settingsCategory) private var category: SettingsCategory = .system
     
     @AS(Key.launchAtLogin) private var launchAtLogin = false
@@ -278,14 +275,14 @@ struct SettingsView: View {
                 HStack {
                     Spacer()
                     let off = anyBottomOptionInUse
-                    CategoryButton(category: .system, label: "systemCategory", image: "settings_general", binding: $category, disabled: off)
+                    CategoryButton(category: .system, label: "system_category", image: "settings_general", binding: $category, disabled: off)
                     CategoryButton(category: .icon, label: "icon_category", image: "settings_icon", binding: $category, disabled: off)
-                    CategoryButton(category: .interface, label: "uiCategory", image: "settings_interface", binding: $category, disabled: off)
-                    CategoryButton(category: .usb, label: "usbCategory", image: "settings_info", binding: $category, disabled: off)
+                    CategoryButton(category: .interface, label: "ui_category", image: "settings_interface", binding: $category, disabled: off)
+                    CategoryButton(category: .usb, label: "usb_category", image: "settings_info", binding: $category, disabled: off)
                     CategoryButton(category: .contextMenu, label: "context_menu_category", image: "settings_contextmenu", binding: $category, disabled: off)
-                    CategoryButton(category: .ethernet, label: "ethernetCategory", image: "settings_ethernet", binding: $category, disabled: off)
-                    CategoryButton(category: .heritage, label: "heritageCategory", image: "settings_heritage", binding: $category, disabled: off)
-                    CategoryButton(category: .others, label: "othersCategory", image: "settings_others", binding: $category, disabled: off)
+                    CategoryButton(category: .ethernet, label: "ethernet_category", image: "settings_ethernet", binding: $category, disabled: off)
+                    CategoryButton(category: .heritage, label: "heritage_category", image: "settings_heritage", binding: $category, disabled: off)
+                    CategoryButton(category: .others, label: "others_category", image: "settings_others", binding: $category, disabled: off)
                 }
                 .padding(.horizontal, 4)
                 .padding(.vertical, 8)
@@ -401,7 +398,7 @@ struct SettingsView: View {
                             }
                             if !hideCount {
                                 Text("numerical_representation")
-                                Text(NumberConverter(manager.devices.count).convert())
+                                Text(NumberConverter(manager.devices.count).converted)
                                     .fontWeight(.bold)
                             }
                             Spacer()
@@ -417,7 +414,7 @@ struct SettingsView: View {
                                             Image(systemName: item)
                                             if !hideCount {
                                                 Text(
-                                                    NumberConverter(manager.devices.count).convert()
+                                                    NumberConverter(manager.devices.count).converted
                                                 )
                                             }
                                         }

@@ -27,7 +27,7 @@
 "unknown" = "Невідомо";
 "contact" = "Контакт:";
 "donate" = "Підтримати";
-"endereço" = "Адреса";
+"address" = "Адреса";
 "settings" = "Нал.";
 "donate_description" = "Будь-яка допомога дуже цінується!";
 "open_on_startup_description" = "Додаток запускатиметься автоматично при вході в систему. Ви можете вимкнути це будь-коли.";
@@ -72,10 +72,10 @@
 "updated" = "Оновлено";
 "disable_notification_cooldown" = "Вимкнути паузу сповіщень";
 "disable_notification_cooldown_description" = "Несправні пристрої або USB-порти можуть спричинити розчаровуючий досвід, не рекомендується для щоденного використання.";
-"systemCategory" = "Система";
-"uiCategory" = "Загальний інтерфейс";
-"usbCategory" = "USB";
-"heritageCategory" = "Спадщина";
+"system_category" = "Система";
+"ui_category" = "Загальний інтерфейс";
+"usb_category" = "USB";
+"heritage_category" = "Спадщина";
 "force_dark_mode" = "Примусово темний режим";
 "force_dark_mode_description" = "Якщо темний режим уже увімкнено в системі, ви не помітите різниці.";
 "force_light_mode" = "Примусово світлий режим";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Назви непідключених пристроїв не відображатимуться.";
 "hide_secondary_info" = "Приховати додаткову інформацію";
 "hide_secondary_info_description" = "Інформація у правому куті (наприклад, серійний номер і виробник) не відображатиметься.";
-"othersCategory" = "Інше";
+"others_category" = "Інше";
 "hide_check_update" = "Приховати кнопку перевірки оновлень";
 "hide_check_update_description" = "Якщо ви вже встановили MenuBarUSB через brew, або просто не подобається ця кнопка — ви можете її приховати.";
 "hide_donate" = "Приховати кнопку пожертв";
@@ -175,7 +175,7 @@
 "close" = "Закрити";
 "legacy_settings" = "Старі налаштування";
 "legacy_settings_description" = "Ви використовуєте стару версію MenuBarUSB. По суті, це версія, адаптована для macOS до macOS Sequoia. Використання старої версії означає, що у вас немає доступу до деяких функцій, таких як наслідування, налаштування значків та кількох інших, але в цілому додаток повністю придатний для використання.";
-"ethernetCategory" = "Ethernet";
+"ethernet_category" = "Ethernet";
 "ethernet_connected_icon" = "Показати піктограму, якщо підключено LAN-кабель";
 "ethernet_connected_icon_description" = "Якщо виявлено дротове мережеве з'єднання (для розпізнавання потрібна активна IP-адреса), з'явиться піктограма.";
 "internet_monitoring_icon" = "Індикатор мережевого трафіку";

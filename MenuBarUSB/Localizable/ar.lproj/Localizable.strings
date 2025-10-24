@@ -27,7 +27,7 @@
 "unknown" = "مجهول";
 "contact" = "اتصال:";
 "donate" = "تبرع";
-"endereço" = "العنوان";
+"address" = "العنوان";
 "settings" = "الإعدادات";
 "donate_description" = "أُقدّر أي مساعدة بكل امتنان!";
 "open_on_startup_description" = "يجعل التطبيق يبدأ عند تسجيل الدخول. يمكن تعطيله في أي وقت.";
@@ -72,10 +72,10 @@
 "updated" = "تم التحديث";
 "disable_notification_cooldown" = "تعطيل التهدئة بين الإشعارات";
 "disable_notification_cooldown_description" = "أجهزة USB أو المنافذ المختلة يمكن أن تسبب تجربة مزعجة، لا يُنصح بالاستخدام المستمر.";
-"systemCategory" = "النظام";
-"uiCategory" = "القائمة";
-"usbCategory" = "USB";
-"heritageCategory" = "الوراثة";
+"system_category" = "النظام";
+"ui_category" = "القائمة";
+"usb_category" = "USB";
+"heritage_category" = "الوراثة";
 "force_dark_mode" = "فرض الوضع الداكن";
 "force_dark_mode_description" = "إذا كنت بالفعل تستخدم الوضع الداكن، فلن ترى فرقًا.";
 "force_light_mode" = "فرض الوضع الفاتح";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "ستُعرض أسماء الأجهزة المتصلة فقط.";
 "hide_secondary_info" = "إخفاء المعلومات الثانوية";
 "hide_secondary_info_description" = "لن تُعرض المعلومات في الزاوية اليمنى (مثل الرقم التسلسلي والمُصنّع).";
-"othersCategory" = "أخرى";
+"others_category" = "أخرى";
 "hide_check_update" = "إخفاء زر البحث عن التحديثات";
 "hide_check_update_description" = "إذا كنت قد ثبّتت MenuBarUSB عبر brew، أو ببساطة لا تحب هذا الزر، يمكنك إخفاؤه.";
 "hide_donate" = "إخفاء زر \"تبرع\"";
@@ -175,7 +175,7 @@
 "close" = "إغلاق";
 "legacy_settings" = "إعدادات (النسخة القديمة)";
 "legacy_settings_description" = "أنت تستخدم النسخة القديمة من MenuBarUSB، مُكيّفة لنظام macOS Ventura و Sonoma.";
-"ethernetCategory" = "إيثرنت";
+"ethernet_category" = "إيثرنت";
 "ethernet_connected_icon" = "عرض أيقونة في حال توصيل كابل إيثرنت";
 "ethernet_connected_icon_description" = "إن تم الكشف عن اتصال شبكة سلكية (يتطلب عنوان IP نشط)، ستُعرض أيقونة.";
 "internet_monitoring_icon" = "مؤشر حركة الشبكة";

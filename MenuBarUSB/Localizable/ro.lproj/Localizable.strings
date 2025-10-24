@@ -27,7 +27,7 @@
 "unknown" = "Necunoscut";
 "contact" = "Contact:";
 "donate" = "Donează";
-"endereço" = "Adresă";
+"address" = "Adresă";
 "settings" = "Setări";
 "donate_description" = "Orice ajutor este apreciat din suflet!";
 "open_on_startup_description" = "Face ca aplicația să pornească automat când te conectezi. Poți dezactiva oricând.";
@@ -72,10 +72,10 @@
 "updated" = "Actualizat";
 "disable_notification_cooldown" = "Dezactivează perioada de răcire a notificărilor";
 "disable_notification_cooldown_description" = "Dispozitivele sau porturile USB defecte pot cauza o experiență frustrantă, nu este recomandat pentru utilizare zilnică.";
-"systemCategory" = "Sistem";
-"uiCategory" = "Lìsta";
-"usbCategory" = "USB";
-"heritageCategory" = "Moștenire";
+"system_category" = "Sistem";
+"ui_category" = "Lìsta";
+"usb_category" = "USB";
+"heritage_category" = "Moștenire";
 "force_dark_mode" = "Forțează modul întunecat";
 "force_dark_mode_description" = "Dacă modul întunecat este deja activat în sistem, nu veți observa nicio diferență.";
 "force_light_mode" = "Forțează modul deschis";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Doar dispozitivele conectate își vor afișa numele în listă";
 "hide_secondary_info" = "Ascunde informațiile secundare";
 "hide_secondary_info_description" = "Informațiile din colțul din dreapta (cum ar fi numărul de serie și producătorul) nu vor fi afișate.";
-"othersCategory" = "Altele";
+"others_category" = "Altele";
 "hide_check_update" = "Ascunde butonul de verificare pentru actualizări";
 "hide_check_update_description" = "Dacă ai deja MenuBarUSB instalat prin brew, sau pur și simplu nu îți place butonul, îl poți ascunde.";
 "hide_donate" = "Ascunde butonul de donație";
@@ -175,7 +175,7 @@
 "close" = "Închide";
 "legacy_settings" = "Setări vechi";
 "legacy_settings_description" = "Utilizați versiunea veche a MenuBarUSB. Practic, este o versiune adaptată pentru versiunile macOS anterioare macOS Sequoia. Utilizarea versiunii vechi înseamnă că nu aveți acces la unele funcții, cum ar fi moștenirea, personalizarea pictogramelor și câteva altele, dar în mare parte, aplicația este complet funcțională.";
-"ethernetCategory" = "Ethernet";
+"ethernet_category" = "Ethernet";
 "ethernet_connected_icon" = "Afișați o pictogramă dacă un cablu LAN este conectat";
 "ethernet_connected_icon_description" = "Dacă este detectată o conexiune de rețea prin cablu (necesită o adresă IP activă pentru a fi recunoscută), va apărea o pictogramă.";
 "internet_monitoring_icon" = "Indicator de trafic de rețea";

@@ -38,7 +38,7 @@ extension USBDeviceManager {
         
         stopEthernetMonitoring()
         
-        @AppStorage(Key.fastMonitor) var fastMonitor: Bool = false
+        @AS(Key.fastMonitor) var fastMonitor: Bool = false
         ethernetTimer = Timer.scheduledTimer(withTimeInterval: fastMonitor ? 0.4 : 2.1, repeats: true) { [weak self] _ in
             guard let self else { return }
             

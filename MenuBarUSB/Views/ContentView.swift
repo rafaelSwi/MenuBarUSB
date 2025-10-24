@@ -17,9 +17,6 @@ struct ContentView: View {
     @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
     @State private var devicesShowingMore: [USBDeviceWrapper] = []
-    
-    typealias CSM = CodableStorageManager
-    typealias AS = AppStorage
 
     @Binding var currentWindow: AppWindow
 
@@ -634,8 +631,8 @@ struct ContentView: View {
                         if showEyeSlash {
                             Image(systemName: "eye.slash")
                         }
-                        let first = NumberConverter(manager.connectedCamouflagedDevices).convert()
-                        let second = NumberConverter(CSM.Camouflaged.devices.count).convert()
+                        let first = NumberConverter(manager.connectedCamouflagedDevices).converted
+                        let second = NumberConverter(CSM.Camouflaged.devices.count).converted
                         Text("\(first)/\(second)")
                     }
                     .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)

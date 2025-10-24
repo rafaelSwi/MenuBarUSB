@@ -1,11 +1,11 @@
 //
-//  Key.swift
+//  StorageKeys.swift
 //  MenuBarUSB
 //
 //  Created by Rafael Neuwirth Swierczynski on 30/08/25.
 //
 
-enum Key {
+enum StorageKeys {
     static let launchAtLogin = "launchAtLogin"
     static let showPortMax = "showPortMax"
     static let convertHexa = "convertHexa"

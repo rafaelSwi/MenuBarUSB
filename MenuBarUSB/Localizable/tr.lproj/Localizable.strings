@@ -27,7 +27,7 @@
 "unknown" = "Bilinmiyor";
 "contact" = "İletişim:";
 "donate" = "Yardım etmek";
-"endereço" = "Adres";
+"address" = "Adres";
 "settings" = "Ayarlar";
 "donate_description" = "Her türlü destek için minnettarız!";
 "open_on_startup_description" = "Uygulamanın oturum açtığınızda otomatik başlamasını sağlar. İstediğiniz zaman devre dışı bırakabilirsiniz.";
@@ -72,10 +72,10 @@
 "updated" = "Güncellendi";
 "disable_notification_cooldown" = "Bildirim bekleme süresini devre dışı bırak";
 "disable_notification_cooldown_description" = "Arızalı cihazlar veya USB portları sinir bozucu bir deneyime yol açabilir, günlük kullanım için önerilmez.";
-"systemCategory" = "Sistem";
-"uiCategory" = "Genel Arayüz";
-"usbCategory" = "USB";
-"heritageCategory" = "Miras";
+"system_category" = "Sistem";
+"ui_category" = "Genel Arayüz";
+"usb_category" = "USB";
+"heritage_category" = "Miras";
 "force_dark_mode" = "Koyu modu zorla";
 "force_dark_mode_description" = "Sisteminizde zaten koyu mod etkinse, farkı görmezsiniz.";
 "force_light_mode" = "Açık modu zorla";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Yalnızca bağlı cihazların adı listede görüntülenecektir.";
 "hide_secondary_info" = "İkincil bilgileri gizle";
 "hide_secondary_info_description" = "Sağ köşedeki bilgiler (seri numarası ve üretici gibi) gösterilmeyecektir.";
-"othersCategory" = "Diğerleri";
+"others_category" = "Diğerleri";
 "hide_check_update" = "Güncellemeleri kontrol et düğmesini gizle";
 "hide_check_update_description" = "Eğer MenuBarUSB’yi zaten brew ile yüklediysen ya da sadece düğmeyi sevmiyorsan, gizleyebilirsin.";
 "hide_donate" = "Bağış düğmesini gizle";
@@ -175,7 +175,7 @@
 "close" = "Kapat";
 "legacy_settings" = "Eski Ayarlar";
 "legacy_settings_description" = "MenuBarUSB'nin macOS Ventura ve Sonoma'ya taşınan eski sürümünü kullanıyorsunuz.";
-"ethernetCategory" = "Ethernet";
+"ethernet_category" = "Ethernet";
 "ethernet_connected_icon" = "LAN kablosu bağlıysa simge göster";
 "ethernet_connected_icon_description" = "Kablolu bir ağ bağlantısı algılanırsa (tanıması için etkin bir IP adresi gerekir), bir simge görünecektir.";
 "internet_monitoring_icon" = "Ağ trafiği göstergesi";

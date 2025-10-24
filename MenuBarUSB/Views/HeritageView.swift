@@ -28,8 +28,6 @@ struct HeritageView: View {
     
     @State private var tryingToDeleteAllInheritances = false
     
-    typealias CSM = CodableStorageManager
-    
     @Binding var currentWindow: AppWindow
     
     @State private var selectedDevice: USBDeviceWrapper?
@@ -99,7 +97,8 @@ struct HeritageView: View {
 
                         Menu {
                             ForEach(manager.devices, id: \.self) { device in
-                                Button(CSM.Renamed.getName(withId: device.item.uniqueId, placeholder: device.item.name)) {
+                                let name = CSM.Renamed.getName(withId: device.item.uniqueId, placeholder: device.item.name)
+                                Button(name) {
                                     selectedDevice = device
                                     step = .selectingRole
                                     role = .nothing
@@ -207,6 +206,7 @@ struct HeritageView: View {
                                 role = .nothing
                                 step = .beginning
                             }
+                            .buttonStyle(.borderedProminent)
                             .disabled(!canConfirmInheritance)
                         }
                     }

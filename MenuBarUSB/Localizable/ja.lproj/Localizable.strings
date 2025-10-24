@@ -27,7 +27,7 @@
 "unknown" = "不明";
 "contact" = "連絡先:";
 "donate" = "寄付";
-"endereço" = "住所";
+"address" = "住所";
 "settings" = "設定";
 "donate_description" = "どんな支援でも本当に感謝します！";
 "open_on_startup_description" = "ログイン時にアプリを自動的に起動します。いつでも無効にできます。";
@@ -72,10 +72,10 @@
 "updated" = "更新済み";
 "disable_notification_cooldown" = "通知クールダウンを無効にする";
 "disable_notification_cooldown_description" = "不具合のあるデバイスやUSBポートは、フラストレーションの溜まる体験を引き起こす可能性があり、日常的な使用は推奨されません。";
-"systemCategory" = "システム";
-"uiCategory" = "リスト";
-"usbCategory" = "USB";
-"heritageCategory" = "継承";
+"system_category" = "システム";
+"ui_category" = "リスト";
+"usb_category" = "USB";
+"heritage_category" = "継承";
 "force_dark_mode" = "ダークモードを強制";
 "force_dark_mode_description" = "すでにシステムでダークモードを有効にしている場合、違いは見えません。";
 "force_light_mode" = "ライトモードを強制";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "接続されているデバイスのみがリストに名前を表示します";
 "hide_secondary_info" = "補足情報を非表示";
 "hide_secondary_info_description" = "右上の情報（シリアル番号や製造元など）は表示されません。";
-"othersCategory" = "その他";
+"others_category" = "その他";
 "hide_check_update" = "アップデート確認ボタンを非表示";
 "hide_check_update_description" = "もしすでに brew 経由で MenuBarUSB をインストールしている、または単にそのボタンが気に入らないなら、非表示にできます。";
 "hide_donate" = "寄付ボタンを非表示";
@@ -175,7 +175,7 @@
 "close" = "閉じる";
 "legacy_settings" = "レガシー設定";
 "legacy_settings_description" = "MenuBarUSBのレガシーバージョンを使用しています。基本的に、macOS Sequoia以前のmacOSバージョンに対応したバージョンです。レガシーバージョンを使用すると、一部の機能（継承、アイコンのカスタマイズなど）にはアクセスできませんが、ほとんどの場合、アプリは完全に使用可能です。";
-"ethernetCategory" = "イーサネット";
+"ethernet_category" = "イーサネット";
 "ethernet_connected_icon" = "LANケーブルが接続されている場合にアイコンを表示";
 "ethernet_connected_icon_description" = "有線ネットワーク接続が検出された場合（認識にはアクティブなIPアドレスが必要です）、アイコンが表示されます。";
 "internet_monitoring_icon" = "ネットワークトラフィックインジケーター";

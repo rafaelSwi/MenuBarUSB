@@ -27,7 +27,7 @@
 "unknown" = "Unknown";
 "contact" = "Contact:";
 "donate" = "Donate";
-"endereço" = "Address";
+"address" = "Address";
 "settings" = "Settings";
 "donate_description" = "Any help is truly appreciated!";
 "open_on_startup_description" = "Makes the app start automatically when you log in.";
@@ -72,10 +72,10 @@
 "updated" = "Updated";
 "disable_notification_cooldown" = "Disable notification cooldown";
 "disable_notification_cooldown_description" = "May can be useful for those who want accurate feedback, but can be annoying with malfunctioning devices.";
-"systemCategory" = "System";
-"uiCategory" = "List";
-"usbCategory" = "Information";
-"heritageCategory" = "Heritage";
+"system_category" = "System";
+"ui_category" = "List";
+"usb_category" = "Information";
+"heritage_category" = "Heritage";
 "force_dark_mode" = "Force dark mode";
 "force_dark_mode_description" = "If you already have dark mode enabled on macOS, you won't see much difference, except that the background will always have reduced transparency.";
 "force_light_mode" = "Force light mode";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Only connected devices will have their name displayed in the list.";
 "hide_secondary_info" = "Hide secondary information";
 "hide_secondary_info_description" = "Information in the right corner (such as the serial number and manufacturer) will not be displayed.";
-"othersCategory" = "Others";
+"others_category" = "Others";
 "hide_check_update" = "Hide button to check for updates";
 "hide_check_update_description" = "If you already have MenuBarUSB installed via brew, or simply don't like that button, you can hide it.";
 "hide_donate" = "Hide donate button";
@@ -175,7 +175,7 @@
 "close" = "Close";
 "legacy_settings" = "Legacy Settings";
 "legacy_settings_description" = "You are using the legacy version of MenuBarUSB, adapted for macOS Ventura and Sonoma.\nSome features may be limited, but the app remains fully functional.";
-"ethernetCategory" = "Ethernet";
+"ethernet_category" = "Ethernet";
 "ethernet_connected_icon" = "Show an icon if a LAN cable is connected";
 "ethernet_connected_icon_description" = "If a wired network connection is detected (it requires an active IP address to recognize), an icon will appear.";
 "internet_monitoring_icon" = "Network traffic indicator";

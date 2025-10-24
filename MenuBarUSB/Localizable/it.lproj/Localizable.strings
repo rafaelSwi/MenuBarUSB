@@ -27,7 +27,7 @@
 "unknown" = "Sconosciuto";
 "contact" = "Contatto:";
 "donate" = "Dona";
-"endereço" = "Indirizzo";
+"address" = "Indirizzo";
 "settings" = "Opzioni";
 "donate_description" = "Ogni aiuto è davvero apprezzato!";
 "open_on_startup_description" = "Fa avviare l’app automaticamente quando effettui il login. Puoi disattivarlo in qualsiasi momento.";
@@ -72,10 +72,10 @@
 "updated" = "Aggiornato";
 "disable_notification_cooldown" = "Disattiva il cooldown delle notifiche";
 "disable_notification_cooldown_description" = "Dispositivi o porte USB malfunzionanti possono causare un’esperienza frustrante, non è consigliato per l’uso quotidiano.";
-"systemCategory" = "Sistema";
-"uiCategory" = "Interfaccia";
-"usbCategory" = "USB";
-"heritageCategory" = "Eredità";
+"system_category" = "Sistema";
+"ui_category" = "Interfaccia";
+"usb_category" = "USB";
+"heritage_category" = "Eredità";
 "force_dark_mode" = "Forza modalità scura";
 "force_dark_mode_description" = "Se hai già abilitato la modalità scura sul sistema, non vedrai alcuna differenza.";
 "force_light_mode" = "Forza modalità chiara";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "Non vedrai il nome dei dispositivi non connessi.";
 "hide_secondary_info" = "Nascondi informazioni secondarie";
 "hide_secondary_info_description" = "Le informazioni nell'angolo destro (come il numero di serie e il produttore) non verranno visualizzate.";
-"othersCategory" = "Altri";
+"others_category" = "Altri";
 "hide_check_update" = "Nascondi pulsante per verificare aggiornamenti";
 "hide_check_update_description" = "Se hai già installato MenuBarUSB tramite brew, o semplicemente non ti piace il pulsante, puoi nasconderlo.";
 "hide_donate" = "Nascondi pulsante di donazione";
@@ -175,7 +175,7 @@
 "close" = "Chiudi";
 "legacy_settings" = "Impostazioni legacy";
 "legacy_settings_description" = "Stai utilizzando la versione legacy di MenuBarUSB. Essenzialmente, è una versione adattata per le versioni di macOS precedenti a macOS Sequoia. Utilizzare la versione legacy significa che non hai accesso ad alcune funzionalità, come ereditarietà, personalizzazione delle icone e alcune altre, ma per la maggior parte, l'app è completamente utilizzabile.";
-"ethernetCategory" = "Ethernet";
+"ethernet_category" = "Ethernet";
 "ethernet_connected_icon" = "Mostra un'icona se un cavo LAN è connesso";
 "ethernet_connected_icon_description" = "Se viene rilevata una connessione di rete cablata (richiede un indirizzo IP attivo per il riconoscimento), apparirà un'icona.";
 "internet_monitoring_icon" = "Indicatore di traffico di rete";

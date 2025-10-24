@@ -33,9 +33,6 @@ struct LegacySettingsView: View {
     @State private var showEthernetOptions = false
     @State private var showOthersOptions = false
     
-    typealias CSM = CodableStorageManager
-    typealias AS = AppStorage
-    
     @AS(Key.launchAtLogin) private var launchAtLogin = false
     @AS(Key.convertHexa) private var convertHexa = false
     @AS(Key.longList) private var longList = false
@@ -217,7 +214,7 @@ struct LegacySettingsView: View {
             Divider()
             
             VStack(alignment: .leading, spacing: 12) {
-                categoryButton(toggle: $showSystemOptions, label: "systemCategory")
+                categoryButton(toggle: $showSystemOptions, label: "system_category")
                 
                 if showSystemOptions {
                     ToggleRow(
@@ -272,7 +269,7 @@ struct LegacySettingsView: View {
                     )
                 }
                 
-                categoryButton(toggle: $showInterfaceOptions, label: "uiCategory")
+                categoryButton(toggle: $showInterfaceOptions, label: "ui_category")
                 
                 if showInterfaceOptions {
                     ToggleRow(
@@ -366,7 +363,7 @@ struct LegacySettingsView: View {
                     }
                 }
                 
-                categoryButton(toggle: $showInfoOptions, label: "usbCategory")
+                categoryButton(toggle: $showInfoOptions, label: "usb_category")
                 
                 if showInfoOptions {
                     Text("renamed_devices")
@@ -445,7 +442,7 @@ struct LegacySettingsView: View {
                     }
                 }
                 
-                categoryButton(toggle: $showEthernetOptions, label: "ethernetCategory")
+                categoryButton(toggle: $showEthernetOptions, label: "ethernet_category")
                 
                 if (showEthernetOptions) {
                     ToggleRow(
@@ -465,7 +462,7 @@ struct LegacySettingsView: View {
                         .padding(.bottom, 3)
                 }
                 
-                categoryButton(toggle: $showOthersOptions, label: "othersCategory")
+                categoryButton(toggle: $showOthersOptions, label: "others_category")
                 
                 if showOthersOptions {
                     if Locale.current.language.languageCode?.identifier != "en" {

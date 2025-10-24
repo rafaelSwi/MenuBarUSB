@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 final class NumberConverter {
-    @AppStorage(Key.numberRepresentation)
+    @AS(Key.numberRepresentation)
     private var storedRepresentation: String = NumberRepresentation.base10.rawValue
 
     var number: Int
@@ -18,7 +18,7 @@ final class NumberConverter {
         number = value
     }
 
-    func convert() -> String {
+    var converted: String {
         let representation = NumberRepresentation(rawValue: storedRepresentation) ?? .base10
 
         switch representation {

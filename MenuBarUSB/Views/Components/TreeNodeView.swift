@@ -14,8 +14,6 @@ struct TreeNodeView: View {
     let xmarked: Bool
     let onRefresh: () -> Void
     
-    typealias CSM = CodableStorageManager
-    
     @State var hoveringTrash: Bool = false
     
     private var deviceName: String? {

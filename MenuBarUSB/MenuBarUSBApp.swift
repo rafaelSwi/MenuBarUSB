@@ -14,16 +14,16 @@ struct MenuBarUSBApp: App {
     @State private var currentWindow: AppWindow = .devices
     @State private var convertedCount: String = ""
 
-    @AppStorage(Key.reduceTransparency) private var isReduceTransparencyOn = false
-    @AppStorage(Key.forceDarkMode) private var forceDarkMode = false
-    @AppStorage(Key.forceLightMode) private var forceLightMode = false
-    @AppStorage(Key.hideCount) private var hideCount = false
-    @AppStorage(Key.hideMenubarIcon) private var hideMenubarIcon = false
-    @AppStorage(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
-    @AppStorage(Key.showEthernet) private var showEthernet = false
-    @AppStorage(Key.forceEnglish) private var forceEnglish = false
-    @AppStorage(Key.newVersionNotification) private var newVersionNotification = false
-    @AppStorage(Key.internetMonitoring) private var internetMonitoring = false
+    @AS(Key.reduceTransparency) private var isReduceTransparencyOn = false
+    @AS(Key.forceDarkMode) private var forceDarkMode = false
+    @AS(Key.forceLightMode) private var forceLightMode = false
+    @AS(Key.hideCount) private var hideCount = false
+    @AS(Key.hideMenubarIcon) private var hideMenubarIcon = false
+    @AS(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
+    @AS(Key.showEthernet) private var showEthernet = false
+    @AS(Key.forceEnglish) private var forceEnglish = false
+    @AS(Key.newVersionNotification) private var newVersionNotification = false
+    @AS(Key.internetMonitoring) private var internetMonitoring = false
     
     init() {
         if newVersionNotification {
@@ -40,7 +40,7 @@ struct MenuBarUSBApp: App {
 
     private var countText: some View {
         func updateCount() {
-            convertedCount = NumberConverter(manager.devices.count).convert()
+            convertedCount = NumberConverter(manager.devices.count).converted
         }
 
         return Text(convertedCount)

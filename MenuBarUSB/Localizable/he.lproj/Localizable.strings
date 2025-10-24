@@ -27,7 +27,7 @@
 "unknown" = "לא ידוע";
 "contact" = "צור קשר:";
 "donate" = "עזרו למפתח";
-"endereço" = "כתובת";
+"address" = "כתובת";
 "settings" = "הגדרות";
 "donate_description" = "כל עזרה מוערכת מאוד!";
 "open_on_startup_description" = "הופך את האפליקציה לפעילה אוטומטית בעת כניסה למערכת. ניתן לבטל זאת בכל עת.";
@@ -72,10 +72,10 @@
 "updated" = "עודכן";
 "disable_notification_cooldown" = "השבתת השהיית התראות";
 "disable_notification_cooldown_description" = "מכשירים או יציאות USB פגומים עלולים לגרום לחוויה מתסכלת, לא מומלץ לשימוש יומיומי.";
-"systemCategory" = "מערכת";
-"uiCategory" = "ממשק כללי";
-"usbCategory" = "USB";
-"heritageCategory" = "מורשת";
+"system_category" = "מערכת";
+"ui_category" = "ממשק כללי";
+"usb_category" = "USB";
+"heritage_category" = "מורשת";
 "force_dark_mode" = "כפה מצב כהה";
 "force_dark_mode_description" = "אם כבר הפעלת מצב כהה במערכת, לא תראה שינוי.";
 "force_light_mode" = "כפה מצב בהיר";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "רק מכשירים מחוברים יציגו את שמם ברשימה";
 "hide_secondary_info" = "הסתר מידע משני";
 "hide_secondary_info_description" = "מידע בפינה הנגדית (כגון המספר הסידורי ושם היצרן) לא יוצג.";
-"othersCategory" = "אחרים";
+"others_category" = "אחרים";
 "hide_check_update" = "הסתר כפתור בדיקת עדכונים";
 "hide_check_update_description" = "אם כבר התקנת את MenuBarUSB דרך brew, או פשוט לא אוהב את הכפתור, תוכל להסתיר אותו.";
 "hide_donate" = "הסתר כפתור התרומה";
@@ -175,7 +175,7 @@
 "close" = "סגור";
 "legacy_settings" = "הגדרות ישנות";
 "legacy_settings_description" = "אתה משתמש בגרסת הלגסי של MenuBarUSB. למעשה, זו גרסה מותאמת לגרסאות macOS לפני macOS Sequoia. שימוש בגרסת הלגסי אומר שאין לך גישה לחלק מהפונקציות, כמו ירושה, התאמת אייקונים ועוד כמה, אך ברוב המקרים האפליקציה ניתנת לשימוש באופן מלא.";
-"ethernetCategory" = "אתרנט";
+"ethernet_category" = "אתרנט";
 "ethernet_connected_icon" = "הצג אייקון אם כבל רשת מחובר";
 "ethernet_connected_icon_description" = "אם זוהה חיבור רשת קווי (נדרשת כתובת IP פעילה לזיהוי), יופיע אייקון.";
 "internet_monitoring_icon" = "מחוון תעבורת רשת";

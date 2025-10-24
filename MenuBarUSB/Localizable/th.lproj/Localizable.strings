@@ -27,7 +27,7 @@
 "unknown" = "ไม่ทราบ"; 
 "contact" = "ติดต่อ:";
 "donate" = "บริจาค";
-"endereço" = "ที่อยู่";
+"address" = "ที่อยู่";
 "settings" = "การตั้งค่า";
 "donate_description" = "ความช่วยเหลือใด ๆ ก็มีค่ามากสำหรับเรา!";
 "open_on_startup_description" = "ทำให้แอปเปิดอัตโนมัติเมื่อคุณเข้าสู่ระบบ คุณสามารถปิดได้ตลอดเวลา";
@@ -72,10 +72,10 @@
 "updated" = "อัปเดตแล้ว";
 "disable_notification_cooldown" = "ปิดใช้งานคูลดาวน์การแจ้งเตือน";
 "disable_notification_cooldown_description" = "อุปกรณ์หรือพอร์ต USB ที่ทำงานผิดพลาดอาจทำให้เกิดประสบการณ์ที่น่าหงุดหงิด ไม่แนะนำให้ใช้ทุกวัน";
-"systemCategory" = "ระบบ";
-"uiCategory" = "อินเทอร์เฟซทั่วไป";
-"usbCategory" = "USB";
-"heritageCategory" = "มรดก";
+"system_category" = "ระบบ";
+"ui_category" = "อินเทอร์เฟซทั่วไป";
+"usb_category" = "USB";
+"heritage_category" = "มรดก";
 "force_dark_mode" = "บังคับโหมดมืด";
 "force_dark_mode_description" = "หากคุณเปิดโหมดมืดอยู่แล้ว ระบบจะไม่แสดงความแตกต่าง";
 "force_light_mode" = "บังคับโหมดสว่าง";
@@ -111,7 +111,7 @@
 "inheritance_tree_warning" = "เฉพาะอุปกรณ์ที่เชื่อมต่อแล้วเท่านั้นที่จะมีการแสดงชื่อในรายการ";
 "hide_secondary_info" = "ซ่อนข้อมูลรอง";
 "hide_secondary_info_description" = "ข้อมูลที่มุมขวา (เช่น หมายเลขซีเรียลและผู้ผลิต) จะไม่ถูกแสดง";
-"othersCategory" = "อื่น ๆ";
+"others_category" = "อื่น ๆ";
 "hide_check_update" = "ซ่อนปุ่มตรวจสอบการอัปเดต";
 "hide_check_update_description" = "ถ้าคุณได้ติดตั้ง MenuBarUSB ผ่าน brew อยู่แล้ว หรือแค่ไม่ชอบปุ่มนี้ ก็สามารถซ่อนได้";
 "hide_donate" = "ซ่อนปุ่มบริจาค";
@@ -175,7 +175,7 @@
 "close" = "ปิด";
 "legacy_settings" = "การตั้งค่าแบบเดิม";
 "legacy_settings_description" = "คุณกำลังใช้เวอร์ชันเก่าของ MenuBarUSB โดยพื้นฐานแล้วนี่คือเวอร์ชันที่ปรับให้เข้ากับ macOS ก่อน macOS Sequoia การใช้เวอร์ชันเก่าหมายความว่าคุณไม่สามารถเข้าถึงฟีเจอร์บางอย่าง เช่น การสืบทอด การปรับแต่งไอคอน และบางอย่างอื่น ๆ แต่โดยส่วนใหญ่ แอปสามารถใช้งานได้เต็มรูปแบบ";
-"ethernetCategory" = "อีเธอร์เน็ต";
+"ethernet_category" = "อีเธอร์เน็ต";
 "ethernet_connected_icon" = "แสดงไอคอนหากเชื่อมต่อสาย LAN";
 "ethernet_connected_icon_description" = "หากตรวจพบการเชื่อมต่อเครือข่ายแบบมีสาย (ต้องใช้ที่อยู่ IP ที่ใช้งานอยู่ในการรับรู้) ไอคอนจะปรากฏขึ้น";
 "internet_monitoring_icon" = "ตัวบ่งชี้การรับส่งข้อมูลเครือข่าย";

@@ -15,9 +15,6 @@ final class USBDeviceManager: ObservableObject {
     @Published var trafficCooldown: TimeInterval = 1.0
     @Published var lastTrafficDetected: Date = .distantPast
     @Published var trafficMonitorRunning: Bool = false
-    
-    typealias CSM = CodableStorageManager
-    typealias AS = AppStorage
 
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
