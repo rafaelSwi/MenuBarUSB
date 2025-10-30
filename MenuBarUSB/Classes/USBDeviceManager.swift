@@ -357,49 +357,29 @@ final class USBDeviceManager: ObservableObject {
             repeat {
                 service = IOIteratorNext(iterator)
                 if service != 0 {
-                    var parts: [String] = []
-
-                    if let vendor = IORegistryEntryCreateCFProperty(
-                        service,
-                        kUSBVendorString as CFString,
-                        kCFAllocatorDefault,
-                        0
-                    )?.takeUnretainedValue() as? String {
-                        parts.append(vendor)
+                    if let vendor = IORegistryEntryCreateCFProperty(service, kUSBVendorString as CFString, kCFAllocatorDefault, 0)?
+                        .takeUnretainedValue() as? String,
+                       let product = IORegistryEntryCreateCFProperty(service, kUSBProductString as CFString, kCFAllocatorDefault, 0)?
+                        .takeUnretainedValue() as? String {
+                        deviceNames.append("\(vendor) \(product)")
                     }
-
-                    if let product = IORegistryEntryCreateCFProperty(
-                        service,
-                        kUSBProductString as CFString,
-                        kCFAllocatorDefault,
-                        0
-                    )?.takeUnretainedValue() as? String {
-                        parts.append(product)
-                    }
-
-                    if !parts.isEmpty {
-                        deviceNames.append(parts.joined(separator: " "))
-                    }
-
                     IOObjectRelease(service)
                 }
             } while service != 0
 
             DispatchQueue.main.async {
-                mySelf.refresh()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    mySelf.refresh()
+                }
+
                 if mySelf.showNotifications, mySelf.canSendNotification() {
-                    let deviceList = deviceNames.isEmpty ? "" : "\(deviceNames.joined(separator: ", ").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))"
-                    if deviceList == "" {
-                        Utils.System.sendNotification(
-                            title: String(localized: "usb_disconnected"),
-                            body: String(localized: "usb_disconnected_info")
-                        )
-                    } else {
-                        Utils.System.sendNotification(
-                            title: String(localized: "usb_disconnected"),
-                            body: String(format: NSLocalizedString("device_disconnected", comment: "DEVICE DISCONNECTED MESSAGE"), "\(deviceList)")
-                        )
-                    }
+                    let deviceList = deviceNames.joined(separator: ", ")
+                    Utils.System.sendNotification(
+                        title: String(localized: "usb_disconnected"),
+                        body: deviceList.isEmpty
+                            ? String(localized: "usb_disconnected_info")
+                            : String(format: NSLocalizedString("device_disconnected", comment: ""), deviceList)
+                    )
                 }
             }
         }

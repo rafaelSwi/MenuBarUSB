@@ -19,7 +19,7 @@ struct TreeNodeView: View {
     private var deviceName: String? {
         let device: USBDeviceWrapper? = manager.devices.first(where: { $0.item.uniqueId == deviceId })
         if (device == nil) {
-            let stored: StoredDevice? = CSM.Stored.get(withId: deviceId)
+            let stored: StoredDevice? = CSM.Stored[deviceId]
             return stored?.name
         } else {
             return device?.item.name

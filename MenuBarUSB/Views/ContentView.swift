@@ -48,12 +48,12 @@ struct ContentView: View {
             return nil
         }
         let baseValue: CGFloat = 200
-        var multiplier: CGFloat = 25
+        var multiplier: CGFloat = 26
         if longList {
-            multiplier = 30
+            multiplier += 15
         }
         if hideTechInfo {
-            multiplier = 12
+            multiplier -= 12
         }
         
         var total = manager.devices.count
@@ -458,6 +458,7 @@ struct ContentView: View {
                                     if showRestoreName(for: uniqueId) {
                                         Button {
                                             CSM.Renamed.remove(withId: uniqueId)
+                                            manager.refresh()
                                         } label: {
                                             Label("restore_name", systemImage: "eraser.line.dashed")
                                         }

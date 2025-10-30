@@ -67,11 +67,11 @@ struct HeritageView: View {
 
         if masterId == heirId { return false }
         
-        if let parent = CSM.Heritage.get(withId: masterId)?.inheritsFrom,
+        if let parent = CSM.Heritage[masterId]?.inheritsFrom,
            parent == heirId { return false }
 
         var currentId = masterId
-        while let parent = CSM.Heritage.get(withId: currentId)?.inheritsFrom {
+        while let parent = CSM.Heritage[currentId]?.inheritsFrom {
             if parent == heirId { return false }
             currentId = parent
         }
@@ -80,14 +80,41 @@ struct HeritageView: View {
     }
 
     private func deleteAllInheritances() {
+        defer { resetPageState() }
         CSM.Heritage.clear()
-        tryingToDeleteAllInheritances = false
+    }
+    
+    private func resetPageState() {
         selectedDevice = nil
         anotherSelectedDevice = nil
+        tryingToDeleteAllInheritances = false
+        role = .nothing
+        step = .beginning
+    }
+    
+    private func confirmInheritance() {
+        defer { resetPageState() }
+        var uniqueIdMaster: String
+        var uniqueIdHeir: String
+
+        switch role {
+        case .nothing: return
+        case .willGiveInheritance:
+            uniqueIdMaster = selectedDevice!.item.uniqueId
+            uniqueIdHeir = anotherSelectedDevice!.item.uniqueId
+        case .willReceiveInheritance:
+            uniqueIdMaster = anotherSelectedDevice!.item.uniqueId
+            uniqueIdHeir = selectedDevice!.item.uniqueId
+        }
+
+        CSM.Heritage.add(withId: uniqueIdHeir, inheritsFrom: uniqueIdMaster)
     }
 
     var body: some View {
         VStack(alignment: .leading) {
+            
+            let placeholder: String = String(localized: "device")
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
 
@@ -97,7 +124,7 @@ struct HeritageView: View {
 
                         Menu {
                             ForEach(manager.devices, id: \.self) { device in
-                                let name = CSM.Renamed.getName(withId: device.item.uniqueId, placeholder: device.item.name)
+                                let name = CSM.Renamed[device.item.uniqueId]?.name ?? placeholder
                                 Button(name) {
                                     selectedDevice = device
                                     step = .selectingRole
@@ -107,7 +134,7 @@ struct HeritageView: View {
                             }
                         } label: {
                             HStack {
-                                Text(selectedDevice?.item.name ?? String(localized: "device"))
+                                Text(selectedDevice?.item.name ?? placeholder)
                             }
                             .padding(8)
                             .background(RoundedRectangle(cornerRadius: 6).stroke(.gray))
@@ -158,13 +185,13 @@ struct HeritageView: View {
 
                             Menu {
                                 ForEach(manager.devices, id: \.self) { device in
-                                    Button(CSM.Renamed.getName(withId: device.item.uniqueId, placeholder: device.item.name)) {
+                                    Button(CSM.Renamed[device.item.uniqueId]?.name ?? placeholder) {
                                         anotherSelectedDevice = device
                                         step = .final
                                     }
                                 }
                             } label: {
-                                Text(anotherSelectedDevice?.item.name ?? String(localized: "device"))
+                                Text(anotherSelectedDevice?.item.name ?? placeholder)
                                     .padding(8)
                                     .background(RoundedRectangle(cornerRadius: 6).stroke(.gray))
                             }
@@ -184,28 +211,8 @@ struct HeritageView: View {
                                 Text("invalid_inheritance")
                                     .fontWeight(.bold)
                             }
-
-                            Button("confirm_inheritance") {
-                                var uniqueIdMaster: String
-                                var uniqueIdHeir: String
-
-                                switch role {
-                                case .nothing: return
-                                case .willGiveInheritance:
-                                    uniqueIdMaster = selectedDevice!.item.uniqueId
-                                    uniqueIdHeir = anotherSelectedDevice!.item.uniqueId
-                                case .willReceiveInheritance:
-                                    uniqueIdMaster = anotherSelectedDevice!.item.uniqueId
-                                    uniqueIdHeir = selectedDevice!.item.uniqueId
-                                }
-
-                                CSM.Heritage.add(withId: uniqueIdHeir, inheritsFrom: uniqueIdMaster)
-
-                                selectedDevice = nil
-                                anotherSelectedDevice = nil
-                                role = .nothing
-                                step = .beginning
-                            }
+                            
+                            Button("confirm_inheritance", action: confirmInheritance)
                             .buttonStyle(.borderedProminent)
                             .disabled(!canConfirmInheritance)
                         }

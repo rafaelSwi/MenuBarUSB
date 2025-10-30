@@ -18,6 +18,10 @@ final class CodableStorageManager {
             return items
         }
         
+        static subscript(_ uniqueId: String) -> StoredDevice? {
+            return items.first(where: { $0.deviceId == uniqueId })
+        }
+        
         static func filteredDevices(_ connectedDevices: [USBDeviceWrapper]) -> [StoredDevice] {
             let filtered = items.filter { device in
                 let notContain = !connectedDevices.contains { $0.item.uniqueId == device.deviceId }
@@ -50,10 +54,6 @@ final class CodableStorageManager {
             items.append(StoredDevice(deviceId: d.item.uniqueId, name: d.item.name))
         }
         
-        static func get(withId id: String?) -> StoredDevice? {
-            return items.first(where: { $0.deviceId == id })
-        }
-        
         static func remove(withId id: String) {
             items.removeAll { $0.deviceId == id }
         }
@@ -72,20 +72,14 @@ final class CodableStorageManager {
             return items
         }
         
+        static subscript(_ uniqueId: String) -> RenamedDevice? {
+            return items.first(where: { $0.deviceId == uniqueId })
+        }
+        
         static func add(_ deviceId: String?, _ name: String) {
             if (deviceId == nil) { return }
             items.removeAll { $0.deviceId == deviceId }
             items.append(RenamedDevice(deviceId: deviceId!, name: name))
-        }
-        
-        static func get(withId id: String?) -> RenamedDevice? {
-            return items.first(where: { $0.deviceId == id })
-        }
-        
-        static func getName(withId id: String?, placeholder: String) -> String {
-            let item = items.first(where: { $0.deviceId == id })
-            if (item == nil) { return placeholder }
-            return item?.name ?? placeholder
         }
         
         static func remove(withId id: String) {
@@ -105,6 +99,10 @@ final class CodableStorageManager {
         
         static var devices: [CamouflagedDevice] {
             return items
+        }
+        
+        static subscript(_ uniqueId: String) -> CamouflagedDevice? {
+            return items.first(where: { $0.deviceId == uniqueId })
         }
         
         static func add(withId id: String?) {
@@ -132,14 +130,14 @@ final class CodableStorageManager {
             return items
         }
         
+        static subscript(_ uniqueId: String) -> HeritageDevice? {
+            return items.first(where: { $0.deviceId == uniqueId })
+        }
+        
         static func add(withId id: String?, inheritsFrom: String?) {
             if (id == nil || inheritsFrom == nil) { return }
             items.removeAll { $0.deviceId == id }
             items.append(HeritageDevice(deviceId: id!, inheritsFrom: inheritsFrom!))
-        }
-        
-        static func get(withId id: String?) -> HeritageDevice? {
-            items.first(where: { $0.deviceId == id })
         }
         
         static func remove(withId id: String) {
