@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "Wyłącz sprzężenie dotykowe";
 "disable_haptic_feedback_description" = "Niektóre działania wywołują delikatną wibrację na panelu dotykowym, zapewniając wyrafinowane wrażenie interakcji, zwłaszcza przy gestach najechania.";
 "restore_name" = "Przywróć nazwę";
+"open_legacy_settings" = "Otwórz stare ustawienia";

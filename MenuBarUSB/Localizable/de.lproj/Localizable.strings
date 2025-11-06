@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "Haptisches Feedback deaktivieren";
 "disable_haptic_feedback_description" = "Bestimmte Aktionen lösen eine sanfte Vibration auf dem Trackpad aus, was ein verfeinertes Interaktionsgefühl vermittelt, insbesondere bei Hover-Gesten.";
 "restore_name" = "Namen wiederherstellen";
+"open_legacy_settings" = "Alte Einstellungen öffnen";

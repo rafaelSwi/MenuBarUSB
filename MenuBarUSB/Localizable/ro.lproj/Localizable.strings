@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "Dezactivează feedback-ul haptic";
 "disable_haptic_feedback_description" = "Anumite acțiuni declanșează o vibrație ușoară pe trackpad, oferind o senzație rafinată de interacțiune, mai ales prin gesturi de plutire.";
 "restore_name" = "Restaurează numele";
+"open_legacy_settings" = "Deschide setările vechi";

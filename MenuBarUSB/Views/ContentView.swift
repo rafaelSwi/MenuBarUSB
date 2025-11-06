@@ -741,6 +741,13 @@ struct ContentView: View {
                     } label: {
                         Label("open", systemImage: "arrow.up.right.square")
                     }
+                    if #available(macOS 15.0, *) {
+                        Button {
+                            openWindow(id: "legacy_settings")
+                        } label: {
+                            Label("open_legacy_settings", systemImage: "menucard")
+                        }
+                    }
                     Button {
                         Utils.System.openSysInfo()
                     } label: {

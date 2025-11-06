@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "Disable haptic feedback";
 "disable_haptic_feedback_description" = "Specific actions trigger a soft vibration on the trackpad, providing a refined sense of interaction, especially through hover gestures.";
 "restore_name" = "Restore name";
+"open_legacy_settings" = "Open Legacy Settings";

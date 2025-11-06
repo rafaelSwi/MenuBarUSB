@@ -81,7 +81,7 @@ struct MenuBarUSBApp: App {
         }
         .menuBarExtraStyle(.window)
 
-        Window("legacy_settings", id: "legacy_settings") {
+        Window("settings", id: "legacy_settings") {
             LegacySettingsView()
         }
     }

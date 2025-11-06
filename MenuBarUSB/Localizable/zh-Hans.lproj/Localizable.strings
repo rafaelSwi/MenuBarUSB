@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "禁用触觉反馈";
 "disable_haptic_feedback_description" = "某些操作会触发触控板上的轻微振动，从而提供精致的交互体验，尤其是在悬停手势时。";
 "restore_name" = "恢复名称";
+"open_legacy_settings" = "打开旧设置";

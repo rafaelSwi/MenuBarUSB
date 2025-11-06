@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "Dokunsal geri bildirimi devre dışı bırak";
 "disable_haptic_feedback_description" = "Belirli eylemler trackpad üzerinde hafif bir titreşim tetikleyerek, özellikle üzerine gelme hareketleriyle rafine bir etkileşim hissi sağlar.";
 "restore_name" = "İsmi geri yükle";
+"open_legacy_settings" = "Eski ayarları aç";

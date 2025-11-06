@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "השבת משוב הפטי";
 "disable_haptic_feedback_description" = "פעולות מסוימות מפעילות רטט עדין על משטח המגע, מה שמספק תחושת אינטראקציה מעודנת, במיוחד באמצעות מחוות ריחוף.";
 "restore_name" = "שחזר שם";
+"open_legacy_settings" = "פתח הגדרות ישנות";

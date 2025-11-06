@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "ハプティックフィードバックを無効にする";
 "disable_haptic_feedback_description" = "特定の操作でトラックパッドが軽く振動し、特にホバージェスチャーによって洗練された操作感を提供します。";
 "restore_name" = "名前を復元";
+"open_legacy_settings" = "古い設定を開く";

@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "Desativar resposta tátil";
 "disable_haptic_feedback_description" = "Ações específicas ativam uma vibração suave no trackpad, proporcionando uma sensação refinada de interação, especialmente através de gestos de passar o rato.";
 "restore_name" = "Restaurar nome";
+"open_legacy_settings" = "Abrir definições antigas";

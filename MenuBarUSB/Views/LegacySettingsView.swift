@@ -460,6 +460,7 @@ struct LegacySettingsView: View {
                     Text("enabling_this_will_cause_restart")
                         .font(.footnote)
                         .padding(.bottom, 3)
+                        .foregroundStyle(.gray)
                 }
                 
                 categoryButton(toggle: $showOthersOptions, label: "others_category")
@@ -563,7 +564,7 @@ struct LegacySettingsView: View {
             }
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 650)
+        .frame(minWidth: 465, minHeight: 690)
         .appBackground(reduceTransparency)
     }
 }

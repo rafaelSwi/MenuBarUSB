@@ -222,3 +222,4 @@
 "disable_haptic_feedback" = "Desactivar retroalimentación háptica";
 "disable_haptic_feedback_description" = "Algunas acciones activan una vibración suave en el trackpad, brindando una sensación de interacción refinada, especialmente a través de gestos al pasar el cursor.";
 "restore_name" = "Restaurar nombre";
+"open_legacy_settings" = "Abrir configuraciones antiguas";
