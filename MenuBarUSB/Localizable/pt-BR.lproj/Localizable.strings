@@ -223,7 +223,7 @@
 "disable_haptic_feedback_description" = "Ações específicas ativam uma leve vibração no trackpad, especialmente por meio de gestos de passar o cursor.";
 "restore_name" = "Apagar nome";
 "open_legacy_settings" = "Abrir Configurações Legacy";
-"copy_all_properties" = "Copiar todas as propriedades";
+"copy_all_properties" = "Copiar todas as informações";
 "new_heir" = "Novo herdeiro";
 "kill_inheritance" = "Remover heranças";
 "search" = "Pesquisar";
