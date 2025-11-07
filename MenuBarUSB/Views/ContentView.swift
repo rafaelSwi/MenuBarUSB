@@ -532,22 +532,23 @@ struct ContentView: View {
                                         Divider()
                                         
                                         Menu {
-                                            if (CSM.Heritage[device.item.uniqueId] != nil) {
-                                                Button {
-                                                    CSM.Heritage.remove(withId: device.item.uniqueId)
-                                                    manager.refresh()
-                                                } label: {
-                                                    Label("kill_inheritance", systemImage: "trash")
-                                                }
-                                                Divider()
+                                            Button {
+                                                CSM.Heritage.remove(withId: device.item.uniqueId)
+                                                manager.refresh()
+                                            } label: {
+                                                Label("kill_inheritance", systemImage: "trash")
                                             }
+                                            .disabled(CSM.Heritage[device.item.uniqueId] == nil)
+                                            
+                                            Divider()
+                                            
                                             Menu {
                                                 ForEach(sortedDevices) { d in
                                                     Button {
                                                         CSM.Heritage.add(withId: d.item.uniqueId, inheritsFrom: device.item.uniqueId)
                                                         manager.refresh()
                                                     } label: {
-                                                        Label(d.item.name, systemImage: "plus")
+                                                        Text(CSM.Renamed[d.item.uniqueId]?.name ?? d.item.name)
                                                     }
                                                 }
                                             } label: {

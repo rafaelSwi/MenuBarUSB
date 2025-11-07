@@ -124,7 +124,7 @@ struct HeritageView: View {
 
                         Menu {
                             ForEach(manager.devices, id: \.self) { device in
-                                let name = CSM.Renamed[device.item.uniqueId]?.name ?? placeholder
+                                let name = CSM.Renamed[device.item.uniqueId]?.name ?? device.item.name
                                 Button(name) {
                                     selectedDevice = device
                                     step = .selectingRole
@@ -185,7 +185,7 @@ struct HeritageView: View {
 
                             Menu {
                                 ForEach(manager.devices, id: \.self) { device in
-                                    Button(CSM.Renamed[device.item.uniqueId]?.name ?? placeholder) {
+                                    Button(CSM.Renamed[device.item.uniqueId]?.name ?? device.item.name) {
                                         anotherSelectedDevice = device
                                         step = .final
                                     }
