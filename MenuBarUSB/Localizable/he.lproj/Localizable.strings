@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "פעולות מסוימות מפעילות רטט עדין על משטח המגע, מה שמספק תחושת אינטראקציה מעודנת, במיוחד באמצעות מחוות ריחוף.";
 "restore_name" = "שחזר שם";
 "open_legacy_settings" = "פתח הגדרות ישנות";
+"copy_all_properties" = "העתק את כל המאפיינים";
+"new_heir" = "יורש חדש";
+"kill_inheritance" = "בטל ירושה";
+"search" = "חיפוש";
+"clear_all_inheritances" = "נקה את כל הירושות";
+"security_mode" = "מצב אבטחה";
+"disable_context_menu_heritage" = "השבת ירושה בתפריט ההקשר";
+"disable_context_menu_heritage_description" = "אפשרויות הירושה אינן מופיעות עוד.";

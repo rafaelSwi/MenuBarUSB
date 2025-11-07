@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Συγκεκριμένες ενέργειες προκαλούν απαλή δόνηση στο trackpad, προσφέροντας μια εκλεπτυσμένη αίσθηση αλληλεπίδρασης, ειδικά μέσω κινήσεων αιώρησης.";
 "restore_name" = "Επαναφορά ονόματος";
 "open_legacy_settings" = "Άνοιγμα παλαιών ρυθμίσεων";
+"copy_all_properties" = "Αντιγραφή όλων των ιδιοτήτων";
+"new_heir" = "Νέος κληρονόμος";
+"kill_inheritance" = "Κατάργηση κληρονομιάς";
+"search" = "Αναζήτηση";
+"clear_all_inheritances" = "Καθαρισμός όλων των κληρονομιών";
+"security_mode" = "Λειτουργία ασφαλείας";
+"disable_context_menu_heritage" = "Απενεργοποίηση κληρονομιάς στο μενού περιβάλλοντος";
+"disable_context_menu_heritage_description" = "Οι επιλογές κληρονομιάς δεν εμφανίζονται πλέον.";

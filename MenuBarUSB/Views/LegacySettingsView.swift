@@ -30,7 +30,7 @@ struct LegacySettingsView: View {
     @State private var showInterfaceOptions = false
     @State private var showInfoOptions = false
     @State private var showContextMenuOptions = false
-    @State private var showEthernetOptions = false
+    @State private var showHeritageOptions = false
     @State private var showOthersOptions = false
     
     @AS(Key.launchAtLogin) private var launchAtLogin = false
@@ -48,6 +48,8 @@ struct LegacySettingsView: View {
     @AS(Key.disableHaptic) private var disableHaptic = false
     @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.showEthernet) private var showEthernet = false
+    @AS(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
+    @AS(Key.increasedIndentationGap) private var increasedIndentationGap = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
     @AS(Key.forceDarkMode) private var forceDarkMode = false
     @AS(Key.forceLightMode) private var forceLightMode = false
@@ -59,6 +61,7 @@ struct LegacySettingsView: View {
     @AS(Key.restartButton) private var restartButton = false
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.searchEngine) private var searchEngine: SearchEngine = .google
     
     func categoryButton(toggle: Binding<Bool>, label: LocalizedStringKey) -> some View {
@@ -92,7 +95,7 @@ struct LegacySettingsView: View {
         showInfoOptions = false
         showOthersOptions = false
         showContextMenuOptions = false
-        showEthernetOptions = false
+        showHeritageOptions = false
     }
     
     func manageShowOptions(binding: Binding<Bool>) {
@@ -238,7 +241,7 @@ struct LegacySettingsView: View {
                     categoryButton(toggle: $showInterfaceOptions, label: "ui_category")
                     categoryButton(toggle: $showInfoOptions, label: "usb_category")
                     categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category")
-                    categoryButton(toggle: $showEthernetOptions, label: "ethernet_category")
+                    categoryButton(toggle: $showHeritageOptions, label: "heritage_category")
                     categoryButton(toggle: $showOthersOptions, label: "others_category")
                 }
                 
@@ -443,6 +446,14 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
+                            label: String(localized: "disable_context_menu_heritage"),
+                            description: String(localized: "disable_context_menu_heritage_description"),
+                            binding: $disableContextMenuHeritage,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
                             label: String(localized: "allow_copying_individual"),
                             description: String(localized: "allow_copying_individual_description"),
                             binding: $contextMenuCopyAll,
@@ -466,23 +477,30 @@ struct LegacySettingsView: View {
                         }
                     }
                     
-                    if (showEthernetOptions) {
+                    if (showHeritageOptions) {
                         ToggleRow(
-                            label: String(localized: "ethernet_connected_icon"),
-                            description: String(localized: "ethernet_connected_icon_description"),
-                            binding: $showEthernet,
+                            label: String(localized: "disable_inheritance_layout"),
+                            description: String(localized: "disable_inheritance_layout_description"),
+                            binding: $disableInheritanceLayout,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
-                            onToggle: { value in
-                                if (value == true) {
-                                    Utils.App.restart()
-                                }
-                            }
+                            onToggle: { _ in increasedIndentationGap = false }
                         )
-                        Text("enabling_this_will_cause_restart")
-                            .font(.footnote)
-                            .padding(.bottom, 3)
-                            .foregroundStyle(.gray)
+                        ToggleRow(
+                            label: String(localized: "increased_indentation_gap"),
+                            description: String(localized: "increased_indentation_gap_description"),
+                            binding: $increasedIndentationGap,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            disabled: disableInheritanceLayout,
+                            onToggle: { _ in }
+                        )
+                        Button {
+                            CSM.Heritage.clear()
+                        } label: {
+                            Label("clear_all_inheritances", systemImage: "trash")
+                        }
+                        .disabled(CSM.Heritage.$items.count <= 0)
                     }
                     
                     if showOthersOptions {
@@ -497,17 +515,29 @@ struct LegacySettingsView: View {
                             )
                         }
                         ToggleRow(
-                            label: String(localized: "hide_check_update"),
-                            description: String(localized: "hide_check_update_description"),
-                            binding: $hideUpdate,
+                            label: String(localized: "ethernet_connected_icon"),
+                            description: String(localized: "ethernet_connected_icon_description"),
+                            binding: $showEthernet,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
-                            onToggle: { _ in }
+                            onToggle: { value in
+                                if (value == true) {
+                                    Utils.App.restart()
+                                }
+                            }
                         )
                         ToggleRow(
                             label: String(localized: "no_text_buttons"),
                             description: String(localized: "no_text_buttons_description"),
                             binding: $noTextButtons,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
+                            label: String(localized: "hide_check_update"),
+                            description: String(localized: "hide_check_update_description"),
+                            binding: $hideUpdate,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }

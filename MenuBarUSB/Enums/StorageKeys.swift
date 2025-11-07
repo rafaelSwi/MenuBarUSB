@@ -37,6 +37,7 @@ enum StorageKeys {
     static let mouseHoverInfo = "mouseHoverInfo"
     static let profilerButton = "profilerButton"
     static let disableContextMenuSearch = "disableContextMenuSearch"
+    static let disableContextMenuHeritage = "disableContextMenuHeritage"
     static let searchEngine = "searchEngine"
     static let showEthernet = "showEthernet"
     static let internetMonitoring = "internetMonitoring"

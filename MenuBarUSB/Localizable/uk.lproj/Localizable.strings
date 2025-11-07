@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Деякі дії викликають легку вібрацію на трекпаді, забезпечуючи витончене відчуття взаємодії, особливо під час наведення курсора.";
 "restore_name" = "Відновити ім’я";
 "open_legacy_settings" = "Відкрити старі налаштування";
+"copy_all_properties" = "Скопіювати всі властивості";
+"new_heir" = "Новий спадкоємець";
+"kill_inheritance" = "Видалити спадкування";
+"search" = "Пошук";
+"clear_all_inheritances" = "Очистити всі спадкування";
+"security_mode" = "Режим безпеки";
+"disable_context_menu_heritage" = "Вимкнути спадкування в контекстному меню";
+"disable_context_menu_heritage_description" = "Параметри спадкування більше не відображаються.";

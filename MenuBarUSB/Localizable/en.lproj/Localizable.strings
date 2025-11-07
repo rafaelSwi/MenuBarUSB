@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Specific actions trigger a soft vibration on the trackpad, providing a refined sense of interaction, especially through hover gestures.";
 "restore_name" = "Restore name";
 "open_legacy_settings" = "Open Legacy Settings";
+"copy_all_properties" = "Copy All Properties";
+"new_heir" = "New Heir";
+"kill_inheritance" = "Kill Inheritance";
+"search" = "Search";
+"clear_all_inheritances" = "Clear all inheritances";
+"security_mode" = "Security Mode";
+"disable_context_menu_heritage" = "Disable heritage in context menu";
+"disable_context_menu_heritage_description" = "Heritage options no longer appear.";

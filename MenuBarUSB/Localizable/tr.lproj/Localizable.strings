@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Belirli eylemler trackpad üzerinde hafif bir titreşim tetikleyerek, özellikle üzerine gelme hareketleriyle rafine bir etkileşim hissi sağlar.";
 "restore_name" = "İsmi geri yükle";
 "open_legacy_settings" = "Eski ayarları aç";
+"copy_all_properties" = "Tüm özellikleri kopyala";
+"new_heir" = "Yeni varis";
+"kill_inheritance" = "Mirası kaldır";
+"search" = "Ara";
+"clear_all_inheritances" = "Tüm mirasları temizle";
+"security_mode" = "Güvenlik modu";
+"disable_context_menu_heritage" = "Bağlam menüsünde mirası devre dışı bırak";
+"disable_context_menu_heritage_description" = "Miras seçenekleri artık görünmeyecek.";

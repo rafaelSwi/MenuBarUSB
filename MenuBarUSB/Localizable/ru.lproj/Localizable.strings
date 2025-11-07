@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Некоторые действия вызывают лёгкую вибрацию на трекпаде, обеспечивая утончённое ощущение взаимодействия, особенно при наведении.";
 "restore_name" = "Восстановить имя";
 "open_legacy_settings" = "Открыть старые настройки";
+"copy_all_properties" = "Скопировать все свойства";
+"new_heir" = "Наследник";
+"kill_inheritance" = "Удалить наследование";
+"search" = "Поиск";
+"clear_all_inheritances" = "Очистить все наследования";
+"security_mode" = "Режим безопасности";
+"disable_context_menu_heritage" = "Отключить наследование в контекстном меню";
+"disable_context_menu_heritage_description" = "Параметры наследования больше не отображаются.";

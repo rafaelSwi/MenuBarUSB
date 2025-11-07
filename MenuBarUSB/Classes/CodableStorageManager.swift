@@ -136,7 +136,9 @@ final class CodableStorageManager {
         
         static func add(withId id: String?, inheritsFrom: String?) {
             if (id == nil || inheritsFrom == nil) { return }
+            if (id == inheritsFrom) { return }
             items.removeAll { $0.deviceId == id }
+            items.removeAll { $0.inheritsFrom == id }
             items.append(HeritageDevice(deviceId: id!, inheritsFrom: inheritsFrom!))
         }
         

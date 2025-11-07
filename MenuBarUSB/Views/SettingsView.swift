@@ -61,6 +61,7 @@ struct SettingsView: View {
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
     @AS(Key.profilerButton) private var profilerButton = false
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.showEthernet) private var showEthernet = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
     @AS(Key.disableHaptic) private var disableHaptic = false
@@ -610,6 +611,14 @@ struct SettingsView: View {
                         label: String(localized: "disable_context_menu_search"),
                         description: String(localized: "disable_context_menu_search_description"),
                         binding: $disableContextMenuSearch,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "disable_context_menu_heritage"),
+                        description: String(localized: "disable_context_menu_heritage_description"),
+                        binding: $disableContextMenuHeritage,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }

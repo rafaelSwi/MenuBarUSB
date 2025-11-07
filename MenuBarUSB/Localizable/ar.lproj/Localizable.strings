@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "تؤدي إجراءات معينة إلى اهتزاز خفيف على لوحة التتبع، مما يوفر إحساسًا دقيقًا بالتفاعل، خاصة من خلال إيماءات التحويم.";
 "restore_name" = "استعادة الاسم";
 "open_legacy_settings" = "فتح الإعدادات القديمة";
+"copy_all_properties" = "نسخ كل الخصائص";
+"new_heir" = "وارث جديد";
+"kill_inheritance" = "إلغاء الوراثة";
+"search" = "بحث";
+"clear_all_inheritances" = "مسح جميع الوراثات";
+"security_mode" = "وضع الأمان";
+"disable_context_menu_heritage" = "تعطيل الوراثة في قائمة السياق";
+"disable_context_menu_heritage_description" = "لن تظهر خيارات الوراثة بعد الآن.";

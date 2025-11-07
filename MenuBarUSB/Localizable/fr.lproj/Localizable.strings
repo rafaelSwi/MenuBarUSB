@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Certaines actions déclenchent une légère vibration sur le trackpad, offrant une sensation d’interaction raffinée, notamment via les gestes de survol.";
 "restore_name" = "Restaurer le nom";
 "open_legacy_settings" = "Ouvrir les anciens paramètres";
+"copy_all_properties" = "Copier toutes les propriétés";
+"new_heir" = "Nouvel héritier";
+"kill_inheritance" = "Supprimer l’héritage";
+"search" = "Rechercher";
+"clear_all_inheritances" = "Effacer tous les héritages";
+"security_mode" = "Mode de sécurité";
+"disable_context_menu_heritage" = "Désactiver l’héritage dans le menu contextuel";
+"disable_context_menu_heritage_description" = "Les options d’héritage n’apparaissent plus.";

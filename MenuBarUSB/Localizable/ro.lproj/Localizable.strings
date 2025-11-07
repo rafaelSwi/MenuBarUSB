@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Anumite acțiuni declanșează o vibrație ușoară pe trackpad, oferind o senzație rafinată de interacțiune, mai ales prin gesturi de plutire.";
 "restore_name" = "Restaurează numele";
 "open_legacy_settings" = "Deschide setările vechi";
+"copy_all_properties" = "Copiază toate proprietățile";
+"new_heir" = "Moștenitor nou";
+"kill_inheritance" = "Șterge moștenirea";
+"search" = "Caută";
+"clear_all_inheritances" = "Șterge toate moștenirile";
+"security_mode" = "Mod de securitate";
+"disable_context_menu_heritage" = "Dezactivează moștenirea în meniul contextual";
+"disable_context_menu_heritage_description" = "Opțiunile de moștenire nu mai apar.";

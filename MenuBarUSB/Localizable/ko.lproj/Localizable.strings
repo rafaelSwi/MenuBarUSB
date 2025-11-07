@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "특정 동작이 트랙패드에서 부드러운 진동을 트리거하여, 특히 호버 제스처를 통해 정교한 상호작용 경험을 제공합니다.";
 "restore_name" = "이름 복원";
 "open_legacy_settings" = "이전 설정 열기";
+"copy_all_properties" = "모든 속성 복사";
+"new_heir" = "새 상속자";
+"kill_inheritance" = "상속 제거";
+"search" = "검색";
+"clear_all_inheritances" = "모든 상속 지우기";
+"security_mode" = "보안 모드";
+"disable_context_menu_heritage" = "컨텍스트 메뉴에서 상속 비활성화";
+"disable_context_menu_heritage_description" = "상속 옵션이 더 이상 표시되지 않습니다.";

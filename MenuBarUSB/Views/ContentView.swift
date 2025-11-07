@@ -34,6 +34,7 @@ struct ContentView: View {
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
     @AS(Key.profilerButton) private var profilerButton = false
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
+    @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.showEthernet) private var showEthernet = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
     @AS(Key.trafficButton) private var trafficButton = false
@@ -434,10 +435,55 @@ struct ContentView: View {
                                 .animation(.spring(duration: 0.15), value: showSecondaryInfo(for: device.item))
                                 .animation(.spring(duration: 0.15), value: showTechInfo(for: device.item))
                                 .contextMenu {
-                                    Button {
-                                        Utils.System.copyToClipboard(compactStringInformation(device.item))
-                                    } label: {
-                                        Label("copy", systemImage: "square.on.square")
+                                    
+                                    if (contextMenuCopyAll) {
+                                        
+                                        Menu {
+                                            Button {
+                                                Utils.System.copyToClipboard(compactStringInformation(device.item))
+                                            } label: {
+                                                Label("copy_all_properties", systemImage: "square.on.square")
+                                            }
+                                            
+                                            Divider()
+                                            
+                                            Button {
+                                                Utils.System.copyToClipboard(device.item.name)
+                                            } label: {
+                                                copyTextLabelView(device.item.name)
+                                            }
+                                            
+                                            if (device.item.vendor  != nil) {
+                                                Button {
+                                                    Utils.System.copyToClipboard(device.item.vendor ?? "?")
+                                                } label: {
+                                                    copyTextLabelView(device.item.vendor ?? "?")
+                                                }
+                                            }
+                                            
+                                            Button {
+                                                Utils.System.copyToClipboard(deviceId(device.item))
+                                            } label: {
+                                                copyTextLabelView(deviceId(device.item))
+                                            }
+                                            
+                                            if device.item.serialNumber != nil {
+                                                Button {
+                                                    Utils.System.copyToClipboard(device.item.serialNumber ?? "SN")
+                                                } label: {
+                                                    copyTextLabelView(device.item.serialNumber ?? "SN")
+                                                }
+                                            }
+                                        } label: {
+                                            Label("copy", systemImage: "square.on.square")
+                                        }
+                                        
+                                    } else {
+                                        Button {
+                                            Utils.System.copyToClipboard(compactStringInformation(device.item))
+                                        } label: {
+                                            Label("copy", systemImage: "square.on.square")
+                                        }
                                     }
                                     Divider()
                                     Button {
@@ -481,61 +527,63 @@ struct ContentView: View {
                                         }
                                     }
                                     
-                                    if (contextMenuCopyAll) {
+                                    if !disableContextMenuHeritage {
+                                        
                                         Divider()
                                         
-                                        Button {
-                                            Utils.System.copyToClipboard(device.item.name)
-                                        } label: {
-                                            copyTextLabelView(device.item.name)
-                                        }
-                                        
-                                        if (device.item.vendor  != nil) {
-                                            Button {
-                                                Utils.System.copyToClipboard(device.item.vendor ?? "?")
-                                            } label: {
-                                                copyTextLabelView(device.item.vendor ?? "?")
+                                        Menu {
+                                            if (CSM.Heritage[device.item.uniqueId] != nil) {
+                                                Button {
+                                                    CSM.Heritage.remove(withId: device.item.uniqueId)
+                                                    manager.refresh()
+                                                } label: {
+                                                    Label("kill_inheritance", systemImage: "trash")
+                                                }
+                                                Divider()
                                             }
-                                        }
-                                        
-                                        Button {
-                                            Utils.System.copyToClipboard(deviceId(device.item))
-                                        } label: {
-                                            copyTextLabelView(deviceId(device.item))
-                                        }
-                                        
-                                        if device.item.serialNumber != nil {
-                                            Button {
-                                                Utils.System.copyToClipboard(device.item.serialNumber ?? "SN")
+                                            Menu {
+                                                ForEach(sortedDevices) { d in
+                                                    Button {
+                                                        CSM.Heritage.add(withId: d.item.uniqueId, inheritsFrom: device.item.uniqueId)
+                                                        manager.refresh()
+                                                    } label: {
+                                                        Label(d.item.name, systemImage: "plus")
+                                                    }
+                                                }
                                             } label: {
-                                                copyTextLabelView(device.item.serialNumber ?? "SN")
+                                                Label("new_heir", systemImage: "plus.square")
                                             }
+                                        } label: {
+                                            Label("heritage", systemImage: "app.connected.to.app.below.fill")
                                         }
-                                        
                                     }
 
                                     if !disableContextMenuSearch {
                                         Divider()
+                                        
+                                        Menu {
+                                            Button {
+                                                searchOnWeb(device.item.name)
+                                            } label: {
+                                                Label("search_name", systemImage: "globe")
+                                            }
 
-                                        Button {
-                                            searchOnWeb(device.item.name)
-                                        } label: {
-                                            Label("search_name", systemImage: "globe")
-                                        }
+                                            Button {
+                                                let id = String(format: "%04X:%04X", device.item.vendorId, device.item.productId)
+                                                searchOnWeb(id)
+                                            } label: {
+                                                Label("search_id", systemImage: "globe")
+                                            }
 
-                                        Button {
-                                            let id = String(format: "%04X:%04X", device.item.vendorId, device.item.productId)
-                                            searchOnWeb(id)
+                                            Button {
+                                                searchOnWeb(device.item.serialNumber!)
+                                            } label: {
+                                                Label("search_sn", systemImage: "globe")
+                                            }
+                                            .disabled(device.item.serialNumber == nil)
                                         } label: {
-                                            Label("search_id", systemImage: "globe")
+                                            Label("search", systemImage: "globe")
                                         }
-
-                                        Button {
-                                            searchOnWeb(device.item.serialNumber!)
-                                        } label: {
-                                            Label("search_sn", systemImage: "globe")
-                                        }
-                                        .disabled(device.item.serialNumber == nil)
                                     }
                                 }
 

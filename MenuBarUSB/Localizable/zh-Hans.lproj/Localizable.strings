@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "某些操作会触发触控板上的轻微振动，从而提供精致的交互体验，尤其是在悬停手势时。";
 "restore_name" = "恢复名称";
 "open_legacy_settings" = "打开旧设置";
+"copy_all_properties" = "复制所有属性";
+"new_heir" = "新继承者";
+"kill_inheritance" = "取消继承";
+"search" = "搜索";
+"clear_all_inheritances" = "清除所有继承";
+"security_mode" = "安全模式";
+"disable_context_menu_heritage" = "在右键菜单中禁用继承";
+"disable_context_menu_heritage_description" = "继承选项将不再显示。";

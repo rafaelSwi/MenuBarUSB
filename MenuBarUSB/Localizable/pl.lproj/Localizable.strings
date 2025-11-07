@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Niektóre działania wywołują delikatną wibrację na panelu dotykowym, zapewniając wyrafinowane wrażenie interakcji, zwłaszcza przy gestach najechania.";
 "restore_name" = "Przywróć nazwę";
 "open_legacy_settings" = "Otwórz stare ustawienia";
+"copy_all_properties" = "Skopiuj wszystkie właściwości";
+"new_heir" = "Nowy spadkobierca";
+"kill_inheritance" = "Usuń dziedziczenie";
+"search" = "Szukaj";
+"clear_all_inheritances" = "Wyczyść wszystkie dziedziczenia";
+"security_mode" = "Tryb bezpieczeństwa";
+"disable_context_menu_heritage" = "Wyłącz dziedziczenie w menu kontekstowym";
+"disable_context_menu_heritage_description" = "Opcje dziedziczenia nie będą się już pojawiać.";

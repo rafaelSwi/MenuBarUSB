@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "कुछ क्रियाएं ट्रैकपैड पर हल्का कंपन उत्पन्न करती हैं, जो विशेष रूप से होवर इशारों के माध्यम से एक परिष्कृत इंटरैक्शन अनुभव प्रदान करती हैं।";
 "restore_name" = "नाम पुनर्स्थापित करें";
 "open_legacy_settings" = "पुरानी सेटिंग्स खोलें";
+"copy_all_properties" = "सभी गुण कॉपी करें";
+"new_heir" = "नया उत्तराधिकारी";
+"kill_inheritance" = "विरासत समाप्त करें";
+"search" = "खोजें";
+"clear_all_inheritances" = "सभी विरासतें साफ़ करें";
+"security_mode" = "सुरक्षा मोड";
+"disable_context_menu_heritage" = "संदर्भ मेनू में विरासत अक्षम करें";
+"disable_context_menu_heritage_description" = "विरासत विकल्प अब नहीं दिखेंगे।";

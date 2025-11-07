@@ -223,3 +223,11 @@
 "disable_haptic_feedback_description" = "Accions específiques activen una vibració suau al trackpad, proporcionant una sensació d’interacció refinada, especialment a través de gestos de passar per sobre.";
 "restore_name" = "Restaura el nom";
 "open_legacy_settings" = "Obrir la configuració antiga";
+"copy_all_properties" = "Copia totes les propietats";
+"new_heir" = "Nou hereu";
+"kill_inheritance" = "Elimina l'herència";
+"search" = "Cerca";
+"clear_all_inheritances" = "Esborra totes les herències";
+"security_mode" = "Mode de seguretat";
+"disable_context_menu_heritage" = "Desactiva l'herència al menú contextual";
+"disable_context_menu_heritage_description" = "Les opcions d'herència ja no apareixeran.";
