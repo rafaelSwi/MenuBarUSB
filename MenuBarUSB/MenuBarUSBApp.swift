@@ -83,7 +83,9 @@ struct MenuBarUSBApp: App {
 
         Window("settings", id: "legacy_settings") {
             LegacySettingsView()
+                .colorSchemeForce(light: false, dark: true)
         }
+        .windowStyle(.hiddenTitleBar)
     }
 
     private func view<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
