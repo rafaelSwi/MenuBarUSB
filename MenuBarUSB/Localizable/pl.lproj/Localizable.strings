@@ -231,3 +231,10 @@
 "security_mode" = "Tryb bezpieczeństwa";
 "disable_context_menu_heritage" = "Wyłącz dziedziczenie w menu kontekstowym";
 "disable_context_menu_heritage_description" = "Opcje dziedziczenia nie będą się już pojawiać.";
+"show_scrollbar" = "Pokaż pasek przewijania";
+"show_scrollbar_description" = "Pasek przewijania pojawia się automatycznie, gdy lista przekracza widoczny obszar.";
+"index_indicator" = "Wskaźnik pozycji elementu";
+"index_indicator_description" = "Liczba wyświetlana obok każdego urządzenia pokazująca jego pozycję na liście";
+"show_toolbar" = "Pokaż pasek narzędzi";
+"hide_toolbar" = "Ukryj pasek narzędzi";
+"show_toolbar_description" = "Wyświetla pasek narzędzi u góry listy z przydatnymi opcjami i liczbą podłączonych urządzeń.";

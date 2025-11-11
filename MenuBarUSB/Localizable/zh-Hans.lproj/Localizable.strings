@@ -231,3 +231,10 @@
 "security_mode" = "安全模式";
 "disable_context_menu_heritage" = "在右键菜单中禁用继承";
 "disable_context_menu_heritage_description" = "继承选项将不再显示。";
+"show_scrollbar" = "显示滚动条";
+"show_scrollbar_description" = "当列表超出可见区域时，滚动条会自动显示。";
+"index_indicator" = "项目位置指示器";
+"index_indicator_description" = "在每个设备旁显示一个数字，表示其在列表中的位置";
+"show_toolbar" = "显示工具栏";
+"hide_toolbar" = "隐藏工具栏";
+"show_toolbar_description" = "在列表顶部显示一个包含实用选项和已连接设备数量的工具栏。";

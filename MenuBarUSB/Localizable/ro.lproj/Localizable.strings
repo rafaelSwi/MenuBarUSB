@@ -231,3 +231,17 @@
 "security_mode" = "Mod de securitate";
 "disable_context_menu_heritage" = "Dezactivează moștenirea în meniul contextual";
 "disable_context_menu_heritage_description" = "Opțiunile de moștenire nu mai apar.";
+"show_scrollbar" = "Afișează bara de derulare";
+"show_scrollbar_description" = "Bara de derulare apare automat atunci când lista depășește zona vizibilă.";
+"index_indicator" = "Indicator poziție element";
+"index_indicator_description" = "Un număr afișat lângă fiecare dispozitiv care arată poziția sa în listă";
+"show_toolbar" = "Afișează bara de instrumente";
+"hide_toolbar" = "Ascunde bara de instrumente";
+"show_toolbar_description" = "Afișează o bară de instrumente în partea de sus a listei cu opțiuni utile și numărul de dispozitive conectate.";
+"show_scrollbar" = "Afișează bara de derulare";
+"show_scrollbar_description" = "Bara de derulare apare automat atunci când lista depășește zona vizibilă.";
+"index_indicator" = "Indicator poziție element";
+"index_indicator_description" = "Un număr afișat lângă fiecare dispozitiv care arată poziția sa în listă";
+"show_toolbar" = "Afișează bara de instrumente";
+"hide_toolbar" = "Ascunde bara de instrumente";
+"show_toolbar_description" = "Afișează o bară de instrumente în partea de sus a listei cu opțiuni utile și numărul de dispozitive conectate.";

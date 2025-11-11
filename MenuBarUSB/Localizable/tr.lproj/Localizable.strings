@@ -231,3 +231,10 @@
 "security_mode" = "Güvenlik modu";
 "disable_context_menu_heritage" = "Bağlam menüsünde mirası devre dışı bırak";
 "disable_context_menu_heritage_description" = "Miras seçenekleri artık görünmeyecek.";
+"show_scrollbar" = "Kaydırma çubuğunu göster";
+"show_scrollbar_description" = "Liste görünür alanı aştığında kaydırma çubuğu otomatik olarak görünür.";
+"index_indicator" = "Öğe konum göstergesi";
+"index_indicator_description" = "Listedeki her cihazın yanında konumunu gösteren bir sayı görüntülenir";
+"show_toolbar" = "Araç çubuğunu göster";
+"hide_toolbar" = "Araç çubuğunu gizle";
+"show_toolbar_description" = "Listenin üst kısmında kullanışlı seçenekler ve bağlı cihaz sayısını içeren bir araç çubuğu gösterir.";

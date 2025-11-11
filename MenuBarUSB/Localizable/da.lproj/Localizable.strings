@@ -231,3 +231,10 @@
 "security_mode" = "Sikkerhedstilstand";
 "disable_context_menu_heritage" = "Deaktiver arv i kontekstmenu";
 "disable_context_menu_heritage_description" = "Arvemuligheder vises ikke længere.";
+"show_scrollbar" = "Vis rullebjælke";
+"show_scrollbar_description" = "En rullebjælke vises automatisk, når listen overstiger det synlige område.";
+"index_indicator" = "Elementpositionsindikator";
+"index_indicator_description" = "Et tal, der vises ved siden af hver enhed og viser dens position på listen";
+"show_toolbar" = "Vis værktøjslinje";
+"hide_toolbar" = "Skjul værktøjslinje";
+"show_toolbar_description" = "Viser en værktøjslinje øverst på listen med nyttige indstillinger og antal tilsluttede enheder.";

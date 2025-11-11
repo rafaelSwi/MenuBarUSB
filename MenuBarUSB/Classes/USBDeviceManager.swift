@@ -113,6 +113,27 @@ final class USBDeviceManager: ObservableObject {
             }
         })
     }
+    
+    func addDummy(amount: Int) {
+        for i in Range(0...amount) {
+            let newDevice = USBDevice(
+                name: "Dummy (\(i))",
+                vendor: "Dummy Vendor",
+                vendorId: i,
+                productId: i,
+                serialNumber: "\(i)-DUMMY",
+                locationId: UInt32(i),
+                speedMbps: i,
+                portMaxSpeedMbps: i,
+                usbVersionBCD: i,
+                isExternalStorage: false
+            )
+            let newDeviceWrapper = USBDeviceWrapper(newDevice)
+            DispatchQueue.main.async(execute: DispatchWorkItem {
+                self.devices.append(newDeviceWrapper)
+            })
+        }
+    }
 
     private func isExternalStorageDevice(_ entry: io_registry_entry_t) -> Bool {
         

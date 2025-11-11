@@ -231,3 +231,10 @@
 "security_mode" = "وضع الأمان";
 "disable_context_menu_heritage" = "تعطيل الوراثة في قائمة السياق";
 "disable_context_menu_heritage_description" = "لن تظهر خيارات الوراثة بعد الآن.";
+"show_scrollbar" = "إظهار شريط التمرير";
+"show_scrollbar_description" = "يظهر شريط التمرير تلقائيًا عندما تتجاوز القائمة المنطقة المرئية.";
+"index_indicator" = "مؤشر موضع العنصر";
+"index_indicator_description" = "رقم يظهر بجانب كل جهاز يوضح موضعه في القائمة";
+"show_toolbar" = "إظهار شريط الأدوات";
+"hide_toolbar" = "إخفاء شريط الأدوات";
+"show_toolbar_description" = "يعرض شريط أدوات في أعلى القائمة يحتوي على بعض الخيارات المفيدة وعدد الأجهزة المتصلة.";

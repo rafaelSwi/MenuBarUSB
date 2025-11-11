@@ -231,3 +231,10 @@
 "security_mode" = "सुरक्षा मोड";
 "disable_context_menu_heritage" = "संदर्भ मेनू में विरासत अक्षम करें";
 "disable_context_menu_heritage_description" = "विरासत विकल्प अब नहीं दिखेंगे।";
+"show_scrollbar" = "स्क्रॉल बार दिखाएं";
+"show_scrollbar_description" = "जब सूची दृश्य क्षेत्र से बड़ी होती है तो स्क्रॉल बार अपने आप दिखाई देता है।";
+"index_indicator" = "आइटम स्थिति संकेतक";
+"index_indicator_description" = "हर डिवाइस के पास एक संख्या दिखाई जाती है जो सूची में उसकी स्थिति बताती है";
+"show_toolbar" = "टूलबार दिखाएं";
+"hide_toolbar" = "टूलबार छिपाएं";
+"show_toolbar_description" = "सूची के शीर्ष पर एक टूलबार दिखाता है जिसमें उपयोगी विकल्प और कनेक्टेड डिवाइस की संख्या होती है।";

@@ -231,3 +231,10 @@
 "security_mode" = "מצב אבטחה";
 "disable_context_menu_heritage" = "השבת ירושה בתפריט ההקשר";
 "disable_context_menu_heritage_description" = "אפשרויות הירושה אינן מופיעות עוד.";
+"show_scrollbar" = "הצג סרגל גלילה";
+"show_scrollbar_description" = "סרגל גלילה מופיע אוטומטית כאשר הרשימה חורגת מהאזור הגלוי.";
+"index_indicator" = "מצביע מיקום פריט";
+"index_indicator_description" = "מספר שמוצג לצד כל מכשיר ומציין את מיקומו ברשימה";
+"show_toolbar" = "הצג סרגל כלים";
+"hide_toolbar" = "הסתר סרגל כלים";
+"show_toolbar_description" = "מציג סרגל כלים בחלק העליון של הרשימה עם אפשרויות שימושיות ומספר המכשירים המחוברים.";

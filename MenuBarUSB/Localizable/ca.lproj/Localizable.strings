@@ -231,3 +231,10 @@
 "security_mode" = "Mode de seguretat";
 "disable_context_menu_heritage" = "Desactiva l'herència al menú contextual";
 "disable_context_menu_heritage_description" = "Les opcions d'herència ja no apareixeran.";
+"show_scrollbar" = "Mostra la barra de desplaçament";
+"show_scrollbar_description" = "La barra de desplaçament apareix automàticament quan la llista supera l’àrea visible.";
+"index_indicator" = "Indicador de posició de l’element";
+"index_indicator_description" = "Un número que es mostra al costat de cada dispositiu indicant la seva posició a la llista.";
+"show_toolbar" = "Mostra la barra d’eines";
+"hide_toolbar" = "Amaga la barra d’eines";
+"show_toolbar_description" = "Mostra una barra d’eines a la part superior de la llista amb opcions útils i el recompte de dispositius connectats.";

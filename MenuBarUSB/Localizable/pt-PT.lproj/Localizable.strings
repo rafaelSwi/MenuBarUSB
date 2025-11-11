@@ -231,3 +231,10 @@
 "security_mode" = "Modo de segurança";
 "disable_context_menu_heritage" = "Desativar herança no menu de contexto";
 "disable_context_menu_heritage_description" = "As opções de herança já não aparecem.";
+"show_scrollbar" = "Mostrar barra de scroll";
+"show_scrollbar_description" = "A barra de scroll aparece automaticamente quando a lista excede a área visível.";
+"index_indicator" = "Indicador de posição do item";
+"index_indicator_description" = "Um número exibido ao lado de cada dispositivo que mostra a sua posição na lista.";
+"show_toolbar" = "Mostrar toolbar";
+"hide_toolbar" = "Ocultar toolbar";
+"show_toolbar_description" = "Mostra uma barra de ferramentas no topo da lista com opções úteis e o número de dispositivos ligados.";

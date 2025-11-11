@@ -22,7 +22,12 @@ extension NumberConverter {
         formatter.maximumFractionDigits = maxFractionDigits
         formatter.minimumFractionDigits = 0
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        return formatter.string(from: NSNumber(value: number)) ?? String(number)
+        let num = (number > 99) ? 99 : number
+        var formatted = formatter.string(from: NSNumber(value: num)) ?? String(num)
+        if (number > 99) {
+            formatted = (formatted + "＋")
+        }
+        return formatted
     }
 
     func toBinary(maxFractionBits: Int = 16) -> String {

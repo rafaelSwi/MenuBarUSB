@@ -231,3 +231,10 @@
 "security_mode" = "Security Mode";
 "disable_context_menu_heritage" = "Disable heritage in context menu";
 "disable_context_menu_heritage_description" = "Heritage options no longer appear.";
+"show_scrollbar" = "Show scrollbar";
+"show_scrollbar_description" = "A scrollbar appears automatically when the list exceeds the visible area.";
+"index_indicator" = "Item position indicator";
+"index_indicator_description" = "A number displayed next to each device showing its position in the list.";
+"show_toolbar" = "Show toolbar";
+"hide_toolbar" = "Hide toolbar";
+"show_toolbar_description" = "Shows a toolbar at the top of the list containing some useful options and a connected devices count.";

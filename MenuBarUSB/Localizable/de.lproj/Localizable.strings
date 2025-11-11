@@ -231,3 +231,10 @@
 "security_mode" = "Sicherheitsmodus";
 "disable_context_menu_heritage" = "Vererbung im Kontextmenü deaktivieren";
 "disable_context_menu_heritage_description" = "Vererbungsoptionen werden nicht mehr angezeigt.";
+"show_scrollbar" = "Bildlaufleiste anzeigen";
+"show_scrollbar_description" = "Eine Bildlaufleiste erscheint automatisch, wenn die Liste den sichtbaren Bereich überschreitet.";
+"index_indicator" = "Positionsanzeige";
+"index_indicator_description" = "Eine Zahl, die neben jedem Gerät angezeigt wird und seine Position in der Liste zeigt";
+"show_toolbar" = "Symbolleiste anzeigen";
+"hide_toolbar" = "Symbolleiste ausblenden";
+"show_toolbar_description" = "Zeigt oben in der Liste eine Symbolleiste mit nützlichen Optionen und der Anzahl der verbundenen Geräte an.";

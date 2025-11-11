@@ -231,3 +231,10 @@
 "security_mode" = "セキュリティモード";
 "disable_context_menu_heritage" = "コンテキストメニューの継承を無効化";
 "disable_context_menu_heritage_description" = "継承オプションは表示されなくなります。";
+"show_scrollbar" = "スクロールバーを表示";
+"show_scrollbar_description" = "リストが表示領域を超えると、自動的にスクロールバーが表示されます。";
+"index_indicator" = "項目位置インジケーター";
+"index_indicator_description" = "各デバイスの横にリスト内の位置を示す番号が表示されます";
+"show_toolbar" = "ツールバーを表示";
+"hide_toolbar" = "ツールバーを非表示";
+"show_toolbar_description" = "リストの上部に便利なオプションと接続されたデバイス数を含むツールバーを表示します。";

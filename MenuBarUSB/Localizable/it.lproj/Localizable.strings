@@ -231,3 +231,10 @@
 "security_mode" = "Modalità sicurezza";
 "disable_context_menu_heritage" = "Disattiva ereditarietà nel menu contestuale";
 "disable_context_menu_heritage_description" = "Le opzioni di ereditarietà non vengono più visualizzate.";
+"show_scrollbar" = "Mostra barra di scorrimento";
+"show_scrollbar_description" = "Una barra di scorrimento appare automaticamente quando l’elenco supera l’area visibile.";
+"index_indicator" = "Indicatore di posizione dell’elemento";
+"index_indicator_description" = "Un numero visualizzato accanto a ciascun dispositivo che mostra la sua posizione nell’elenco";
+"show_toolbar" = "Mostra barra degli strumenti";
+"hide_toolbar" = "Nascondi barra degli strumenti";
+"show_toolbar_description" = "Mostra una barra degli strumenti in cima all’elenco con opzioni utili e il conteggio dei dispositivi connessi.";

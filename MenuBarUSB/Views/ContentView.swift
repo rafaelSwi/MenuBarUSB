@@ -11,7 +11,7 @@ struct ContentView: View {
     @Environment(\.openWindow) private var openWindow
     @EnvironmentObject var manager: USBDeviceManager
     @Environment(\.openURL) var openURL
-
+    
     @State private var isHoveringDeviceId: String = ""
     @State private var isRenamingDeviceId: String = ""
     @State private var inputText: String = ""
@@ -19,7 +19,8 @@ struct ContentView: View {
     @State private var devicesShowingMore: [USBDeviceWrapper] = []
 
     @Binding var currentWindow: AppWindow
-
+    
+    @AS(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AS(Key.convertHexa) private var convertHexa = false
     @AS(Key.showPortMax) private var showPortMax = false
     @AS(Key.longList) private var longList = false
@@ -37,7 +38,11 @@ struct ContentView: View {
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.showEthernet) private var showEthernet = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
+    @AS(Key.showNotifications) private var showNotifications = false
     @AS(Key.trafficButton) private var trafficButton = false
+    @AS(Key.showScrollBar) private var showScrollBar = false
+    @AS(Key.indexIndicator) private var indexIndicator = false
+    @AS(Key.listToolBar) private var listToolBar = false
     @AS(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.storeDevices) private var storeDevices = false
@@ -62,10 +67,14 @@ struct ContentView: View {
             total += CSM.Stored.filteredDevices(manager.devices).count
         }
         
-        let sum: CGFloat = baseValue + (CGFloat(total) * multiplier)
+        var sum: CGFloat = baseValue + (CGFloat(total) * multiplier)
         var max: CGFloat = 380
         if longList {
             max += 315
+        }
+        if (listToolBar) {
+            max += 40
+            sum += 40
         }
         return sum >= max ? max : sum
     }
@@ -291,6 +300,7 @@ struct ContentView: View {
         return Text(title)
             .font(.system(size: 12, weight: .semibold))
             .foregroundColor(.primary)
+            .lineLimit(1)
     }
     
     private func deviceRenameView(deviceId: String) -> some View {
@@ -325,6 +335,27 @@ struct ContentView: View {
         }
     }
     
+    private func toolbarListItemView(
+        _ value: Binding<Bool>,
+        _ icon: String,
+        _ help: LocalizedStringKey,
+        _ color: Color,
+    ) -> some View {
+        return Button {
+            value.wrappedValue.toggle()
+        } label: {
+            Image(systemName: icon)
+                .font(.system(size: 13))
+                .frame(width: 21, height: 21)
+                .padding(1.5)
+                .background(value.wrappedValue ? color.opacity(0.18) : .gray.opacity(0.18))
+                .cornerRadius(2)
+        }
+        .buttonStyle(.borderless)
+        .foregroundStyle(value.wrappedValue ? color : .gray)
+        .help(help)
+    }
+    
     private var isTrulyEmpty: Bool {
         let connectedCount: Int = manager.devices.count
         let storedCount: Int = CSM.Stored.filteredDevices(manager.devices).count
@@ -343,6 +374,40 @@ struct ContentView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 6) {
+                if listToolBar {
+                    HStack {
+                        toolbarListItemView($showNotifications, "bell.fill", "show_notification", .orange)
+                        toolbarListItemView($indexIndicator, "list.number", "index_indicator", .blue)
+                        toolbarListItemView($hideTechInfo, "arrow.down.and.line.horizontal.and.arrow.up", "hide_technical_info", .cyan)
+                        toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info", .purple)
+                        toolbarListItemView($disableInheritanceLayout, "decrease.indent", "disable_inheritance_layout", .red)
+                        toolbarListItemView($storeDevices, "arrow.counterclockwise", "show_previously_connected", .green)
+                        toolbarListItemView($storedIndicator, "minus.arrow.trianglehead.counterclockwise", "stored_indicator", .mint)
+                        toolbarListItemView($camouflagedIndicator, "eye.fill", "hidden_indicator", .mint)
+                        toolbarListItemView($renamedIndicator, "character.cursor.ibeam", "renamed_indicator", .mint)
+                        toolbarListItemView($showScrollBar, "arrow.up.and.down.text.horizontal", "show_scrollbar", .indigo)
+                        toolbarListItemView($noTextButtons, "ellipsis.circle", "no_text_buttons", .teal)
+                        Button(action: Utils.System.openSysInfo, label: { Image(systemName: "info.circle") })
+                            .buttonStyle(.borderless)
+                            .opacity(0.6)
+                        Spacer()
+                        Group {
+                            Image(systemName: macBarIcon)
+                            Text(NumberConverter(sortedDevices.count).converted)
+                        }
+                        .fontWeight(.bold)
+                        .foregroundStyle(.gray)
+                    }
+                    .padding(.horizontal, 3)
+                    .padding(.top, 1)
+                    .contextMenu {
+                        Button {
+                            listToolBar = false
+                        } label: {
+                            Label("hide_toolbar", systemImage: "menubar.arrow.up.rectangle")
+                        }
+                    }
+                }
                 if isTrulyEmpty {
                     ScrollView {
                         Text("no_devices_found")
@@ -350,17 +415,21 @@ struct ContentView: View {
                             .padding(15)
                     }
                 } else {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 4) {
-                            ForEach(sortedDevices) { device in
+                    ScrollView(showsIndicators: showScrollBar) {
+                        LazyVStack(alignment: .leading, spacing: 4) {
+                            ForEach(Array(sortedDevices.enumerated()), id: \.element.id) { index, device in
                                 let uniqueId: String = device.item.uniqueId
                                 let indent = disableInheritanceLayout ? 0 : indentLevel(for: device.item)
 
-                                VStack(alignment: .leading, spacing: 2) {
+                                LazyVStack(alignment: .leading, spacing: 2) {
                                     HStack {
                                         if isRenaming(device: uniqueId) {
                                             deviceRenameView(deviceId: device.item.uniqueId)
                                         } else {
+                                            if (indexIndicator) {
+                                                Text("\(index+1)")
+                                                    .font(.footnote)
+                                            }
                                             deviceTitleView(device.item.name, deviceId: device.item.uniqueId)
                                         }
 
@@ -371,6 +440,7 @@ struct ContentView: View {
                                                 Text(vendor)
                                                     .font(.system(size: 12, weight: .semibold))
                                                     .foregroundColor(.primary)
+                                                    .lineLimit(1)
                                             }
                                         }
                                     }
@@ -391,12 +461,14 @@ struct ContentView: View {
                                             Text(device.item.speedDescription)
                                                 .font(.system(size: 9))
                                                 .foregroundStyle(.secondary)
+                                                .lineLimit(1)
                                             Spacer()
 
                                             if showSecondaryInfo(for: device.item) {
                                                 Text(deviceId(device.item))
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
+                                                    .lineLimit(1)
                                             }
                                         }
                                         .padding(.leading, indent)
@@ -407,6 +479,7 @@ struct ContentView: View {
                                                 Text("\(String(localized: "usb_version")) \(usbVersion ?? String(format: "0x%04X", usbVer))")
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
+                                                    .lineLimit(1)
                                             }
 
                                             Spacer()
@@ -416,6 +489,7 @@ struct ContentView: View {
                                                     Text("\(String(localized: "serial_number")) \(serial)")
                                                         .font(.system(size: 9))
                                                         .foregroundStyle(.secondary)
+                                                        .lineLimit(1)
                                                 }
                                             }
                                         }
@@ -427,6 +501,7 @@ struct ContentView: View {
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                                     .padding(.leading, indent)
+                                                    .lineLimit(1)
                                             }
                                         }
                                     }
@@ -786,9 +861,9 @@ struct ContentView: View {
                 }
                 .contextMenu {
                     Button {
-                        goToSettings()
+                        listToolBar.toggle()
                     } label: {
-                        Label("open", systemImage: "arrow.up.right.square")
+                        Label(listToolBar ? "hide_toolbar" : "show_toolbar", systemImage: "menubar.arrow.up.rectangle")
                     }
                     Button {
                         Utils.System.openSysInfo()

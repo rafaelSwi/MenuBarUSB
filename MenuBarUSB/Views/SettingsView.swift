@@ -55,6 +55,7 @@ struct SettingsView: View {
     @AS(Key.noTextButtons) private var noTextButtons = false
     @AS(Key.hideCount) private var hideCount = false
     @AS(Key.numberRepresentation) private var numberRepresentation: NumberRepresentation = .base10
+    @AS(Key.listToolBar) private var listToolBar = false
     @AS(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AS(Key.hideMenubarIcon) private var hideMenubarIcon = false
     @AS(Key.restartButton) private var restartButton = false
@@ -70,6 +71,8 @@ struct SettingsView: View {
     @AS(Key.newVersionNotification) private var newVersionNotification = false
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.fastMonitor) private var fastMonitor = false
+    @AS(Key.showScrollBar) private var showScrollBar = false
+    @AS(Key.indexIndicator) private var indexIndicator = false
     @AS(Key.storeDevices) private var storeDevices = false
     @AS(Key.storedIndicator) private var storedIndicator = false
     @AS(Key.forceEnglish) private var forceEnglish = false
@@ -485,6 +488,14 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
+                        label: String(localized: "show_scrollbar"),
+                        description: String(localized: "show_scrollbar_description"),
+                        binding: $showScrollBar,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
                         label: String(localized: "long_list"),
                         description: String(localized: "long_list_description"),
                         binding: $longList,
@@ -496,6 +507,14 @@ struct SettingsView: View {
                         label: String(localized: "show_previously_connected"),
                         description: String(localized: "show_previously_connected_description"),
                         binding: $storeDevices,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: String(localized: "index_indicator"),
+                        description: String(localized: "index_indicator_description"),
+                        binding: $indexIndicator,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
@@ -763,6 +782,14 @@ struct SettingsView: View {
                             onToggle: { _ in Utils.App.restart() }
                         )
                     }
+                    ToggleRow(
+                        label: String(localized: "show_toolbar"),
+                        description: String(localized: "show_toolbar_description"),
+                        binding: $listToolBar,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
                     ToggleRow(
                         label: String(localized: "hide_check_update"),
                         description: String(localized: "hide_check_update_description"),

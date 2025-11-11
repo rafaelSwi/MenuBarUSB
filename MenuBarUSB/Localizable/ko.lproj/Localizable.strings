@@ -231,3 +231,10 @@
 "security_mode" = "보안 모드";
 "disable_context_menu_heritage" = "컨텍스트 메뉴에서 상속 비활성화";
 "disable_context_menu_heritage_description" = "상속 옵션이 더 이상 표시되지 않습니다.";
+"show_scrollbar" = "스크롤바 표시";
+"show_scrollbar_description" = "목록이 표시 영역을 초과하면 스크롤바가 자동으로 나타납니다.";
+"index_indicator" = "항목 위치 표시기";
+"index_indicator_description" = "각 장치 옆에 목록 내 위치를 표시하는 숫자가 표시됩니다";
+"show_toolbar" = "도구 모음 표시";
+"hide_toolbar" = "도구 모음 숨기기";
+"show_toolbar_description" = "목록 상단에 유용한 옵션과 연결된 장치 수를 포함한 도구 모음을 표시합니다.";

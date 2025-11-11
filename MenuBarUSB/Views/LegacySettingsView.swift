@@ -41,6 +41,7 @@ struct LegacySettingsView: View {
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.renamedIndicator) private var renamedIndicator = false
     @AS(Key.camouflagedIndicator) private var camouflagedIndicator = false
+    @AS(Key.listToolBar) private var listToolBar = false
     @AS(Key.showNotifications) private var showNotifications = false
     @AS(Key.newVersionNotification) private var newVersionNotification = false
     @AS(Key.reduceTransparency) private var reduceTransparency = false
@@ -48,6 +49,8 @@ struct LegacySettingsView: View {
     @AS(Key.disableHaptic) private var disableHaptic = false
     @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.showEthernet) private var showEthernet = false
+    @AS(Key.showScrollBar) private var showScrollBar = false
+    @AS(Key.indexIndicator) private var indexIndicator = false
     @AS(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
     @AS(Key.increasedIndentationGap) private var increasedIndentationGap = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
@@ -245,7 +248,7 @@ struct LegacySettingsView: View {
                     categoryButton(toggle: $showOthersOptions, label: "others_category")
                 }
                 
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 6) {
                     
                     if showSystemOptions {
                         ToggleRow(
@@ -331,6 +334,14 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
+                            label: String(localized: "show_scrollbar"),
+                            description: String(localized: "show_scrollbar_description"),
+                            binding: $showScrollBar,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
                             label: String(localized: "long_list"),
                             description: String(localized: "long_list_description"),
                             binding: $longList,
@@ -342,6 +353,14 @@ struct LegacySettingsView: View {
                             label: String(localized: "show_previously_connected"),
                             description: String(localized: "show_previously_connected_description"),
                             binding: $storeDevices,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
+                            label: String(localized: "index_indicator"),
+                            description: String(localized: "index_indicator_description"),
+                            binding: $indexIndicator,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
@@ -515,6 +534,14 @@ struct LegacySettingsView: View {
                             )
                         }
                         ToggleRow(
+                            label: String(localized: "show_toolbar"),
+                            description: String(localized: "show_toolbar_description"),
+                            binding: $listToolBar,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
                             label: String(localized: "ethernet_connected_icon"),
                             description: String(localized: "ethernet_connected_icon_description"),
                             binding: $showEthernet,
@@ -615,7 +642,7 @@ struct LegacySettingsView: View {
             }
         }
         .padding(10)
-        .frame(minWidth: 700, minHeight: 550)
+        .frame(minWidth: 700, minHeight: 580)
         .appBackground(reduceTransparency)
     }
 }
