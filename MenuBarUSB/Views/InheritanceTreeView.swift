@@ -10,12 +10,12 @@ import SwiftUI
 struct InheritanceTreeView: View {
     @EnvironmentObject var manager: USBDeviceManager
     @Binding var currentWindow: AppWindow
-    
+
     @State private var refreshID = UUID()
     @State var hoveringInfo: Bool = false
-    
+
     @AS(Key.storeDevices) private var storeDevices = false
-    
+
     private func refresh() {
         manager.refresh()
         refreshID = UUID()
@@ -49,7 +49,7 @@ struct InheritanceTreeView: View {
             }
 
             Spacer()
-            
+
             HStack {
                 ZStack(alignment: .bottomLeading) {
                     if hoveringInfo {
@@ -57,8 +57,8 @@ struct InheritanceTreeView: View {
                             .font(.caption)
                             .offset(y: -35)
                     }
-                    
-                    if (!storeDevices) {
+
+                    if !storeDevices {
                         Image(systemName: "info.circle")
                             .onHover { hovering in
                                 hoveringInfo = hovering
@@ -80,7 +80,7 @@ struct InheritanceTreeView: View {
             .animation(.bouncy, value: hoveringInfo)
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 600)
+        .frame(minWidth: WindowWidth.value, minHeight: 600)
         .id(refreshID)
     }
 }

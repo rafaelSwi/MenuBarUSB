@@ -11,16 +11,17 @@ struct ContentView: View {
     @Environment(\.openWindow) private var openWindow
     @EnvironmentObject var manager: USBDeviceManager
     @Environment(\.openURL) var openURL
-    
+
     @State private var toolbarItemHelp: String = ""
     @State private var isHoveringDeviceId: String = ""
     @State private var isRenamingDeviceId: String = ""
     @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
+    @State private var isChangingWidth: Bool = false
     @State private var devicesShowingMore: [USBDeviceWrapper] = []
 
     @Binding var currentWindow: AppWindow
-    
+
     @AS(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AS(Key.convertHexa) private var convertHexa = false
     @AS(Key.showPortMax) private var showPortMax = false
@@ -38,11 +39,13 @@ struct ContentView: View {
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.showEthernet) private var showEthernet = false
+    @AS(Key.toolbarClock) private var toolbarClock = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
     @AS(Key.showNotifications) private var showNotifications = false
     @AS(Key.trafficButton) private var trafficButton = false
     @AS(Key.showScrollBar) private var showScrollBar = false
     @AS(Key.indexIndicator) private var indexIndicator = false
+    @AS(Key.windowWidth) private var windowWidth: WindowWidth = .normal
     @AS(Key.listToolBar) private var listToolBar = false
     @AS(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
@@ -62,18 +65,18 @@ struct ContentView: View {
         if hideTechInfo {
             multiplier -= 12
         }
-        
+
         var total = manager.devices.count
-        if (storeDevices) {
+        if storeDevices {
             total += CSM.Stored.filteredDevices(manager.devices).count
         }
-        
+
         var sum: CGFloat = baseValue + (CGFloat(total) * multiplier)
         var max: CGFloat = 380
         if longList {
             max += 315
         }
-        if (listToolBar) {
+        if listToolBar {
             max += 40
             sum += 40
         }
@@ -120,6 +123,13 @@ struct ContentView: View {
         return sorted
     }
 
+    private func cycleWindowWidth() {
+        let order: [WindowWidth] = [.tiny, .normal, .big, .veryBig, .huge]
+        guard let index = order.firstIndex(of: windowWidth) else { return }
+        let nextIndex = (index + 1) % order.count
+        windowWidth = order[nextIndex]
+    }
+
     private func indentLevel(for device: borrowing USBDevice) -> CGFloat {
         if isRenamingDeviceId == device.uniqueId {
             return 0
@@ -141,7 +151,7 @@ struct ContentView: View {
         let multiply: CGFloat = increasedIndentationGap ? 36 : 16
         return CGFloat(level) * multiply
     }
-    
+
     private func disableToolbarValues() {
         showNotifications = false
         indexIndicator = false
@@ -174,7 +184,7 @@ struct ContentView: View {
             manager.startEthernetMonitoring()
         }
     }
-    
+
     private func mainButtonLabel(_ text: LocalizedStringKey, _ systemImage: String) -> some View {
         if noTextButtons {
             return AnyView(Image(systemName: systemImage))
@@ -182,7 +192,7 @@ struct ContentView: View {
             return AnyView(Label(text, systemImage: systemImage))
         }
     }
-    
+
     private var showEyeSlash: Bool {
         if noTextButtons {
             return true
@@ -210,11 +220,11 @@ struct ContentView: View {
     private var trafficMonitorOn: Bool {
         return showEthernet && internetMonitoring
     }
-    
+
     private func deviceId(_ device: borrowing USBDevice) -> String {
         return String(format: "%04X:%04X", device.vendorId, device.productId)
     }
-    
+
     private func copyTextLabelView(_ text: String) -> some View {
         let copy = String(localized: "copy")
         let item = String(localized: "\(text)")
@@ -283,16 +293,16 @@ struct ContentView: View {
         if !hideTechInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == device.uniqueId
     }
-    
+
     private func showDisconnectedText(for deviceId: String) -> Bool {
-        if (isRenamingDeviceId == deviceId) { return false }
+        if isRenamingDeviceId == deviceId { return false }
         return !hideTechInfo || isHoveringDeviceId == deviceId
     }
-    
+
     private func isRenaming(device id: String) -> Bool {
         return isRenamingDeviceId == id
     }
-    
+
     private func showRestoreName(for deviceId: String) -> Bool {
         let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
         return renamed != nil
@@ -306,7 +316,7 @@ struct ContentView: View {
         }
         openURL(url)
     }
-    
+
     private func deviceTitleView(_ name: String?, deviceId: String) -> some View {
         let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
         let baseName = renamed?.name ?? name ?? String(localized: "usb_device")
@@ -317,7 +327,7 @@ struct ContentView: View {
             .foregroundColor(.primary)
             .lineLimit(1)
     }
-    
+
     private func deviceRenameView(deviceId: String) -> some View {
         return HStack {
             CustomTextField(
@@ -349,15 +359,19 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
         }
     }
-    
+
     private func toolbarListItemView(
         _ value: Binding<Bool>,
         _ icon: String,
         _ help: LocalizedStringKey,
         _ color: Color,
+        _ action: (() -> Void)? = nil
     ) -> some View {
         return Button {
             value.wrappedValue.toggle()
+            if action != nil {
+                action?()
+            }
         } label: {
             Image(systemName: icon)
                 .font(.system(size: 13))
@@ -371,10 +385,12 @@ struct ContentView: View {
         .help(help)
         .contextMenu {
             Label(help, systemImage: "questionmark.circle")
-            Button {
-                value.wrappedValue.toggle()
-            } label: {
-                Label("on_off", systemImage: "power")
+            if action == nil {
+                Button {
+                    value.wrappedValue.toggle()
+                } label: {
+                    Label("on_off", systemImage: "power")
+                }
             }
             Button {
                 disableToolbarValues()
@@ -389,19 +405,19 @@ struct ContentView: View {
             }
         }
     }
-    
+
     private var isTrulyEmpty: Bool {
         let connectedCount: Int = manager.devices.count
         let storedCount: Int = CSM.Stored.filteredDevices(manager.devices).count
-        
-        if (connectedCount == 0 && storeDevices == false) {
+
+        if connectedCount == 0 && storeDevices == false {
             return true
         }
-        
-        if (connectedCount == 0 && storedCount == 0) {
+
+        if connectedCount == 0 && storedCount == 0 {
             return true
         }
-        
+
         return false
     }
 
@@ -410,33 +426,64 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 6) {
                 if listToolBar {
                     HStack {
-                        toolbarListItemView($showNotifications, "bell.fill", "show_notification", .orange)
+                        toolbarListItemView($showNotifications, "bell.fill", "show_notification", .orange) {
+                            if showNotifications {
+                                Utils.System.requestNotificationPermission()
+                            }
+                        }
                         toolbarListItemView($indexIndicator, "list.number", "index_indicator", .blue)
                         toolbarListItemView($hideTechInfo, "arrow.down.and.line.horizontal.and.arrow.up", "hide_technical_info", .cyan)
                         if hideTechInfo {
                             toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info", .purple)
                         }
+
+                        toolbarListItemView($isChangingWidth, "chevron.left.chevron.right", "window_width", .brown) {
+                            cycleWindowWidth()
+                            isChangingWidth = windowWidth != .normal
+                        }
+                        .onAppear {
+                            isChangingWidth = windowWidth != .normal
+                        }
+
                         toolbarListItemView($longList, "arrow.up.and.down.text.horizontal", "long_list", .indigo)
                         toolbarListItemView($hideSecondaryInfo, "decrease.indent", "hide_secondary_info", .red)
                         toolbarListItemView($storeDevices, "arrow.counterclockwise", "show_previously_connected", .green)
-                        toolbarListItemView($storedIndicator, "minus.arrow.trianglehead.counterclockwise", "stored_indicator", .mint)
                         toolbarListItemView($camouflagedIndicator, "eye.fill", "hidden_indicator", .mint)
-                        toolbarListItemView($renamedIndicator, "character.cursor.ibeam", "renamed_indicator", .mint)
                         toolbarListItemView($noTextButtons, "ellipsis.circle", "no_text_buttons", .teal)
                         Button(action: Utils.System.openSysInfo, label: {
-                            Text("INFO")
-                                .fontWeight(.bold)
-                                .font(.system(size: 8))
+                            if noTextButtons {
+                                Image(systemName: "info.circle")
+                                    .font(.system(size: 13))
+                                    .frame(width: 21, height: 21)
+                                    .padding(1.5)
+                                    .cornerRadius(2)
+                            } else {
+                                Text("info_abbreviation")
+                                    .fontWeight(.bold)
+                                    .font(.system(size: 8))
+                            }
                         })
-                            .buttonStyle(.borderless)
-                            .opacity(0.6)
+                        .buttonStyle(.borderless)
+                        .opacity(0.6)
                         Spacer()
                         Group {
-                            Image(systemName: macBarIcon)
-                            Text(NumberConverter(sortedDevices.count).converted)
+                            if toolbarClock {
+                                BlinkingClock()
+                            } else {
+                                Group {
+                                    Image(systemName: macBarIcon)
+                                    Text(NumberConverter(sortedDevices.count).converted)
+                                        .padding(.horizontal, 5)
+                                }
+                                .fontWeight(.bold)
+                                .foregroundStyle(.gray)
+                            }
                         }
-                        .fontWeight(.bold)
-                        .foregroundStyle(.gray)
+                        .contextMenu {
+                            Button(toolbarClock ? "switch_to_device_count" : "switch_to_clock") {
+                                toolbarClock.toggle()
+                            }
+                        }
                     }
                     .padding(.horizontal, 3)
                     .padding(.top, 1)
@@ -459,8 +506,8 @@ struct ContentView: View {
                                         if isRenaming(device: uniqueId) {
                                             deviceRenameView(deviceId: device.item.uniqueId)
                                         } else {
-                                            if (indexIndicator) {
-                                                Text("\(index+1)")
+                                            if indexIndicator {
+                                                Text("\(index + 1)")
                                                     .font(.footnote)
                                             }
                                             deviceTitleView(device.item.name, deviceId: device.item.uniqueId)
@@ -543,38 +590,36 @@ struct ContentView: View {
                                 .animation(.spring(duration: 0.15), value: showSecondaryInfo(for: device.item))
                                 .animation(.spring(duration: 0.15), value: showTechInfo(for: device.item))
                                 .contextMenu {
-                                    
-                                    if (contextMenuCopyAll) {
-                                        
+                                    if contextMenuCopyAll {
                                         Menu {
                                             Button {
                                                 Utils.System.copyToClipboard(compactStringInformation(device.item))
                                             } label: {
                                                 Label("copy_all_properties", systemImage: "square.on.square")
                                             }
-                                            
+
                                             Divider()
-                                            
+
                                             Button {
                                                 Utils.System.copyToClipboard(device.item.name)
                                             } label: {
                                                 copyTextLabelView(device.item.name)
                                             }
-                                            
-                                            if (device.item.vendor  != nil) {
+
+                                            if device.item.vendor != nil {
                                                 Button {
                                                     Utils.System.copyToClipboard(device.item.vendor ?? "?")
                                                 } label: {
                                                     copyTextLabelView(device.item.vendor ?? "?")
                                                 }
                                             }
-                                            
+
                                             Button {
                                                 Utils.System.copyToClipboard(deviceId(device.item))
                                             } label: {
                                                 copyTextLabelView(deviceId(device.item))
                                             }
-                                            
+
                                             if device.item.serialNumber != nil {
                                                 Button {
                                                     Utils.System.copyToClipboard(device.item.serialNumber ?? "SN")
@@ -585,7 +630,7 @@ struct ContentView: View {
                                         } label: {
                                             Label("copy", systemImage: "square.on.square")
                                         }
-                                        
+
                                     } else {
                                         Button {
                                             Utils.System.copyToClipboard(compactStringInformation(device.item))
@@ -608,7 +653,7 @@ struct ContentView: View {
                                     } label: {
                                         Label("rename", systemImage: "pencil.and.scribble")
                                     }
-                                    
+
                                     if showRestoreName(for: uniqueId) {
                                         Button {
                                             CSM.Renamed.remove(withId: uniqueId)
@@ -634,11 +679,10 @@ struct ContentView: View {
                                             }
                                         }
                                     }
-                                    
+
                                     if !disableContextMenuHeritage {
-                                        
                                         Divider()
-                                        
+
                                         Menu {
                                             Button {
                                                 CSM.Heritage.remove(withId: device.item.uniqueId)
@@ -647,9 +691,9 @@ struct ContentView: View {
                                                 Label("kill_inheritance", systemImage: "trash")
                                             }
                                             .disabled(CSM.Heritage[device.item.uniqueId] == nil)
-                                            
+
                                             Divider()
-                                            
+
                                             Menu {
                                                 ForEach(sortedDevices) { d in
                                                     Button {
@@ -669,7 +713,7 @@ struct ContentView: View {
 
                                     if !disableContextMenuSearch {
                                         Divider()
-                                        
+
                                         Menu {
                                             Button {
                                                 searchOnWeb(device.item.name)
@@ -698,11 +742,11 @@ struct ContentView: View {
 
                                 Divider()
                             }
-                            if (storeDevices) {
+                            if storeDevices {
                                 ForEach(CSM.Stored.filteredDevices(manager.devices)) { device in
                                     VStack(alignment: .leading, spacing: 2) {
                                         HStack {
-                                            if (storedIndicator) {
+                                            if storedIndicator {
                                                 Image("offline")
                                                     .renderingMode(.template)
                                                     .resizable()
@@ -722,7 +766,6 @@ struct ContentView: View {
                                                 .font(.system(size: 9))
                                                 .foregroundStyle(.secondary)
                                         }
-                                        
                                     }
                                     .opacity(isRenaming(device: device.deviceId) ? 1.0 : 0.5)
                                     .padding(.top, 3)
@@ -781,7 +824,7 @@ struct ContentView: View {
                 }
             }
             .padding(3)
-            .frame(width: 465, height: windowHeight)
+            .frame(width: WindowWidth.value, height: windowHeight)
 
             HStack {
                 if camouflagedIndicator {
@@ -837,11 +880,10 @@ struct ContentView: View {
                 }
 
                 if trafficButton {
-
                     Button {
                         toggleTrafficMonitoring()
                     } label: {
-                        if (showTrafficButtonLabel) {
+                        if showTrafficButtonLabel {
                             Label(
                                 manager.trafficMonitorRunning ? "running" : "paused",
                                 systemImage: manager.trafficMonitorRunning ? "stop.fill" : "waveform.badge.magnifyingglass"
@@ -851,11 +893,11 @@ struct ContentView: View {
                         }
                     }
                     .contextMenu {
-                        let status =  LocalizedStringKey(manager.trafficMonitorRunning ? "running" : "paused")
+                        let status = LocalizedStringKey(manager.trafficMonitorRunning ? "running" : "paused")
                         Text("status") + Text(" ") + Text(status)
-                        
+
                         Divider()
-                        
+
                         Button {
                             toggleTrafficMonitoring()
                         } label: {
@@ -875,15 +917,14 @@ struct ContentView: View {
                             }
                         }
                         .disabled(camouflagedIndicator)
-                        
+
                         Divider()
-                        
+
                         Button {
                             trafficButton = false
                         } label: {
                             Label("hide_button", systemImage: "eye.slash")
                         }
-                        
                     }
                 }
 

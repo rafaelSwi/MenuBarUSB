@@ -24,7 +24,7 @@ extension NumberConverter {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         let num = (number > 99) ? 99 : number
         var formatted = formatter.string(from: NSNumber(value: num)) ?? String(num)
-        if (number > 99) {
+        if number > 99 {
             formatted = (formatted + "＋")
         }
         return formatted

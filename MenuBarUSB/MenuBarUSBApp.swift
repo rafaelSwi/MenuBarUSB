@@ -24,11 +24,11 @@ struct MenuBarUSBApp: App {
     @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.newVersionNotification) private var newVersionNotification = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
-    
+
     init() {
         if newVersionNotification {
             Task {
-                if (await Utils.App.hasUpdate()) {
+                if await Utils.App.hasUpdate() {
                     Utils.System.sendNotification(
                         title: String(localized: "update_notification_title"),
                         body: String(localized: "update_notification_body")
@@ -51,7 +51,7 @@ struct MenuBarUSBApp: App {
     private var menuLabel: some View {
         return HStack(spacing: 5) {
             let image = HStack(spacing: 7) {
-                if (manager.trafficMonitorRunning == false && internetMonitoring) {
+                if manager.trafficMonitorRunning == false && internetMonitoring {
                     Image(systemName: "pause.fill")
                 }
                 Image(manager.ethernetTraffic ? "ETHERNET_DOT" : "ETHERNET")

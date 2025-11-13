@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Mostra una barra degli strumenti in cima all’elenco con opzioni utili e il conteggio dei dispositivi connessi.";
 "on_off" = "Attiva/Disattiva";
 "disable_all" = "Disattiva tutto";
+"window_size_tiny" = "Piccola";
+"window_size_normal" = "Predefinita";
+"window_size_big" = "Grande";
+"window_size_verybig" = "Molto grande";
+"window_size_huge" = "Enorme";
+"window_width" = "Larghezza finestra";
+"list_width" = "Larghezza lista";
+"hold_to_reset" = "(TIENI)";
+"switch_to_clock" = "Passa all'orologio";
+"switch_to_device_count" = "Passa al conteggio";
+"info_abbreviation" = "INF.";

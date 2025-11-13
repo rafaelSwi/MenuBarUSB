@@ -15,7 +15,7 @@ struct CodableAppStorage<T: Codable>: DynamicProperty {
 
     init(wrappedValue: T, _ key: String) {
         self.key = key
-        self.defaultValue = wrappedValue
+        defaultValue = wrappedValue
         if UserDefaults.standard.data(forKey: key) == nil {
             let data = try? JSONEncoder().encode(wrappedValue)
             UserDefaults.standard.set(data, forKey: key)

@@ -240,3 +240,14 @@
 "show_toolbar_description" = "リストの上部に便利なオプションと接続されたデバイス数を含むツールバーを表示します。";
 "on_off" = "オン/オフ";
 "disable_all" = "すべて無効にする";
+"window_size_tiny" = "小";
+"window_size_normal" = "標準";
+"window_size_big" = "大";
+"window_size_verybig" = "とても大きい";
+"window_size_huge" = "巨大";
+"window_width" = "ウィンドウ幅";
+"list_width" = "リスト幅";
+"hold_to_reset" = "(長押し)";
+"switch_to_clock" = "時計に切替";
+"switch_to_device_count" = "デバイス数に切替";
+"info_abbreviation" = "情報";

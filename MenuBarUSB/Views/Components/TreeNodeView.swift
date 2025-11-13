@@ -13,24 +13,24 @@ struct TreeNodeView: View {
     let manager: USBDeviceManager
     let xmarked: Bool
     let onRefresh: () -> Void
-    
+
     @State var hoveringTrash: Bool = false
-    
+
     private var deviceName: String? {
         let device: USBDeviceWrapper? = manager.devices.first(where: { $0.item.uniqueId == deviceId })
-        if (device == nil) {
+        if device == nil {
             let stored: StoredDevice? = CSM.Stored[deviceId]
             return stored?.name
         } else {
             return device?.item.name
         }
     }
-    
+
     private var isConnected: Bool {
         let device = manager.devices.first(where: { $0.item.uniqueId == deviceId })
         return device != nil
     }
-    
+
     private var showXmark: Bool {
         return xmarked || hoveringTrash
     }
@@ -38,17 +38,16 @@ struct TreeNodeView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 6) {
-                
                 Circle()
                     .foregroundStyle(isConnected ? .green : .red)
                     .frame(width: 10, height: 10)
                     .help(isConnected ? "ON" : "OFF")
-                    
+
                 Spacer()
                     .frame(width: 6)
-                
+
                 Button {
-                    if (level > 0) { CSM.Heritage.remove(withId: deviceId) }
+                    if level > 0 { CSM.Heritage.remove(withId: deviceId) }
                     onRefresh()
                 } label: {
                     Image(systemName: "trash")
@@ -59,27 +58,26 @@ struct TreeNodeView: View {
                 .buttonStyle(.plain)
                 .help("destroy_all_inheritances_device")
                 .onHover { hovering in
-                    if (level > 0) {
+                    if level > 0 {
                         hoveringTrash = hovering
                     }
                 }
-                
+
                 Rectangle()
                     .frame(width: CGFloat(level) * 12, height: 1)
                     .opacity(level > 0 ? 0.5 : 0)
-                
+
                 Text(deviceName ?? String(localized: "no_info"))
                     .font(.system(size: 14, weight: deviceName == nil ? .regular : .semibold))
                     .foregroundColor(deviceName == nil ? .secondary : .primary)
                     .lineLimit(1)
-                
-                if (showXmark) {
+
+                if showXmark {
                     Image(systemName: "xmark")
                         .foregroundStyle(.red)
                 }
-                
-                Spacer()
 
+                Spacer()
             }
             .animation(.easeInOut, value: showXmark)
 

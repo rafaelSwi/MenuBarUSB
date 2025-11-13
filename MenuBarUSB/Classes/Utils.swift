@@ -7,11 +7,11 @@
 
 import AppKit
 import Foundation
-import UserNotifications
 import SwiftUI
+import UserNotifications
 
-final class Utils {
-    final class System {
+enum Utils {
+    enum System {
         static func openSysInfo() {
             let task = Process()
             task.launchPath = "/usr/bin/open"
@@ -21,7 +21,7 @@ final class Utils {
             ]
             try? task.run()
         }
-        
+
         static func copyToClipboard(_ content: String) {
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(content, forType: .string)
@@ -29,7 +29,7 @@ final class Utils {
 
         static func hapticFeedback() {
             @AS(Key.disableHaptic) var disableHaptic = false
-            if (disableHaptic) { return }
+            if disableHaptic { return }
             let performer = NSHapticFeedbackManager.defaultPerformer
             performer.perform(.generic, performanceTime: .now)
         }
@@ -68,11 +68,11 @@ final class Utils {
         }
     }
 
-    final class App {
+    enum App {
         static var appVersion: String {
             Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
         }
-        
+
         static func hasUpdate() async -> Bool {
             guard let url = URL(string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest") else { return false }
 
@@ -129,7 +129,7 @@ final class Utils {
         }
     }
 
-    final class USB {
+    enum USB {
         static func usbVersionLabel(from bcd: Int?, convertHexa: Bool) -> String? {
             guard let bcd = bcd else { return nil }
             switch bcd {

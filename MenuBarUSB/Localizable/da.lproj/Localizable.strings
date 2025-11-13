@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Viser en værktøjslinje øverst på listen med nyttige indstillinger og antal tilsluttede enheder.";
 "on_off" = "Tænd/Sluk";
 "disable_all" = "Deaktiver alt";
+"window_size_tiny" = "Lille";
+"window_size_normal" = "Standard";
+"window_size_big" = "Stor";
+"window_size_verybig" = "Meget stor";
+"window_size_huge" = "Kæmpe";
+"window_width" = "Vinduesbredde";
+"list_width" = "Listebredde";
+"hold_to_reset" = "(HOLD)";
+"switch_to_clock" = "Skift til ur";
+"switch_to_device_count" = "Skift til antal enheder";
+"info_abbreviation" = "INFO";

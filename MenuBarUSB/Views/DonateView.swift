@@ -83,7 +83,6 @@ struct DonateView: View {
                 QRCodeView(text: currentAddress)
                     .frame(width: 200, height: 200)
                     .contextMenu {
-
                         Button { copyToClipboard(currentAddress) } label: {
                             Label("copy_crypto_address", systemImage: "square.on.square")
                         }
@@ -91,13 +90,12 @@ struct DonateView: View {
                         Button { copyToClipboard(email) } label: {
                             Label("copy_email", systemImage: "square.on.square")
                         }
-                        
+
                         Divider()
-                        
+
                         Button { checkOnBlockchain() } label: {
                             Label("check_on_blockchain", systemImage: "globe")
                         }
-                        
                     }
 
                 Button(action: { copyToClipboard(currentAddress) }) {
@@ -157,6 +155,6 @@ struct DonateView: View {
             }
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 600)
+        .frame(minWidth: WindowWidth.value, minHeight: 600)
     }
 }

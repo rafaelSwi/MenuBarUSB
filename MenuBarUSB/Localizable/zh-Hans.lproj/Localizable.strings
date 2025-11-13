@@ -240,3 +240,14 @@
 "show_toolbar_description" = "在列表顶部显示一个包含实用选项和已连接设备数量的工具栏。";
 "on_off" = "开/关";
 "disable_all" = "禁用全部";
+"window_size_tiny" = "极小";
+"window_size_normal" = "默认";
+"window_size_big" = "大";
+"window_size_verybig" = "很大";
+"window_size_huge" = "巨大";
+"window_width" = "窗口宽度";
+"list_width" = "列表宽度";
+"hold_to_reset" = "(长按)";
+"switch_to_clock" = "切换到时钟";
+"switch_to_device_count" = "切换到设备数";
+"info_abbreviation" = "信息";

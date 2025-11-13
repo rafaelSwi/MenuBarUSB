@@ -240,3 +240,14 @@
 "show_toolbar_description" = "सूची के शीर्ष पर एक टूलबार दिखाता है जिसमें उपयोगी विकल्प और कनेक्टेड डिवाइस की संख्या होती है।";
 "on_off" = "चालू/बंद";
 "disable_all" = "सभी को अक्षम करें";
+"window_size_tiny" = "बहुत छोटा";
+"window_size_normal" = "डिफ़ॉल्ट";
+"window_size_big" = "बड़ा";
+"window_size_verybig" = "बहुत बड़ा";
+"window_size_huge" = "विशाल";
+"window_width" = "विंडो चौड़ाई";
+"list_width" = "सूची चौड़ाई";
+"hold_to_reset" = "(होल्ड)";
+"switch_to_clock" = "घड़ी पर स्विच करें";
+"switch_to_device_count" = "डिवाइस संख्या पर स्विच करें";
+"info_abbreviation" = "सूच.";

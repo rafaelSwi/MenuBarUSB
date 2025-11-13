@@ -13,6 +13,23 @@ struct CategoryButton: View {
     let image: String
     @Binding var binding: SettingsCategory
     let disabled: Bool
+    var action: (() -> Void)?
+
+    init(
+        category: SettingsCategory,
+        label: LocalizedStringKey,
+        image: String,
+        binding: Binding<SettingsCategory>,
+        disabled: Bool,
+        action: (() -> Void)? = nil
+    ) {
+        self.category = category
+        self.label = label
+        self.image = image
+        _binding = binding
+        self.disabled = disabled
+        self.action = action
+    }
 
     @State private var hovering = false
 
@@ -31,6 +48,9 @@ struct CategoryButton: View {
             VStack {
                 Button {
                     binding = category
+                    if action != nil {
+                        action?()
+                    }
                 } label: {
                     Image(image)
                         .renderingMode(.template)

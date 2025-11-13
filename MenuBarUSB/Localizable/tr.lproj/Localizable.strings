@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Listenin üst kısmında kullanışlı seçenekler ve bağlı cihaz sayısını içeren bir araç çubuğu gösterir.";
 "on_off" = "Aç/Kapat";
 "disable_all" = "Tümünü devre dışı bırak";
+"window_size_tiny" = "Küçük";
+"window_size_normal" = "Varsayılan";
+"window_size_big" = "Büyük";
+"window_size_verybig" = "Çok büyük";
+"window_size_huge" = "Dev";
+"window_width" = "Pencere genişliği";
+"list_width" = "Liste genişliği";
+"hold_to_reset" = "(BASILI)";
+"switch_to_clock" = "Saate geç";
+"switch_to_device_count" = "Cihaz sayısına geç";
+"info_abbreviation" = "BİLG.";

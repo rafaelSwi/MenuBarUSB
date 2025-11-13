@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Exibe uma barra de ferramentas no topo da lista com opções úteis e a contagem de dispositivos conectados.";
 "on_off" = "Ativar/Desativar";
 "disable_all" = "Desativar todos";
+"window_size_tiny" = "Pequeno";
+"window_size_normal" = "Padrão";
+"window_size_big" = "Grande";
+"window_size_verybig" = "Enorme";
+"window_size_huge" = "Máximo";
+"window_width" = "Largura da janela";
+"list_width" = "Largura da lista";
+"hold_to_reset" = "(SEGURE)";
+"switch_to_clock" = "Trocar pra relógio";
+"switch_to_device_count" = "Trocar pra contagem";
+"info_abbreviation" = "INFO";

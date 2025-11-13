@@ -247,3 +247,14 @@
 "show_toolbar_description" = "Afișează o bară de instrumente în partea de sus a listei cu opțiuni utile și numărul de dispozitive conectate.";
 "on_off" = "Pornește/Oprește";
 "disable_all" = "Dezactivează tot";
+"window_size_tiny" = "Mică";
+"window_size_normal" = "Implicită";
+"window_size_big" = "Mare";
+"window_size_verybig" = "Foarte mare";
+"window_size_huge" = "Imensă";
+"window_width" = "Lățimea ferestrei";
+"list_width" = "Lățimea listei";
+"hold_to_reset" = "(ȚINE)";
+"switch_to_clock" = "Comută la ceas";
+"switch_to_device_count" = "Comută la număr";
+"info_abbreviation" = "INF.";

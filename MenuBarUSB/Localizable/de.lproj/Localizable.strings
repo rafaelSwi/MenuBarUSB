@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Zeigt oben in der Liste eine Symbolleiste mit nützlichen Optionen und der Anzahl der verbundenen Geräte an.";
 "on_off" = "Ein/Aus";
 "disable_all" = "Alles deaktivieren";
+"window_size_tiny" = "Winzig";
+"window_size_normal" = "Standard";
+"window_size_big" = "Groß";
+"window_size_verybig" = "Sehr groß";
+"window_size_huge" = "Riesig";
+"window_width" = "Fensterbreite";
+"list_width" = "Listenbreite";
+"hold_to_reset" = "(HALTEN)";
+"switch_to_clock" = "Zur Uhr wechseln";
+"switch_to_device_count" = "Zu Geräteanzahl wechseln";
+"info_abbreviation" = "INF.";

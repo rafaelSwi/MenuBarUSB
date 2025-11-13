@@ -240,3 +240,14 @@
 "show_toolbar_description" = "يعرض شريط أدوات في أعلى القائمة يحتوي على بعض الخيارات المفيدة وعدد الأجهزة المتصلة.";
 "on_off" = "تشغيل/إيقاف";
 "disable_all" = "تعطيل الكل";
+"window_size_tiny" = "صغير جدًا";
+"window_size_normal" = "افتراضي";
+"window_size_big" = "كبير";
+"window_size_verybig" = "كبير جدًا";
+"window_size_huge" = "ضخم";
+"window_width" = "عرض النافذة";
+"list_width" = "عرض القائمة";
+"hold_to_reset" = "(اضغط)";
+"switch_to_clock" = "التبديل إلى الساعة";
+"switch_to_device_count" = "التبديل إلى عدد الأجهزة";
+"info_abbreviation" = "معل.";

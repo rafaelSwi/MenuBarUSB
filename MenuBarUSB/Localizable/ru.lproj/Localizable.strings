@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Отображает панель инструментов в верхней части списка с полезными параметрами и количеством подключенных устройств.";
 "on_off" = "Вкл/Выкл";
 "disable_all" = "Отключить всё";
+"window_size_tiny" = "Крошечный";
+"window_size_normal" = "Обычный";
+"window_size_big" = "Большой";
+"window_size_verybig" = "Очень большой";
+"window_size_huge" = "Огромный";
+"window_width" = "Ширина окна";
+"list_width" = "Ширина списка";
+"hold_to_reset" = "(УДЕРЖ.)";
+"switch_to_clock" = "Переключить на часы";
+"switch_to_device_count" = "Переключить на счётчик";
+"info_abbreviation" = "ИНФ.";

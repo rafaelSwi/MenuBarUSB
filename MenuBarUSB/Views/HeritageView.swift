@@ -14,31 +14,31 @@ struct HeritageView: View {
         case selectingSecondDevice = 2
         case final = 3
     }
-    
+
     enum DeviceRole {
         case nothing
         case willGiveInheritance
         case willReceiveInheritance
     }
-    
+
     @EnvironmentObject var manager: USBDeviceManager
-    
+
     @State private var step: Step = .beginning
     @State private var role: DeviceRole = .nothing
-    
+
     @State private var tryingToDeleteAllInheritances = false
-    
+
     @Binding var currentWindow: AppWindow
-    
+
     @State private var selectedDevice: USBDeviceWrapper?
     @State private var anotherSelectedDevice: USBDeviceWrapper?
-    
+
     private func inheritanceStatus(for deviceId: String?) -> String {
-        if (deviceId == nil) { return String(localized: "no_info") }
-        
+        if deviceId == nil { return String(localized: "no_info") }
+
         let inheritsFrom = CSM.Heritage.devices.contains { $0.deviceId == deviceId }
-        let hasHeirs =  CSM.Heritage.devices.contains { $0.inheritsFrom == deviceId }
-        
+        let hasHeirs = CSM.Heritage.devices.contains { $0.inheritsFrom == deviceId }
+
         let st = String(localized: "status") + " "
 
         if inheritsFrom && hasHeirs {
@@ -53,7 +53,6 @@ struct HeritageView: View {
     }
 
     private var canConfirmInheritance: Bool {
-        
         let masterId: String
         let heirId: String
 
@@ -66,7 +65,7 @@ struct HeritageView: View {
         }
 
         if masterId == heirId { return false }
-        
+
         if let parent = CSM.Heritage[masterId]?.inheritsFrom,
            parent == heirId { return false }
 
@@ -83,7 +82,7 @@ struct HeritageView: View {
         defer { resetPageState() }
         CSM.Heritage.clear()
     }
-    
+
     private func resetPageState() {
         selectedDevice = nil
         anotherSelectedDevice = nil
@@ -91,7 +90,7 @@ struct HeritageView: View {
         role = .nothing
         step = .beginning
     }
-    
+
     private func confirmInheritance() {
         defer { resetPageState() }
         var uniqueIdMaster: String
@@ -112,12 +111,10 @@ struct HeritageView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            
-            let placeholder: String = String(localized: "device")
-            
+            let placeholder = String(localized: "device")
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
-
                     VStack(alignment: .leading, spacing: 6) {
                         Text(String(localized: "select_device"))
                             .font(.headline)
@@ -147,8 +144,8 @@ struct HeritageView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    
-                    if (manager.devices.isEmpty) {
+
+                    if manager.devices.isEmpty {
                         Text("no_devices_found")
                     }
 
@@ -211,19 +208,19 @@ struct HeritageView: View {
                                 Text("invalid_inheritance")
                                     .fontWeight(.bold)
                             }
-                            
+
                             Button("confirm_inheritance", action: confirmInheritance)
-                            .buttonStyle(.borderedProminent)
-                            .disabled(!canConfirmInheritance)
+                                .buttonStyle(.borderedProminent)
+                                .disabled(!canConfirmInheritance)
                         }
                     }
                 }
             }
 
             Spacer()
-            
+
             HStack {
-                Button() {
+                Button {
                     tryingToDeleteAllInheritances = true
                     step = .beginning
                 } label: {
@@ -232,7 +229,7 @@ struct HeritageView: View {
                 .disabled(tryingToDeleteAllInheritances)
 
                 if tryingToDeleteAllInheritances {
-                    Button() {
+                    Button {
                         tryingToDeleteAllInheritances = false
                     } label: {
                         Image(systemName: "x.circle")
@@ -241,10 +238,10 @@ struct HeritageView: View {
                     Button("confirm") { deleteAllInheritances() }
                         .buttonStyle(.borderedProminent)
                 }
-                
+
                 Spacer()
-                
-                if (!tryingToDeleteAllInheritances) {
+
+                if !tryingToDeleteAllInheritances {
                     Button(action: { currentWindow = .settings }) {
                         Label("back", systemImage: "arrow.uturn.backward")
                     }
@@ -252,6 +249,6 @@ struct HeritageView: View {
             }
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 600)
+        .frame(minWidth: WindowWidth.value, minHeight: 600)
     }
 }

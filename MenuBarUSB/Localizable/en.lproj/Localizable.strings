@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Shows a toolbar at the top of the list containing some useful options and a connected devices count.";
 "on_off" = "On/Off";
 "disable_all" = "Disable all";
+"window_size_tiny" = "Tiny";
+"window_size_normal" = "Default";
+"window_size_big" = "Big";
+"window_size_verybig" = "Very Big";
+"window_size_huge" = "Huge";
+"window_width" = "Window Width";
+"list_width" = "List Width";
+"hold_to_reset" = "(HOLD)";
+"switch_to_clock" = "Switch to clock";
+"switch_to_device_count" = "Switch to device count";
+"info_abbreviation" = "INFO";

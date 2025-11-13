@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Mostra una barra d’eines a la part superior de la llista amb opcions útils i el recompte de dispositius connectats.";
 "on_off" = "Activar/Desactivar";
 "disable_all" = "Desactivar-ho tot";
+"window_size_tiny" = "Minúscula";
+"window_size_normal" = "Per defecte";
+"window_size_big" = "Gran";
+"window_size_verybig" = "Molt gran";
+"window_size_huge" = "Enorme";
+"window_width" = "Amplada de finestra";
+"list_width" = "Amplada de llista";
+"hold_to_reset" = "(MANT.)";
+"switch_to_clock" = "Canvia a rellotge";
+"switch_to_device_count" = "Canvia a recompte";
+"info_abbreviation" = "INF.";

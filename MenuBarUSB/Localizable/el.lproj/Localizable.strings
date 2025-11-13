@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Εμφανίζει μια γραμμή εργαλείων στο επάνω μέρος της λίστας με χρήσιμες επιλογές και αριθμό συνδεδεμένων συσκευών.";
 "on_off" = "ON/OFF";
 "disable_all" = "Απενεργοποίηση όλων";
+"window_size_tiny" = "Μικρό";
+"window_size_normal" = "Προεπιλογή";
+"window_size_big" = "Μεγάλο";
+"window_size_verybig" = "Πολύ μεγάλο";
+"window_size_huge" = "Τεράστιο";
+"window_width" = "Πλάτος παραθύρου";
+"list_width" = "Πλάτος λίστας";
+"hold_to_reset" = "(ΚΡΑΤ.)";
+"switch_to_clock" = "Αλλαγή σε ρολόι";
+"switch_to_device_count" = "Αλλαγή σε πλήθος συσκευών";
+"info_abbreviation" = "ΠΛΗΡ.";

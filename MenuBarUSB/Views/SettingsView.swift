@@ -10,31 +10,30 @@ import ServiceManagement
 import SwiftUI
 
 struct SettingsView: View {
-    
     @Environment(\.openURL) var openURL
     @EnvironmentObject var manager: USBDeviceManager
-    
+
     @Binding var currentWindow: AppWindow
-    
+
     @State private var showMessage: Bool = false
     @State private var showRenameDevices: Bool = false
     @State private var showCamouflagedDevices: Bool = false
-    
+
     @State private var selectedDeviceToCamouflage: USBDeviceWrapper?
     @State private var selectedDeviceToRename: USBDeviceWrapper?
     @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
     @State private var activeRowID: UUID? = nil
-    
+
     @State private var tryingToResetSettings = false
     @State private var tryingToDeleteDeviceHistory = false
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
-    
+
     @AS(Key.settingsCategory) private var category: SettingsCategory = .system
-    
+
     @AS(Key.launchAtLogin) private var launchAtLogin = false
     @AS(Key.convertHexa) private var convertHexa = false
     @AS(Key.longList) private var longList = false
@@ -61,6 +60,7 @@ struct SettingsView: View {
     @AS(Key.restartButton) private var restartButton = false
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
     @AS(Key.profilerButton) private var profilerButton = false
+    @AS(Key.windowWidth) private var windowWidth: WindowWidth = .normal
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.showEthernet) private var showEthernet = false
@@ -130,6 +130,40 @@ struct SettingsView: View {
         "cat.fill",
         "dog.fill",
     ]
+
+    private func setWindowWidth(increase: Bool) {
+        let order: [WindowWidth] = [.tiny, .normal, .big, .veryBig, .huge]
+        guard let index = order.firstIndex(of: windowWidth) else { return }
+
+        let nextIndex = index + (increase ? 1 : -1)
+        if order.indices.contains(nextIndex) {
+            windowWidth = order[nextIndex]
+        }
+    }
+
+    private var windowWidthLabel: String {
+        switch windowWidth {
+        case .tiny:
+            return String(localized: "window_size_tiny")
+        case .normal:
+            return String(localized: "window_size_normal")
+        case .big:
+            return String(localized: "window_size_big")
+        case .veryBig:
+            return String(localized: "window_size_verybig")
+        case .huge:
+            return String(localized: "window_size_huge")
+        }
+    }
+
+    private func resetAppSettings() {
+        Utils.App.deleteStorageData()
+        tryingToResetSettings = false
+        Utils.System.playSound("Bottle")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            Utils.App.restart()
+        }
+    }
 
     func toggleLoginItem(enabled: Bool) {
         do {
@@ -265,7 +299,7 @@ struct SettingsView: View {
                 }
                 .contextMenu {
                     Button {
-                       manager.startEthernetMonitoring()
+                        manager.startEthernetMonitoring()
                         currentWindow = .devices
                     } label: {
                         Label("exit_settings_and_resume", systemImage: "arrow.uturn.backward")
@@ -286,7 +320,9 @@ struct SettingsView: View {
                     CategoryButton(category: .contextMenu, label: "context_menu_category", image: "settings_contextmenu", binding: $category, disabled: off)
                     CategoryButton(category: .ethernet, label: "ethernet_category", image: "settings_ethernet", binding: $category, disabled: off)
                     CategoryButton(category: .heritage, label: "heritage_category", image: "settings_heritage", binding: $category, disabled: off)
-                    CategoryButton(category: .others, label: "others_category", image: "settings_others", binding: $category, disabled: off)
+                    CategoryButton(category: .others, label: "others_category", image: "settings_others", binding: $category, disabled: off) {
+                        tryingToResetSettings = false
+                    }
                 }
                 .padding(.horizontal, 4)
                 .padding(.vertical, 8)
@@ -543,15 +579,15 @@ struct SettingsView: View {
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
-                    
-                        Button("delete_device_history") {
-                            tryingToDeleteDeviceHistory = true
-                        }
-                        .disabled(tryingToDeleteDeviceHistory || CSM.Stored.devices.isEmpty)
-                        .help("(\(CSM.Stored.devices.count))")
-                        .padding(.vertical, 5)
-                    
-                    if (tryingToDeleteDeviceHistory) {
+
+                    Button("delete_device_history") {
+                        tryingToDeleteDeviceHistory = true
+                    }
+                    .disabled(tryingToDeleteDeviceHistory || CSM.Stored.devices.isEmpty)
+                    .help("(\(CSM.Stored.devices.count))")
+                    .padding(.vertical, 5)
+
+                    if tryingToDeleteDeviceHistory {
                         HStack(spacing: 6) {
                             Text("are_you_sure")
                             Button("no") {
@@ -849,34 +885,28 @@ struct SettingsView: View {
                         }
                     )
 
-                    Button {
-                        tryingToResetSettings = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "folder.fill.badge.gearshape")
-                            Text("restore_default_settings")
+                    HStack {
+                        Text("window_width")
+                        Button {
+                            setWindowWidth(increase: false)
+                        } label: {
+                            Image(systemName: "minus")
+                                .frame(width: 14, height: 14)
                         }
-                    }
-                    .disabled(tryingToResetSettings)
-                    .padding(.vertical, 5)
+                        .disabled(windowWidth == .tiny)
 
-                    if tryingToResetSettings {
-                        HStack(spacing: 6) {
-                            Text("are_you_sure")
-                            Button("no") {
-                                tryingToResetSettings = false
-                            }
-                            Button("yes_confirm") {
-                                Utils.App.deleteStorageData()
-                                tryingToResetSettings = false
-                                Utils.System.playSound("Bottle")
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                    Utils.App.restart()
-                                }
-                            }
-                            .buttonStyle(.borderedProminent)
+                        Button {
+                            setWindowWidth(increase: true)
+                        } label: {
+                            Image(systemName: "plus")
+                                .frame(width: 14, height: 14)
                         }
+                        .disabled(windowWidth == .huge)
+
+                        Text(windowWidthLabel)
+                            .font(.footnote)
                     }
+                    .padding(.vertical, 7)
                 }
             }
 
@@ -894,6 +924,24 @@ struct SettingsView: View {
                 }
 
                 HStack {
+                    if category == .others {
+                        Button("restore_default_settings") {
+                            tryingToResetSettings = true
+                        }
+                        .simultaneousGesture(
+                            LongPressGesture(minimumDuration: 1.5)
+                                .onEnded { _ in
+                                    resetAppSettings()
+                                }
+                        )
+
+                        if tryingToResetSettings {
+                            Text("hold_to_reset")
+                                .font(.footnote)
+                                .foregroundStyle(.gray)
+                        }
+                    }
+
                     Spacer()
 
                     if !anyBottomOptionInUse {
@@ -1026,7 +1074,7 @@ struct SettingsView: View {
             }
         }
         .padding(10)
-        .frame(minWidth: 465, minHeight: 600)
+        .frame(minWidth: WindowWidth.value, minHeight: 600)
         .appBackground(reduceTransparency)
     }
 }

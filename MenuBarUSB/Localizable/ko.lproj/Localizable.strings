@@ -240,3 +240,14 @@
 "show_toolbar_description" = "목록 상단에 유용한 옵션과 연결된 장치 수를 포함한 도구 모음을 표시합니다.";
 "on_off" = "켜기/끄기";
 "disable_all" = "모두 비활성화";
+"window_size_tiny" = "작게";
+"window_size_normal" = "기본";
+"window_size_big" = "크게";
+"window_size_verybig" = "아주 크게";
+"window_size_huge" = "거대";
+"window_width" = "창 너비";
+"list_width" = "목록 너비";
+"hold_to_reset" = "(길게)";
+"switch_to_clock" = "시계로 전환";
+"switch_to_device_count" = "기기 수로 전환";
+"info_abbreviation" = "정보";

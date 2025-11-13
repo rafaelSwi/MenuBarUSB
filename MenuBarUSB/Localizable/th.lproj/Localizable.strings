@@ -240,3 +240,14 @@
 "show_toolbar_description" = "แสดงแถบเครื่องมือที่ด้านบนของรายการซึ่งมีตัวเลือกที่เป็นประโยชน์และจำนวนอุปกรณ์ที่เชื่อมต่อแล้ว.";
 "on_off" = "เปิด/ปิด";
 "disable_all" = "ปิดการใช้งานทั้งหมด";
+"window_size_tiny" = "เล็กมาก";
+"window_size_normal" = "ค่าเริ่มต้น";
+"window_size_big" = "ใหญ่";
+"window_size_verybig" = "ใหญ่มาก";
+"window_size_huge" = "มหึมา";
+"window_width" = "ความกว้างหน้าต่าง";
+"list_width" = "ความกว้างรายการ";
+"hold_to_reset" = "(กดค้าง)";
+"switch_to_clock" = "สลับเป็นนาฬิกา";
+"switch_to_device_count" = "สลับเป็นจำนวนอุปกรณ์";
+"info_abbreviation" = "ข้ล.";

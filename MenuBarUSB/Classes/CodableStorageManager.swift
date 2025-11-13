@@ -1,5 +1,5 @@
 //
-//  StoredDeviceManager.swift
+//  CodableStorageManager.swift
 //  MenuBarUSB
 //
 //  Created by Rafael Neuwirth Swierczynski on 11/10/25.
@@ -7,21 +7,19 @@
 
 import Foundation
 
-final class CodableStorageManager {
-    
-    final class Stored {
-        
+enum CodableStorageManager {
+    enum Stored {
         @CodableAppStorage(Key.storedDevices)
         static var items: [StoredDevice] = []
-        
+
         static var devices: [StoredDevice] {
             return items
         }
-        
+
         static subscript(_ uniqueId: String) -> StoredDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static func filteredDevices(_ connectedDevices: [USBDeviceWrapper]) -> [StoredDevice] {
             let filtered = items.filter { device in
                 let notContain = !connectedDevices.contains { $0.item.uniqueId == device.deviceId }
@@ -48,100 +46,95 @@ final class CodableStorageManager {
 
             return uniqueDevices
         }
-        
+
         static func add(_ d: USBDeviceWrapper) {
             items.removeAll { $0.deviceId == d.item.uniqueId }
             items.append(StoredDevice(deviceId: d.item.uniqueId, name: d.item.name))
         }
-        
+
         static func remove(withId id: String) {
             items.removeAll { $0.deviceId == id }
         }
-        
+
         static func clear() {
             items.removeAll(keepingCapacity: false)
         }
     }
-    
-    final class Renamed {
-        
+
+    enum Renamed {
         @CodableAppStorage(Key.renamedDevices)
         static var items: [RenamedDevice] = []
-        
+
         static var devices: [RenamedDevice] {
             return items
         }
-        
+
         static subscript(_ uniqueId: String) -> RenamedDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static func add(_ deviceId: String?, _ name: String) {
-            if (deviceId == nil) { return }
+            if deviceId == nil { return }
             items.removeAll { $0.deviceId == deviceId }
             items.append(RenamedDevice(deviceId: deviceId!, name: name))
         }
-        
+
         static func remove(withId id: String) {
             items.removeAll { $0.deviceId == id }
         }
-        
+
         static func clear() {
             items.removeAll(keepingCapacity: false)
         }
-        
     }
-    
-    final class Camouflaged {
-        
+
+    enum Camouflaged {
         @CodableAppStorage(Key.camouflagedDevices)
         static var items: [CamouflagedDevice] = []
-        
+
         static var devices: [CamouflagedDevice] {
             return items
         }
-        
+
         static subscript(_ uniqueId: String) -> CamouflagedDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static func add(withId id: String?) {
-            if (id == nil) { return }
+            if id == nil { return }
             items.removeAll { $0.deviceId == id }
             items.append(CamouflagedDevice(deviceId: id!))
         }
-        
+
         static func remove(withId id: String) {
             items.removeAll { $0.deviceId == id }
         }
-        
+
         static func clear() {
             items.removeAll(keepingCapacity: false)
         }
-        
     }
-    
-    final class Heritage {
-        
+
+    enum Heritage {
         @CodableAppStorage(Key.inheritedDevices)
         static var items: [HeritageDevice] = []
-        
+
         static var devices: [HeritageDevice] {
             return items
         }
-        
+
         static subscript(_ uniqueId: String) -> HeritageDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static func add(withId id: String?, inheritsFrom: String?) {
-            if (id == nil || inheritsFrom == nil) { return }
-            if (id == inheritsFrom) { return }
+            if id == nil || inheritsFrom == nil { return }
+            if id == inheritsFrom { return }
             items.removeAll { $0.deviceId == id }
             items.removeAll { $0.inheritsFrom == id }
             items.append(HeritageDevice(deviceId: id!, inheritsFrom: inheritsFrom!))
         }
-        
+
         static func remove(withId id: String) {
             items.removeAll { $0.deviceId == id }
 
@@ -155,13 +148,9 @@ final class CodableStorageManager {
 
             items.removeAll { $0.inheritsFrom == id }
         }
-        
+
         static func clear() {
             items.removeAll(keepingCapacity: false)
         }
-        
     }
-    
-    
-    
 }

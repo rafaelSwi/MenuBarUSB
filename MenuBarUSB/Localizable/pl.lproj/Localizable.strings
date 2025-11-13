@@ -240,3 +240,14 @@
 "show_toolbar_description" = "Wyświetla pasek narzędzi u góry listy z przydatnymi opcjami i liczbą podłączonych urządzeń.";
 "on_off" = "Włącz/Wyłącz";
 "disable_all" = "Wyłącz wszystko";
+"window_size_tiny" = "Małe";
+"window_size_normal" = "Domyślne";
+"window_size_big" = "Duże";
+"window_size_verybig" = "Bardzo duże";
+"window_size_huge" = "Ogromne";
+"window_width" = "Szerokość okna";
+"list_width" = "Szerokość listy";
+"hold_to_reset" = "(PRZYTRZ)";
+"switch_to_clock" = "Przełącz na zegar";
+"switch_to_device_count" = "Przełącz na liczbę";
+"info_abbreviation" = "INF.";

@@ -19,12 +19,12 @@ final class USBDeviceManager: ObservableObject {
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
     private var removedIterator: io_iterator_t = 0
-    
-     lazy var persistentEthernetStore: SCDynamicStore? = {
+
+    lazy var persistentEthernetStore: SCDynamicStore? = {
         var context = SCDynamicStoreContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
         return SCDynamicStoreCreate(nil, "EthernetStatus" as CFString, nil, &context)
     }()
-    
+
     @AS(Key.showNotifications) private var showNotifications = false
     @AS(Key.disableNotifCooldown) private var disableNotifCooldown = false
     @AS(Key.showEthernet) var showEthernet = false
@@ -113,9 +113,9 @@ final class USBDeviceManager: ObservableObject {
             }
         })
     }
-    
+
     func addDummy(amount: Int) {
-        for i in Range(0...amount) {
+        for i in Range(0 ... amount) {
             let newDevice = USBDevice(
                 name: "Dummy (\(i))",
                 vendor: "Dummy Vendor",
@@ -136,9 +136,8 @@ final class USBDeviceManager: ObservableObject {
     }
 
     private func isExternalStorageDevice(_ entry: io_registry_entry_t) -> Bool {
-        
-        return false; // TODO: NOT WORKING
-        
+        return false // TODO: NOT WORKING
+
         var parent: io_registry_entry_t = 0
         var result = false
 
@@ -197,7 +196,7 @@ final class USBDeviceManager: ObservableObject {
 
         while case let entry = IOIteratorNext(iterator), entry != 0 {
             if let dev = makeDevice(from: entry) {
-                if (storeDevices) {
+                if storeDevices {
                     CSM.Stored.add(dev)
                 }
                 result.append(dev)
@@ -291,7 +290,7 @@ final class USBDeviceManager: ObservableObject {
             usbVersionBCD: usbVersionBCD,
             isExternalStorage: isExternalStorageDevice(entry)
         ))
-        
+
         return wrapper
     }
 
@@ -380,8 +379,9 @@ final class USBDeviceManager: ObservableObject {
                 if service != 0 {
                     if let vendor = IORegistryEntryCreateCFProperty(service, kUSBVendorString as CFString, kCFAllocatorDefault, 0)?
                         .takeUnretainedValue() as? String,
-                       let product = IORegistryEntryCreateCFProperty(service, kUSBProductString as CFString, kCFAllocatorDefault, 0)?
-                        .takeUnretainedValue() as? String {
+                        let product = IORegistryEntryCreateCFProperty(service, kUSBProductString as CFString, kCFAllocatorDefault, 0)?
+                        .takeUnretainedValue() as? String
+                    {
                         deviceNames.append("\(vendor) \(product)")
                     }
                     IOObjectRelease(service)

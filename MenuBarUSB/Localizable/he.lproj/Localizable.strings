@@ -240,3 +240,14 @@
 "show_toolbar_description" = "מציג סרגל כלים בחלק העליון של הרשימה עם אפשרויות שימושיות ומספר המכשירים המחוברים.";
 "on_off" = "הפעל/כבה";
 "disable_all" = "השבת הכול";
+"window_size_tiny" = "זעיר";
+"window_size_normal" = "ברירת מחדל";
+"window_size_big" = "גדול";
+"window_size_verybig" = "גדול מאוד";
+"window_size_huge" = "ענק";
+"window_width" = "רוחב חלון";
+"list_width" = "רוחב רשימה";
+"hold_to_reset" = "(החזק)";
+"switch_to_clock" = "החלף לשעון";
+"switch_to_device_count" = "החלף למספר התקנים";
+"info_abbreviation" = "מידע";
