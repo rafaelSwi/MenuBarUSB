@@ -238,3 +238,5 @@
 "show_toolbar" = "Symbolleiste anzeigen";
 "hide_toolbar" = "Symbolleiste ausblenden";
 "show_toolbar_description" = "Zeigt oben in der Liste eine Symbolleiste mit nützlichen Optionen und der Anzahl der verbundenen Geräte an.";
+"on_off" = "Ein/Aus";
+"disable_all" = "Alles deaktivieren";

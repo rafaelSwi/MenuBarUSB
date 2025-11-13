@@ -238,3 +238,5 @@
 "show_toolbar" = "Araç çubuğunu göster";
 "hide_toolbar" = "Araç çubuğunu gizle";
 "show_toolbar_description" = "Listenin üst kısmında kullanışlı seçenekler ve bağlı cihaz sayısını içeren bir araç çubuğu gösterir.";
+"on_off" = "Aç/Kapat";
+"disable_all" = "Tümünü devre dışı bırak";

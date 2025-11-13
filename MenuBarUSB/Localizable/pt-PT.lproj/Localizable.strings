@@ -238,3 +238,5 @@
 "show_toolbar" = "Mostrar toolbar";
 "hide_toolbar" = "Ocultar toolbar";
 "show_toolbar_description" = "Mostra uma barra de ferramentas no topo da lista com opções úteis e o número de dispositivos ligados.";
+"on_off" = "ON/OFF";
+"disable_all" = "Desativar tudo";

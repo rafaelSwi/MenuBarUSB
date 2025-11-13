@@ -238,3 +238,5 @@
 "show_toolbar" = "ツールバーを表示";
 "hide_toolbar" = "ツールバーを非表示";
 "show_toolbar_description" = "リストの上部に便利なオプションと接続されたデバイス数を含むツールバーを表示します。";
+"on_off" = "オン/オフ";
+"disable_all" = "すべて無効にする";

@@ -238,3 +238,5 @@
 "show_toolbar" = "Show toolbar";
 "hide_toolbar" = "Hide toolbar";
 "show_toolbar_description" = "Shows a toolbar at the top of the list containing some useful options and a connected devices count.";
+"on_off" = "On/Off";
+"disable_all" = "Disable all";

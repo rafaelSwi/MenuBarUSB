@@ -238,3 +238,5 @@
 "show_toolbar" = "Vis værktøjslinje";
 "hide_toolbar" = "Skjul værktøjslinje";
 "show_toolbar_description" = "Viser en værktøjslinje øverst på listen med nyttige indstillinger og antal tilsluttede enheder.";
+"on_off" = "Tænd/Sluk";
+"disable_all" = "Deaktiver alt";

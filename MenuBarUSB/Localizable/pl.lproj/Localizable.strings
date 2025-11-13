@@ -238,3 +238,5 @@
 "show_toolbar" = "Pokaż pasek narzędzi";
 "hide_toolbar" = "Ukryj pasek narzędzi";
 "show_toolbar_description" = "Wyświetla pasek narzędzi u góry listy z przydatnymi opcjami i liczbą podłączonych urządzeń.";
+"on_off" = "Włącz/Wyłącz";
+"disable_all" = "Wyłącz wszystko";

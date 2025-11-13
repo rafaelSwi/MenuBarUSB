@@ -12,6 +12,7 @@ struct ContentView: View {
     @EnvironmentObject var manager: USBDeviceManager
     @Environment(\.openURL) var openURL
     
+    @State private var toolbarItemHelp: String = ""
     @State private var isHoveringDeviceId: String = ""
     @State private var isRenamingDeviceId: String = ""
     @State private var inputText: String = ""
@@ -139,6 +140,20 @@ struct ContentView: View {
 
         let multiply: CGFloat = increasedIndentationGap ? 36 : 16
         return CGFloat(level) * multiply
+    }
+    
+    private func disableToolbarValues() {
+        showNotifications = false
+        indexIndicator = false
+        hideTechInfo = false
+        mouseHoverInfo = false
+        longList = false
+        hideSecondaryInfo = false
+        storeDevices = false
+        storedIndicator = false
+        camouflagedIndicator = false
+        renamedIndicator = false
+        noTextButtons = false
     }
 
     private func goToSettings() {
@@ -348,12 +363,31 @@ struct ContentView: View {
                 .font(.system(size: 13))
                 .frame(width: 21, height: 21)
                 .padding(1.5)
-                .background(value.wrappedValue ? color.opacity(0.18) : .gray.opacity(0.18))
+                .background(value.wrappedValue ? color.opacity(0.14) : .gray.opacity(0.18))
                 .cornerRadius(2)
         }
         .buttonStyle(.borderless)
         .foregroundStyle(value.wrappedValue ? color : .gray)
         .help(help)
+        .contextMenu {
+            Label(help, systemImage: "questionmark.circle")
+            Button {
+                value.wrappedValue.toggle()
+            } label: {
+                Label("on_off", systemImage: "power")
+            }
+            Button {
+                disableToolbarValues()
+            } label: {
+                Label("disable_all", systemImage: "bolt.slash")
+            }
+            Divider()
+            Button {
+                listToolBar = false
+            } label: {
+                Label("hide_toolbar", systemImage: "menubar.arrow.up.rectangle")
+            }
+        }
     }
     
     private var isTrulyEmpty: Bool {
@@ -379,15 +413,21 @@ struct ContentView: View {
                         toolbarListItemView($showNotifications, "bell.fill", "show_notification", .orange)
                         toolbarListItemView($indexIndicator, "list.number", "index_indicator", .blue)
                         toolbarListItemView($hideTechInfo, "arrow.down.and.line.horizontal.and.arrow.up", "hide_technical_info", .cyan)
-                        toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info", .purple)
-                        toolbarListItemView($disableInheritanceLayout, "decrease.indent", "disable_inheritance_layout", .red)
+                        if hideTechInfo {
+                            toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info", .purple)
+                        }
+                        toolbarListItemView($longList, "arrow.up.and.down.text.horizontal", "long_list", .indigo)
+                        toolbarListItemView($hideSecondaryInfo, "decrease.indent", "hide_secondary_info", .red)
                         toolbarListItemView($storeDevices, "arrow.counterclockwise", "show_previously_connected", .green)
                         toolbarListItemView($storedIndicator, "minus.arrow.trianglehead.counterclockwise", "stored_indicator", .mint)
                         toolbarListItemView($camouflagedIndicator, "eye.fill", "hidden_indicator", .mint)
                         toolbarListItemView($renamedIndicator, "character.cursor.ibeam", "renamed_indicator", .mint)
-                        toolbarListItemView($showScrollBar, "arrow.up.and.down.text.horizontal", "show_scrollbar", .indigo)
                         toolbarListItemView($noTextButtons, "ellipsis.circle", "no_text_buttons", .teal)
-                        Button(action: Utils.System.openSysInfo, label: { Image(systemName: "info.circle") })
+                        Button(action: Utils.System.openSysInfo, label: {
+                            Text("INFO")
+                                .fontWeight(.bold)
+                                .font(.system(size: 8))
+                        })
                             .buttonStyle(.borderless)
                             .opacity(0.6)
                         Spacer()
@@ -400,13 +440,6 @@ struct ContentView: View {
                     }
                     .padding(.horizontal, 3)
                     .padding(.top, 1)
-                    .contextMenu {
-                        Button {
-                            listToolBar = false
-                        } label: {
-                            Label("hide_toolbar", systemImage: "menubar.arrow.up.rectangle")
-                        }
-                    }
                 }
                 if isTrulyEmpty {
                     ScrollView {
@@ -865,6 +898,7 @@ struct ContentView: View {
                     } label: {
                         Label(listToolBar ? "hide_toolbar" : "show_toolbar", systemImage: "menubar.arrow.up.rectangle")
                     }
+                    Divider()
                     Button {
                         Utils.System.openSysInfo()
                     } label: {

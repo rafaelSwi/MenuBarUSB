@@ -238,3 +238,5 @@
 "show_toolbar" = "显示工具栏";
 "hide_toolbar" = "隐藏工具栏";
 "show_toolbar_description" = "在列表顶部显示一个包含实用选项和已连接设备数量的工具栏。";
+"on_off" = "开/关";
+"disable_all" = "禁用全部";

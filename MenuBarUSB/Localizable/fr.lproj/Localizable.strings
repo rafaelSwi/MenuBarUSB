@@ -238,3 +238,5 @@
 "show_toolbar" = "Afficher la barre d’outils";
 "hide_toolbar" = "Masquer la barre d’outils";
 "show_toolbar_description" = "Affiche une barre d’outils en haut de la liste avec des options utiles et le nombre d’appareils connectés.";
+"on_off" = "Activer/Désactiver";
+"disable_all" = "Désactiver tout";

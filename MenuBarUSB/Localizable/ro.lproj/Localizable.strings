@@ -245,3 +245,5 @@
 "show_toolbar" = "Afișează bara de instrumente";
 "hide_toolbar" = "Ascunde bara de instrumente";
 "show_toolbar_description" = "Afișează o bară de instrumente în partea de sus a listei cu opțiuni utile și numărul de dispozitive conectate.";
+"on_off" = "Pornește/Oprește";
+"disable_all" = "Dezactivează tot";

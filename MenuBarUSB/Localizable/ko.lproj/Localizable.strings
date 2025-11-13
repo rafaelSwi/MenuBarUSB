@@ -238,3 +238,5 @@
 "show_toolbar" = "도구 모음 표시";
 "hide_toolbar" = "도구 모음 숨기기";
 "show_toolbar_description" = "목록 상단에 유용한 옵션과 연결된 장치 수를 포함한 도구 모음을 표시합니다.";
+"on_off" = "켜기/끄기";
+"disable_all" = "모두 비활성화";

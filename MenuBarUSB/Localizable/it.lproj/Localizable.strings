@@ -238,3 +238,5 @@
 "show_toolbar" = "Mostra barra degli strumenti";
 "hide_toolbar" = "Nascondi barra degli strumenti";
 "show_toolbar_description" = "Mostra una barra degli strumenti in cima all’elenco con opzioni utili e il conteggio dei dispositivi connessi.";
+"on_off" = "Attiva/Disattiva";
+"disable_all" = "Disattiva tutto";

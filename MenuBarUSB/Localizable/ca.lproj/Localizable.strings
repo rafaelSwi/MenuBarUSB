@@ -238,3 +238,5 @@
 "show_toolbar" = "Mostra la barra d’eines";
 "hide_toolbar" = "Amaga la barra d’eines";
 "show_toolbar_description" = "Mostra una barra d’eines a la part superior de la llista amb opcions útils i el recompte de dispositius connectats.";
+"on_off" = "Activar/Desactivar";
+"disable_all" = "Desactivar-ho tot";

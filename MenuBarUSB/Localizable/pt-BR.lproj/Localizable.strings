@@ -238,3 +238,5 @@
 "show_toolbar" = "Mostrar barra de acesso rápido";
 "hide_toolbar" = "Ocultar barra de acesso rápido";
 "show_toolbar_description" = "Exibe uma barra de ferramentas no topo da lista com opções úteis e a contagem de dispositivos conectados.";
+"on_off" = "Ativar/Desativar";
+"disable_all" = "Desativar todos";
