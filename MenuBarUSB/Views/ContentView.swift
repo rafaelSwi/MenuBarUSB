@@ -39,7 +39,7 @@ struct ContentView: View {
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.showEthernet) private var showEthernet = false
-    @AS(Key.toolbarClock) private var toolbarClock = false
+    @AS(Key.toolbarClockOff) private var toolbarClockOff = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
     @AS(Key.showNotifications) private var showNotifications = false
     @AS(Key.trafficButton) private var trafficButton = false
@@ -124,8 +124,11 @@ struct ContentView: View {
     }
 
     private func cycleWindowWidth() {
-        let order: [WindowWidth] = [.tiny, .normal, .big, .veryBig, .huge]
-        guard let index = order.firstIndex(of: windowWidth) else { return }
+        let order: [WindowWidth] = [.normal, .big, .veryBig, .huge]
+        guard let index = order.firstIndex(of: windowWidth) else {
+            windowWidth = .normal
+            return
+        }
         let nextIndex = (index + 1) % order.count
         windowWidth = order[nextIndex]
     }
@@ -437,7 +440,7 @@ struct ContentView: View {
                             toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info", .purple)
                         }
 
-                        toolbarListItemView($isChangingWidth, "chevron.left.chevron.right", "window_width", .brown) {
+                        toolbarListItemView($isChangingWidth, "arrow.left.and.right", "window_width", .brown) {
                             cycleWindowWidth()
                             isChangingWidth = windowWidth != .normal
                         }
@@ -467,9 +470,7 @@ struct ContentView: View {
                         .opacity(0.6)
                         Spacer()
                         Group {
-                            if toolbarClock {
-                                BlinkingClock()
-                            } else {
+                            if toolbarClockOff {
                                 Group {
                                     Image(systemName: macBarIcon)
                                     Text(NumberConverter(sortedDevices.count).converted)
@@ -477,11 +478,13 @@ struct ContentView: View {
                                 }
                                 .fontWeight(.bold)
                                 .foregroundStyle(.gray)
+                            } else {
+                                BlinkingClock()
                             }
                         }
                         .contextMenu {
-                            Button(toolbarClock ? "switch_to_device_count" : "switch_to_clock") {
-                                toolbarClock.toggle()
+                            Button(toolbarClockOff ? "switch_to_clock" : "switch_to_device_count") {
+                                toolbarClockOff.toggle()
                             }
                         }
                     }

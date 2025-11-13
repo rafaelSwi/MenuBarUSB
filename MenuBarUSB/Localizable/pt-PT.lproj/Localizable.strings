@@ -243,11 +243,11 @@
 "window_size_tiny" = "Minúsculo";
 "window_size_normal" = "Padrão";
 "window_size_big" = "Grande";
-"window_size_verybig" = "Muito grande";
-"window_size_huge" = "Enorme";
+"window_size_verybig" = "Enorme";
+"window_size_huge" = "Máximo";
 "window_width" = "Largura da janela";
 "list_width" = "Largura da lista";
 "hold_to_reset" = "(MANTER)";
 "switch_to_clock" = "Mudar para relógio";
 "switch_to_device_count" = "Mudar para contagem";
-"info_abbreviation" = "INF.";
+"info_abbreviation" = "INFO";

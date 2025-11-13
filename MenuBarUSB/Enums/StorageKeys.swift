@@ -42,7 +42,7 @@ enum StorageKeys {
     static let showEthernet = "showEthernet"
     static let internetMonitoring = "internetMonitoring"
     static let windowWidth = "windowWidth"
-    static let toolbarClock = "toolbarClock"
+    static let toolbarClockOff = "toolbarClockOff"
     static let disableHaptic = "disableHaptic"
     static let trafficButton = "trafficButton"
     static let disableTrafficButtonLabel = "disableTrafficButtonLabel"
