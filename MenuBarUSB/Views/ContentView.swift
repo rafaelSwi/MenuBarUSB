@@ -377,11 +377,8 @@ struct ContentView: View {
             }
         } label: {
             Image(systemName: icon)
-                .font(.system(size: 13))
-                .frame(width: 21, height: 21)
-                .padding(1.5)
+                .toolbarItem()
                 .background(value.wrappedValue ? color.opacity(0.14) : .gray.opacity(0.18))
-                .cornerRadius(2)
         }
         .buttonStyle(.borderless)
         .foregroundStyle(value.wrappedValue ? color : .gray)
@@ -424,18 +421,26 @@ struct ContentView: View {
         return false
     }
 
+    private var showToolbar: Bool {
+        return listToolBar && !isTrulyEmpty
+    }
+
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 6) {
-                if listToolBar {
+                // TOOLBAR
+                if showToolbar {
                     HStack {
                         toolbarListItemView($showNotifications, "bell.fill", "show_notification", .orange) {
                             if showNotifications {
                                 Utils.System.requestNotificationPermission()
                             }
                         }
+
                         toolbarListItemView($indexIndicator, "list.number", "index_indicator", .blue)
+
                         toolbarListItemView($hideTechInfo, "arrow.down.and.line.horizontal.and.arrow.up", "hide_technical_info", .cyan)
+
                         if hideTechInfo {
                             toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info", .purple)
                         }
@@ -453,13 +458,11 @@ struct ContentView: View {
                         toolbarListItemView($storeDevices, "arrow.counterclockwise", "show_previously_connected", .green)
                         toolbarListItemView($camouflagedIndicator, "eye.fill", "hidden_indicator", .mint)
                         toolbarListItemView($noTextButtons, "ellipsis.circle", "no_text_buttons", .teal)
+
                         Button(action: Utils.System.openSysInfo, label: {
                             if noTextButtons {
                                 Image(systemName: "info.circle")
-                                    .font(.system(size: 13))
-                                    .frame(width: 21, height: 21)
-                                    .padding(1.5)
-                                    .cornerRadius(2)
+                                    .toolbarItem()
                             } else {
                                 Text("info_abbreviation")
                                     .fontWeight(.bold)
@@ -468,7 +471,9 @@ struct ContentView: View {
                         })
                         .buttonStyle(.borderless)
                         .opacity(0.6)
+
                         Spacer()
+
                         Group {
                             if toolbarClockOff {
                                 Group {
@@ -491,6 +496,8 @@ struct ContentView: View {
                     .padding(.horizontal, 3)
                     .padding(.top, 1)
                 }
+
+                // DEVICE LIST
                 if isTrulyEmpty {
                     ScrollView {
                         Text("no_devices_found")
@@ -828,7 +835,8 @@ struct ContentView: View {
             }
             .padding(3)
             .frame(width: WindowWidth.value, height: windowHeight)
-
+            
+            // BOTTOM
             HStack {
                 if camouflagedIndicator {
                     Group {
@@ -942,6 +950,7 @@ struct ContentView: View {
                     } label: {
                         Label(listToolBar ? "hide_toolbar" : "show_toolbar", systemImage: "menubar.arrow.up.rectangle")
                     }
+                    .disabled(isTrulyEmpty)
                     Divider()
                     Button {
                         Utils.System.openSysInfo()

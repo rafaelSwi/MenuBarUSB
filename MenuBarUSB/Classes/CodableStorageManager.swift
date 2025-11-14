@@ -7,8 +7,40 @@
 
 import Foundation
 
-enum CodableStorageManager {
-    enum Stored {
+final class CodableStorageManager {
+    
+    final class Sound {
+        @CodableAppStorage(Key.customHardwareSounds)
+        static var items: [HardwareSound] = []
+
+        static var all: [HardwareSound] {
+            return items
+        }
+
+        static subscript(_ key: String) -> HardwareSound? {
+            return items.first(where: { $0.uniqueId == key })
+        }
+
+        static func add(_ custom: HardwareSound) {
+            items.removeAll { $0.uniqueId == custom.uniqueId }
+            items.append(custom)
+        }
+
+        static func remove(withId id: String) {
+            let item = items.first(where: { $0.uniqueId == id })
+            if item != nil {
+                Utils.App.deleteFromAppStorage(item!.connect)
+                Utils.App.deleteFromAppStorage(item!.disconnect ?? "")
+            }
+            items.removeAll { $0.uniqueId == id }
+        }
+
+        static func clear() {
+            items.removeAll(keepingCapacity: false)
+        }
+    }
+    
+    final class Stored {
         @CodableAppStorage(Key.storedDevices)
         static var items: [StoredDevice] = []
 
@@ -61,7 +93,7 @@ enum CodableStorageManager {
         }
     }
 
-    enum Renamed {
+    final class Renamed {
         @CodableAppStorage(Key.renamedDevices)
         static var items: [RenamedDevice] = []
 
@@ -88,7 +120,7 @@ enum CodableStorageManager {
         }
     }
 
-    enum Camouflaged {
+    final class Camouflaged {
         @CodableAppStorage(Key.camouflagedDevices)
         static var items: [CamouflagedDevice] = []
 
@@ -115,7 +147,7 @@ enum CodableStorageManager {
         }
     }
 
-    enum Heritage {
+    final class Heritage {
         @CodableAppStorage(Key.inheritedDevices)
         static var items: [HeritageDevice] = []
 

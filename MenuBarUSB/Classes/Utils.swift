@@ -34,9 +34,33 @@ enum Utils {
             performer.perform(.generic, performanceTime: .now)
         }
 
-        static func playSound(_ sound: String) {
-            if let sound = NSSound(named: NSSound.Name(sound)) {
-                sound.play()
+        static func playSound(_ sound: String?, limit: TimeInterval = 8) {
+            guard let sound = sound else { return }
+            
+            var audio: NSSound? = nil
+            
+            if let systemSound = NSSound(named: NSSound.Name(sound)) {
+                audio = systemSound
+            }
+            else if let url = Bundle.main.url(forResource: sound, withExtension: "mp3"),
+                    let mp3Sound = NSSound(contentsOf: url, byReference: false) {
+                audio = mp3Sound
+            }
+            else {
+                let fileURL = URL(fileURLWithPath: sound)
+                if FileManager.default.fileExists(atPath: fileURL.path),
+                   let fileSound = NSSound(contentsOf: fileURL, byReference: true) {
+                    audio = fileSound
+                }
+            }
+            
+            guard let audio else { return }
+
+            audio.play()
+            let stopTime = min(limit, audio.duration)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + stopTime) {
+                audio.stop()
             }
         }
 
@@ -106,6 +130,48 @@ enum Utils {
                 if a > b { return false }
             }
             return v1Components.count < v2Components.count
+        }
+        
+        static func deleteFromAppStorage(_ pathOrFilename: String) {
+            let fileManager = FileManager.default
+            let inputURL = URL(fileURLWithPath: pathOrFilename)
+
+            if inputURL.path.hasPrefix("/") {
+                if fileManager.fileExists(atPath: inputURL.path) {
+                    do {
+                        try fileManager.removeItem(at: inputURL)
+                        print("File removed (absolute path): \(inputURL.path)")
+                    } catch {
+                        print("Error removing absolute file: \(error)")
+                    }
+                } else {
+                    print("Absolute file not found: \(inputURL.path)")
+                }
+                return
+            }
+
+            guard let appSupport = try? fileManager.url(
+                for: .applicationSupportDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: false
+            ) else {
+                print("Could not access Application Support directory.")
+                return
+            }
+
+            let fileURL = appSupport.appendingPathComponent(pathOrFilename)
+
+            if fileManager.fileExists(atPath: fileURL.path) {
+                do {
+                    try fileManager.removeItem(at: fileURL)
+                    print("File removed (app storage): \(fileURL.path)")
+                } catch {
+                    print("Error removing file from app storage: \(error)")
+                }
+            } else {
+                print("File not found in app storage: \(fileURL.path)")
+            }
         }
 
         static func deleteStorageData() {

@@ -27,6 +27,8 @@ final class USBDeviceManager: ObservableObject {
 
     @AS(Key.showNotifications) private var showNotifications = false
     @AS(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AS(Key.playHardwareSound) private var playHardwareSound: Bool = false
+    @AS(Key.hardwareSound) private var hardwareSound: String = ""
     @AS(Key.showEthernet) var showEthernet = false
     @AS(Key.internetMonitoring) var internetMonitoring = false
     @AS(Key.storeDevices) private var storeDevices = false
@@ -352,6 +354,9 @@ final class USBDeviceManager: ObservableObject {
 
             DispatchQueue.main.async {
                 mySelf.refresh()
+                if mySelf.playHardwareSound {
+                    Utils.System.playSound(HardwareSound[mySelf.hardwareSound]?.connect)
+                }
                 if mySelf.showNotifications, mySelf.canSendNotification() {
                     let deviceList = deviceNames.isEmpty ? "" : "\(deviceNames.joined(separator: ", ").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))"
                     if deviceList == "" {
@@ -359,6 +364,7 @@ final class USBDeviceManager: ObservableObject {
                             title: String(localized: "usb_detected"),
                             body: String(localized: "usb_detected_info")
                         )
+                        
                     } else {
                         Utils.System.sendNotification(
                             title: String(localized: "usb_detected"),
@@ -391,6 +397,10 @@ final class USBDeviceManager: ObservableObject {
             DispatchQueue.main.async {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     mySelf.refresh()
+                }
+                
+                if mySelf.playHardwareSound {
+                    Utils.System.playSound(HardwareSound[mySelf.hardwareSound]?.disconnect)
                 }
 
                 if mySelf.showNotifications, mySelf.canSendNotification() {

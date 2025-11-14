@@ -46,6 +46,8 @@ struct LegacySettingsView: View {
     @AS(Key.newVersionNotification) private var newVersionNotification = false
     @AS(Key.reduceTransparency) private var reduceTransparency = false
     @AS(Key.disableNotifCooldown) private var disableNotifCooldown = false
+    @AS(Key.hardwareSound) private var hardwareSound: String = ""
+    @AS(Key.playHardwareSound) private var playHardwareSound: Bool = false
     @AS(Key.disableHaptic) private var disableHaptic = false
     @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.showEthernet) private var showEthernet = false
@@ -325,6 +327,46 @@ struct LegacySettingsView: View {
                             disabled: showNotifications == false,
                             onToggle: { _ in }
                         )
+                        ToggleRow(
+                            label: String(localized: "play_hardware_sound"),
+                            description: String(localized: "play_hardware_sound_description"),
+                            binding: $playHardwareSound,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        HStack {
+                            Button {
+                                hardwareSound = ""
+                                playHardwareSound = false
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                            .disabled(hardwareSound.isEmpty)
+                            Menu {
+                                ForEach(HardwareSound.all, id: \.uniqueId) { sound in
+                                    Button(LocalizedStringKey(sound.titleKey)) {
+                                        hardwareSound = sound.uniqueId
+                                    }
+                                }
+                            } label: {
+                                let sound = HardwareSound[hardwareSound]
+                                let title = LocalizedStringKey(sound?.titleKey ?? "none_default")
+                                Text(title)
+                            }
+                            if hardwareSound != "" {
+                                Button {
+                                    let sound = HardwareSound[hardwareSound]
+                                    Utils.System.playSound(sound?.connect)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                        Utils.System.playSound(sound?.disconnect)
+                                    }
+                                } label: {
+                                    Image(systemName: "play")
+                                }
+                            }
+                        }
+                        .disabled(!playHardwareSound)
                     }
 
                     if showInterfaceOptions {
