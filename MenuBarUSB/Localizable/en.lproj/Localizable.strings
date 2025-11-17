@@ -251,11 +251,11 @@
 "switch_to_clock" = "Switch to clock";
 "switch_to_device_count" = "Switch to device count";
 "info_abbreviation" = "INFO";
-"play_hardware_sound" = "Tocar efeito sonoro de conexão";
+"play_hardware_sound" = "Trigger custom hardware audio feedback";
 "play_hardware_sound_description" = "Whenever you connect or disconnect a device, a sound will play, and this setting works independently of macOS notifications. If device notifications are enabled, you’ll need to manually disable the macOS notification sound; otherwise, both sounds will play at the same time.";
-"hardware_sound" = "Efeito sonoro de conexão";
-"generic_man" = "Generic Guy (english)";
-"generic_woman" = "Generic Woman (english)";
+"hardware_sound" = "Custom hardware audio feedback";
+"generic_man" = "Male voice";
+"generic_woman" = "Female voice";
 "none_default" = "None (default)";
 "win_modern" = "Windows (8 - 11)";
 "win_old" = "Windows (Vista, 7)";
