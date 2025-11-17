@@ -266,3 +266,10 @@
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "डकैती";
+"select_file" = "फ़ाइल चुनें";
+"new_set" = "नया सेट";
+"title" = "शीर्षक";
+"connected_audio_file" = ".mp3 फ़ाइल (कनेक्टेड)";
+"disconnected_audio_file" = ".mp3 फ़ाइल (डिस्कनेक्टेड)";
+"create" = "बनाएँ";
+"delete" = "हटाएँ";

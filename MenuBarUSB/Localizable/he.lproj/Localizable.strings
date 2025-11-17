@@ -266,3 +266,10 @@
 "linux_ubuntu" = "לינוקס Ubuntu";
 "linux_mint" = "לינוקס Mint";
 "heist" = "שוד";
+"select_file" = "בחר קובץ";
+"new_set" = "סט חדש";
+"title" = "כותרת";
+"connected_audio_file" = "קובץ ‎.mp3 (מחובר)";
+"disconnected_audio_file" = "קובץ ‎.mp3 (מנותק)";
+"create" = "צור";
+"delete" = "מחק";

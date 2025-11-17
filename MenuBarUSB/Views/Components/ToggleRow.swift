@@ -107,7 +107,7 @@ struct ToggleRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Toggle(label, isOn: $binding)
+                Toggle(label.localized, isOn: $binding)
                     .onChange(of: binding) { newValue in
                         onToggle(newValue)
                         if !newValue && activeRowID == id {
@@ -161,7 +161,7 @@ struct ToggleRow: View {
             }
 
             if activeRowID == id && showDescription {
-                Text(description)
+                Text(description.localized)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

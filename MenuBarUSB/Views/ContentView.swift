@@ -229,8 +229,8 @@ struct ContentView: View {
     }
 
     private func copyTextLabelView(_ text: String) -> some View {
-        let copy = String(localized: "copy")
-        let item = String(localized: "\(text)")
+        let copy = "copy".localized
+        let item = "\(text)".localized
         let label = "\(copy): \(item)"
         return Label(label, systemImage: "square.on.square")
     }
@@ -241,7 +241,7 @@ struct ContentView: View {
         if !device.name.isEmpty {
             parts.append(device.name)
         } else {
-            parts.append(String(localized: "usb_device"))
+            parts.append("usb_device".localized)
         }
 
         if let vendor = device.vendor, !vendor.isEmpty {
@@ -254,21 +254,21 @@ struct ContentView: View {
 
         if let usbVer = device.usbVersionBCD {
             if let usbVersion = Utils.USB.usbVersionLabel(from: usbVer, convertHexa: convertHexa) {
-                parts.append("\(String(localized: "usb_version")) \(usbVersion)")
+                parts.append("\("usb_version".localized) \(usbVersion)")
             } else {
-                parts.append("\(String(localized: "usb_version")) 0x\(String(format: "%04X", usbVer))")
+                parts.append("\("usb_version".localized) 0x\(String(format: "%04X", usbVer))")
             }
         }
 
         if let serial = device.serialNumber, !serial.isEmpty {
-            parts.append("\(String(localized: "serial_number")) \(serial)")
+            parts.append("\("serial_number".localized) \(serial)")
         }
 
         if let portMax = device.portMaxSpeedMbps {
             let portStr = portMax >= 1000
                 ? String(format: "%.1f Gbps", Double(portMax) / 1000.0)
                 : "\(portMax) Mbps"
-            parts.append("\(String(localized: "port_max")) \(portStr)")
+            parts.append("\("port_max".localized) \(portStr)")
         }
 
         return parts.joined(separator: "\n")
@@ -322,7 +322,7 @@ struct ContentView: View {
 
     private func deviceTitleView(_ name: String?, deviceId: String) -> some View {
         let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
-        let baseName = renamed?.name ?? name ?? String(localized: "usb_device")
+        let baseName = renamed?.name ?? name ?? "usb_device".localized
         let title = (renamed != nil && renamedIndicator) ? "∙ \(baseName)" : baseName
 
         return Text(title)
@@ -335,7 +335,7 @@ struct ContentView: View {
         return HStack {
             CustomTextField(
                 text: $inputText,
-                placeholder: String(localized: "insert_new_name"),
+                placeholder: "insert_new_name",
                 maxLength: 30,
                 isFocused: $textFieldFocused
             )
@@ -566,7 +566,7 @@ struct ContentView: View {
                                         HStack {
                                             if let usbVer = device.item.usbVersionBCD {
                                                 let usbVersion: String? = Utils.USB.usbVersionLabel(from: usbVer, convertHexa: convertHexa)
-                                                Text("\(String(localized: "usb_version")) \(usbVersion ?? String(format: "0x%04X", usbVer))")
+                                                Text("\("usb_version".localized) \(usbVersion ?? String(format: "0x%04X", usbVer))")
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                                     .lineLimit(1)
@@ -576,7 +576,7 @@ struct ContentView: View {
 
                                             if showSecondaryInfo(for: device.item) {
                                                 if let serial = device.item.serialNumber, !serial.isEmpty {
-                                                    Text("\(String(localized: "serial_number")) \(serial)")
+                                                    Text("\("serial_number".localized) \(serial)")
                                                         .font(.system(size: 9))
                                                         .foregroundStyle(.secondary)
                                                         .lineLimit(1)
@@ -587,7 +587,7 @@ struct ContentView: View {
 
                                         if showPortMax {
                                             if let portMax = device.item.portMaxSpeedMbps {
-                                                Text("\(String(localized: "port_max")) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax) / 1000.0) : "\(portMax) Mbps")")
+                                                Text("\("port_max".localized) \(portMax >= 1000 ? String(format: "%.1f Gbps", Double(portMax) / 1000.0) : "\(portMax) Mbps")")
                                                     .font(.system(size: 9))
                                                     .foregroundStyle(.secondary)
                                                     .padding(.leading, indent)

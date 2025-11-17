@@ -18,7 +18,7 @@ struct CustomTextField: NSViewRepresentable {
         let container = NSView()
 
         let textField = NSTextField(string: text)
-        textField.placeholderString = placeholder
+        textField.placeholderString = placeholder.localized
         textField.delegate = context.coordinator
         textField.focusRingType = .default
         textField.translatesAutoresizingMaskIntoConstraints = false

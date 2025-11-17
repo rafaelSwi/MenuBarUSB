@@ -266,3 +266,10 @@
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Пограбування";
+"select_file" = "Вибрати файл";
+"new_set" = "Новий набір";
+"title" = "Назва";
+"connected_audio_file" = "Файл .mp3 (підключено)";
+"disconnected_audio_file" = "Файл .mp3 (відключено)";
+"create" = "Створити";
+"delete" = "Видалити";

@@ -99,7 +99,7 @@ struct DonateView: View {
                     }
 
                 Button(action: { copyToClipboard(currentAddress) }) {
-                    let copyText = String(localized: "copy")
+                    let copyText = "copy".localized
                     let coin = isBitcoin ? "BTC" : "LTC"
                     Label("\(copyText) (\(coin))", systemImage: "square.on.square")
                 }

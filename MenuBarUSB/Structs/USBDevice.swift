@@ -26,15 +26,15 @@ struct USBDevice: ~Copyable {
 
     var speedDescription: String {
         guard let devMbps = speedMbps else {
-            return String(localized: "unknown_speed")
+            return "unknown_speed".localized
         }
         var parts: [String] = [Utils.USB.speedTierLabel(for: devMbps)]
 
         if let port = portMaxSpeedMbps {
             if devMbps < port {
-                parts.append("— \(String(localized: "supports_up_to")) \(Utils.USB.prettyMbps(port))")
+                parts.append("— \("supports_up_to".localized) \(Utils.USB.prettyMbps(port))")
             } else {
-                parts.append("— \(String(localized: "supports")) \(Utils.USB.prettyMbps(port))")
+                parts.append("— \("supports".localized) \(Utils.USB.prettyMbps(port))")
             }
         }
         return parts.joined(separator: " ")

@@ -216,12 +216,12 @@ enum Utils {
                 let versionString = minor == 0 ? "\(major)" : "\(major).\(minor)"
                 if convertHexa {
                     return String(
-                        format: "USB %@ (\(String(localized: "unknown")))",
+                        format: "USB %@ (\("unknown".localized))",
                         versionString
                     )
                 } else {
                     return String(
-                        format: "\(String(localized: "unknown")) (0x%04X)",
+                        format: "\("unknown".localized) (0x%04X)",
                         bcd
                     )
                 }
@@ -230,9 +230,9 @@ enum Utils {
 
         static func speedTierLabel(for mbps: Int) -> String {
             switch mbps {
-            case 1, 2: return "USB 1.0 \(String(localized: "low_speed")) (1.5 Mbps)"
-            case 12: return "USB 1.1 \(String(localized: "full_speed")) (12 Mbps)"
-            case 480: return "USB 2.0 \(String(localized: "high_speed")) (480 Mbps)"
+            case 1, 2: return "USB 1.0 \("low_speed".localized) (1.5 Mbps)"
+            case 12: return "USB 1.1 \("full_speed".localized) (12 Mbps)"
+            case 480: return "USB 2.0 \("high_speed".localized) (480 Mbps)"
             case 5000: return "USB 3.0 / 3.1 Gen1 / 3.2 Gen1x1 (5 Gbps)"
             case 10000: return "USB 3.1 Gen2 / 3.2 Gen2x1 (10 Gbps)"
             case 20000: return "USB 3.2 Gen2x2 / USB4 Gen2x2 (20 Gbps)"

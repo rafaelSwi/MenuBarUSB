@@ -361,14 +361,14 @@ final class USBDeviceManager: ObservableObject {
                     let deviceList = deviceNames.isEmpty ? "" : "\(deviceNames.joined(separator: ", ").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))"
                     if deviceList == "" {
                         Utils.System.sendNotification(
-                            title: String(localized: "usb_detected"),
-                            body: String(localized: "usb_detected_info")
+                            title: "usb_detected".localized,
+                            body: "usb_detected_info".localized
                         )
                         
                     } else {
                         Utils.System.sendNotification(
-                            title: String(localized: "usb_detected"),
-                            body: String(format: NSLocalizedString("device_connected", comment: "DEVICE CONNECTED MESSAGE"), "\(deviceList)")
+                            title: "usb_detected".localized,
+                            body: String(format: "device_connected".localized, deviceList)
                         )
                     }
                 }
@@ -406,10 +406,10 @@ final class USBDeviceManager: ObservableObject {
                 if mySelf.showNotifications, mySelf.canSendNotification() {
                     let deviceList = deviceNames.joined(separator: ", ")
                     Utils.System.sendNotification(
-                        title: String(localized: "usb_disconnected"),
+                        title: "usb_disconnected".localized,
                         body: deviceList.isEmpty
-                            ? String(localized: "usb_disconnected_info")
-                            : String(format: NSLocalizedString("device_disconnected", comment: ""), deviceList)
+                            ? "usb_disconnected_info".localized
+                            : String(format: "device_disconnected".localized, deviceList)
                     )
                 }
             }

@@ -273,3 +273,10 @@
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Jaf";
+"select_file" = "Selectează fișier";
+"new_set" = "Set nou";
+"title" = "Titlu";
+"connected_audio_file" = "Fișier .mp3 (conectat)";
+"disconnected_audio_file" = "Fișier .mp3 (deconectat)";
+"create" = "Creează";
+"delete" = "Șterge";

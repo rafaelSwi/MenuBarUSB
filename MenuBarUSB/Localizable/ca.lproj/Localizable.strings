@@ -266,3 +266,10 @@
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Atracament";
+"select_file" = "Selecciona un fitxer";
+"new_set" = "Conjunt nou";
+"title" = "Títol";
+"connected_audio_file" = "Fitxer .mp3 (connectat)";
+"disconnected_audio_file" = "Fitxer .mp3 (desconnectat)";
+"create" = "Crear";
+"delete" = "Eliminar";

@@ -266,3 +266,10 @@
 "linux_ubuntu" = "لينكس Ubuntu";
 "linux_mint" = "لينكس Mint";
 "heist" = "سرقة";
+"select_file" = "اختر ملفًا";
+"new_set" = "مجموعة جديدة";
+"title" = "العنوان";
+"connected_audio_file" = "ملف ‎.mp3 (متصل)";
+"disconnected_audio_file" = "ملف ‎.mp3 (غير متصل)";
+"create" = "إنشاء";
+"delete" = "حذف";

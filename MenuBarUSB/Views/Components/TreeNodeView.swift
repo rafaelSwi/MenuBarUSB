@@ -67,7 +67,7 @@ struct TreeNodeView: View {
                     .frame(width: CGFloat(level) * 12, height: 1)
                     .opacity(level > 0 ? 0.5 : 0)
 
-                Text(deviceName ?? String(localized: "no_info"))
+                Text(deviceName ?? "no_info".localized)
                     .font(.system(size: 14, weight: deviceName == nil ? .regular : .semibold))
                     .foregroundColor(deviceName == nil ? .secondary : .primary)
                     .lineLimit(1)

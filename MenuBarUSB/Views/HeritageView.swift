@@ -34,21 +34,21 @@ struct HeritageView: View {
     @State private var anotherSelectedDevice: USBDeviceWrapper?
 
     private func inheritanceStatus(for deviceId: String?) -> String {
-        if deviceId == nil { return String(localized: "no_info") }
+        if deviceId == nil { return "no_info".localized }
 
         let inheritsFrom = CSM.Heritage.devices.contains { $0.deviceId == deviceId }
         let hasHeirs = CSM.Heritage.devices.contains { $0.inheritsFrom == deviceId }
 
-        let st = String(localized: "status") + " "
+        let st = "status".localized + " "
 
         if inheritsFrom && hasHeirs {
-            return st + String(localized: "both_inheriting_and_being_inherited")
+            return st + "both_inheriting_and_being_inherited".localized
         } else if inheritsFrom {
-            return st + String(localized: "inheriting_from_another")
+            return st + "inheriting_from_another".localized
         } else if hasHeirs {
-            return st + String(localized: "passing_inheritance_to_others")
+            return st + "passing_inheritance_to_others".localized
         } else {
-            return st + String(localized: "this_device_has_no_inheritance_ties")
+            return st + "this_device_has_no_inheritance_ties".localized
         }
     }
 
@@ -111,12 +111,12 @@ struct HeritageView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            let placeholder = String(localized: "device")
+            let placeholder = "device".localized
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(String(localized: "select_device"))
+                        Text("select_device")
                             .font(.headline)
 
                         Menu {

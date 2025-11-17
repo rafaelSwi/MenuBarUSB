@@ -28,7 +28,7 @@ struct SettingsView: View {
     @State private var textFieldFocused: Bool = false
     @State private var activeRowID: UUID? = nil
     
-    @State private var tryingToResetSettings = false
+    @State private var resetSettingsPress: Int = 0
     @State private var tryingToDeleteDeviceHistory = false
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
@@ -233,23 +233,25 @@ struct SettingsView: View {
     }
     
     private var windowWidthLabel: String {
+        var width: String = ""
         switch windowWidth {
         case .tiny:
-            return String(localized: "window_size_tiny")
+            width = "window_size_tiny"
         case .normal:
-            return String(localized: "window_size_normal")
+            width =  "window_size_normal"
         case .big:
-            return String(localized: "window_size_big")
+            width =  "window_size_big"
         case .veryBig:
-            return String(localized: "window_size_verybig")
+            width =  "window_size_verybig"
         case .huge:
-            return String(localized: "window_size_huge")
+            width =  "window_size_huge"
         }
+        return width.localized
     }
     
     private func resetAppSettings() {
         Utils.App.deleteStorageData()
-        tryingToResetSettings = false
+        resetSettingsPress = 0
         Utils.System.playSound("Bottle")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             Utils.App.restart()
@@ -336,7 +338,7 @@ struct SettingsView: View {
                         }
                         
                         Link(
-                            "\(String(localized: "open_download_page")) (v\(latestVersion))",
+                            "\("open_download_page".localized) (v\(latestVersion))",
                             destination: releaseURL
                         )
                         .buttonStyle(.borderedProminent)
@@ -446,7 +448,7 @@ struct SettingsView: View {
                     CategoryButton(category: .ethernet, label: "ethernet_category", image: "settings_ethernet", binding: $category, disabled: off)
                     CategoryButton(category: .heritage, label: "heritage_category", image: "settings_heritage", binding: $category, disabled: off)
                     CategoryButton(category: .others, label: "others_category", image: "settings_others", binding: $category, disabled: off) {
-                        tryingToResetSettings = false
+                        resetSettingsPress = 0
                     }
                 }
                 .padding(.horizontal, 4)
@@ -460,8 +462,8 @@ struct SettingsView: View {
                 
                 if category == .system {
                     ToggleRow(
-                        label: String(localized: "open_on_startup"),
-                        description: String(localized: "open_on_startup_description"),
+                        label: "open_on_startup",
+                        description: "open_on_startup_description",
                         binding: $launchAtLogin,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -470,8 +472,8 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "reduce_transparency"),
-                        description: String(localized: "reduce_transparency_description"),
+                        label: "reduce_transparency",
+                        description: "reduce_transparency_description",
                         binding: $reduceTransparency,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -479,8 +481,8 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "force_dark_mode"),
-                        description: String(localized: "force_dark_mode_description"),
+                        label: "force_dark_mode",
+                        description: "force_dark_mode_description",
                         binding: $forceDarkMode,
                         activeRowID: $activeRowID,
                         incompatibilities: [forceLightMode],
@@ -491,8 +493,8 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "force_light_mode"),
-                        description: String(localized: "force_light_mode_description"),
+                        label: "force_light_mode",
+                        description: "force_light_mode_description",
                         binding: $forceLightMode,
                         activeRowID: $activeRowID,
                         incompatibilities: [forceDarkMode],
@@ -503,16 +505,16 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "new_version_notification"),
-                        description: String(localized: "new_version_notification_description"),
+                        label: "new_version_notification",
+                        description: "new_version_notification_description",
                         binding: $newVersionNotification,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "show_notification"),
-                        description: String(localized: "show_notification_description"),
+                        label: "show_notification",
+                        description: "show_notification_description",
                         binding: $showNotifications,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -525,8 +527,8 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "disable_notification_cooldown"),
-                        description: String(localized: "disable_notification_cooldown_description"),
+                        label: "disable_notification_cooldown",
+                        description: "disable_notification_cooldown_description",
                         binding: $disableNotifCooldown,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -534,20 +536,22 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "play_hardware_sound"),
-                        description: String(localized: "play_hardware_sound_description"),
+                        label: "play_hardware_sound",
+                        description: "play_hardware_sound_description",
                         binding: $playHardwareSound,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     HStack {
-                        Button {
-                            deleteHardwareSound(for: CSM.Sound[hardwareSound])
-                        } label: {
-                            Image(systemName: "trash")
+                        if (CSM.Sound[hardwareSound] != nil) {
+                            Button {
+                                deleteHardwareSound(for: CSM.Sound[hardwareSound])
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                            .help("delete")
                         }
-                        .disabled(CSM.Sound[hardwareSound] == nil)
                         Menu {
                             ForEach(HardwareSound.all, id: \.uniqueId) { sound in
                                 Button {
@@ -575,12 +579,19 @@ struct SettingsView: View {
                             }
                         }
                     }
+                    .frame(maxWidth: 250)
                     .disabled(!playHardwareSound)
+                    .opacity(playHardwareSound ? 1.0 : 0.3)
                     
                     if creatingNewAudioSet {
                         
-                        CustomTextField(text: $inputText, placeholder: String(localized: "title"), maxLength: 12, isFocused: $textFieldFocused)
-                            .frame(width: 190)
+                        CustomTextField(
+                            text: $inputText,
+                            placeholder: "title",
+                            maxLength: 12,
+                            isFocused: $textFieldFocused
+                        )
+                        .frame(width: 190)
                         
                         HStack {
                             Button {
@@ -588,7 +599,7 @@ struct SettingsView: View {
                             } label: {
                                 Image(systemName: audioSetConnectedPath.isEmpty ? "document" : "checkmark")
                             }
-                            Text(audioSetConnectedPath.isEmpty ? String(localized: "connected_audio_file") : audioSetConnectedPath)
+                            Text(audioSetConnectedPath.isEmpty ? "connected_audio_file".localized : audioSetConnectedPath)
                                 .lineLimit(1)
                         }
                         
@@ -598,7 +609,7 @@ struct SettingsView: View {
                             } label: {
                                 Image(systemName: audioSetDisconnectedPath.isEmpty ? "document" : "checkmark")
                             }
-                            Text(audioSetDisconnectedPath.isEmpty ? String(localized: "disconnected_audio_file") : audioSetDisconnectedPath)
+                            Text(audioSetDisconnectedPath.isEmpty ? "disconnected_audio_file".localized : audioSetDisconnectedPath)
                                 .lineLimit(1)
                         }
                         
@@ -606,7 +617,7 @@ struct SettingsView: View {
                             Button("cancel") {
                                 resetAudioSetVariables()
                             }
-                            Button("confirm") {
+                            Button("create") {
                                 confirmNewAudioSet()
                             }
                             .buttonStyle(.borderedProminent)
@@ -619,8 +630,8 @@ struct SettingsView: View {
                 if category == .icon {
                     VStack(alignment: .leading, spacing: 16) {
                         ToggleRow(
-                            label: String(localized: "hide_menubar_icon"),
-                            description: String(localized: "hide_menubar_icon_description"),
+                            label: "hide_menubar_icon",
+                            description: "hide_menubar_icon_description",
                             binding: $hideMenubarIcon,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -628,8 +639,8 @@ struct SettingsView: View {
                             onToggle: { _ in hideCount = false }
                         )
                         ToggleRow(
-                            label: String(localized: "hide_count"),
-                            description: String(localized: "hide_count_description"),
+                            label: "hide_count",
+                            description: "hide_count_description",
                             binding: $hideCount,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -701,8 +712,8 @@ struct SettingsView: View {
                 
                 if category == .interface {
                     ToggleRow(
-                        label: String(localized: "hide_technical_info"),
-                        description: String(localized: "hide_technical_info_description"),
+                        label: "hide_technical_info",
+                        description: "hide_technical_info_description",
                         binding: $hideTechInfo,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -713,8 +724,8 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "mouse_hover_info"),
-                        description: String(localized: "mouse_hover_info_description"),
+                        label: "mouse_hover_info",
+                        description: "mouse_hover_info_description",
                         binding: $mouseHoverInfo,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -722,64 +733,64 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "hide_secondary_info"),
-                        description: String(localized: "hide_secondary_info_description"),
+                        label: "hide_secondary_info",
+                        description: "hide_secondary_info_description",
                         binding: $hideSecondaryInfo,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "show_scrollbar"),
-                        description: String(localized: "show_scrollbar_description"),
+                        label: "show_scrollbar",
+                        description: "show_scrollbar_description",
                         binding: $showScrollBar,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "long_list"),
-                        description: String(localized: "long_list_description"),
+                        label: "long_list",
+                        description: "long_list_description",
                         binding: $longList,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "show_previously_connected"),
-                        description: String(localized: "show_previously_connected_description"),
+                        label: "show_previously_connected",
+                        description: "show_previously_connected_description",
                         binding: $storeDevices,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "index_indicator"),
-                        description: String(localized: "index_indicator_description"),
+                        label: "index_indicator",
+                        description: "index_indicator_description",
                         binding: $indexIndicator,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "stored_indicator"),
-                        description: String(localized: "stored_indicator_description"),
+                        label: "stored_indicator",
+                        description: "stored_indicator_description",
                         binding: $storedIndicator,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "hidden_indicator"),
-                        description: String(localized: "hidden_indicator_description"),
+                        label: "hidden_indicator",
+                        description: "hidden_indicator_description",
                         binding: $camouflagedIndicator,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "renamed_indicator"),
-                        description: String(localized: "renamed_indicator_description"),
+                        label: "renamed_indicator",
+                        description: "renamed_indicator_description",
                         binding: $renamedIndicator,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -810,8 +821,8 @@ struct SettingsView: View {
                 
                 if category == .usb {
                     ToggleRow(
-                        label: String(localized: "show_port_max"),
-                        description: String(localized: "show_port_max_description"),
+                        label: "show_port_max",
+                        description: "show_port_max_description",
                         binding: $showPortMax,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -819,8 +830,8 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "convert_hexa"),
-                        description: String(localized: "convert_hexa_description"),
+                        label: "convert_hexa",
+                        description: "convert_hexa_description",
                         binding: $convertHexa,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -869,24 +880,24 @@ struct SettingsView: View {
                 
                 if category == .contextMenu {
                     ToggleRow(
-                        label: String(localized: "disable_context_menu_search"),
-                        description: String(localized: "disable_context_menu_search_description"),
+                        label: "disable_context_menu_search",
+                        description: "disable_context_menu_search_description",
                         binding: $disableContextMenuSearch,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "disable_context_menu_heritage"),
-                        description: String(localized: "disable_context_menu_heritage_description"),
+                        label: "disable_context_menu_heritage",
+                        description: "disable_context_menu_heritage_description",
                         binding: $disableContextMenuHeritage,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "allow_copying_individual"),
-                        description: String(localized: "allow_copying_individual_description"),
+                        label: "allow_copying_individual",
+                        description: "allow_copying_individual_description",
                         binding: $contextMenuCopyAll,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -911,8 +922,8 @@ struct SettingsView: View {
                 
                 if category == .ethernet {
                     ToggleRow(
-                        label: String(localized: "ethernet_connected_icon"),
-                        description: String(localized: "ethernet_connected_icon_description"),
+                        label: "ethernet_connected_icon",
+                        description: "ethernet_connected_icon_description",
                         binding: $showEthernet,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -927,8 +938,8 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "internet_monitoring_icon"),
-                        description: String(localized: "internet_monitoring_icon_description"),
+                        label: "internet_monitoring_icon",
+                        description: "internet_monitoring_icon_description",
                         binding: $internetMonitoring,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -946,8 +957,8 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "stop_traffic_monitor_button"),
-                        description: String(localized: "stop_traffic_monitor_button_description"),
+                        label: "stop_traffic_monitor_button",
+                        description: "stop_traffic_monitor_button_description",
                         binding: $trafficButton,
                         activeRowID: $activeRowID,
                         incompatibilities: [profilerButton, restartButton],
@@ -960,8 +971,8 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "stop_traffic_monitor_button_disable_status"),
-                        description: String(localized: "stop_traffic_monitor_button_disable_status_description"),
+                        label: "stop_traffic_monitor_button_disable_status",
+                        description: "stop_traffic_monitor_button_disable_status_description",
                         binding: $disableTrafficButtonLabel,
                         activeRowID: $activeRowID,
                         incompatibilities: [profilerButton, restartButton],
@@ -969,8 +980,8 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "fast_traffic_monitor"),
-                        description: String(localized: "fast_traffic_monitor_description"),
+                        label: "fast_traffic_monitor",
+                        description: "fast_traffic_monitor_description",
                         binding: $fastMonitor,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -981,16 +992,16 @@ struct SettingsView: View {
                 
                 if category == .heritage {
                     ToggleRow(
-                        label: String(localized: "disable_inheritance_layout"),
-                        description: String(localized: "disable_inheritance_layout_description"),
+                        label: "disable_inheritance_layout",
+                        description: "disable_inheritance_layout_description",
                         binding: $disableInheritanceLayout,
                         activeRowID: $activeRowID,
                         incompatibilities: [increasedIndentationGap],
                         onToggle: { _ in increasedIndentationGap = false }
                     )
                     ToggleRow(
-                        label: String(localized: "increased_indentation_gap"),
-                        description: String(localized: "increased_indentation_gap_description"),
+                        label: "increased_indentation_gap",
+                        description: "increased_indentation_gap_description",
                         binding: $increasedIndentationGap,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
@@ -1016,8 +1027,8 @@ struct SettingsView: View {
                 if category == .others {
                     if Locale.current.language.languageCode?.identifier != "en" {
                         ToggleRow(
-                            label: String(localized: "force_english"),
-                            description: String(localized: "force_english_description"),
+                            label: "force_english",
+                            description: "force_english_description",
                             binding: $forceEnglish,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -1025,48 +1036,48 @@ struct SettingsView: View {
                         )
                     }
                     ToggleRow(
-                        label: String(localized: "show_toolbar"),
-                        description: String(localized: "show_toolbar_description"),
+                        label: "show_toolbar",
+                        description: "show_toolbar_description",
                         binding: $listToolBar,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "hide_check_update"),
-                        description: String(localized: "hide_check_update_description"),
+                        label: "hide_check_update",
+                        description: "hide_check_update_description",
                         binding: $hideUpdate,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "hide_donate"),
-                        description: String(localized: "hide_donate_description"),
+                        label: "hide_donate",
+                        description: "hide_donate_description",
                         binding: $hideDonate,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "disable_haptic_feedback"),
-                        description: String(localized: "disable_haptic_feedback_description"),
+                        label: "disable_haptic_feedback",
+                        description: "disable_haptic_feedback_description",
                         binding: $disableHaptic,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "no_text_buttons"),
-                        description: String(localized: "no_text_buttons_description"),
+                        label: "no_text_buttons",
+                        description: "no_text_buttons_description",
                         binding: $noTextButtons,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: String(localized: "restart_button"),
-                        description: String(localized: "restart_button_description"),
+                        label: "restart_button",
+                        description: "restart_button_description",
                         binding: $restartButton,
                         activeRowID: $activeRowID,
                         incompatibilities: [profilerButton, trafficButton],
@@ -1078,8 +1089,8 @@ struct SettingsView: View {
                         }
                     )
                     ToggleRow(
-                        label: String(localized: "profiler_shortcut"),
-                        description: String(localized: "profiler_shortcut_description"),
+                        label: "profiler_shortcut",
+                        description: "profiler_shortcut_description",
                         binding: $profilerButton,
                         activeRowID: $activeRowID,
                         incompatibilities: [restartButton, trafficButton],
@@ -1130,21 +1141,18 @@ struct SettingsView: View {
                 }
                 
                 HStack {
+                    
                     if category == .others {
                         Button("restore_default_settings") {
-                            tryingToResetSettings = true
+                            resetSettingsPress += 1
+                            if (resetSettingsPress == 5) {
+                                resetAppSettings()
+                            }
                         }
-                        .simultaneousGesture(
-                            LongPressGesture(minimumDuration: 1.5)
-                                .onEnded { _ in
-                                    resetAppSettings()
-                                }
-                        )
                         
-                        if tryingToResetSettings {
-                            Text("hold_to_reset")
+                        if resetSettingsPress > 0 {
+                            Text("(\(resetSettingsPress)/5)")
                                 .font(.footnote)
-                                .foregroundStyle(.gray)
                         }
                     }
                     
@@ -1190,9 +1198,7 @@ struct SettingsView: View {
                                 }
                             }
                         } label: {
-                            Text(
-                                selectedDeviceToCamouflage?.item.name ?? String(localized: "device")
-                            )
+                            Text(selectedDeviceToCamouflage?.item.name ?? "device".localized)
                         }
                         
                         if selectedDeviceToCamouflage != nil {
@@ -1233,27 +1239,27 @@ struct SettingsView: View {
                                 }
                             }
                         } label: {
-                            Text(selectedDeviceToRename?.item.name ?? String(localized: "device"))
+                            Text(selectedDeviceToRename?.item.name ?? "device".localized)
                         }
                         
                         if selectedDeviceToRename != nil {
                             CustomTextField(
                                 text: $inputText,
-                                placeholder: String(localized: "insert_new_name"),
+                                placeholder: "insert_new_name",
                                 maxLength: 30,
                                 isFocused: $textFieldFocused
                             )
                             .frame(width: 190)
                             .help("renaming_help")
                             
-                            Button(String(localized: "confirm")) {
+                            Button("confirm") {
                                 confirmRenameDevice()
                             }
                             .buttonStyle(.borderedProminent)
                         }
                         
                         if selectedDeviceToRename == nil && !CSM.Renamed.devices.isEmpty {
-                            Button(String(localized: "undo_all")) {
+                            Button("undo_all") {
                                 undoAllRenamedDevices()
                             }
                         }

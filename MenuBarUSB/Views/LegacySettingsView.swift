@@ -108,15 +108,15 @@ struct LegacySettingsView: View {
     private var windowWidthLabel: String {
         switch windowWidth {
         case .tiny:
-            return String(localized: "window_size_tiny")
+            return "window_size_tiny".localized
         case .normal:
-            return String(localized: "window_size_normal")
+            return "window_size_normal".localized
         case .big:
-            return String(localized: "window_size_big")
+            return "window_size_big".localized
         case .veryBig:
-            return String(localized: "window_size_verybig")
+            return "window_size_verybig".localized
         case .huge:
-            return String(localized: "window_size_huge")
+            return "window_size_huge".localized
         }
     }
 
@@ -215,7 +215,7 @@ struct LegacySettingsView: View {
                             }
 
                             Link(
-                                "\(String(localized: "open_download_page")) (v\(latestVersion))",
+                                "\("open_download_page".localized) (v\(latestVersion))",
                                 destination: releaseURL
                             )
                             .buttonStyle(.borderedProminent)
@@ -278,8 +278,8 @@ struct LegacySettingsView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     if showSystemOptions {
                         ToggleRow(
-                            label: String(localized: "open_on_startup"),
-                            description: String(localized: "open_on_startup_description"),
+                            label: "open_on_startup",
+                            description: "open_on_startup_description",
                             binding: $launchAtLogin,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -288,16 +288,16 @@ struct LegacySettingsView: View {
                             }
                         )
                         ToggleRow(
-                            label: String(localized: "new_version_notification"),
-                            description: String(localized: "new_version_notification_description"),
+                            label: "new_version_notification",
+                            description: "new_version_notification_description",
                             binding: $newVersionNotification,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "reduce_transparency"),
-                            description: String(localized: "reduce_transparency_description"),
+                            label: "reduce_transparency",
+                            description: "reduce_transparency_description",
                             binding: $reduceTransparency,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -305,8 +305,8 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "show_notification"),
-                            description: String(localized: "show_notification_description"),
+                            label: "show_notification",
+                            description: "show_notification_description",
                             binding: $showNotifications,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -319,8 +319,8 @@ struct LegacySettingsView: View {
                             }
                         )
                         ToggleRow(
-                            label: String(localized: "disable_notification_cooldown"),
-                            description: String(localized: "disable_notification_cooldown_description"),
+                            label: "disable_notification_cooldown",
+                            description: "disable_notification_cooldown_description",
                             binding: $disableNotifCooldown,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -328,8 +328,8 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "play_hardware_sound"),
-                            description: String(localized: "play_hardware_sound_description"),
+                            label: "play_hardware_sound",
+                            description: "play_hardware_sound_description",
                             binding: $playHardwareSound,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -340,7 +340,7 @@ struct LegacySettingsView: View {
                                 hardwareSound = ""
                                 playHardwareSound = false
                             } label: {
-                                Image(systemName: "trash")
+                                Image(systemName: "xmark")
                             }
                             .disabled(hardwareSound.isEmpty)
                             Menu {
@@ -366,13 +366,15 @@ struct LegacySettingsView: View {
                                 }
                             }
                         }
+                        .frame(maxWidth: 250)
                         .disabled(!playHardwareSound)
+                        .opacity(playHardwareSound ? 1.0 : 0.3)
                     }
 
                     if showInterfaceOptions {
                         ToggleRow(
-                            label: String(localized: "hide_technical_info"),
-                            description: String(localized: "hide_technical_info_description"),
+                            label: "hide_technical_info",
+                            description: "hide_technical_info_description",
                             binding: $hideTechInfo,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -383,8 +385,8 @@ struct LegacySettingsView: View {
                             }
                         )
                         ToggleRow(
-                            label: String(localized: "mouse_hover_info"),
-                            description: String(localized: "mouse_hover_info_description"),
+                            label: "mouse_hover_info",
+                            description: "mouse_hover_info_description",
                             binding: $mouseHoverInfo,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -392,64 +394,64 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "hide_secondary_info"),
-                            description: String(localized: "hide_secondary_info_description"),
+                            label: "hide_secondary_info",
+                            description: "hide_secondary_info_description",
                             binding: $hideSecondaryInfo,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "show_scrollbar"),
-                            description: String(localized: "show_scrollbar_description"),
+                            label: "show_scrollbar",
+                            description: "show_scrollbar_description",
                             binding: $showScrollBar,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "long_list"),
-                            description: String(localized: "long_list_description"),
+                            label: "long_list",
+                            description: "long_list_description",
                             binding: $longList,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "show_previously_connected"),
-                            description: String(localized: "show_previously_connected_description"),
+                            label: "show_previously_connected",
+                            description: "show_previously_connected_description",
                             binding: $storeDevices,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "index_indicator"),
-                            description: String(localized: "index_indicator_description"),
+                            label: "index_indicator",
+                            description: "index_indicator_description",
                             binding: $indexIndicator,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "stored_indicator"),
-                            description: String(localized: "stored_indicator_description"),
+                            label: "stored_indicator",
+                            description: "stored_indicator_description",
                             binding: $storedIndicator,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "hidden_indicator"),
-                            description: String(localized: "hidden_indicator_description"),
+                            label: "hidden_indicator",
+                            description: "hidden_indicator_description",
                             binding: $camouflagedIndicator,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "renamed_indicator"),
-                            description: String(localized: "renamed_indicator_description"),
+                            label: "renamed_indicator",
+                            description: "renamed_indicator_description",
                             binding: $renamedIndicator,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -482,8 +484,8 @@ struct LegacySettingsView: View {
 
                     if showInfoOptions {
                         ToggleRow(
-                            label: String(localized: "show_port_max"),
-                            description: String(localized: "show_port_max_description"),
+                            label: "show_port_max",
+                            description: "show_port_max_description",
                             binding: $showPortMax,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -491,8 +493,8 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "convert_hexa"),
-                            description: String(localized: "convert_hexa_description"),
+                            label: "convert_hexa",
+                            description: "convert_hexa_description",
                             binding: $convertHexa,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -544,24 +546,24 @@ struct LegacySettingsView: View {
 
                     if showContextMenuOptions {
                         ToggleRow(
-                            label: String(localized: "disable_context_menu_search"),
-                            description: String(localized: "disable_context_menu_search_description"),
+                            label: "disable_context_menu_search",
+                            description: "disable_context_menu_search_description",
                             binding: $disableContextMenuSearch,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "disable_context_menu_heritage"),
-                            description: String(localized: "disable_context_menu_heritage_description"),
+                            label: "disable_context_menu_heritage",
+                            description: "disable_context_menu_heritage_description",
                             binding: $disableContextMenuHeritage,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "allow_copying_individual"),
-                            description: String(localized: "allow_copying_individual_description"),
+                            label: "allow_copying_individual",
+                            description: "allow_copying_individual_description",
                             binding: $contextMenuCopyAll,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -585,16 +587,16 @@ struct LegacySettingsView: View {
 
                     if showHeritageOptions {
                         ToggleRow(
-                            label: String(localized: "disable_inheritance_layout"),
-                            description: String(localized: "disable_inheritance_layout_description"),
+                            label: "disable_inheritance_layout",
+                            description: "disable_inheritance_layout_description",
                             binding: $disableInheritanceLayout,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in increasedIndentationGap = false }
                         )
                         ToggleRow(
-                            label: String(localized: "increased_indentation_gap"),
-                            description: String(localized: "increased_indentation_gap_description"),
+                            label: "increased_indentation_gap",
+                            description: "increased_indentation_gap_description",
                             binding: $increasedIndentationGap,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -612,8 +614,8 @@ struct LegacySettingsView: View {
                     if showOthersOptions {
                         if Locale.current.language.languageCode?.identifier != "en" {
                             ToggleRow(
-                                label: String(localized: "force_english"),
-                                description: String(localized: "force_english_description"),
+                                label: "force_english",
+                                description: "force_english_description",
                                 binding: $forceEnglish,
                                 activeRowID: $activeRowID,
                                 incompatibilities: nil,
@@ -621,16 +623,16 @@ struct LegacySettingsView: View {
                             )
                         }
                         ToggleRow(
-                            label: String(localized: "show_toolbar"),
-                            description: String(localized: "show_toolbar_description"),
+                            label: "show_toolbar",
+                            description: "show_toolbar_description",
                             binding: $listToolBar,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "ethernet_connected_icon"),
-                            description: String(localized: "ethernet_connected_icon_description"),
+                            label: "ethernet_connected_icon",
+                            description: "ethernet_connected_icon_description",
                             binding: $showEthernet,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
@@ -641,32 +643,32 @@ struct LegacySettingsView: View {
                             }
                         )
                         ToggleRow(
-                            label: String(localized: "no_text_buttons"),
-                            description: String(localized: "no_text_buttons_description"),
+                            label: "no_text_buttons",
+                            description: "no_text_buttons_description",
                             binding: $noTextButtons,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "hide_check_update"),
-                            description: String(localized: "hide_check_update_description"),
+                            label: "hide_check_update",
+                            description: "hide_check_update_description",
                             binding: $hideUpdate,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "restart_button"),
-                            description: String(localized: "restart_button_description"),
+                            label: "restart_button",
+                            description: "restart_button_description",
                             binding: $restartButton,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: String(localized: "disable_haptic_feedback"),
-                            description: String(localized: "disable_haptic_feedback_description"),
+                            label: "disable_haptic_feedback",
+                            description: "disable_haptic_feedback_description",
                             binding: $disableHaptic,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,

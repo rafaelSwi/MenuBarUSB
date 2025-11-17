@@ -266,3 +266,10 @@
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Heist";
+"select_file" = "Seleccionar archivo";
+"new_set" = "Nuevo conjunto";
+"title" = "Título";
+"connected_audio_file" = "Archivo .mp3 (conectado)";
+"disconnected_audio_file" = "Archivo .mp3 (desconectado)";
+"create" = "Crear";
+"delete" = "Eliminar";
