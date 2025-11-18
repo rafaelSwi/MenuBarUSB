@@ -19,6 +19,7 @@ struct SettingsView: View {
     @State private var showRenameDevices: Bool = false
     @State private var showCamouflagedDevices: Bool = false
     
+    @State private var disableButtonsRelatedToSound: Bool = false
     @State private var creatingNewAudioSet: Bool = false
     @State private var audioSetConnectedPath: String = ""
     @State private var audioSetDisconnectedPath: String = ""
@@ -48,6 +49,7 @@ struct SettingsView: View {
     @AS(Key.reduceTransparency) private var reduceTransparency = false
     @AS(Key.disableNotifCooldown) private var disableNotifCooldown = false
     @AS(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
+    @AS(Key.powerSourceInfo) private var powerSourceInfo = false
     @AS(Key.forceDarkMode) private var forceDarkMode = false
     @AS(Key.forceLightMode) private var forceLightMode = false
     @AS(Key.increasedIndentationGap) private var increasedIndentationGap = false
@@ -151,6 +153,10 @@ struct SettingsView: View {
         }
     }
     
+    private var isCustomSoundSetSelected: Bool {
+        return CSM.Sound[hardwareSound] != nil
+    }
+    
     private func resetAudioSetVariables() {
         inputText = ""
         textFieldFocused = false
@@ -192,11 +198,16 @@ struct SettingsView: View {
         manager.refresh()
     }
     
-    private func testHardwareSound() {
+    private func testHardwareSound(_ seconds: Double = 1.2) {
+        let sec = isCustomSoundSetSelected ? seconds * 2.5 : seconds
+        disableButtonsRelatedToSound = true
         let sound = HardwareSound[hardwareSound]
         Utils.System.playSound(sound?.connect)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + sec) {
             Utils.System.playSound(sound?.disconnect)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + sec * 2) {
+            disableButtonsRelatedToSound = false
         }
     }
     
@@ -541,10 +552,11 @@ struct SettingsView: View {
                         binding: $playHardwareSound,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
+                        disabled: disableButtonsRelatedToSound,
                         onToggle: { _ in }
                     )
                     HStack {
-                        if (CSM.Sound[hardwareSound] != nil) {
+                        if (isCustomSoundSetSelected) {
                             Button {
                                 deleteHardwareSound(for: CSM.Sound[hardwareSound])
                             } label: {
@@ -571,6 +583,7 @@ struct SettingsView: View {
                             let title = LocalizedStringKey(sound?.titleKey ?? "none_default")
                             Text(title)
                         }
+                        
                         if hardwareSound != "" {
                             Button {
                                 testHardwareSound()
@@ -578,10 +591,12 @@ struct SettingsView: View {
                                 Image(systemName: "play")
                             }
                         }
+                        Spacer()
                     }
-                    .frame(maxWidth: 250)
+                    .frame(maxWidth: 280)
                     .disabled(!playHardwareSound)
                     .opacity(playHardwareSound ? 1.0 : 0.3)
+                    .disabled(disableButtonsRelatedToSound)
                     
                     if creatingNewAudioSet {
                         
@@ -655,7 +670,7 @@ struct SettingsView: View {
                             }
                             if !hideCount {
                                 Text("numerical_representation")
-                                Text(NumberConverter(manager.devices.count).converted)
+                                Text(NumberConverter(manager.count).converted)
                                     .fontWeight(.bold)
                             }
                             Spacer()
@@ -671,7 +686,7 @@ struct SettingsView: View {
                                             Image(systemName: item)
                                             if !hideCount {
                                                 Text(
-                                                    NumberConverter(manager.devices.count).converted
+                                                    NumberConverter(manager.count).converted
                                                 )
                                             }
                                         }
@@ -820,6 +835,16 @@ struct SettingsView: View {
                 }
                 
                 if category == .usb {
+                    if Utils.System.isMacbook {
+                        ToggleRow(
+                            label: "show_charger",
+                            description: "show_charger_description",
+                            binding: $powerSourceInfo,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in manager.refresh() }
+                        )
+                    }
                     ToggleRow(
                         label: "show_port_max",
                         description: "show_port_max_description",

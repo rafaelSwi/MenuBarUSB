@@ -21,19 +21,19 @@ enum Utils {
             ]
             try? task.run()
         }
-
+        
         static func copyToClipboard(_ content: String) {
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(content, forType: .string)
         }
-
+        
         static func hapticFeedback() {
             @AS(Key.disableHaptic) var disableHaptic = false
             if disableHaptic { return }
             let performer = NSHapticFeedbackManager.defaultPerformer
             performer.perform(.generic, performanceTime: .now)
         }
-
+        
         static func playSound(_ sound: String?, limit: TimeInterval = 8) {
             guard let sound = sound else { return }
             
@@ -55,15 +55,39 @@ enum Utils {
             }
             
             guard let audio else { return }
-
+            
             audio.play()
             let stopTime = min(limit, audio.duration)
-
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + stopTime) {
                 audio.stop()
             }
         }
+        
+        static var isMacbook: Bool {
+            var size: Int = 0
+            
+            if sysctlbyname("hw.model", nil, &size, nil, 0) != 0 {
+                return false
+            }
+            
+            var model = [CChar](repeating: 0, count: size)
+            if sysctlbyname("hw.model", &model, &size, nil, 0) != 0 {
+                return false
+            }
+            
+            let identifier = String(cString: model)
+            let lower = identifier.lowercased()
 
+            let desktopPrefixes = ["imac", "macmini", "macstudio", "macpro"]
+
+            if desktopPrefixes.contains(where: { lower.hasPrefix($0) }) {
+                return false
+            }
+            
+            return lower.hasPrefix("mac")
+        }
+        
         static func requestNotificationPermission() {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
                 if let error = error {
@@ -73,14 +97,14 @@ enum Utils {
                 }
             }
         }
-
+        
         static func sendNotification(title: String, body: String) {
             let content = UNMutableNotificationContent()
             content.title = title
             content.body = body
             content.sound = .default
             content.interruptionLevel = .timeSensitive
-
+            
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
             UNUserNotificationCenter.current().add(request) { error in
                 if let error = error {
@@ -91,15 +115,15 @@ enum Utils {
             }
         }
     }
-
+    
     enum App {
         static var appVersion: String {
             Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
         }
-
+        
         static func hasUpdate() async -> Bool {
             guard let url = URL(string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest") else { return false }
-
+            
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 let release = try JSONDecoder().decode(GitHubRelease.self, from: data)
@@ -109,11 +133,11 @@ enum Utils {
                 return false
             }
         }
-
+        
         static func exit() {
             NSApp.terminate(nil)
         }
-
+        
         static func restart() {
             let task = Process()
             task.launchPath = "/usr/bin/open"
@@ -121,7 +145,7 @@ enum Utils {
             task.launch()
             Utils.App.exit()
         }
-
+        
         static func isVersion(_ v1: String, olderThan v2: String) -> Bool {
             let v1Components = v1.split(separator: ".").compactMap { Int($0) }
             let v2Components = v2.split(separator: ".").compactMap { Int($0) }
@@ -135,7 +159,7 @@ enum Utils {
         static func deleteFromAppStorage(_ pathOrFilename: String) {
             let fileManager = FileManager.default
             let inputURL = URL(fileURLWithPath: pathOrFilename)
-
+            
             if inputURL.path.hasPrefix("/") {
                 if fileManager.fileExists(atPath: inputURL.path) {
                     do {
@@ -149,7 +173,7 @@ enum Utils {
                 }
                 return
             }
-
+            
             guard let appSupport = try? fileManager.url(
                 for: .applicationSupportDirectory,
                 in: .userDomainMask,
@@ -159,9 +183,9 @@ enum Utils {
                 print("Could not access Application Support directory.")
                 return
             }
-
+            
             let fileURL = appSupport.appendingPathComponent(pathOrFilename)
-
+            
             if fileManager.fileExists(atPath: fileURL.path) {
                 do {
                     try fileManager.removeItem(at: fileURL)
@@ -173,28 +197,28 @@ enum Utils {
                 print("File not found in app storage: \(fileURL.path)")
             }
         }
-
+        
         static func deleteStorageData() {
             let fileManager = FileManager.default
-
+            
             if let bundleID = Bundle.main.bundleIdentifier {
                 UserDefaults.standard.removePersistentDomain(forName: bundleID)
                 UserDefaults.standard.synchronize()
             }
-
+            
             if let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
                let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first,
                let bundleID = Bundle.main.bundleIdentifier
             {
                 let appSupportPath = appSupport.appendingPathComponent(bundleID).path
                 let cachesPath = caches.appendingPathComponent(bundleID).path
-
+                
                 try? fileManager.removeItem(atPath: appSupportPath)
                 try? fileManager.removeItem(atPath: cachesPath)
             }
         }
     }
-
+    
     enum USB {
         static func usbVersionLabel(from bcd: Int?, convertHexa: Bool) -> String? {
             guard let bcd = bcd else { return nil }
@@ -212,7 +236,7 @@ enum Utils {
                 let minorHigh = (bcd >> 4) & 0x0F
                 let minorLow = bcd & 0x0F
                 let minor = minorHigh * 10 + minorLow
-
+                
                 let versionString = minor == 0 ? "\(major)" : "\(major).\(minor)"
                 if convertHexa {
                     return String(
@@ -227,7 +251,7 @@ enum Utils {
                 }
             }
         }
-
+        
         static func speedTierLabel(for mbps: Int) -> String {
             switch mbps {
             case 1, 2: return "USB 1.0 \("low_speed".localized) (1.5 Mbps)"
@@ -243,7 +267,7 @@ enum Utils {
                 return "\(mbps) Mbps"
             }
         }
-
+        
         static func prettyMbps(_ mbps: Int) -> String {
             mbps >= 1000 ? String(format: "%.1f Gbps", Double(mbps) / 1000.0) : "\(mbps) Mbps"
         }

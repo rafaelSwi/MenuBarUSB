@@ -273,3 +273,12 @@
 "disconnected_audio_file" = "Файл .mp3 (відключено)";
 "create" = "Створити";
 "delete" = "Видалити";
+"show_charger" = "Зарядний пристрій MacBook розпізнано як пристрій";
+"show_charger_description" = "Після підключення зарядний пристрій MacBook з’явиться в списку, і, якщо дозволено, буде показано сповіщення.";
+"power_supply" = "Джерело живлення";
+"hide_charger_information" = "Приховати інформацію про зарядний пристрій";
+"charger_connected" = "Зарядний пристрій підключено";
+"charger_connected_body" = "Підключено зарядний пристрій.";
+"charger_disconnected" = "Зарядний пристрій відключено";
+"charger_disconnected_body" = "Кабель зарядки відключено.";
+"battery" = "Батарея";

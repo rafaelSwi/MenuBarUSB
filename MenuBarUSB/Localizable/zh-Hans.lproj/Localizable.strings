@@ -273,3 +273,12 @@
 "disconnected_audio_file" = ".mp3 文件（未连接）";
 "create" = "创建";
 "delete" = "删除";
+"show_charger" = "MacBook 充电器已被识别为设备";
+"show_charger_description" = "当 MacBook 充电器连接后，它会显示在列表中，并在允许的情况下弹出通知。";
+"power_supply" = "电源";
+"hide_charger_information" = "隐藏充电器信息";
+"charger_connected" = "充电器已连接";
+"charger_connected_body" = "充电器已连接。";
+"charger_disconnected" = "充电器已断开";
+"charger_disconnected_body" = "充电线已断开。";
+"battery" = "电池";

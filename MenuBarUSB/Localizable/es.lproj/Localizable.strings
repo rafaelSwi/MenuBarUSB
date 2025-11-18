@@ -273,3 +273,12 @@
 "disconnected_audio_file" = "Archivo .mp3 (desconectado)";
 "create" = "Crear";
 "delete" = "Eliminar";
+"show_charger" = "El cargador del MacBook se reconoce como un dispositivo";
+"show_charger_description" = "Cuando el cargador del MacBook esté conectado, aparecerá en la lista y se mostrará una notificación si está permitido.";
+"power_supply" = "Fuente de alimentación";
+"hide_charger_information" = "Ocultar información del cargador";
+"charger_connected" = "Cargador conectado";
+"charger_connected_body" = "Un cargador ha sido conectado.";
+"charger_disconnected" = "Cargador desconectado";
+"charger_disconnected_body" = "Cable de carga desconectado.";
+"battery" = "Batería";

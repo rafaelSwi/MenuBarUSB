@@ -273,3 +273,12 @@
 "disconnected_audio_file" = "ملف ‎.mp3 (غير متصل)";
 "create" = "إنشاء";
 "delete" = "حذف";
+"show_charger" = "يتم التعرف على شاحن الماك كجهاز";
+"show_charger_description" = "بمجرد توصيل شاحن الماك، سيظهر في القائمة وستظهر إشعار إذا كان مسموحًا بذلك.";
+"power_supply" = "مزود الطاقة";
+"hide_charger_information" = "إخفاء معلومات الشاحن";
+"charger_connected" = "تم توصيل الشاحن";
+"charger_connected_body" = "تم توصيل الشاحن.";
+"charger_disconnected" = "تم فصل الشاحن";
+"charger_disconnected_body" = "تم فصل كابل الشحن.";
+"battery" = "البطارية";

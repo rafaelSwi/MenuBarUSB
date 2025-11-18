@@ -35,6 +35,7 @@ struct ContentView: View {
     @AS(Key.noTextButtons) private var noTextButtons = false
     @AS(Key.restartButton) private var restartButton = false
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
+    @AS(Key.powerSourceInfo) private var powerSourceInfo = false
     @AS(Key.profilerButton) private var profilerButton = false
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
@@ -66,7 +67,7 @@ struct ContentView: View {
             multiplier -= 12
         }
 
-        var total = manager.devices.count
+        var total = manager.count
         if storeDevices {
             total += CSM.Stored.filteredDevices(manager.devices).count
         }
@@ -310,6 +311,10 @@ struct ContentView: View {
         let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
         return renamed != nil
     }
+    
+    private var showChargingStatus: Bool {
+        return powerSourceInfo && manager.chargeConnected && manager.chargePercentage != nil
+    }
 
     private func searchOnWeb(_ search: String) {
         guard let query = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -407,7 +412,7 @@ struct ContentView: View {
     }
 
     private var isTrulyEmpty: Bool {
-        let connectedCount: Int = manager.devices.count
+        let connectedCount: Int = manager.count
         let storedCount: Int = CSM.Stored.filteredDevices(manager.devices).count
 
         if connectedCount == 0 && storeDevices == false {
@@ -478,7 +483,7 @@ struct ContentView: View {
                             if toolbarClockOff {
                                 Group {
                                     Image(systemName: macBarIcon)
-                                    Text(NumberConverter(sortedDevices.count).converted)
+                                    Text(NumberConverter(manager.count).converted)
                                         .padding(.horizontal, 5)
                                 }
                                 .fontWeight(.bold)
@@ -505,6 +510,30 @@ struct ContentView: View {
                             .padding(15)
                     }
                 } else {
+                    if (showChargingStatus) {
+                        HStack {
+                            Group {
+                                Text("power_supply")
+                                Spacer()
+                                Image(systemName: manager.chargePercentage == 100 ? "battery.100percent" : "bolt.fill")
+                                    .font(.system(size: 10))
+                                Text("\(manager.chargePercentage ?? 0)%")
+                            }
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.primary)
+                        }
+                        .padding(.horizontal, 4)
+                        .padding(.top, 2)
+                        .contextMenu {
+                            Button {
+                                powerSourceInfo = false
+                                manager.refresh()
+                            } label: {
+                                Label("hide_charger_information", systemImage: "eye.slash")
+                            }
+                        }
+                        Divider()
+                    }
                     ScrollView(showsIndicators: showScrollBar) {
                         LazyVStack(alignment: .leading, spacing: 4) {
                             ForEach(Array(sortedDevices.enumerated()), id: \.element.id) { index, device in

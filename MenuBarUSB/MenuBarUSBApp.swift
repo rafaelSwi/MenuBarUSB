@@ -18,6 +18,7 @@ struct MenuBarUSBApp: App {
     @AS(Key.forceDarkMode) private var forceDarkMode = false
     @AS(Key.forceLightMode) private var forceLightMode = false
     @AS(Key.hideCount) private var hideCount = false
+    @AS(Key.powerSourceInfo) private var powerSourceInfo = false
     @AS(Key.hideMenubarIcon) private var hideMenubarIcon = false
     @AS(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AS(Key.showEthernet) private var showEthernet = false
@@ -40,12 +41,12 @@ struct MenuBarUSBApp: App {
 
     private var countText: some View {
         func updateCount() {
-            convertedCount = NumberConverter(manager.devices.count).converted
+            convertedCount = NumberConverter(manager.count).converted
         }
 
         return Text(convertedCount)
             .onAppear(perform: updateCount)
-            .onChange(of: manager.devices) { _ in updateCount() }
+            .onChange(of: manager.count) { _ in updateCount() }
     }
 
     private var menuLabel: some View {

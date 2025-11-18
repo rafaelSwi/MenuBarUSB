@@ -273,3 +273,12 @@
 "disconnected_audio_file" = "Файл .mp3 (отключён)";
 "create" = "Создать";
 "delete" = "Удалить";
+"show_charger" = "Зарядное устройство MacBook распознано как устройство";
+"show_charger_description" = "Когда зарядное устройство MacBook подключено, оно появится в списке, и при разрешении появится уведомление.";
+"power_supply" = "Источник питания";
+"hide_charger_information" = "Скрыть информацию о зарядном устройстве";
+"charger_connected" = "Зарядное устройство подключено";
+"charger_connected_body" = "Зарядное устройство было подключено.";
+"charger_disconnected" = "Зарядное устройство отключено";
+"charger_disconnected_body" = "Кабель зарядки был отключен.";
+"battery" = "Батарея";

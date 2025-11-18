@@ -273,3 +273,12 @@
 "disconnected_audio_file" = ".mp3 ファイル（未接続）";
 "create" = "作成";
 "delete" = "削除";
+"show_charger" = "MacBookの充電器がデバイスとして認識されました";
+"show_charger_description" = "MacBookの充電器が接続されると、リストに表示され、許可されている場合は通知が表示されます。";
+"power_supply" = "電源";
+"hide_charger_information" = "充電器情報を非表示";
+"charger_connected" = "充電器が接続されました";
+"charger_connected_body" = "充電器が接続されました。";
+"charger_disconnected" = "充電器が切断されました";
+"charger_disconnected_body" = "充電ケーブルが切断されました。";
+"battery" = "バッテリー";

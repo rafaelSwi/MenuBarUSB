@@ -273,3 +273,12 @@
 "disconnected_audio_file" = "Αρχείο .mp3 (αποσυνδεδεμένο)";
 "create" = "Δημιουργία";
 "delete" = "Διαγραφή";
+"show_charger" = "Ο φορτιστής MacBook αναγνωρίζεται ως συσκευή";
+"show_charger_description" = "Μόλις συνδεθεί ο φορτιστής του MacBook, θα εμφανιστεί στη λίστα και θα εμφανιστεί ειδοποίηση εάν επιτρέπεται.";
+"power_supply" = "Τροφοδοσία";
+"hide_charger_information" = "Απόκρυψη πληροφοριών φορτιστή";
+"charger_connected" = "Φορτιστής συνδεδεμένος";
+"charger_connected_body" = "Ένας φορτιστής συνδέθηκε.";
+"charger_disconnected" = "Φορτιστής αποσυνδεδεμένος";
+"charger_disconnected_body" = "Το καλώδιο φόρτισης αποσυνδέθηκε.";
+"battery" = "Μπαταρία";

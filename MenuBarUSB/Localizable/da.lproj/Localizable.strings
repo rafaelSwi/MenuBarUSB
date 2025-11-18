@@ -273,3 +273,12 @@
 "disconnected_audio_file" = ".mp3-fil (afbrudt)";
 "create" = "Opret";
 "delete" = "Slet";
+"show_charger" = "MacBook-opladeren genkendes som en enhed";
+"show_charger_description" = "Når MacBook-opladeren er tilsluttet, vises den på listen, og en notifikation vises, hvis det er tilladt.";
+"power_supply" = "Strømforsyning";
+"hide_charger_information" = "Skjul opladerinformation";
+"charger_connected" = "Oplader tilsluttet";
+"charger_connected_body" = "En oplader er blevet tilsluttet.";
+"charger_disconnected" = "Oplader frakoblet";
+"charger_disconnected_body" = "Opladerkablet blev afbrudt.";
+"battery" = "Batteri";

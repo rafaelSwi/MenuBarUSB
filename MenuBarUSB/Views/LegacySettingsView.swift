@@ -38,6 +38,7 @@ struct LegacySettingsView: View {
     @AS(Key.longList) private var longList = false
     @AS(Key.hideTechInfo) private var hideTechInfo = false
     @AS(Key.showPortMax) private var showPortMax = false
+    @AS(Key.powerSourceInfo) private var powerSourceInfo = false
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.renamedIndicator) private var renamedIndicator = false
     @AS(Key.camouflagedIndicator) private var camouflagedIndicator = false
@@ -483,6 +484,16 @@ struct LegacySettingsView: View {
                     }
 
                     if showInfoOptions {
+                        if Utils.System.isMacbook {
+                            ToggleRow(
+                                label: "show_charger",
+                                description: "show_charger_description",
+                                binding: $powerSourceInfo,
+                                activeRowID: $activeRowID,
+                                incompatibilities: nil,
+                                onToggle: { _ in }
+                            )
+                        }
                         ToggleRow(
                             label: "show_port_max",
                             description: "show_port_max_description",

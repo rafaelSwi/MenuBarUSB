@@ -273,3 +273,12 @@
 "disconnected_audio_file" = ".mp3 फ़ाइल (डिस्कनेक्टेड)";
 "create" = "बनाएँ";
 "delete" = "हटाएँ";
+"show_charger" = "MacBook चार्जर को एक डिवाइस के रूप में पहचाना जाता है";
+"show_charger_description" = "MacBook चार्जर जुड़ते ही सूची में दिखाई देगा और अनुमति होने पर एक सूचना पॉप-अप होगी.";
+"power_supply" = "पावर सप्लाई";
+"hide_charger_information" = "चार्जर जानकारी छिपाएँ";
+"charger_connected" = "चार्जर जुड़ा हुआ है";
+"charger_connected_body" = "एक चार्जर जुड़ गया है.";
+"charger_disconnected" = "चार्जर डिस्कनेक्ट हुआ";
+"charger_disconnected_body" = "चार्जिंग केबल डिस्कनेक्ट हो गई.";
+"battery" = "बैटरी";

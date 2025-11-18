@@ -273,3 +273,12 @@
 "disconnected_audio_file" = "קובץ ‎.mp3 (מנותק)";
 "create" = "צור";
 "delete" = "מחק";
+"show_charger" = "מטען ה-MacBook מזוהה כמכשיר";
+"show_charger_description" = "כאשר מטען ה-MacBook מחובר, הוא יופיע ברשימה ותוצג התראה אם הדבר מותר.";
+"power_supply" = "ספק כוח";
+"hide_charger_information" = "הסתר מידע על המטען";
+"charger_connected" = "המטען חובר";
+"charger_connected_body" = "מטען חובר.";
+"charger_disconnected" = "המטען נותק";
+"charger_disconnected_body" = "כבל הטעינה נותק.";
+"battery" = "סוללה";

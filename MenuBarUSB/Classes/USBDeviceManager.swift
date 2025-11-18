@@ -2,6 +2,7 @@ import Foundation
 import IOKit
 import IOKit.network
 import IOKit.usb
+import IOKit.ps
 import SwiftUI
 import SystemConfiguration
 import UserNotifications
@@ -9,13 +10,17 @@ import UserNotifications
 final class USBDeviceManager: ObservableObject {
     @Published private(set) var devices: [USBDeviceWrapper] = []
     @Published var connectedCamouflagedDevices: Int = 0
-
+    
+    @Published var count: Int = 0
+    @Published var chargeConnected: Bool = false
+    @Published var chargePercentage: Int?
     @Published var ethernetCableConnected: Bool = false
     @Published var ethernetTraffic: Bool = false
     @Published var trafficCooldown: TimeInterval = 1.0
     @Published var lastTrafficDetected: Date = .distantPast
     @Published var trafficMonitorRunning: Bool = false
-
+    
+    private var powerSourceRunLoopSource: CFRunLoopSource?
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
     private var removedIterator: io_iterator_t = 0
@@ -28,6 +33,7 @@ final class USBDeviceManager: ObservableObject {
     @AS(Key.showNotifications) private var showNotifications = false
     @AS(Key.disableNotifCooldown) private var disableNotifCooldown = false
     @AS(Key.playHardwareSound) private var playHardwareSound: Bool = false
+    @AS(Key.powerSourceInfo) private var powerSourceInfo: Bool = false
     @AS(Key.hardwareSound) private var hardwareSound: String = ""
     @AS(Key.showEthernet) var showEthernet = false
     @AS(Key.internetMonitoring) var internetMonitoring = false
@@ -37,17 +43,32 @@ final class USBDeviceManager: ObservableObject {
     private let notificationCooldown: TimeInterval = 3
 
     init() {
-        startMonitoring()
 
         if internetMonitoring, isEthernetConnected() {
             startEthernetMonitoring()
         }
-
-        refresh()
+        
+        if powerSourceInfo {
+            startPowerMonitoring()
+        }
+        
+        startMonitoring()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.refresh()
+        }
     }
 
     deinit {
         stopMonitoring()
+    }
+    
+    private func setCount() {
+        var amount = self.devices.count
+        if (powerSourceInfo && chargeConnected) {
+            amount += 1
+        }
+        count = amount
     }
 
     private func canSendNotification() -> Bool {
@@ -63,6 +84,9 @@ final class USBDeviceManager: ObservableObject {
     }
 
     func refresh() {
+        
+        defer { setCount() }
+        
         DispatchQueue.global(qos: .userInitiated).async(execute: DispatchWorkItem {
             let snapshot = self.fetchUSBDevices()
 
@@ -97,6 +121,17 @@ final class USBDeviceManager: ObservableObject {
 
                 self.connectedCamouflagedDevices = camouflagedCount
             })
+            
+            if self.powerSourceInfo {
+                if self.isChargerConnected {
+                    let value = self.getChargePercentage()
+                    if (self.chargePercentage != value) {
+                        DispatchQueue.main.async {
+                            self.chargePercentage = value
+                        }
+                    }
+                }
+            }
 
             if self.showEthernet {
                 let ethernetStatus = self.isEthernetConnected()
@@ -164,6 +199,113 @@ final class USBDeviceManager: ObservableObject {
 
         if parent != 0 { IOObjectRelease(parent) }
         return result
+    }
+    
+    private func startPowerMonitoring() {
+        let callback: IOPowerSourceCallbackType = { context in
+            let mySelf = Unmanaged<USBDeviceManager>
+                .fromOpaque(context!)
+                .takeUnretainedValue()
+
+            DispatchQueue.main.async {
+                mySelf.updatePowerState()
+            }
+        }
+
+        let refcon = Unmanaged.passUnretained(self).toOpaque()
+
+        if let source = IOPSNotificationCreateRunLoopSource(callback, refcon)?.takeRetainedValue() {
+            powerSourceRunLoopSource = source
+            CFRunLoopAddSource(CFRunLoopGetMain(), source, .defaultMode)
+        }
+
+        DispatchQueue.main.async {
+            self.updatePowerState()
+        }
+    }
+    
+    private func updatePowerState() {
+        
+        defer { setCount() }
+        
+        if !powerSourceInfo {
+            chargePercentage = nil
+            return
+        }
+
+        let charging = isChargerConnected
+        let percentage = getChargePercentage()
+        
+        if (chargeConnected != charging && showNotifications) {
+            if canSendNotification() {
+                var battery = "\("battery".localized): \(chargePercentage ?? 0)%"
+                if chargePercentage == nil {
+                    battery = charging ? "charger_connected_body".localized : "charger_disconnected_body".localized
+                }
+                if charging {
+                    Utils.System.sendNotification(
+                        title: "charger_connected".localized,
+                        body: battery
+                    )
+                } else {
+                    Utils.System.sendNotification(
+                        title: "charger_disconnected".localized,
+                        body: "\("battery".localized): \(chargePercentage ?? 0)%"
+                    )
+                }
+            }
+        }
+        
+        chargeConnected = charging
+
+        if charging {
+            chargePercentage = percentage
+        } else {
+            chargePercentage = nil
+        }
+    }
+    
+    private var isChargerConnected: Bool {
+        guard let snapshot = IOPSCopyPowerSourcesInfo()?.takeRetainedValue(),
+              let sources = IOPSCopyPowerSourcesList(snapshot)?.takeRetainedValue() as? [CFTypeRef]
+        else { return false }
+
+        for ps in sources {
+            guard let description = IOPSGetPowerSourceDescription(snapshot, ps)?
+                    .takeUnretainedValue() as? [String: Any] else { continue }
+
+            if let state = description[kIOPSPowerSourceStateKey as String] as? String {
+                if state == kIOPSACPowerValue {
+                    return true
+                }
+            }
+
+            if let external = description["ExternalConnected"] as? Bool {
+                if external { return true }
+            }
+        }
+
+        return false
+    }
+    
+    private func getChargePercentage() -> Int? {
+        guard let snapshot = IOPSCopyPowerSourcesInfo()?.takeRetainedValue(),
+              let sources = IOPSCopyPowerSourcesList(snapshot)?.takeRetainedValue() as? [CFTypeRef]
+        else { return nil }
+
+        for ps in sources {
+            guard let description = IOPSGetPowerSourceDescription(snapshot, ps)?
+                    .takeUnretainedValue() as? [String: Any] else { continue }
+
+            if let type = description[kIOPSTypeKey as String] as? String,
+               type == kIOPSInternalBatteryType as String,
+               let current = description[kIOPSCurrentCapacityKey as String] as? Int,
+               let max = description[kIOPSMaxCapacityKey as String] as? Int {
+                return Int((Double(current) / Double(max)) * 100)
+            }
+        }
+
+        return nil
     }
 
     private func fetchUSBDevices() -> [USBDeviceWrapper] {
@@ -306,6 +448,9 @@ final class USBDeviceManager: ObservableObject {
     }
 
     private func startMonitoring() {
+        
+        defer { refresh() }
+        
         notifyPort = IONotificationPortCreate(kIOMainPortDefault)
         guard let notifyPort else { return }
 
@@ -439,6 +584,11 @@ final class USBDeviceManager: ObservableObject {
     }
 
     private func stopMonitoring() {
+        if let source = powerSourceRunLoopSource {
+            CFRunLoopRemoveSource(CFRunLoopGetMain(), source, .defaultMode)
+        }
+        powerSourceRunLoopSource = nil
+
         if addedIterator != 0 { IOObjectRelease(addedIterator); addedIterator = 0 }
         if removedIterator != 0 { IOObjectRelease(removedIterator); removedIterator = 0 }
         if let notifyPort {

@@ -280,3 +280,12 @@
 "disconnected_audio_file" = "Fișier .mp3 (deconectat)";
 "create" = "Creează";
 "delete" = "Șterge";
+"show_charger" = "Încărcătorul MacBook este recunoscut ca un dispozitiv";
+"show_charger_description" = "Odată conectat încărcătorul MacBook, acesta va apărea în listă și va fi afișată o notificare dacă este permis.";
+"power_supply" = "Sursă de alimentare";
+"hide_charger_information" = "Ascunde informațiile despre încărcător";
+"charger_connected" = "Încărcător conectat";
+"charger_connected_body" = "Un încărcător a fost conectat.";
+"charger_disconnected" = "Încărcător deconectat";
+"charger_disconnected_body" = "Cablul de încărcare a fost deconectat.";
+"battery" = "Baterie";

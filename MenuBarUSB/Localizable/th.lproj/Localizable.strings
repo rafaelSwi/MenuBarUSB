@@ -273,3 +273,12 @@
 "disconnected_audio_file" = "ไฟล์ .mp3 (ตัดการเชื่อมต่อ)";
 "create" = "สร้าง";
 "delete" = "ลบ";
+"show_charger" = "ที่ชาร์จ MacBook ถูกจดจำว่าเป็นอุปกรณ์";
+"show_charger_description" = "เมื่อเชื่อมต่อที่ชาร์จ MacBook แล้ว จะปรากฏในรายการและจะแสดงการแจ้งเตือนหากอนุญาต";
+"power_supply" = "แหล่งจ่ายไฟ";
+"hide_charger_information" = "ซ่อนข้อมูลที่ชาร์จ";
+"charger_connected" = "เชื่อมต่อที่ชาร์จแล้ว";
+"charger_connected_body" = "มีการเชื่อมต่อที่ชาร์จ.";
+"charger_disconnected" = "ที่ชาร์จถูกถอดออก";
+"charger_disconnected_body" = "สายชาร์จถูกถอดออก.";
+"battery" = "แบตเตอรี่";

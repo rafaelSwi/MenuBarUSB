@@ -19,6 +19,7 @@ enum StorageKeys {
     static let camouflagedIndicator = "camouflagedIndicator"
     static let customHardwareSounds = "customHardwareSounds"
     static let showNotifications = "showNotifications"
+    static let powerSourceInfo = "powerSourceInfo"
     static let reduceTransparency = "reduceTransparency"
     static let disableNotifCooldown = "disableNotifCooldown"
     static let disableInheritanceLayout = "disableInheritanceLayout"

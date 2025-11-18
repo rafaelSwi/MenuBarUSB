@@ -273,3 +273,12 @@
 "disconnected_audio_file" = ".mp3 파일 (연결 해제됨)";
 "create" = "생성";
 "delete" = "삭제";
+"show_charger" = "MacBook 충전기가 장치로 인식되었습니다";
+"show_charger_description" = "MacBook 충전기가 연결되면 목록에 표시되며, 허용된 경우 알림이 나타납니다.";
+"power_supply" = "전원 공급";
+"hide_charger_information" = "충전기 정보 숨기기";
+"charger_connected" = "충전기 연결됨";
+"charger_connected_body" = "충전기가 연결되었습니다.";
+"charger_disconnected" = "충전기 연결 해제됨";
+"charger_disconnected_body" = "충전 케이블이 분리되었습니다.";
+"battery" = "배터리";

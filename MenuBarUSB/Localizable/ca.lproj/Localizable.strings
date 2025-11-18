@@ -273,3 +273,12 @@
 "disconnected_audio_file" = "Fitxer .mp3 (desconnectat)";
 "create" = "Crear";
 "delete" = "Eliminar";
+"show_charger" = "El carregador del MacBook es reconeix com un dispositiu";
+"show_charger_description" = "Quan el carregador del MacBook estigui connectat, apareixerà a la llista i es mostrarà una notificació si està permès.";
+"power_supply" = "Font d'alimentació";
+"hide_charger_information" = "Amagar informació del carregador";
+"charger_connected" = "Carregador connectat";
+"charger_connected_body" = "S'ha connectat un carregador.";
+"charger_disconnected" = "Carregador desconnectat";
+"charger_disconnected_body" = "S'ha desconnectat el cable de càrrega.";
+"battery" = "Bateria";

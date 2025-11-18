@@ -273,3 +273,12 @@
 "disconnected_audio_file" = ".mp3 dosyası (bağlantı kesildi)";
 "create" = "Oluştur";
 "delete" = "Sil";
+"show_charger" = "MacBook şarj cihazı bir cihaz olarak algılanıyor";
+"show_charger_description" = "MacBook şarj cihazı bağlandığında listede görünecek ve izin verilmişse bir bildirim gösterilecektir.";
+"power_supply" = "Güç kaynağı";
+"hide_charger_information" = "Şarj cihazı bilgisini gizle";
+"charger_connected" = "Şarj cihazı bağlandı";
+"charger_connected_body" = "Bir şarj cihazı bağlandı.";
+"charger_disconnected" = "Şarj cihazı çıkarıldı";
+"charger_disconnected_body" = "Şarj kablosu çıkarıldı.";
+"battery" = "Batarya";

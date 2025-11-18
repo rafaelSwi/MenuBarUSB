@@ -273,3 +273,12 @@
 "disconnected_audio_file" = ".mp3-fil (afbrudt)";
 "create" = "Opret";
 "delete" = "Slet";
+"show_charger" = "MacBook-Ladegerät wird als Gerät erkannt";
+"show_charger_description" = "Sobald das MacBook-Ladegerät angeschlossen ist, erscheint es in der Liste und eine Benachrichtigung wird angezeigt, wenn erlaubt.";
+"power_supply" = "Stromversorgung";
+"hide_charger_information" = "Ladegeräteinformationen ausblenden";
+"charger_connected" = "Ladegerät verbunden";
+"charger_connected_body" = "Ein Ladegerät wurde verbunden.";
+"charger_disconnected" = "Ladegerät getrennt";
+"charger_disconnected_body" = "Ladekabel wurde getrennt.";
+"battery" = "Batterie";
