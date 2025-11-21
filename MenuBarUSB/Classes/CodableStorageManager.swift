@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum CodableStorageManager {
-    enum Sound {
+final class CodableStorageManager {
+    final class Sound {
         @CodableAppStorage(Key.customHardwareSounds)
         static var items: [HardwareSound] = []
 
@@ -32,6 +32,41 @@ enum CodableStorageManager {
                 Utils.App.deleteFromAppStorage(item!.disconnect ?? "")
             }
             items.removeAll { $0.uniqueId == id }
+            let soundDevices = SoundDevices.getBySoundId(id)
+            for i in soundDevices {
+                SoundDevices.remove(i.deviceId)
+            }
+        }
+
+        static func clear() {
+            items.removeAll(keepingCapacity: false)
+        }
+    }
+    
+    final class SoundDevices {
+        @CodableAppStorage(Key.soundDevices)
+        static var items: [DeviceSound] = []
+
+        static subscript(_ deviceId: String) -> DeviceSound? {
+            return items.first(where: { $0.deviceId == deviceId })
+        }
+        
+        static func getBySoundId(_ soundId: String) -> [DeviceSound] {
+            return items.filter { $0.soundId == soundId }
+        }
+        
+        static func getByBothIds(device: String, sound: String) -> DeviceSound? {
+            return items.first { $0.soundId == sound && $0.deviceId == device }
+        }
+
+        static func add(_ deviceId: String?, _ soundId: String?) {
+            if deviceId == nil || soundId == nil { return }
+            items.removeAll { $0.deviceId == deviceId }
+            items.append(DeviceSound(deviceId: deviceId!, soundId: soundId!))
+        }
+
+        static func remove(_ deviceId: String) {
+            items.removeAll { $0.deviceId == deviceId }
         }
 
         static func clear() {
@@ -39,7 +74,7 @@ enum CodableStorageManager {
         }
     }
 
-    enum Stored {
+    final class Stored {
         @CodableAppStorage(Key.storedDevices)
         static var items: [StoredDevice] = []
 
@@ -92,7 +127,7 @@ enum CodableStorageManager {
         }
     }
 
-    enum Renamed {
+    final class Renamed {
         @CodableAppStorage(Key.renamedDevices)
         static var items: [RenamedDevice] = []
 
@@ -119,7 +154,7 @@ enum CodableStorageManager {
         }
     }
 
-    enum Camouflaged {
+    final class Camouflaged {
         @CodableAppStorage(Key.camouflagedDevices)
         static var items: [CamouflagedDevice] = []
 
@@ -146,7 +181,7 @@ enum CodableStorageManager {
         }
     }
 
-    enum Heritage {
+    final class Heritage {
         @CodableAppStorage(Key.inheritedDevices)
         static var items: [HeritageDevice] = []
 

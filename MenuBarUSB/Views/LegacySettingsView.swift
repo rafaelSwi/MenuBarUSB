@@ -337,13 +337,6 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         HStack {
-                            Button {
-                                hardwareSound = ""
-                                playHardwareSound = false
-                            } label: {
-                                Image(systemName: "xmark")
-                            }
-                            .disabled(hardwareSound.isEmpty)
                             Menu {
                                 ForEach(HardwareSound.all, id: \.uniqueId) { sound in
                                     Button(LocalizedStringKey(sound.titleKey)) {
@@ -363,13 +356,15 @@ struct LegacySettingsView: View {
                                         Utils.System.playSound(sound?.disconnect)
                                     }
                                 } label: {
-                                    Image(systemName: "play")
+                                    Image(systemName: "play.fill")
                                 }
+                                .buttonStyle(.borderless)
                             }
+                            Spacer()
                         }
-                        .frame(maxWidth: 250)
+                        .frame(maxWidth: 290)
                         .disabled(!playHardwareSound)
-                        .opacity(playHardwareSound ? 1.0 : 0.3)
+                        .opacity(playHardwareSound ? 1.0 : 0.1)
                     }
 
                     if showInterfaceOptions {

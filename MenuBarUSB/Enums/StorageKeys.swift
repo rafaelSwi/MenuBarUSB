@@ -12,6 +12,7 @@ enum StorageKeys {
     static let longList = "longList"
     static let hideTechInfo = "hideTechInfo"
     static let renamedDevices = "renamedDevices"
+    static let soundDevices = "soundDevices"
     static let storedDevices = "storedDevices"
     static let inheritedDevices = "inheritedDevices"
     static let camouflagedDevices = "camouflagedDevices"

@@ -39,6 +39,7 @@ struct ContentView: View {
     @AS(Key.profilerButton) private var profilerButton = false
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
+    @AS(Key.playHardwareSound) private var playHardwareSound = false
     @AS(Key.showEthernet) private var showEthernet = false
     @AS(Key.toolbarClockOff) private var toolbarClockOff = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
@@ -367,6 +368,18 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
         }
     }
+    
+    private func indexIndicatorView(_ index: Int, force: Bool = false) -> some View {
+        var value: Int = index
+        if showChargingStatus {
+            value += 2
+        } else {
+            value += 1
+        }
+        return Text("\(force ? index : value)")
+            .font(.footnote)
+            .foregroundStyle(.gray)
+    }
 
     private func toolbarListItemView(
         _ value: Binding<Bool>,
@@ -512,6 +525,9 @@ struct ContentView: View {
                 } else {
                     if showChargingStatus {
                         HStack {
+                            if indexIndicator {
+                                indexIndicatorView(1, force: true)
+                            }
                             Group {
                                 Text("power_supply")
                                 Spacer()
@@ -546,8 +562,7 @@ struct ContentView: View {
                                             deviceRenameView(deviceId: device.item.uniqueId)
                                         } else {
                                             if indexIndicator {
-                                                Text("\(index + 1)")
-                                                    .font(.footnote)
+                                                indexIndicatorView(index)
                                             }
                                             deviceTitleView(device.item.name, deviceId: device.item.uniqueId)
                                         }
@@ -775,6 +790,32 @@ struct ContentView: View {
                                             .disabled(device.item.serialNumber == nil)
                                         } label: {
                                             Label("search", systemImage: "globe")
+                                        }
+                                    }
+                                    
+                                    if playHardwareSound {
+                                        Divider()
+                                        
+                                        Menu {
+                                            ForEach(HardwareSound.all, id: \.uniqueId) { sound in
+                                                Button {
+                                                    CSM.SoundDevices.add(device.item.uniqueId, sound.uniqueId)
+                                                    manager.refresh()
+                                                } label: {
+                                                    let isSelected = CSM.SoundDevices.getByBothIds(device: device.item.uniqueId, sound: sound.uniqueId) != nil
+                                                    Text(isSelected ? "‣ \(sound.titleKey.localized)": sound.titleKey.localized)
+                                                }
+                                            }
+                                            
+                                            if CSM.SoundDevices[device.item.uniqueId] != nil {
+                                                Divider()
+                                                Button("undo") {
+                                                    CSM.SoundDevices.remove(device.item.uniqueId)
+                                                    manager.refresh()
+                                                }
+                                            }
+                                        } label: {
+                                            Label("assign_sound", systemImage: "speaker.wave.3")
                                         }
                                     }
                                 }

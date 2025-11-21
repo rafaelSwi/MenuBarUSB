@@ -282,3 +282,5 @@
 "charger_disconnected" = "Charger disconnected";
 "charger_disconnected_body" = "Charging cable disconnected.";
 "battery" = "Battery";
+"assign_sound" = "Assign sound";
+"undo" = "Undo";

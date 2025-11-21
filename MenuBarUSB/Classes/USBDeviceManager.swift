@@ -542,7 +542,16 @@ final class USBDeviceManager: ObservableObject {
                 }
 
                 if mySelf.playHardwareSound {
-                    Utils.System.playSound(HardwareSound[mySelf.hardwareSound]?.disconnect)
+                    var playDefault: Bool = true
+                    if let uniqueId = mySelf.makeDevice(from: service)?.item.uniqueId {
+                        if let soundDevice = CSM.SoundDevices[uniqueId] {
+                            playDefault = false
+                            Utils.System.playSound(HardwareSound[soundDevice.soundId]?.disconnect)
+                        }
+                    }
+                    if playDefault {
+                        Utils.System.playSound(HardwareSound[mySelf.hardwareSound]?.disconnect)
+                    }
                 }
 
                 if mySelf.showNotifications, mySelf.canSendNotification() {
