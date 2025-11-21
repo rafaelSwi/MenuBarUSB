@@ -282,3 +282,10 @@
 "charger_disconnected" = "Зарядний пристрій відключено";
 "charger_disconnected_body" = "Кабель зарядки відключено.";
 "battery" = "Батарея";
+"sound" = "Звук";
+"undo" = "Скасувати";
+"mute" = "Без звуку (вимкнути звук)";
+"undo_all_devices_sound_associations" = "Очистити всі асоціації звуку пристроїв";
+"no_custom_associations_to_undo" = "Немає користувацьких асоціацій звуку для очищення";
+"play_only_connect" = "Відтворювати лише звук підключення";
+"play_only_disconnect" = "Відтворювати лише звук відключення";

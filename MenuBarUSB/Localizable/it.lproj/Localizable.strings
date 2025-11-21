@@ -282,3 +282,10 @@
 "charger_disconnected" = "Caricatore scollegato";
 "charger_disconnected_body" = "Il cavo di ricarica è stato scollegato.";
 "battery" = "Batteria";
+"sound" = "Suono";
+"undo" = "Annulla";
+"mute" = "Disattiva audio (nessun suono)";
+"undo_all_devices_sound_associations" = "Cancella tutte le associazioni audio dei dispositivi";
+"no_custom_associations_to_undo" = "Nessuna associazione audio personalizzata da cancellare";
+"play_only_connect" = "Riproduci solo il suono di connessione";
+"play_only_disconnect" = "Riproduci solo il suono di disconnessione";

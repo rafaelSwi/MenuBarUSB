@@ -282,3 +282,10 @@
 "charger_disconnected" = "चार्जर डिस्कनेक्ट हुआ";
 "charger_disconnected_body" = "चार्जिंग केबल डिस्कनेक्ट हो गई.";
 "battery" = "बैटरी";
+"sound" = "ध्वनि";
+"undo" = "पूर्ववत";
+"mute" = "म्यूट (कोई ध्वनि नहीं)";
+"undo_all_devices_sound_associations" = "सभी डिवाइस ध्वनि संयोजनों को साफ़ करें";
+"no_custom_associations_to_undo" = "मिटाने के लिए कोई कस्टम ध्वनि संयोजन नहीं";
+"play_only_connect" = "केवल कनेक्ट ध्वनि चलाएं";
+"play_only_disconnect" = "केवल डिस्कनेक्ट ध्वनि चलाएं";

@@ -282,3 +282,10 @@
 "charger_disconnected" = "充電器が切断されました";
 "charger_disconnected_body" = "充電ケーブルが切断されました。";
 "battery" = "バッテリー";
+"sound" = "サウンド";
+"undo" = "元に戻す";
+"mute" = "ミュート（無音）";
+"undo_all_devices_sound_associations" = "すべてのデバイスのサウンド関連付けをクリア";
+"no_custom_associations_to_undo" = "クリアするカスタムサウンドの関連付けはありません";
+"play_only_connect" = "接続音のみ再生";
+"play_only_disconnect" = "切断音のみ再生";

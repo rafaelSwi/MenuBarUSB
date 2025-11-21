@@ -282,3 +282,10 @@
 "charger_disconnected" = "Ladegerät getrennt";
 "charger_disconnected_body" = "Ladekabel wurde getrennt.";
 "battery" = "Batterie";
+"sound" = "Ton";
+"undo" = "Rückgängig";
+"mute" = "Stumm (kein Ton)";
+"undo_all_devices_sound_associations" = "Alle Geräte-Tonzuordnungen löschen";
+"no_custom_associations_to_undo" = "Keine benutzerdefinierten Tonzuordnungen zum Löschen";
+"play_only_connect" = "Nur Verbindungston abspielen";
+"play_only_disconnect" = "Nur Trennungston abspielen";

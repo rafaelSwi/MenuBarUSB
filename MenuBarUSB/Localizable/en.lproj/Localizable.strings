@@ -282,5 +282,10 @@
 "charger_disconnected" = "Charger disconnected";
 "charger_disconnected_body" = "Charging cable disconnected.";
 "battery" = "Battery";
-"assign_sound" = "Assign sound";
+"sound" = "Sound";
 "undo" = "Undo";
+"mute" = "Mute (no sound)";
+"undo_all_devices_sound_associations" = "Undo all devices sound associations";
+"no_custom_associations_to_undo" = "No custom associations to undo";
+"play_only_connect" = "Play only the \"connect\" sound";
+"play_only_disconnect" = "Play only the \"disconnect\" sound";

@@ -282,3 +282,10 @@
 "charger_disconnected" = "Ładowarka odłączona";
 "charger_disconnected_body" = "Odłączono kabel ładowania.";
 "battery" = "Bateria";
+"sound" = "Dźwięk";
+"undo" = "Cofnij";
+"mute" = "Wycisz (bez dźwięku)";
+"undo_all_devices_sound_associations" = "Wyczyść wszystkie powiązania dźwięku z urządzeniami";
+"no_custom_associations_to_undo" = "Brak niestandardowych powiązań dźwięku do usunięcia";
+"play_only_connect" = "Odtwarzaj tylko dźwięk połączenia";
+"play_only_disconnect" = "Odtwarzaj tylko dźwięk rozłączenia";

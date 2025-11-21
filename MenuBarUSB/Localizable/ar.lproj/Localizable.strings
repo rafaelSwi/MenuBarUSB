@@ -282,3 +282,10 @@
 "charger_disconnected" = "تم فصل الشاحن";
 "charger_disconnected_body" = "تم فصل كابل الشحن.";
 "battery" = "البطارية";
+"sound" = "الصوت";
+"undo" = "تراجع";
+"mute" = "كتم (بدون صوت)";
+"undo_all_devices_sound_associations" = "مسح جميع ارتباطات الأصوات بالأجهزة";
+"no_custom_associations_to_undo" = "لا توجد ارتباطات صوت مخصصة لمسحها";
+"play_only_connect" = "تشغيل صوت الاتصال فقط";
+"play_only_disconnect" = "تشغيل صوت قطع الاتصال فقط";

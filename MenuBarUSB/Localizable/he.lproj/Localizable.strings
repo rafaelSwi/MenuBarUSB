@@ -282,3 +282,10 @@
 "charger_disconnected" = "המטען נותק";
 "charger_disconnected_body" = "כבל הטעינה נותק.";
 "battery" = "סוללה";
+"sound" = "צליל";
+"undo" = "בטל";
+"mute" = "השתק (ללא צליל)";
+"undo_all_devices_sound_associations" = "מחק את כל שיוכי הצלילים למכשירים";
+"no_custom_associations_to_undo" = "אין שיוכי צלילים מותאמים למחיקה";
+"play_only_connect" = "נגן רק את צליל ההתחברות";
+"play_only_disconnect" = "נגן רק את צליל הניתוק";

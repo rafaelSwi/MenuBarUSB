@@ -282,3 +282,10 @@
 "charger_disconnected" = "Şarj cihazı çıkarıldı";
 "charger_disconnected_body" = "Şarj kablosu çıkarıldı.";
 "battery" = "Batarya";
+"sound" = "Ses";
+"undo" = "Geri al";
+"mute" = "Sessize al (ses yok)";
+"undo_all_devices_sound_associations" = "Tüm cihaz ses ilişkilendirmelerini temizle";
+"no_custom_associations_to_undo" = "Temizlenecek özel ses ilişkilendirmesi yok";
+"play_only_connect" = "Yalnızca bağlantı sesini çal";
+"play_only_disconnect" = "Yalnızca bağlantı kesme sesini çal";

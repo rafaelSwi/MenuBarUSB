@@ -797,13 +797,24 @@ struct ContentView: View {
                                         Divider()
                                         
                                         Menu {
+                                            
+                                            Button {
+                                                CSM.SoundDevices.add(uniqueId, "mute");
+                                                manager.refresh()
+                                            } label: {
+                                                let isSelected = CSM.SoundDevices.getByBothIds(device: uniqueId, sound: "mute") != nil
+                                                Text(isSelected ? "‣   \("mute".localized)" : "mute")
+                                            }
+                                            
+                                            Divider()
+                                            
                                             ForEach(HardwareSound.all, id: \.uniqueId) { sound in
                                                 Button {
                                                     CSM.SoundDevices.add(device.item.uniqueId, sound.uniqueId)
                                                     manager.refresh()
                                                 } label: {
                                                     let isSelected = CSM.SoundDevices.getByBothIds(device: device.item.uniqueId, sound: sound.uniqueId) != nil
-                                                    Text(isSelected ? "‣ \(sound.titleKey.localized)": sound.titleKey.localized)
+                                                    Text(isSelected ? "‣   \(sound.titleKey.localized)": sound.titleKey.localized)
                                                 }
                                             }
                                             
@@ -815,7 +826,7 @@ struct ContentView: View {
                                                 }
                                             }
                                         } label: {
-                                            Label("assign_sound", systemImage: "speaker.wave.3")
+                                            Label("sound", systemImage: "speaker.wave.3")
                                         }
                                     }
                                 }

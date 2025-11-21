@@ -282,3 +282,10 @@
 "charger_disconnected" = "Φορτιστής αποσυνδεδεμένος";
 "charger_disconnected_body" = "Το καλώδιο φόρτισης αποσυνδέθηκε.";
 "battery" = "Μπαταρία";
+"sound" = "Ήχος";
+"undo" = "Αναίρεση";
+"mute" = "Σίγαση (χωρίς ήχο)";
+"undo_all_devices_sound_associations" = "Διαγραφή όλων των συσχετίσεων ήχου συσκευών";
+"no_custom_associations_to_undo" = "Δεν υπάρχουν προσαρμοσμένες συσχετίσεις ήχου για διαγραφή";
+"play_only_connect" = "Αναπαραγωγή μόνο του ήχου σύνδεσης";
+"play_only_disconnect" = "Αναπαραγωγή μόνο του ήχου αποσύνδεσης";

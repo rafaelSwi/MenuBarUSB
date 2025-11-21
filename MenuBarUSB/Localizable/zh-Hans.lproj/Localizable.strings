@@ -282,3 +282,10 @@
 "charger_disconnected" = "充电器已断开";
 "charger_disconnected_body" = "充电线已断开。";
 "battery" = "电池";
+"sound" = "声音";
+"undo" = "撤销";
+"mute" = "静音（无声音）";
+"undo_all_devices_sound_associations" = "清除所有设备的声音关联";
+"no_custom_associations_to_undo" = "没有可清除的自定义声音关联";
+"play_only_connect" = "仅播放连接声音";
+"play_only_disconnect" = "仅播放断开连接声音";

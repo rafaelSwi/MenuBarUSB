@@ -282,3 +282,10 @@
 "charger_disconnected" = "Carregador desconectado";
 "charger_disconnected_body" = "O carregador foi desconectado.";
 "battery" = "Bateria";
+"sound" = "Som";
+"undo" = "Desfazer";
+"mute" = "Mudo (sem som)";
+"undo_all_devices_sound_associations" = "Limpar todas as associações de som dos dispositivos";
+"no_custom_associations_to_undo" = "Nenhuma associação de som personalizada para limpar";
+"play_only_connect" = "Tocar apenas o som de conectar";
+"play_only_disconnect" = "Tocar apenas o som de desconectar";

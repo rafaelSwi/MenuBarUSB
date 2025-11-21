@@ -289,3 +289,10 @@
 "charger_disconnected" = "Încărcător deconectat";
 "charger_disconnected_body" = "Cablul de încărcare a fost deconectat.";
 "battery" = "Baterie";
+"sound" = "Sunet";
+"undo" = "Anulează";
+"mute" = "Mut (fără sunet)";
+"undo_all_devices_sound_associations" = "Șterge toate asocierile de sunet ale dispozitivelor";
+"no_custom_associations_to_undo" = "Nicio asociere de sunet personalizată de șters";
+"play_only_connect" = "Redă doar sunetul de conectare";
+"play_only_disconnect" = "Redă doar sunetul de deconectare";

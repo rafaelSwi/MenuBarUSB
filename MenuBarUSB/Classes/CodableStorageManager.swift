@@ -21,6 +21,7 @@ final class CodableStorageManager {
         }
 
         static func add(_ custom: HardwareSound) {
+            if custom.titleKey.lowercased() == "mute" { return }
             items.removeAll { $0.uniqueId == custom.uniqueId }
             items.append(custom)
         }

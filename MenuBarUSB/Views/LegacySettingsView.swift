@@ -348,6 +348,13 @@ struct LegacySettingsView: View {
                                 let title = LocalizedStringKey(sound?.titleKey ?? "none_default")
                                 Text(title)
                             }
+                            .contextMenu {
+                                Button("undo_all_devices_sound_associations") {
+                                    CSM.SoundDevices.clear()
+                                    Utils.App.restart()
+                                }
+                            }
+                            
                             if hardwareSound != "" {
                                 Button {
                                     let sound = HardwareSound[hardwareSound]

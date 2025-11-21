@@ -282,3 +282,10 @@
 "charger_disconnected" = "ที่ชาร์จถูกถอดออก";
 "charger_disconnected_body" = "สายชาร์จถูกถอดออก.";
 "battery" = "แบตเตอรี่";
+"sound" = "เสียง";
+"undo" = "เลิกทำ";
+"mute" = "ปิดเสียง (ไม่มีเสียง)";
+"undo_all_devices_sound_associations" = "ล้างการเชื่อมโยงเสียงทั้งหมดของอุปกรณ์";
+"no_custom_associations_to_undo" = "ไม่มีการเชื่อมโยงเสียงแบบกำหนดเองให้ล้าง";
+"play_only_connect" = "เล่นเฉพาะเสียงเชื่อมต่อ";
+"play_only_disconnect" = "เล่นเฉพาะเสียงตัดการเชื่อมต่อ";

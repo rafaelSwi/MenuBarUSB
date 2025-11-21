@@ -282,3 +282,10 @@
 "charger_disconnected" = "Carregador desconnectat";
 "charger_disconnected_body" = "S'ha desconnectat el cable de càrrega.";
 "battery" = "Bateria";
+"sound" = "So";
+"undo" = "Desfer";
+"mute" = "Silenciar (sense so)";
+"undo_all_devices_sound_associations" = "Esborrar totes les associacions de so dels dispositius";
+"no_custom_associations_to_undo" = "No hi ha associacions de so personalitzades per esborrar";
+"play_only_connect" = "Reproduir només el so de connexió";
+"play_only_disconnect" = "Reproduir només el so de desconnexió";

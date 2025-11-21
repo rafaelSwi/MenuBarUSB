@@ -282,3 +282,10 @@
 "charger_disconnected" = "Chargeur déconnecté";
 "charger_disconnected_body" = "Le câble de charge a été déconnecté.";
 "battery" = "Batterie";
+"sound" = "Son";
+"undo" = "Annuler";
+"mute" = "Muet (sans son)";
+"undo_all_devices_sound_associations" = "Effacer toutes les associations de sons des appareils";
+"no_custom_associations_to_undo" = "Aucune association sonore personnalisée à effacer";
+"play_only_connect" = "Lire uniquement le son de connexion";
+"play_only_disconnect" = "Lire uniquement le son de déconnexion";

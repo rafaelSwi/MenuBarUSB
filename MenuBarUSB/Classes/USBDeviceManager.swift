@@ -19,7 +19,7 @@ final class USBDeviceManager: ObservableObject {
     @Published var trafficCooldown: TimeInterval = 1.0
     @Published var lastTrafficDetected: Date = .distantPast
     @Published var trafficMonitorRunning: Bool = false
-
+    
     private var powerSourceRunLoopSource: CFRunLoopSource?
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
@@ -52,10 +52,8 @@ final class USBDeviceManager: ObservableObject {
         }
 
         startMonitoring()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.refresh()
-        }
+        
+        refresh()
     }
 
     deinit {
@@ -83,7 +81,11 @@ final class USBDeviceManager: ObservableObject {
     }
 
     func refresh() {
-        defer { setCount() }
+        defer {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.setCount()
+            }
+        }
 
         DispatchQueue.global(qos: .userInitiated).async(execute: DispatchWorkItem {
             let snapshot = self.fetchUSBDevices()
@@ -446,7 +448,6 @@ final class USBDeviceManager: ObservableObject {
     }
 
     private func startMonitoring() {
-        defer { refresh() }
 
         notifyPort = IONotificationPortCreate(kIOMainPortDefault)
         guard let notifyPort else { return }
@@ -461,58 +462,57 @@ final class USBDeviceManager: ObservableObject {
         let addedCallback: IOServiceMatchingCallback = { refcon, iterator in
             let mySelf = Unmanaged<USBDeviceManager>.fromOpaque(refcon!).takeUnretainedValue()
 
-            var deviceNames: [String] = []
-            var service: io_object_t
-            repeat {
-                service = IOIteratorNext(iterator)
-                if service != 0 {
-                    var parts: [String] = []
+            var addedDevices: [USBDeviceWrapper] = []
 
-                    if let vendor = IORegistryEntryCreateCFProperty(
-                        service,
-                        kUSBVendorString as CFString,
-                        kCFAllocatorDefault,
-                        0
-                    )?.takeUnretainedValue() as? String {
-                        parts.append(vendor)
-                    }
+            var service: io_object_t = IOIteratorNext(iterator)
+            while service != 0 {
 
-                    if let product = IORegistryEntryCreateCFProperty(
-                        service,
-                        kUSBProductString as CFString,
-                        kCFAllocatorDefault,
-                        0
-                    )?.takeUnretainedValue() as? String {
-                        parts.append(product)
-                    }
-
-                    if !parts.isEmpty {
-                        deviceNames.append(parts.joined(separator: " "))
-                    }
-
-                    IOObjectRelease(service)
+                if let wrapper = mySelf.makeDevice(from: service) {
+                    addedDevices.append(wrapper)
                 }
-            } while service != 0
+
+                IOObjectRelease(service)
+                service = IOIteratorNext(iterator)
+            }
 
             DispatchQueue.main.async {
-                mySelf.refresh()
-                if mySelf.playHardwareSound {
-                    Utils.System.playSound(HardwareSound[mySelf.hardwareSound]?.connect)
-                }
-                if mySelf.showNotifications, mySelf.canSendNotification() {
-                    let deviceList = deviceNames.isEmpty ? "" : "\(deviceNames.joined(separator: ", ").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))"
-                    if deviceList == "" {
-                        Utils.System.sendNotification(
-                            title: "usb_detected".localized,
-                            body: "usb_detected_info".localized
-                        )
 
-                    } else {
-                        Utils.System.sendNotification(
-                            title: "usb_detected".localized,
-                            body: String(format: "device_connected".localized, deviceList)
-                        )
+                mySelf.refresh()
+                
+                if mySelf.playHardwareSound {
+
+                    var playedCustom = false
+
+                    for dev in addedDevices {
+                        let id = dev.item.uniqueId
+                        if let soundDevice = CSM.SoundDevices[id] {
+                            playedCustom = true
+                            Utils.System.playSound(HardwareSound[soundDevice.soundId]?.connect)
+                        }
                     }
+
+                    if !playedCustom {
+                        Utils.System.playSound(HardwareSound[mySelf.hardwareSound]?.connect)
+                    }
+                }
+
+                if mySelf.showNotifications, mySelf.canSendNotification() {
+
+                    let names = addedDevices.compactMap { dev -> String? in
+                        let vendor = dev.item.vendor ?? ""
+                        let name = dev.item.name
+                        let combined = "\(vendor) \(name)".trimmingCharacters(in: .whitespaces)
+                        return combined.isEmpty ? nil : combined
+                    }
+
+                    let deviceList = names.joined(separator: ", ")
+
+                    Utils.System.sendNotification(
+                        title: "usb_detected".localized,
+                        body: deviceList.isEmpty
+                            ? "usb_detected_info".localized
+                            : String(format: "device_connected".localized, deviceList)
+                    )
                 }
             }
         }
@@ -520,42 +520,44 @@ final class USBDeviceManager: ObservableObject {
         let removedCallback: IOServiceMatchingCallback = { refcon, iterator in
             let mySelf = Unmanaged<USBDeviceManager>.fromOpaque(refcon!).takeUnretainedValue()
 
-            var deviceNames: [String] = []
-            var service: io_object_t
-            repeat {
-                service = IOIteratorNext(iterator)
-                if service != 0 {
-                    if let vendor = IORegistryEntryCreateCFProperty(service, kUSBVendorString as CFString, kCFAllocatorDefault, 0)?
-                        .takeUnretainedValue() as? String,
-                        let product = IORegistryEntryCreateCFProperty(service, kUSBProductString as CFString, kCFAllocatorDefault, 0)?
-                        .takeUnretainedValue() as? String
-                    {
-                        deviceNames.append("\(vendor) \(product)")
-                    }
-                    IOObjectRelease(service)
+            var removedDevices: [USBDeviceWrapper] = []
+
+            var service: io_object_t = IOIteratorNext(iterator)
+            while service != 0 {
+
+                if let wrapper = mySelf.makeDevice(from: service) {
+                    removedDevices.append(wrapper)
                 }
-            } while service != 0
+
+                IOObjectRelease(service)
+                service = IOIteratorNext(iterator)
+            }
 
             DispatchQueue.main.async {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    mySelf.refresh()
-                }
+                
+                mySelf.refresh()
 
                 if mySelf.playHardwareSound {
-                    var playDefault: Bool = true
-                    if let uniqueId = mySelf.makeDevice(from: service)?.item.uniqueId {
-                        if let soundDevice = CSM.SoundDevices[uniqueId] {
-                            playDefault = false
+
+                    var playedCustom = false
+
+                    for device in removedDevices {
+                        if let soundDevice = CSM.SoundDevices[device.item.uniqueId] {
+                            playedCustom = true
                             Utils.System.playSound(HardwareSound[soundDevice.soundId]?.disconnect)
                         }
                     }
-                    if playDefault {
+
+                    if !playedCustom {
                         Utils.System.playSound(HardwareSound[mySelf.hardwareSound]?.disconnect)
                     }
                 }
 
                 if mySelf.showNotifications, mySelf.canSendNotification() {
-                    let deviceList = deviceNames.joined(separator: ", ")
+                    let deviceList = removedDevices.map {
+                        "\($0.item.vendor ?? "") \($0.item.name)"
+                    }.joined(separator: ", ")
+
                     Utils.System.sendNotification(
                         title: "usb_disconnected".localized,
                         body: deviceList.isEmpty

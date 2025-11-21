@@ -210,6 +210,22 @@ struct SettingsView: View {
             disableButtonsRelatedToSound = false
         }
     }
+    
+    private func playOnlyOneSound(for hardwareSound: String, connect: Bool) {
+        playHardwareSound = false
+        defer {
+            let time: Double = isCustomSoundSetSelected ? 2.5 : 1.5
+            DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+                playHardwareSound = true
+            }
+        }
+        let sound = HardwareSound[hardwareSound]
+        if connect {
+            Utils.System.playSound(sound?.connect)
+        } else {
+            Utils.System.playSound(sound?.disconnect)
+        }
+    }
 
     private let icons: [String] = [
         "cable.connector",
@@ -583,12 +599,30 @@ struct SettingsView: View {
                             let title = LocalizedStringKey(sound?.titleKey ?? "none_default")
                             Text(title)
                         }
+                        .contextMenu {
+                            let amount = CSM.SoundDevices.items.count
+                            let text = "\("undo_all_devices_sound_associations".localized) (\(amount))"
+                            Button(amount > 0 ? text : "no_custom_association_to_undo".localized) {
+                                CSM.SoundDevices.clear()
+                                manager.refresh()
+                            }
+                            .disabled(amount <= 0)
+                        }
 
                         if hardwareSound != "" {
                             Button {
                                 testHardwareSound()
                             } label: {
                                 Image(systemName: "play")
+                            }
+                            .contextMenu {
+                                Button("play_only_connect") {
+                                    playOnlyOneSound(for: hardwareSound, connect: true)
+                                }
+                                
+                                Button("play_only_disconnect") {
+                                    playOnlyOneSound(for: hardwareSound, connect: false)
+                                }
                             }
                         }
                         Spacer()
