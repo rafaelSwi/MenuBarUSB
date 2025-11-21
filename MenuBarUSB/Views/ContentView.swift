@@ -311,7 +311,7 @@ struct ContentView: View {
         let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
         return renamed != nil
     }
-    
+
     private var showChargingStatus: Bool {
         return powerSourceInfo && manager.chargeConnected && manager.chargePercentage != nil
     }
@@ -510,7 +510,7 @@ struct ContentView: View {
                             .padding(15)
                     }
                 } else {
-                    if (showChargingStatus) {
+                    if showChargingStatus {
                         HStack {
                             Group {
                                 Text("power_supply")
@@ -864,7 +864,7 @@ struct ContentView: View {
             }
             .padding(3)
             .frame(width: WindowWidth.value, height: windowHeight)
-            
+
             // BOTTOM
             HStack {
                 if camouflagedIndicator {

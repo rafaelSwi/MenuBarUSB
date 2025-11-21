@@ -7,9 +7,8 @@
 
 import Foundation
 
-final class CodableStorageManager {
-    
-    final class Sound {
+enum CodableStorageManager {
+    enum Sound {
         @CodableAppStorage(Key.customHardwareSounds)
         static var items: [HardwareSound] = []
 
@@ -39,8 +38,8 @@ final class CodableStorageManager {
             items.removeAll(keepingCapacity: false)
         }
     }
-    
-    final class Stored {
+
+    enum Stored {
         @CodableAppStorage(Key.storedDevices)
         static var items: [StoredDevice] = []
 
@@ -93,7 +92,7 @@ final class CodableStorageManager {
         }
     }
 
-    final class Renamed {
+    enum Renamed {
         @CodableAppStorage(Key.renamedDevices)
         static var items: [RenamedDevice] = []
 
@@ -120,7 +119,7 @@ final class CodableStorageManager {
         }
     }
 
-    final class Camouflaged {
+    enum Camouflaged {
         @CodableAppStorage(Key.camouflagedDevices)
         static var items: [CamouflagedDevice] = []
 
@@ -147,7 +146,7 @@ final class CodableStorageManager {
         }
     }
 
-    final class Heritage {
+    enum Heritage {
         @CodableAppStorage(Key.inheritedDevices)
         static var items: [HeritageDevice] = []
 

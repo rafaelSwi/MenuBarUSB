@@ -12,13 +12,13 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.openURL) var openURL
     @EnvironmentObject var manager: USBDeviceManager
-    
+
     @Binding var currentWindow: AppWindow
-    
+
     @State private var showMessage: Bool = false
     @State private var showRenameDevices: Bool = false
     @State private var showCamouflagedDevices: Bool = false
-    
+
     @State private var disableButtonsRelatedToSound: Bool = false
     @State private var creatingNewAudioSet: Bool = false
     @State private var audioSetConnectedPath: String = ""
@@ -28,16 +28,16 @@ struct SettingsView: View {
     @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
     @State private var activeRowID: UUID? = nil
-    
+
     @State private var resetSettingsPress: Int = 0
     @State private var tryingToDeleteDeviceHistory = false
     @State private var checkingUpdate = false
     @State private var updateAvailable = false
     @State private var latestVersion: String = ""
     @State private var releaseURL: URL? = nil
-    
+
     @AS(Key.settingsCategory) private var category: SettingsCategory = .system
-    
+
     @AS(Key.launchAtLogin) private var launchAtLogin = false
     @AS(Key.convertHexa) private var convertHexa = false
     @AS(Key.longList) private var longList = false
@@ -84,13 +84,13 @@ struct SettingsView: View {
     @AS(Key.storedIndicator) private var storedIndicator = false
     @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.searchEngine) private var searchEngine: SearchEngine = .google
-    
+
     private func checkForUpdate() {
         checkingUpdate = true
         updateAvailable = false
         latestVersion = ""
         releaseURL = nil
-        
+
         guard
             let url = URL(
                 string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest")
@@ -98,16 +98,16 @@ struct SettingsView: View {
             checkingUpdate = false
             return
         }
-        
+
         URLSession.shared.dataTask(with: url) { data, _, error in
             defer { checkingUpdate = false }
             guard let data = data, error == nil else { return }
-            
+
             if let release = try? JSONDecoder().decode(GitHubRelease.self, from: data) {
                 let latest = release.tag_name.replacingOccurrences(of: "v", with: "")
                 latestVersion = latest
                 releaseURL = URL(string: release.html_url)
-                
+
                 DispatchQueue.main.async {
                     updateAvailable = Utils.App.isVersion(Utils.App.appVersion, olderThan: latest)
                     Utils.System.playSound(updateAvailable ? "Submarine" : "Glass")
@@ -115,28 +115,28 @@ struct SettingsView: View {
             }
         }.resume()
     }
-    
+
     private func saveToStorageAndGetPath(_ path: String) -> String {
         let fileManager = FileManager.default
         let sourceURL = URL(fileURLWithPath: path)
-        
+
         let appSupport = try! fileManager.url(
             for: .applicationSupportDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
             create: true
         )
-        
+
         let destination = appSupport.appendingPathComponent(sourceURL.lastPathComponent)
-        
+
         if fileManager.fileExists(atPath: destination.path) {
             try? fileManager.removeItem(at: destination)
         }
-        
+
         try? fileManager.copyItem(at: sourceURL, to: destination)
         return destination.path
     }
-    
+
     private func pickFile(completion: @escaping (String?) -> Void) {
         let dialog = NSOpenPanel()
         dialog.title = "select_file"
@@ -145,18 +145,18 @@ struct SettingsView: View {
         dialog.canChooseDirectories = true
         dialog.canChooseFiles = true
         dialog.canChooseDirectories = false
-        
+
         if dialog.runModal() == .OK {
             completion(dialog.url?.path)
         } else {
             completion(nil)
         }
     }
-    
+
     private var isCustomSoundSetSelected: Bool {
         return CSM.Sound[hardwareSound] != nil
     }
-    
+
     private func resetAudioSetVariables() {
         inputText = ""
         textFieldFocused = false
@@ -164,7 +164,7 @@ struct SettingsView: View {
         audioSetDisconnectedPath = ""
         creatingNewAudioSet = false
     }
-    
+
     private func confirmNewAudioSet() {
         defer { resetAudioSetVariables() }
         let connect = saveToStorageAndGetPath(audioSetConnectedPath)
@@ -177,7 +177,7 @@ struct SettingsView: View {
         )
         CSM.Sound.add(item)
     }
-    
+
     private func confirmRenameDevice() {
         let uniqueId = selectedDeviceToRename!.item.uniqueId
         if inputText.isEmpty {
@@ -190,14 +190,14 @@ struct SettingsView: View {
         showRenameDevices = false
         manager.refresh()
     }
-    
+
     private func confirmCamouflageDevice() {
         CSM.Camouflaged.add(withId: selectedDeviceToCamouflage?.item.uniqueId)
         selectedDeviceToCamouflage = nil
         showCamouflagedDevices = false
         manager.refresh()
     }
-    
+
     private func testHardwareSound(_ seconds: Double = 1.2) {
         let sec = isCustomSoundSetSelected ? seconds * 2.5 : seconds
         disableButtonsRelatedToSound = true
@@ -210,7 +210,7 @@ struct SettingsView: View {
             disableButtonsRelatedToSound = false
         }
     }
-    
+
     private let icons: [String] = [
         "cable.connector",
         "app.connected.to.app.below.fill",
@@ -232,34 +232,34 @@ struct SettingsView: View {
         "cat.fill",
         "dog.fill",
     ]
-    
+
     private func setWindowWidth(increase: Bool) {
         let order: [WindowWidth] = [.tiny, .normal, .big, .veryBig, .huge]
         guard let index = order.firstIndex(of: windowWidth) else { return }
-        
+
         let nextIndex = index + (increase ? 1 : -1)
         if order.indices.contains(nextIndex) {
             windowWidth = order[nextIndex]
         }
     }
-    
+
     private var windowWidthLabel: String {
-        var width: String = ""
+        var width = ""
         switch windowWidth {
         case .tiny:
             width = "window_size_tiny"
         case .normal:
-            width =  "window_size_normal"
+            width = "window_size_normal"
         case .big:
-            width =  "window_size_big"
+            width = "window_size_big"
         case .veryBig:
-            width =  "window_size_verybig"
+            width = "window_size_verybig"
         case .huge:
-            width =  "window_size_huge"
+            width = "window_size_huge"
         }
         return width.localized
     }
-    
+
     private func resetAppSettings() {
         Utils.App.deleteStorageData()
         resetSettingsPress = 0
@@ -268,19 +268,19 @@ struct SettingsView: View {
             Utils.App.restart()
         }
     }
-    
+
     private func undoAllRenamedDevices() {
         CSM.Renamed.clear()
         showRenameDevices = false
         manager.refresh()
     }
-    
+
     private func undoAllCamouflagedDevices() {
         CSM.Camouflaged.clear()
         showCamouflagedDevices = false
         manager.refresh()
     }
-    
+
     func toggleLoginItem(enabled: Bool) {
         do {
             if enabled {
@@ -292,19 +292,19 @@ struct SettingsView: View {
             print("Error:", error)
         }
     }
-    
+
     private var disableConfirmNewAudioSet: Bool {
         let path1 = audioSetConnectedPath == ""
         let path2 = audioSetDisconnectedPath == ""
         let hasTitle = inputText == ""
         return path1 || path2 || hasTitle
     }
-    
+
     private func deleteHardwareSound(for sound: HardwareSound?) {
         CSM.Sound.remove(withId: sound?.uniqueId ?? "")
         hardwareSound = ""
     }
-    
+
     private func pickAudioFilePath(connect: Bool) {
         pickFile { path in
             if connect {
@@ -314,14 +314,14 @@ struct SettingsView: View {
             }
         }
     }
-    
+
     private var isTrafficMonitoringPausedForSettings: Bool {
         return internetMonitoring && !manager.trafficMonitorRunning && manager.ethernetCableConnected
     }
-    
+
     var body: some View {
         let anyBottomOptionInUse: Bool = showRenameDevices || showCamouflagedDevices
-        
+
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
@@ -338,7 +338,7 @@ struct SettingsView: View {
                     .foregroundColor(.secondary)
                 }
                 Spacer()
-                
+
                 if updateAvailable, let releaseURL {
                     HStack(alignment: .center, spacing: 6) {
                         Button(action: {
@@ -347,7 +347,7 @@ struct SettingsView: View {
                         }) {
                             Image(systemName: "x.circle")
                         }
-                        
+
                         Link(
                             "\("open_download_page".localized) (v\(latestVersion))",
                             destination: releaseURL
@@ -355,7 +355,7 @@ struct SettingsView: View {
                         .buttonStyle(.borderedProminent)
                     }
                 }
-                
+
                 if !updateAvailable {
                     HStack {
                         if !hideUpdate {
@@ -395,7 +395,7 @@ struct SettingsView: View {
                                 }
                             }
                         }
-                        
+
                         if !hideDonate {
                             Button {
                                 currentWindow = .donate
@@ -420,7 +420,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            
+
             if isTrafficMonitoringPausedForSettings {
                 HStack {
                     Image(systemName: "network.slash")
@@ -446,7 +446,7 @@ struct SettingsView: View {
             } else {
                 Divider()
             }
-            
+
             VStack(alignment: .leading, spacing: 3) {
                 HStack {
                     Spacer()
@@ -466,11 +466,11 @@ struct SettingsView: View {
                 .padding(.vertical, 8)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(5)
-                
+
                 Text(LocalizedStringKey(category.rawValue))
                     .font(.title)
                     .padding(.vertical, 10)
-                
+
                 if category == .system {
                     ToggleRow(
                         label: "open_on_startup",
@@ -556,7 +556,7 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     HStack {
-                        if (isCustomSoundSetSelected) {
+                        if isCustomSoundSetSelected {
                             Button {
                                 deleteHardwareSound(for: CSM.Sound[hardwareSound])
                             } label: {
@@ -583,7 +583,7 @@ struct SettingsView: View {
                             let title = LocalizedStringKey(sound?.titleKey ?? "none_default")
                             Text(title)
                         }
-                        
+
                         if hardwareSound != "" {
                             Button {
                                 testHardwareSound()
@@ -597,9 +597,8 @@ struct SettingsView: View {
                     .disabled(!playHardwareSound)
                     .opacity(playHardwareSound ? 1.0 : 0.3)
                     .disabled(disableButtonsRelatedToSound)
-                    
+
                     if creatingNewAudioSet {
-                        
                         CustomTextField(
                             text: $inputText,
                             placeholder: "title",
@@ -607,7 +606,7 @@ struct SettingsView: View {
                             isFocused: $textFieldFocused
                         )
                         .frame(width: 190)
-                        
+
                         HStack {
                             Button {
                                 pickAudioFilePath(connect: true)
@@ -617,7 +616,7 @@ struct SettingsView: View {
                             Text(audioSetConnectedPath.isEmpty ? "connected_audio_file".localized : audioSetConnectedPath)
                                 .lineLimit(1)
                         }
-                        
+
                         HStack {
                             Button {
                                 pickAudioFilePath(connect: false)
@@ -627,7 +626,7 @@ struct SettingsView: View {
                             Text(audioSetDisconnectedPath.isEmpty ? "disconnected_audio_file".localized : audioSetDisconnectedPath)
                                 .lineLimit(1)
                         }
-                        
+
                         HStack {
                             Button("cancel") {
                                 resetAudioSetVariables()
@@ -638,10 +637,9 @@ struct SettingsView: View {
                             .buttonStyle(.borderedProminent)
                             .disabled(disableConfirmNewAudioSet)
                         }
-                        
                     }
                 }
-                
+
                 if category == .icon {
                     VStack(alignment: .leading, spacing: 16) {
                         ToggleRow(
@@ -662,7 +660,7 @@ struct SettingsView: View {
                             disabled: hideMenubarIcon,
                             onToggle: { _ in hideMenubarIcon = false }
                         )
-                        
+
                         HStack(spacing: 12) {
                             if !hideMenubarIcon {
                                 Text("icon")
@@ -675,7 +673,7 @@ struct SettingsView: View {
                             }
                             Spacer()
                         }
-                        
+
                         HStack {
                             Menu {
                                 ForEach(icons, id: \.self) { item in
@@ -699,7 +697,7 @@ struct SettingsView: View {
                                             Color.gray.opacity(0.3)))
                             }
                             .disabled(hideMenubarIcon)
-                            
+
                             Menu(LocalizedStringKey(numberRepresentation.rawValue)) {
                                 let nr: [NumberRepresentation] = [
                                     .base10, .egyptian, .greek, .roman,
@@ -716,7 +714,7 @@ struct SettingsView: View {
                             .disabled(hideCount)
                             .help("numerical_representation")
                         }
-                        
+
                         Text("changes_restart_warning")
                             .font(.footnote)
                             .foregroundColor(.primary)
@@ -724,7 +722,7 @@ struct SettingsView: View {
                             .padding(.bottom, 3)
                     }
                 }
-                
+
                 if category == .interface {
                     ToggleRow(
                         label: "hide_technical_info",
@@ -811,14 +809,14 @@ struct SettingsView: View {
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
-                    
+
                     Button("delete_device_history") {
                         tryingToDeleteDeviceHistory = true
                     }
                     .disabled(tryingToDeleteDeviceHistory || CSM.Stored.devices.isEmpty)
                     .help("(\(CSM.Stored.devices.count))")
                     .padding(.vertical, 5)
-                    
+
                     if tryingToDeleteDeviceHistory {
                         HStack(spacing: 6) {
                             Text("are_you_sure")
@@ -833,7 +831,7 @@ struct SettingsView: View {
                         }
                     }
                 }
-                
+
                 if category == .usb {
                     if Utils.System.isMacbook {
                         ToggleRow(
@@ -882,7 +880,7 @@ struct SettingsView: View {
                         }
                         .disabled(CSM.Renamed.devices.isEmpty)
                     }
-                    
+
                     Button {
                         showCamouflagedDevices.toggle()
                     } label: {
@@ -902,7 +900,7 @@ struct SettingsView: View {
                         .disabled(CSM.Camouflaged.devices.isEmpty)
                     }
                 }
-                
+
                 if category == .contextMenu {
                     ToggleRow(
                         label: "disable_context_menu_search",
@@ -944,7 +942,7 @@ struct SettingsView: View {
                         .padding(.vertical, 5)
                     }
                 }
-                
+
                 if category == .ethernet {
                     ToggleRow(
                         label: "ethernet_connected_icon",
@@ -1014,7 +1012,7 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                 }
-                
+
                 if category == .heritage {
                     ToggleRow(
                         label: "disable_inheritance_layout",
@@ -1040,7 +1038,7 @@ struct SettingsView: View {
                     }
                     .disabled(anyBottomOptionInUse)
                     .padding(.vertical, 5)
-                    
+
                     Button {
                         currentWindow = .inheritanceTree
                     } label: {
@@ -1048,7 +1046,7 @@ struct SettingsView: View {
                     }
                     .disabled(anyBottomOptionInUse)
                 }
-                
+
                 if category == .others {
                     if Locale.current.language.languageCode?.identifier != "en" {
                         ToggleRow(
@@ -1126,7 +1124,7 @@ struct SettingsView: View {
                             }
                         }
                     )
-                    
+
                     HStack {
                         Text("window_width")
                         Button {
@@ -1136,7 +1134,7 @@ struct SettingsView: View {
                                 .frame(width: 14, height: 14)
                         }
                         .disabled(windowWidth == .tiny)
-                        
+
                         Button {
                             setWindowWidth(increase: true)
                         } label: {
@@ -1144,16 +1142,16 @@ struct SettingsView: View {
                                 .frame(width: 14, height: 14)
                         }
                         .disabled(windowWidth == .huge)
-                        
+
                         Text(windowWidthLabel)
                             .font(.footnote)
                     }
                     .padding(.vertical, 7)
                 }
             }
-            
+
             Spacer()
-            
+
             VStack(alignment: .leading) {
                 if anyBottomOptionInUse {
                     Button("cancel") {
@@ -1164,25 +1162,24 @@ struct SettingsView: View {
                         inputText = ""
                     }
                 }
-                
+
                 HStack {
-                    
                     if category == .others {
                         Button("restore_default_settings") {
                             resetSettingsPress += 1
-                            if (resetSettingsPress == 5) {
+                            if resetSettingsPress == 5 {
                                 resetAppSettings()
                             }
                         }
-                        
+
                         if resetSettingsPress > 0 {
                             Text("(\(resetSettingsPress)/5)")
                                 .font(.footnote)
                         }
                     }
-                    
+
                     Spacer()
-                    
+
                     if !anyBottomOptionInUse {
                         Button(action: {
                             if isTrafficMonitoringPausedForSettings {
@@ -1205,11 +1202,11 @@ struct SettingsView: View {
                         }
                     }
                 }
-                
+
                 if anyBottomOptionInUse {
                     Divider()
                 }
-                
+
                 if showCamouflagedDevices {
                     HStack(spacing: 12) {
                         Menu {
@@ -1225,7 +1222,7 @@ struct SettingsView: View {
                         } label: {
                             Text(selectedDeviceToCamouflage?.item.name ?? "device".localized)
                         }
-                        
+
                         if selectedDeviceToCamouflage != nil {
                             if (CSM.Heritage.devices.contains {
                                 $0.inheritsFrom == selectedDeviceToCamouflage!.item.uniqueId
@@ -1239,17 +1236,17 @@ struct SettingsView: View {
                                 .buttonStyle(.borderedProminent)
                             }
                         }
-                        
+
                         if selectedDeviceToCamouflage == nil && !CSM.Camouflaged.devices.isEmpty {
                             Button("undo_all") {
                                 undoAllCamouflagedDevices()
                             }
                         }
-                        
+
                         Spacer()
                     }
                 }
-                
+
                 if showRenameDevices {
                     HStack(spacing: 12) {
                         Menu {
@@ -1266,7 +1263,7 @@ struct SettingsView: View {
                         } label: {
                             Text(selectedDeviceToRename?.item.name ?? "device".localized)
                         }
-                        
+
                         if selectedDeviceToRename != nil {
                             CustomTextField(
                                 text: $inputText,
@@ -1276,19 +1273,19 @@ struct SettingsView: View {
                             )
                             .frame(width: 190)
                             .help("renaming_help")
-                            
+
                             Button("confirm") {
                                 confirmRenameDevice()
                             }
                             .buttonStyle(.borderedProminent)
                         }
-                        
+
                         if selectedDeviceToRename == nil && !CSM.Renamed.devices.isEmpty {
                             Button("undo_all") {
                                 undoAllRenamedDevices()
                             }
                         }
-                        
+
                         Spacer()
                     }
                 }
