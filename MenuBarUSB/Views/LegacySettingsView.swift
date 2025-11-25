@@ -17,6 +17,7 @@ struct LegacySettingsView: View {
 
     @State private var activeRowID: UUID? = nil
 
+    @State private var isPlayingSound = false
     @State private var tryingToResetSettings = false
     @State private var tryingToDeleteDeviceHistory = false
     @State private var checkingUpdate = false
@@ -25,6 +26,7 @@ struct LegacySettingsView: View {
     @State private var releaseURL: URL? = nil
 
     @State private var hoveringInfo: Bool = false
+    @State private var isBitcoin = true
 
     @State private var showSystemOptions = false
     @State private var showInterfaceOptions = false
@@ -32,12 +34,14 @@ struct LegacySettingsView: View {
     @State private var showContextMenuOptions = false
     @State private var showHeritageOptions = false
     @State private var showOthersOptions = false
+    @State private var showDonateOptions = false
 
     @AS(Key.launchAtLogin) private var launchAtLogin = false
     @AS(Key.convertHexa) private var convertHexa = false
     @AS(Key.longList) private var longList = false
     @AS(Key.hideTechInfo) private var hideTechInfo = false
     @AS(Key.showPortMax) private var showPortMax = false
+    @AS(Key.hideDonate) private var hideDonate = false
     @AS(Key.powerSourceInfo) private var powerSourceInfo = false
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.renamedIndicator) private var renamedIndicator = false
@@ -128,6 +132,7 @@ struct LegacySettingsView: View {
         showOthersOptions = false
         showContextMenuOptions = false
         showHeritageOptions = false
+        showDonateOptions = false
     }
 
     private func manageShowOptions(binding: Binding<Bool>) {
@@ -225,6 +230,27 @@ struct LegacySettingsView: View {
 
                     if !updateAvailable {
                         HStack {
+                            
+                            if !hideDonate {
+                                Button {
+                                    if showDonateOptions {
+                                        showDonateOptions = false
+                                    } else {
+                                        untoggleShowOptions()
+                                        showDonateOptions = true
+                                    }
+                                } label: {
+                                    Label("donate", systemImage: "hand.thumbsup.circle")
+                                }
+                                .contextMenu {
+                                    Button {
+                                        hideDonate = true
+                                    } label: {
+                                        Label("hide", systemImage: "eye.slash")
+                                    }
+                                }
+                            }
+                            
                             if !hideUpdate {
                                 Button {
                                     checkForUpdate()
@@ -357,10 +383,14 @@ struct LegacySettingsView: View {
                             
                             if hardwareSound != "" {
                                 Button {
+                                    isPlayingSound = true
                                     let sound = HardwareSound[hardwareSound]
                                     Utils.System.playSound(sound?.connect)
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                                         Utils.System.playSound(sound?.disconnect)
+                                    }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.4) {
+                                        isPlayingSound = false
                                     }
                                 } label: {
                                     Image(systemName: "play.fill")
@@ -370,7 +400,7 @@ struct LegacySettingsView: View {
                             Spacer()
                         }
                         .frame(maxWidth: 290)
-                        .disabled(!playHardwareSound)
+                        .disabled(isPlayingSound)
                         .opacity(playHardwareSound ? 1.0 : 0.1)
                     }
 
@@ -469,7 +499,7 @@ struct LegacySettingsView: View {
                                 Image(systemName: "minus")
                                     .frame(width: 14, height: 14)
                             }
-                            .disabled(windowWidth == .tiny)
+                            .disabled(windowWidth == .normal)
 
                             Button {
                                 setWindowWidth(increase: true)
@@ -477,7 +507,7 @@ struct LegacySettingsView: View {
                                 Image(systemName: "plus")
                                     .frame(width: 14, height: 14)
                             }
-                            .disabled(windowWidth == .huge)
+                            .disabled(windowWidth == .veryBig)
 
                             Text(windowWidthLabel)
                                 .font(.footnote)
@@ -672,6 +702,14 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
+                            label: "hide_donate",
+                            description: "hide_donate_description",
+                            binding: $hideDonate,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
                             label: "restart_button",
                             description: "restart_button_description",
                             binding: $restartButton,
@@ -715,6 +753,70 @@ struct LegacySettingsView: View {
                                 .buttonStyle(.borderedProminent)
                             }
                         }
+                    }
+                    
+                    if showDonateOptions {
+                        let currentAddress = isBitcoin ? Utils.Miscellaneous.btcAddress : Utils.Miscellaneous.ltcAddress
+                        let currentSymbol = isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
+                        let currentColor: Color = isBitcoin ? .orange : Color("LTC")
+                        let email = "contatorafaelswi@gmail.com"
+
+                        HStack(spacing: 20) {
+
+                            Utils.Miscellaneous.QRCodeView(text: currentAddress)
+                                .frame(width: 230, height: 230)
+                                .padding()
+                                .contextMenu {
+                                    Button { Utils.System.copyToClipboard(currentAddress) } label: {
+                                        Label("copy_crypto_address", systemImage: "square.on.square")
+                                    }
+
+                                    Button { Utils.System.copyToClipboard(email) } label: {
+                                        Label("copy_email", systemImage: "square.on.square")
+                                    }
+                                }
+                            
+                            VStack(alignment: .leading, spacing: 12) {
+
+                                HStack(spacing: 6) {
+                                    Image(systemName: currentSymbol)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 18, height: 18)
+                                        .foregroundColor(currentColor)
+
+                                    Text(isBitcoin ? "bitcoin_on_chain_transfer" : "litecoin_on_chain_transfer")
+                                        .font(.headline)
+                                        .bold()
+                                }
+
+                                VStack(alignment: .leading, spacing: 10) {
+
+                                    Text(currentAddress)
+                                        .font(.subheadline)
+                                        .contextMenu {
+                                            Button { Utils.System.copyToClipboard(currentAddress) } label: {
+                                                Label("copy", systemImage: "square.on.square")
+                                            }
+                                        }
+
+                                    Text(String(format: NSLocalizedString("contact", comment: "EMAIL"), email))
+                                        .font(.subheadline)
+                                        .contextMenu {
+                                            Button { Utils.System.copyToClipboard(email) } label: {
+                                                Label("copy_email", systemImage: "square.on.square")
+                                            }
+                                        }
+                                }
+
+                                Button(action: { isBitcoin.toggle() }) {
+                                    Text(isBitcoin ? "show_ltc_address" : "show_btc_address")
+                                }
+                                .padding(.top, 4)
+                            }
+                            .padding(.vertical)
+                        }
+                        .padding(.horizontal)
                     }
                 }
                 Spacer()

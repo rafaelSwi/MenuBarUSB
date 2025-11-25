@@ -10,8 +10,8 @@ import Foundation
 import SwiftUI
 import UserNotifications
 
-enum Utils {
-    enum System {
+final class Utils {
+    final class System {
         static func openSysInfo() {
             let task = Process()
             task.launchPath = "/usr/bin/open"
@@ -116,7 +116,7 @@ enum Utils {
         }
     }
 
-    enum App {
+    final class App {
         static var appVersion: String {
             Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
         }
@@ -219,7 +219,7 @@ enum Utils {
         }
     }
 
-    enum USB {
+    final class USB {
         static func usbVersionLabel(from bcd: Int?, convertHexa: Bool) -> String? {
             guard let bcd = bcd else { return nil }
             switch bcd {
@@ -270,6 +270,53 @@ enum Utils {
 
         static func prettyMbps(_ mbps: Int) -> String {
             mbps >= 1000 ? String(format: "%.1f Gbps", Double(mbps) / 1000.0) : "\(mbps) Mbps"
+        }
+    }
+    
+    final class Miscellaneous {
+        static let btcAddress = "bc1qvluxh224489mt6svp23kr0u8y2upn009pa546t"
+        static let ltcAddress = "ltc1qz42uw4plam83f2sud2rckzewvdwm9vs4rfazl5"
+        
+        static func generateQRCode(from string: String) -> NSImage? {
+            let context = CIContext()
+            let filter = CIFilter.qrCodeGenerator()
+            filter.message = Data(string.utf8)
+
+            guard let outputImage = filter.outputImage else { return nil }
+
+            let scaled = outputImage.transformed(by: CGAffineTransform(scaleX: 12, y: 12))
+
+            if let cgimg = context.createCGImage(scaled, from: scaled.extent) {
+                return NSImage(cgImage: cgimg, size: NSSize(width: 300, height: 300))
+            }
+            return nil
+        }
+        
+        struct QRCodeView: View {
+            let text: String
+            @State private var hovered = false
+            
+            var body: some View {
+                let blurAmount: CGFloat = hovered ? 0 : (hovered ? 0 : 6)
+
+                Group {
+                    if let image = generateQRCode(from: text) {
+                        Image(nsImage: image)
+                            .interpolation(.none)
+                            .resizable()
+                            .scaledToFit()
+                            .blur(radius: blurAmount)
+                            .animation(.easeInOut(duration: 0.5), value: blurAmount)
+                            .onHover { hovering in
+                                if hovering {
+                                    hovered = true
+                                }
+                            }
+                    } else {
+                        Color.gray
+                    }
+                }
+            }
         }
     }
 }

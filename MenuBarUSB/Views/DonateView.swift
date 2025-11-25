@@ -14,49 +14,13 @@ struct DonateView: View {
     @State private var isBitcoin = true
 
     @Binding var currentWindow: AppWindow
-
-    private let btcAddress = "bc1qvluxh224489mt6svp23kr0u8y2upn009pa546t"
-    private let ltcAddress = "ltc1qz42uw4plam83f2sud2rckzewvdwm9vs4rfazl5"
-
-    private func copyToClipboard(_ text: String) {
-        let pasteboard = NSPasteboard.general
-        pasteboard.clearContents()
-        pasteboard.setString(text, forType: .string)
-    }
-
-    private struct QRCodeView: View {
-        let text: String
-
-        var body: some View {
-            if let image = generateQRCode(from: text) {
-                Image(nsImage: image)
-                    .interpolation(.none)
-                    .resizable()
-                    .scaledToFit()
-            } else {
-                Color.gray
-            }
-        }
-
-        private func generateQRCode(from string: String) -> NSImage? {
-            let context = CIContext()
-            let filter = CIFilter.qrCodeGenerator()
-            filter.message = Data(string.utf8)
-
-            guard let outputImage = filter.outputImage else { return nil }
-
-            let scaled = outputImage.transformed(by: CGAffineTransform(scaleX: 12, y: 12))
-
-            if let cgimg = context.createCGImage(scaled, from: scaled.extent) {
-                return NSImage(cgImage: cgimg, size: NSSize(width: 300, height: 300))
-            }
-            return nil
-        }
-    }
-
-    private func checkOnBlockchain() {
+    
+    let btcAddress = Utils.Miscellaneous.btcAddress
+    let ltcAddress = Utils.Miscellaneous.ltcAddress
+    
+    private func checkOnBlockchain(bitcoin: Bool) {
         let urlString: String
-        if isBitcoin {
+        if bitcoin {
             urlString = "https://www.blockchain.com/explorer/addresses/btc/\(btcAddress)"
         } else {
             urlString = "https://litecoinspace.org/address/\(ltcAddress)"
@@ -80,25 +44,25 @@ struct DonateView: View {
                 .padding(.bottom, 5)
 
             VStack(spacing: 15) {
-                QRCodeView(text: currentAddress)
-                    .frame(width: 200, height: 200)
+                Utils.Miscellaneous.QRCodeView(text: currentAddress)
+                    .frame(width: 250, height: 250)
                     .contextMenu {
-                        Button { copyToClipboard(currentAddress) } label: {
+                        Button { Utils.System.copyToClipboard(currentAddress) } label: {
                             Label("copy_crypto_address", systemImage: "square.on.square")
                         }
 
-                        Button { copyToClipboard(email) } label: {
+                        Button { Utils.System.copyToClipboard(email) } label: {
                             Label("copy_email", systemImage: "square.on.square")
                         }
 
                         Divider()
 
-                        Button { checkOnBlockchain() } label: {
+                        Button { checkOnBlockchain(bitcoin: isBitcoin) } label: {
                             Label("check_on_blockchain", systemImage: "globe")
                         }
                     }
 
-                Button(action: { copyToClipboard(currentAddress) }) {
+                Button(action: { Utils.System.copyToClipboard(currentAddress) }) {
                     let copyText = "copy".localized
                     let coin = isBitcoin ? "BTC" : "LTC"
                     Label("\(copyText) (\(coin))", systemImage: "square.on.square")
@@ -121,13 +85,13 @@ struct DonateView: View {
                 Group {
                     Text(currentAddress)
                         .contextMenu {
-                            Button { copyToClipboard(currentAddress) } label: {
+                            Button { Utils.System.copyToClipboard(currentAddress) } label: {
                                 Label("copy", systemImage: "square.on.square")
                             }
                         }
                     Text(String(format: NSLocalizedString("contact", comment: "EMAIL"), email))
                         .contextMenu {
-                            Button { copyToClipboard(email) } label: {
+                            Button { Utils.System.copyToClipboard(email) } label: {
                                 Label("copy_email", systemImage: "square.on.square")
                             }
                         }

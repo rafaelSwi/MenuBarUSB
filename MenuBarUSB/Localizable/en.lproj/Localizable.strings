@@ -289,3 +289,4 @@
 "no_custom_associations_to_undo" = "No custom associations to undo";
 "play_only_connect" = "Play only the \"connect\" sound";
 "play_only_disconnect" = "Play only the \"disconnect\" sound";
+"default" = "Default";

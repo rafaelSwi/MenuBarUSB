@@ -31,6 +31,7 @@ struct ContentView: View {
     @AS(Key.hideTechInfo) private var hideTechInfo = false
     @AS(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
     @AS(Key.increasedIndentationGap) private var increasedIndentationGap = false
+    @AS(Key.hardwareSound) private var hardwareSound: String = ""
     @AS(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
     @AS(Key.noTextButtons) private var noTextButtons = false
     @AS(Key.restartButton) private var restartButton = false
@@ -764,6 +765,48 @@ struct ContentView: View {
                                             Label("heritage", systemImage: "app.connected.to.app.below.fill")
                                         }
                                     }
+                                    
+                                    if playHardwareSound {
+                                        Divider()
+                                        
+                                        Menu {
+                                            
+                                            Button {
+                                                CSM.SoundDevices.add(uniqueId, "mute");
+                                                manager.refresh()
+                                            } label: {
+                                                let isSelected = CSM.SoundDevices.getByBothIds(device: uniqueId, sound: "mute") != nil
+                                                Text(isSelected ? "‣   \("mute".localized)" : "mute")
+                                            }
+                                            
+                                            Divider()
+                                            
+                                            ForEach(HardwareSound.all, id: \.uniqueId) { sound in
+                                                Button {
+                                                    CSM.SoundDevices.add(device.item.uniqueId, sound.uniqueId)
+                                                    manager.refresh()
+                                                } label: {
+                                                    let selected = CSM.SoundDevices.getByBothIds(device: device.item.uniqueId, sound: sound.uniqueId) != nil
+                                                    let title = sound.titleKey.localized
+                                                    var text = selected ? "‣   \(title)" : title
+                                                    if HardwareSound[hardwareSound]?.titleKey == sound.titleKey {
+                                                        text += " ✭"
+                                                    }
+                                                    return Text(text)
+                                                }
+                                            }
+                                            
+                                            if CSM.SoundDevices[device.item.uniqueId] != nil {
+                                                Divider()
+                                                Button("undo") {
+                                                    CSM.SoundDevices.remove(device.item.uniqueId)
+                                                    manager.refresh()
+                                                }
+                                            }
+                                        } label: {
+                                            Label("sound", systemImage: "speaker.wave.3")
+                                        }
+                                    }
 
                                     if !disableContextMenuSearch {
                                         Divider()
@@ -790,43 +833,6 @@ struct ContentView: View {
                                             .disabled(device.item.serialNumber == nil)
                                         } label: {
                                             Label("search", systemImage: "globe")
-                                        }
-                                    }
-                                    
-                                    if playHardwareSound {
-                                        Divider()
-                                        
-                                        Menu {
-                                            
-                                            Button {
-                                                CSM.SoundDevices.add(uniqueId, "mute");
-                                                manager.refresh()
-                                            } label: {
-                                                let isSelected = CSM.SoundDevices.getByBothIds(device: uniqueId, sound: "mute") != nil
-                                                Text(isSelected ? "‣   \("mute".localized)" : "mute")
-                                            }
-                                            
-                                            Divider()
-                                            
-                                            ForEach(HardwareSound.all, id: \.uniqueId) { sound in
-                                                Button {
-                                                    CSM.SoundDevices.add(device.item.uniqueId, sound.uniqueId)
-                                                    manager.refresh()
-                                                } label: {
-                                                    let isSelected = CSM.SoundDevices.getByBothIds(device: device.item.uniqueId, sound: sound.uniqueId) != nil
-                                                    Text(isSelected ? "‣   \(sound.titleKey.localized)": sound.titleKey.localized)
-                                                }
-                                            }
-                                            
-                                            if CSM.SoundDevices[device.item.uniqueId] != nil {
-                                                Divider()
-                                                Button("undo") {
-                                                    CSM.SoundDevices.remove(device.item.uniqueId)
-                                                    manager.refresh()
-                                                }
-                                            }
-                                        } label: {
-                                            Label("sound", systemImage: "speaker.wave.3")
                                         }
                                     }
                                 }

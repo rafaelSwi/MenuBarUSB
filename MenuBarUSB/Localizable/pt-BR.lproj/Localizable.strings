@@ -115,7 +115,7 @@
 "hide_check_update" = "Ocultar botão de buscar atualizações";
 "hide_check_update_description" = "Se você já tem o MenuBarUSB instalado via brew, você pode ocultá-lo.";
 "hide_donate" = "Ocultar botão de \"Contribuir\"";
-"hide_donate_description" = "O desenvolvedor ficaria um pouco triste, mas se quiser, você pode ocultar o botão de \"Contribuir\".";
+"hide_donate_description" = "O desenvolvedor vai ficar um pouco triste, mas se quiser, você pode ocultar o botão de \"Contribuir\".";
 "no_text_buttons" = "Botões principais não têm texto, apenas ícones";
 "no_text_buttons_description" = "Os botões de \"Sair\", \"Atualizar\" e \"Ajustes\" são exibidos apenas como ícones, em vez de ícones com texto. Deixa a UI um pouco mais minimalista.";
 "warning_incompatible_options" = "Você tem opções ativadas que são incompatíveis com esta. Ativar esta desativará automaticamente as opções incompatíveis.";
