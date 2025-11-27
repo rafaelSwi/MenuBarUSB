@@ -296,5 +296,5 @@
 "clear_all_renamed" = "Восстановить имена переименованных устройств";
 "clear_all_hidden" = "Сделать все скрытые устройства вновь видимыми";
 "rmb" = "RMB";
-"rmb_explanation" = "RBM — Right Mouse Button (Правый клик)";
+"rmb_explanation" = "RMB — Right Mouse Button (Правый клик)";
 "single_click" = "(Одинарный клик)";

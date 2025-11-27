@@ -296,5 +296,5 @@
 "clear_all_renamed" = "名前を変更したデバイスの名前を復元する";
 "clear_all_hidden" = "非表示のデバイスをすべて再表示する";
 "rmb" = "二次クリック";
-"rmb_explanation" = "RBM — Right Mouse Button (二次クリック)";
+"rmb_explanation" = "RMB — Right Mouse Button (二次クリック)";
 "single_click" = "(シングルクリック)";

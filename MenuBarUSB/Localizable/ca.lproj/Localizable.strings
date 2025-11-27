@@ -296,5 +296,5 @@
 "clear_all_renamed" = "Restablir el nom dels dispositius reanomenats";
 "clear_all_hidden" = "Fer visibles de nou tots els dispositius ocults";
 "rmb" = "RMB";
-"rmb_explanation" = "RBM — Right Mouse Button (Clic dret)";
+"rmb_explanation" = "RMB — Right Mouse Button (Clic dret)";
 "single_click" = "(Clic únic)";

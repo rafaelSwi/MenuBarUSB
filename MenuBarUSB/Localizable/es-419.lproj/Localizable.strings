@@ -296,5 +296,5 @@
 "clear_all_renamed" = "Restaurar el nombre de los dispositivos renombrados";
 "clear_all_hidden" = "Hacer visibles otra vez todos los dispositivos ocultos";
 "rmb" = "RMB";
-"rmb_explanation" = "RBM — Right Mouse Button (Clic derecho)";
+"rmb_explanation" = "RMB — Right Mouse Button (Clic derecho)";
 "single_click" = "(Clic único)";

@@ -296,5 +296,5 @@
 "clear_all_renamed" = "Die Namen der umbenannten Geräte wiederherstellen";
 "clear_all_hidden" = "Alle ausgeblendeten Geräte wieder sichtbar machen";
 "rmb" = "RMB";
-"rmb_explanation" = "RBM — Right Mouse Button (Rechtsklick)";
+"rmb_explanation" = "RMB — Right Mouse Button (Rechtsklick)";
 "single_click" = "(Einfachklick)";

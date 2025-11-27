@@ -296,5 +296,5 @@
 "clear_all_renamed" = "กู้คืนชื่อของอุปกรณ์ที่ถูกเปลี่ยนชื่อ";
 "clear_all_hidden" = "แสดงอุปกรณ์ที่ถูกซ่อนทั้งหมดอีกครั้ง";
 "rmb" = "RMB";
-"rmb_explanation" = "RBM — Right Mouse Button (คลิกขวา)";
+"rmb_explanation" = "RMB — Right Mouse Button (คลิกขวา)";
 "single_click" = "(คลิกครั้งเดียว)";

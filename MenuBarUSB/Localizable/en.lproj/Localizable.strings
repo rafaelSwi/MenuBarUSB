@@ -296,5 +296,5 @@
 "clear_all_renamed" = "Restore the names of all renamed devices";
 "clear_all_hidden" = "Make all hidden devices visible again";
 "rmb" = "RMB";
-"rmb_explanation" = "RBM — Right Mouse Button";
+"rmb_explanation" = "RMB — Right Mouse Button";
 "single_click" = "(Single click)";

@@ -296,5 +296,5 @@
 "clear_all_renamed" = "恢复已重命名设备的名称";
 "clear_all_hidden" = "重新显示所有隐藏的设备";
 "rmb" = "二次点击";
-"rmb_explanation" = "RBM — Right Mouse Button (右键单击)";
+"rmb_explanation" = "RMB — Right Mouse Button (右键单击)";
 "single_click" = "(单击)";

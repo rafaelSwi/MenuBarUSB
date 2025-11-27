@@ -296,5 +296,5 @@
 "clear_all_renamed" = "이름이 변경된 장치의 이름을 복원하기";
 "clear_all_hidden" = "숨겨진 모든 장치를 다시 표시하기";
 "rmb" = "보조 클릭";
-"rmb_explanation" = "RBM — Right Mouse Button (보조 클릭)";
+"rmb_explanation" = "RMB — Right Mouse Button (보조 클릭)";
 "single_click" = "(단일 클릭)";
