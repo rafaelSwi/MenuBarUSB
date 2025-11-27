@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "L’aplicació es reiniciarà ràpidament";
 "restart_to_apply" = "Cal reiniciar MenuBarUSB per aplicar els canvis";
 "looking_for_updates" = "Recollint informació...";
+"clear_all_renamed" = "Restablir el nom dels dispositius reanomenats";
+"clear_all_hidden" = "Fer visibles de nou tots els dispositius ocults";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button (Clic dret)";
+"single_click" = "(Clic únic)";

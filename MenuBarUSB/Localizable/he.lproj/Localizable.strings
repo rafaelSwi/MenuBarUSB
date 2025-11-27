@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "האפליקציה תופעל מחדש במהירות";
 "restart_to_apply" = "נדרש להפעיל מחדש את MenuBarUSB כדי ליישם את השינויים";
 "looking_for_updates" = "אוסף מידע...";
+"clear_all_renamed" = "שחזור שמות המכשירים ששונו";
+"clear_all_hidden" = "הצגת כל המכשירים המוסתרים מחדש";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button (קליק ימני)";
+"single_click" = "(קליק יחיד)";

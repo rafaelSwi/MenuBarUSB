@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "Η εφαρμογή θα επανεκκινηθεί γρήγορα";
 "restart_to_apply" = "Απαιτείται επανεκκίνηση του MenuBarUSB για την εφαρμογή των αλλαγών";
 "looking_for_updates" = "Συλλογή πληροφοριών...";
+"clear_all_renamed" = "Επαναφορά ονομάτων των μετονομασμένων συσκευών";
+"clear_all_hidden" = "Εμφάνιση ξανά όλων των κρυφών συσκευών";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button (Δεξί κλικ)";
+"single_click" = "(Μονό κλικ)";

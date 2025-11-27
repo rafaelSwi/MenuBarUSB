@@ -54,7 +54,6 @@ struct LegacySettingsView: View {
     @AS(Key.hardwareSound) private var hardwareSound: String = ""
     @AS(Key.playHardwareSound) private var playHardwareSound: Bool = false
     @AS(Key.disableHaptic) private var disableHaptic = false
-    @AS(Key.showEthernet) private var showEthernet = false
     @AS(Key.showScrollBar) private var showScrollBar = false
     @AS(Key.indexIndicator) private var indexIndicator = false
     @AS(Key.disableInheritanceLayout) private var disableInheritanceLayout = false
@@ -190,9 +189,11 @@ struct LegacySettingsView: View {
         let version = ProcessInfo.processInfo.operatingSystemVersion
 
         ZStack {
-            Image(systemName: "gear")
-                .font(.system(size: 350))
-                .opacity(0.03)
+            if #available(macOS 14.0, *) {
+                Image(systemName: "gear")
+                    .font(.system(size: 350))
+                    .opacity(0.03)
+            }
             VStack(alignment: .leading, spacing: 20) {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
@@ -265,11 +266,12 @@ struct LegacySettingsView: View {
                                 }
                             }
                             
-                            Text("|")
-                                .padding(.horizontal, 5)
-                                .opacity(0.3)
-                            
                             if !hideDonate {
+                                
+                                Text("|")
+                                    .padding(.horizontal, 5)
+                                    .opacity(0.3)
+                                
                                 Button {
                                     if showDonateOptions {
                                         showDonateOptions = false
@@ -299,7 +301,7 @@ struct LegacySettingsView: View {
                     categoryButton(toggle: $showSystemOptions, label: "system_category")
                     categoryButton(toggle: $showInterfaceOptions, label: "ui_category")
                     categoryButton(toggle: $showInfoOptions, label: "usb_category")
-                    categoryButton(toggle: $showContextMenuOptions, label: "context_menu_category")
+                    categoryButton(toggle: $showContextMenuOptions, label: "rmb")
                     categoryButton(toggle: $showHeritageOptions, label: "heritage_category")
                     categoryButton(toggle: $showOthersOptions, label: "others_category")
                 }
@@ -451,6 +453,57 @@ struct LegacySettingsView: View {
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
+
+                        HStack {
+                            Text("list_width")
+                            Button {
+                                setWindowWidth(increase: false)
+                            } label: {
+                                Image(systemName: "minus")
+                                    .frame(width: 14, height: 14)
+                            }
+                            .disabled(windowWidth == .normal)
+
+                            Button {
+                                setWindowWidth(increase: true)
+                            } label: {
+                                Image(systemName: "plus")
+                                    .frame(width: 14, height: 14)
+                            }
+                            .disabled(windowWidth == .veryBig)
+
+                            Text(windowWidthLabel)
+                                .font(.footnote)
+                        }
+                        .padding(.top, 7)
+                        Text("restart_to_apply")
+                            .font(.footnote)
+                            .opacity(0.7)
+                    }
+
+                    if showInfoOptions {
+                        ToggleRow(
+                            label: "show_port_max",
+                            description: "show_port_max_description",
+                            binding: $showPortMax,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            disabled: hideTechInfo && !mouseHoverInfo,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
+                            label: "convert_hexa",
+                            description: "convert_hexa_description",
+                            binding: $convertHexa,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            disabled: hideTechInfo && !mouseHoverInfo,
+                            onToggle: { _ in }
+                        )
+                        
+                        Spacer()
+                            .frame(height: 4)
+                        
                         ToggleRow(
                             label: "index_indicator",
                             description: "index_indicator_description",
@@ -483,64 +536,29 @@ struct LegacySettingsView: View {
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
-
+                        
+                        Spacer()
+                            .frame(height: 4)
+                        
                         HStack {
-                            Text("list_width")
-                            Button {
-                                setWindowWidth(increase: false)
-                            } label: {
-                                Image(systemName: "minus")
-                                    .frame(width: 14, height: 14)
+                            Button("clear_all_renamed") {
+                                CSM.Renamed.clear()
                             }
-                            .disabled(windowWidth == .normal)
-
-                            Button {
-                                setWindowWidth(increase: true)
-                            } label: {
-                                Image(systemName: "plus")
-                                    .frame(width: 14, height: 14)
-                            }
-                            .disabled(windowWidth == .veryBig)
-
-                            Text(windowWidthLabel)
+                            Text("single_click")
                                 .font(.footnote)
+                                .opacity(0.5)
                         }
-                        .padding(.top, 7)
-                        Text("restart_to_apply")
-                            .font(.footnote)
-                            .opacity(0.7)
-                    }
-
-                    if showInfoOptions {
-                        if Utils.System.isMacbook {
-                            ToggleRow(
-                                label: "show_charger",
-                                description: "show_charger_description",
-                                binding: $powerSourceInfo,
-                                activeRowID: $activeRowID,
-                                incompatibilities: nil,
-                                onToggle: { _ in }
-                            )
+                        
+                        HStack {
+                            Button("clear_all_hidden") {
+                                CSM.Camouflaged.clear()
+                            }
+                            .help("make_all_visible_again")
+                            Text("single_click")
+                                .font(.footnote)
+                                .opacity(0.5)
                         }
-                        ToggleRow(
-                            label: "show_port_max",
-                            description: "show_port_max_description",
-                            binding: $showPortMax,
-                            activeRowID: $activeRowID,
-                            incompatibilities: nil,
-                            disabled: hideTechInfo && !mouseHoverInfo,
-                            onToggle: { _ in }
-                        )
-                        ToggleRow(
-                            label: "convert_hexa",
-                            description: "convert_hexa_description",
-                            binding: $convertHexa,
-                            activeRowID: $activeRowID,
-                            incompatibilities: nil,
-                            disabled: hideTechInfo && !mouseHoverInfo,
-                            onToggle: { _ in }
-                        )
-
+                        
                         HStack {
                             Button("delete_device_history") {
                                 tryingToDeleteDeviceHistory = true
@@ -558,29 +576,16 @@ struct LegacySettingsView: View {
                                 .buttonStyle(.borderedProminent)
                             }
                         }
-                        .padding(.vertical, 10)
-
-                        Text("renamed_devices")
-                            .font(.title2)
-
-                        Button {
-                            CSM.Renamed.clear()
-                        } label: {
-                            Label("undo_all", systemImage: "trash")
-                        }
-
-                        Text("hidden_devices")
-                            .font(.title2)
-
-                        Button {
-                            CSM.Camouflaged.clear()
-                        } label: {
-                            Label("undo_all", systemImage: "trash")
-                        }
-                        .help("make_all_visible_again")
                     }
 
                     if showContextMenuOptions {
+                        
+                        Text("rmb_explanation")
+                            .font(.title2)
+                            .italic()
+                            .padding(.vertical)
+                            .opacity(0.8)
+                        
                         ToggleRow(
                             label: "disable_context_menu_search",
                             description: "disable_context_menu_search_description",
@@ -639,10 +644,13 @@ struct LegacySettingsView: View {
                             disabled: disableInheritanceLayout,
                             onToggle: { _ in }
                         )
-                        Button {
-                            CSM.Heritage.clear()
-                        } label: {
-                            Label("clear_all_inheritances", systemImage: "trash")
+                        HStack {
+                            Button("clear_all_inheritances") {
+                                CSM.Heritage.clear()
+                            }
+                            Text("single_click")
+                                .font(.footnote)
+                                .opacity(0.5)
                         }
                     }
 
@@ -654,19 +662,6 @@ struct LegacySettingsView: View {
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
-                        )
-                        ToggleRow(
-                            label: "ethernet_connected_icon",
-                            description: "ethernet_connected_icon_description",
-                            binding: $showEthernet,
-                            activeRowID: $activeRowID,
-                            incompatibilities: nil,
-                            willRestart: true,
-                            onToggle: { value in
-                                if value == true {
-                                    Utils.App.restart()
-                                }
-                            }
                         )
                         ToggleRow(
                             label: "no_text_buttons",

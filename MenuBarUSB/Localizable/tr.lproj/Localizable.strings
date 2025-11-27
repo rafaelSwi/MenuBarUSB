@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "Uygulama hızlıca yeniden başlatılacak";
 "restart_to_apply" = "Değişiklikleri uygulamak için MenuBarUSB’nin yeniden başlatılması gerekiyor";
 "looking_for_updates" = "Bilgiler toplanıyor...";
+"clear_all_renamed" = "Yeniden adlandırılan cihazların adlarını geri yükle";
+"clear_all_hidden" = "Gizli cihazların tümünü yeniden görünür yap";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button (Sağ tık)";
+"single_click" = "(Tek tıklama)";

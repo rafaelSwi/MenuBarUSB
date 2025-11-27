@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "アプリがすぐに再起動します";
 "restart_to_apply" = "変更を適用するには MenuBarUSB を再起動する必要があります";
 "looking_for_updates" = "情報を収集中…";
+"clear_all_renamed" = "名前を変更したデバイスの名前を復元する";
+"clear_all_hidden" = "非表示のデバイスをすべて再表示する";
+"rmb" = "二次クリック";
+"rmb_explanation" = "RBM — Right Mouse Button (二次クリック)";
+"single_click" = "(シングルクリック)";

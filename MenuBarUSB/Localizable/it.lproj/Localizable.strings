@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "L’app si riavvierà rapidamente";
 "restart_to_apply" = "È necessario riavviare MenuBarUSB per applicare le modifiche";
 "looking_for_updates" = "Raccolta delle informazioni...";
+"clear_all_renamed" = "Ripristina i nomi dei dispositivi rinominati";
+"clear_all_hidden" = "Rendi di nuovo visibili tutti i dispositivi nascosti";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button (Clic destro)";
+"single_click" = "(Clic singolo)";

@@ -811,38 +811,6 @@ struct SettingsView: View {
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
-                    ToggleRow(
-                        label: "index_indicator",
-                        description: "index_indicator_description",
-                        binding: $indexIndicator,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        onToggle: { _ in }
-                    )
-                    ToggleRow(
-                        label: "stored_indicator",
-                        description: "stored_indicator_description",
-                        binding: $storedIndicator,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        onToggle: { _ in }
-                    )
-                    ToggleRow(
-                        label: "hidden_indicator",
-                        description: "hidden_indicator_description",
-                        binding: $camouflagedIndicator,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        onToggle: { _ in }
-                    )
-                    ToggleRow(
-                        label: "renamed_indicator",
-                        description: "renamed_indicator_description",
-                        binding: $renamedIndicator,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        onToggle: { _ in }
-                    )
 
                     Button("delete_device_history") {
                         tryingToDeleteDeviceHistory = true
@@ -895,6 +863,42 @@ struct SettingsView: View {
                         disabled: hideTechInfo && !mouseHoverInfo,
                         onToggle: { _ in }
                     )
+                    Spacer()
+                        .frame(height: 4)
+                    ToggleRow(
+                        label: "index_indicator",
+                        description: "index_indicator_description",
+                        binding: $indexIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: "stored_indicator",
+                        description: "stored_indicator_description",
+                        binding: $storedIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: "hidden_indicator",
+                        description: "hidden_indicator_description",
+                        binding: $camouflagedIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
+                        label: "renamed_indicator",
+                        description: "renamed_indicator_description",
+                        binding: $renamedIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    Spacer()
+                        .frame(height: 4)
                     Button {
                         showRenameDevices.toggle()
                     } label: {

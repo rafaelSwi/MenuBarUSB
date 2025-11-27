@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "앱이 빠르게 다시 시작됩니다";
 "restart_to_apply" = "변경 사항을 적용하려면 MenuBarUSB를 재시작해야 합니다";
 "looking_for_updates" = "정보를 수집하는 중...";
+"clear_all_renamed" = "이름이 변경된 장치의 이름을 복원하기";
+"clear_all_hidden" = "숨겨진 모든 장치를 다시 표시하기";
+"rmb" = "보조 클릭";
+"rmb_explanation" = "RBM — Right Mouse Button (보조 클릭)";
+"single_click" = "(단일 클릭)";

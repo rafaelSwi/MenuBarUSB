@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "Приложение быстро перезапустится";
 "restart_to_apply" = "Для применения изменений требуется перезапустить MenuBarUSB";
 "looking_for_updates" = "Сбор информации...";
+"clear_all_renamed" = "Восстановить имена переименованных устройств";
+"clear_all_hidden" = "Сделать все скрытые устройства вновь видимыми";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button (Правый клик)";
+"single_click" = "(Одинарный клик)";

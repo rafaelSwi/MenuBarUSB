@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "The app will quickly restart";
 "restart_to_apply" = "A restart is required for the changes to take effect";
 "looking_for_updates" = "Looking for updates...";
+"clear_all_renamed" = "Restore the names of all renamed devices";
+"clear_all_hidden" = "Make all hidden devices visible again";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button";
+"single_click" = "(Single click)";

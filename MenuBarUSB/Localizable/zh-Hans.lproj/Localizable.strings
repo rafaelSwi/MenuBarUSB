@@ -291,5 +291,10 @@
 "play_only_disconnect" = "仅播放断开连接声音";
 "default" = "默认";
 "app_will_quickly_restart" = "应用程序将快速重启";
-"restart_to_apply" = "需要重新启动 MenuBarUSB 才能应用更改";
+"restart_to_apply" = "需要重新启动 App 才能应用更改";
 "looking_for_updates" = "正在收集信息…";
+"clear_all_renamed" = "恢复已重命名设备的名称";
+"clear_all_hidden" = "重新显示所有隐藏的设备";
+"rmb" = "二次点击";
+"rmb_explanation" = "RBM — Right Mouse Button (右键单击)";
+"single_click" = "(单击)";

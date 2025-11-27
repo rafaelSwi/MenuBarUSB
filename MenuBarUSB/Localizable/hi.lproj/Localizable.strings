@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "ऐप जल्दी से पुनः आरंभ होगा";
 "restart_to_apply" = "परिवर्तनों को लागू करने के लिए MenuBarUSB को पुनः आरंभ करना आवश्यक है";
 "looking_for_updates" = "जानकारी एकत्रित की जा रही है...";
+"clear_all_renamed" = "पुनः नामित उपकरणों के नाम बहाल करें";
+"clear_all_hidden" = "सभी छिपे हुए उपकरणों को फिर से दृश्यमान बनाएं";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button (राइट-क्लिक)";
+"single_click" = "(सिंगल क्लिक)";

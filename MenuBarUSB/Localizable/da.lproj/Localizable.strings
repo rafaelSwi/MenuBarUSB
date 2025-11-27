@@ -293,3 +293,8 @@
 "app_will_quickly_restart" = "Appen vil hurtigt genstarte";
 "restart_to_apply" = "MenuBarUSB skal genstartes for at anvende ændringerne";
 "looking_for_updates" = "Indsamler oplysninger...";
+"clear_all_renamed" = "Gendan navnene på omdøbte enheder";
+"clear_all_hidden" = "Gør alle skjulte enheder synlige igen";
+"rmb" = "RMB";
+"rmb_explanation" = "RBM — Right Mouse Button (Højreklik)";
+"single_click" = "(Enkeltklik)";
