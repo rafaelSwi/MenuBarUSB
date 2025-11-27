@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "삭제할 사용자 지정 사운드 연결이 없습니다";
 "play_only_connect" = "연결 사운드만 재생";
 "play_only_disconnect" = "연결 해제 사운드만 재생";
+"default" = "기본값";
+"app_will_quickly_restart" = "앱이 빠르게 다시 시작됩니다";
+"restart_to_apply" = "변경 사항을 적용하려면 MenuBarUSB를 재시작해야 합니다";
+"looking_for_updates" = "정보를 수집하는 중...";

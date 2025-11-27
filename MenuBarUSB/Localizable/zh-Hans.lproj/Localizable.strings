@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "没有可清除的自定义声音关联";
 "play_only_connect" = "仅播放连接声音";
 "play_only_disconnect" = "仅播放断开连接声音";
+"default" = "默认";
+"app_will_quickly_restart" = "应用程序将快速重启";
+"restart_to_apply" = "需要重新启动 MenuBarUSB 才能应用更改";
+"looking_for_updates" = "正在收集信息…";

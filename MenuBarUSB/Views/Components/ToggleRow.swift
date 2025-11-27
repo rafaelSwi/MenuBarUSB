@@ -16,11 +16,15 @@ struct ToggleRow: View {
     @Binding var activeRowID: UUID?
     let incompatibilities: [Bool]?
     var disabled: Bool = false
+    var willRestart: Bool = false
     var onToggle: (Bool) -> Void
 
     @State private var showIncompatibilityMessage = false
     @State private var showDescription = false
-
+    
+    @State private var showRestartMessage = false
+    @State private var restartHoverProgress: Double = 0
+    @State private var restartTimer: Timer?
     @State private var infoHoverProgress: Double = 0
     @State private var warningHoverProgress: Double = 0
     @State private var infoTimer: Timer?
@@ -30,12 +34,13 @@ struct ToggleRow: View {
         return incompatibilities?.contains(true) ?? false
     }
 
-    private func startHoverProgress(forInfo: Bool) {
+    private func startHoverProgress(_ interaction: Interaction) {
         let duration: TimeInterval = 1.5
         let step: TimeInterval = 0.05
         var elapsed: TimeInterval = 0
-
-        if forInfo {
+        
+        switch (interaction) {
+        case .info:
             infoHoverProgress = 0
             infoTimer?.invalidate()
             infoTimer = Timer.scheduledTimer(withTimeInterval: step, repeats: true) { t in
@@ -47,12 +52,13 @@ struct ToggleRow: View {
                         activeRowID = id
                         showDescription = true
                         showIncompatibilityMessage = false
+                        showRestartMessage = false
                         Utils.System.hapticFeedback()
                     }
                     t.invalidate()
                 }
             }
-        } else {
+        case .warning:
             warningHoverProgress = 0
             warningTimer?.invalidate()
             warningTimer = Timer.scheduledTimer(withTimeInterval: step, repeats: true) { t in
@@ -64,6 +70,25 @@ struct ToggleRow: View {
                         activeRowID = id
                         showIncompatibilityMessage = true
                         showDescription = false
+                        showRestartMessage = false
+                        Utils.System.hapticFeedback()
+                    }
+                    t.invalidate()
+                }
+            }
+        case .restart:
+            restartHoverProgress = 0
+            restartTimer?.invalidate()
+            restartTimer = Timer.scheduledTimer(withTimeInterval: step, repeats: true) { t in
+                elapsed += step
+                let percent = min(elapsed / duration, 1.0)
+                restartHoverProgress = percent
+                if percent >= 1 {
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        activeRowID = id
+                        showRestartMessage = true
+                        showDescription = false
+                        showIncompatibilityMessage = false
                         Utils.System.hapticFeedback()
                     }
                     t.invalidate()
@@ -71,19 +96,31 @@ struct ToggleRow: View {
             }
         }
     }
+    
+    private enum Interaction {
+        case info
+        case warning
+        case restart
+    }
 
-    private func cancelHover(forInfo: Bool) {
-        if forInfo {
+    private func cancelHover(_ interaction: Interaction) {
+        switch (interaction) {
+        case .info:
             infoTimer?.invalidate()
             infoHoverProgress = 0
-        } else {
+        case .warning:
             warningTimer?.invalidate()
             warningHoverProgress = 0
+        case .restart:
+            restartTimer?.invalidate()
+            restartHoverProgress = 0
         }
     }
 
-    private func immediateToggle(forInfo: Bool) {
-        if forInfo {
+    private func immediateToggle(_ interaction: Interaction) {
+        
+        switch (interaction) {
+        case .info:
             infoTimer?.invalidate()
             infoHoverProgress = 0
             withAnimation(.easeInOut(duration: 0.25)) {
@@ -91,8 +128,9 @@ struct ToggleRow: View {
                 activeRowID = newState ? id : nil
                 showDescription = newState
                 showIncompatibilityMessage = false
+                showRestartMessage = false
             }
-        } else {
+        case .warning:
             warningTimer?.invalidate()
             warningHoverProgress = 0
             withAnimation(.easeInOut(duration: 0.25)) {
@@ -100,6 +138,17 @@ struct ToggleRow: View {
                 activeRowID = newState ? id : nil
                 showIncompatibilityMessage = newState
                 showDescription = false
+                showRestartMessage = false
+            }
+        case .restart:
+            restartTimer?.invalidate()
+            restartHoverProgress = 0
+            withAnimation(.easeInOut(duration: 0.25)) {
+                let newState = !(activeRowID == id && showRestartMessage)
+                activeRowID = newState ? id : nil
+                showRestartMessage = newState
+                showDescription = false
+                showIncompatibilityMessage = false
             }
         }
     }
@@ -120,10 +169,10 @@ struct ToggleRow: View {
                 ZStack {
                     Image(systemName: "info.circle")
                         .foregroundStyle(Color("Info"))
-                        .onTapGesture { immediateToggle(forInfo: true) }
+                        .onTapGesture { immediateToggle(.info) }
                         .onHover { inside in
-                            if inside && !showDescription { startHoverProgress(forInfo: true) }
-                            else { cancelHover(forInfo: true) }
+                            if inside && !showDescription { startHoverProgress(.info) }
+                            else { cancelHover(.info) }
                         }
 
                     if infoHoverProgress > 0 && infoHoverProgress < 1 {
@@ -135,15 +184,36 @@ struct ToggleRow: View {
                     }
                 }
                 .frame(width: 20, height: 20)
+                
+                if willRestart {
+                    ZStack {
+                        Image(systemName: "clock.fill")
+                            .foregroundStyle(.orange)
+                            .onTapGesture { immediateToggle(.restart) }
+                            .onHover { inside in
+                                if inside && !showRestartMessage { startHoverProgress(.restart) }
+                                else { cancelHover(.restart) }
+                            }
+
+                        if restartHoverProgress > 0 && restartHoverProgress < 1 {
+                            Circle()
+                                .trim(from: 0, to: restartHoverProgress)
+                                .stroke(.orange, lineWidth: 2)
+                                .rotationEffect(.degrees(-90))
+                                .animation(.linear, value: restartHoverProgress)
+                        }
+                    }
+                    .frame(width: 20, height: 20)
+                }
 
                 if hasIncompatibility() {
                     ZStack {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundStyle(Color("Warning"))
-                            .onTapGesture { immediateToggle(forInfo: false) }
+                            .onTapGesture { immediateToggle(.warning) }
                             .onHover { inside in
-                                if inside && !showIncompatibilityMessage { startHoverProgress(forInfo: false) }
-                                else { cancelHover(forInfo: false) }
+                                if inside && !showIncompatibilityMessage { startHoverProgress(.warning) }
+                                else { cancelHover(.warning) }
                             }
 
                         if warningHoverProgress > 0 && warningHoverProgress < 1 {
@@ -167,20 +237,28 @@ struct ToggleRow: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
-
-            if activeRowID == id && showIncompatibilityMessage {
-                Text("warning_incompatible_options")
-                    .font(.subheadline)
-                    .foregroundColor(.primary)
-                    .padding(8)
-                    .background(
-                        Color("Warning")
-                            .opacity(0.4)
-                            .cornerRadius(8)
-                    )
-                    .fixedSize(horizontal: false, vertical: true)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+            
+            Group {
+                
+                if activeRowID == id && showIncompatibilityMessage {
+                    Text("warning_incompatible_options")
+                }
+                
+                if activeRowID == id && showRestartMessage {
+                    Text("app_will_quickly_restart")
+                }
+                
             }
+            .font(.subheadline)
+            .foregroundColor(.primary)
+            .padding(8)
+            .background(
+                Color("Warning")
+                    .opacity(0.4)
+                    .cornerRadius(8)
+            )
+            .fixedSize(horizontal: false, vertical: true)
+            .transition(.opacity.combined(with: .move(edge: .top)))
         }
         .padding(.vertical, 1)
         .animation(.easeInOut(duration: 0.25), value: showDescription)

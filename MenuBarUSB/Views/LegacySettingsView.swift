@@ -54,7 +54,6 @@ struct LegacySettingsView: View {
     @AS(Key.hardwareSound) private var hardwareSound: String = ""
     @AS(Key.playHardwareSound) private var playHardwareSound: Bool = false
     @AS(Key.disableHaptic) private var disableHaptic = false
-    @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.showEthernet) private var showEthernet = false
     @AS(Key.showScrollBar) private var showScrollBar = false
     @AS(Key.indexIndicator) private var indexIndicator = false
@@ -231,37 +230,14 @@ struct LegacySettingsView: View {
                     if !updateAvailable {
                         HStack {
                             
-                            if !hideDonate {
-                                Button {
-                                    if showDonateOptions {
-                                        showDonateOptions = false
-                                    } else {
-                                        untoggleShowOptions()
-                                        showDonateOptions = true
-                                    }
-                                } label: {
-                                    Label("donate", systemImage: "hand.thumbsup.circle")
-                                }
-                                .contextMenu {
-                                    Button {
-                                        hideDonate = true
-                                    } label: {
-                                        Label("hide", systemImage: "eye.slash")
-                                    }
-                                }
-                            }
-                            
                             if !hideUpdate {
                                 Button {
                                     checkForUpdate()
                                 } label: {
                                     if checkingUpdate {
-                                        ProgressView()
+                                        Text("looking_for_updates")
                                     } else {
-                                        Label(
-                                            !latestVersion.isEmpty ? "updated" : "check_for_updates",
-                                            systemImage: "checkmark.circle"
-                                        )
+                                        Text(!latestVersion.isEmpty ? "updated" : "check_for_updates")
                                     }
                                 }
                                 .buttonStyle(.bordered)
@@ -280,6 +256,7 @@ struct LegacySettingsView: View {
                                     } label: {
                                         Label("open_github_page", systemImage: "globe")
                                     }
+                                    Divider()
                                     Button {
                                         hideUpdate = true
                                     } label: {
@@ -287,6 +264,31 @@ struct LegacySettingsView: View {
                                     }
                                 }
                             }
+                            
+                            Text("|")
+                                .padding(.horizontal, 5)
+                                .opacity(0.3)
+                            
+                            if !hideDonate {
+                                Button {
+                                    if showDonateOptions {
+                                        showDonateOptions = false
+                                    } else {
+                                        untoggleShowOptions()
+                                        showDonateOptions = true
+                                    }
+                                } label: {
+                                    Text("donate")
+                                }
+                                .contextMenu {
+                                    Button {
+                                        hideDonate = true
+                                    } label: {
+                                        Text("hide")
+                                    }
+                                }
+                            }
+                            
                         }
                     }
                 }
@@ -320,15 +322,6 @@ struct LegacySettingsView: View {
                             binding: $newVersionNotification,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
-                            onToggle: { _ in }
-                        )
-                        ToggleRow(
-                            label: "reduce_transparency",
-                            description: "reduce_transparency_description",
-                            binding: $reduceTransparency,
-                            activeRowID: $activeRowID,
-                            incompatibilities: nil,
-                            disabled: forceDarkMode || forceLightMode,
                             onToggle: { _ in }
                         )
                         ToggleRow(
@@ -512,7 +505,10 @@ struct LegacySettingsView: View {
                             Text(windowWidthLabel)
                                 .font(.footnote)
                         }
-                        .padding(.vertical, 7)
+                        .padding(.top, 7)
+                        Text("restart_to_apply")
+                            .font(.footnote)
+                            .opacity(0.7)
                     }
 
                     if showInfoOptions {
@@ -549,7 +545,6 @@ struct LegacySettingsView: View {
                             Button("delete_device_history") {
                                 tryingToDeleteDeviceHistory = true
                             }
-                            .disabled(tryingToDeleteDeviceHistory || CSM.Stored.devices.isEmpty)
                             .help("(\(CSM.Stored.devices.count))")
 
                             if tryingToDeleteDeviceHistory {
@@ -573,7 +568,6 @@ struct LegacySettingsView: View {
                         } label: {
                             Label("undo_all", systemImage: "trash")
                         }
-                        .disabled(CSM.Renamed.devices.isEmpty)
 
                         Text("hidden_devices")
                             .font(.title2)
@@ -583,7 +577,6 @@ struct LegacySettingsView: View {
                         } label: {
                             Label("undo_all", systemImage: "trash")
                         }
-                        .disabled(CSM.Camouflaged.devices.isEmpty)
                         .help("make_all_visible_again")
                     }
 
@@ -651,20 +644,9 @@ struct LegacySettingsView: View {
                         } label: {
                             Label("clear_all_inheritances", systemImage: "trash")
                         }
-                        .disabled(CSM.Heritage.$items.count <= 0)
                     }
 
                     if showOthersOptions {
-                        if Locale.current.language.languageCode?.identifier != "en" {
-                            ToggleRow(
-                                label: "force_english",
-                                description: "force_english_description",
-                                binding: $forceEnglish,
-                                activeRowID: $activeRowID,
-                                incompatibilities: nil,
-                                onToggle: { _ in Utils.App.restart() }
-                            )
-                        }
                         ToggleRow(
                             label: "show_toolbar",
                             description: "show_toolbar_description",
@@ -679,6 +661,7 @@ struct LegacySettingsView: View {
                             binding: $showEthernet,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
+                            willRestart: true,
                             onToggle: { value in
                                 if value == true {
                                     Utils.App.restart()

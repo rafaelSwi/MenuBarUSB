@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "クリアするカスタムサウンドの関連付けはありません";
 "play_only_connect" = "接続音のみ再生";
 "play_only_disconnect" = "切断音のみ再生";
+"default" = "デフォルト";
+"app_will_quickly_restart" = "アプリがすぐに再起動します";
+"restart_to_apply" = "変更を適用するには MenuBarUSB を再起動する必要があります";
+"looking_for_updates" = "情報を収集中…";

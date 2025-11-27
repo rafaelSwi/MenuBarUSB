@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "Ingen brugerdefinerede lydtilknytninger at rydde";
 "play_only_connect" = "Afspil kun tilslutningslyd";
 "play_only_disconnect" = "Afspil kun afbrydelseslyd";
+"default" = "Standard";
+"app_will_quickly_restart" = "Appen vil hurtigt genstarte";
+"restart_to_apply" = "MenuBarUSB skal genstartes for at anvende ændringerne";
+"looking_for_updates" = "Indsamler oplysninger...";

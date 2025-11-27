@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "Brak niestandardowych powiązań dźwięku do usunięcia";
 "play_only_connect" = "Odtwarzaj tylko dźwięk połączenia";
 "play_only_disconnect" = "Odtwarzaj tylko dźwięk rozłączenia";
+"default" = "Domyślne";
+"app_will_quickly_restart" = "Aplikacja szybko się zrestartuje";
+"restart_to_apply" = "Aby zastosować zmiany, wymagane jest ponowne uruchomienie MenuBarUSB";
+"looking_for_updates" = "Zbieranie informacji...";

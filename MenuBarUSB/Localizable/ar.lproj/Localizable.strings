@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "لا توجد ارتباطات صوت مخصصة لمسحها";
 "play_only_connect" = "تشغيل صوت الاتصال فقط";
 "play_only_disconnect" = "تشغيل صوت قطع الاتصال فقط";
+"default" = "افتراضي";
+"app_will_quickly_restart" = "سيُعاد تشغيل التطبيق بسرعة";
+"restart_to_apply" = "يلزم إعادة تشغيل MenuBarUSB لتطبيق التغييرات";
+"looking_for_updates" = "جارٍ جمع المعلومات...";

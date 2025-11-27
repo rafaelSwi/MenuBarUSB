@@ -50,25 +50,32 @@ struct MenuBarUSBApp: App {
     }
 
     private var menuLabel: some View {
-        return HStack(spacing: 5) {
-            let image = HStack(spacing: 7) {
-                if manager.trafficMonitorRunning == false && internetMonitoring {
-                    Image(systemName: "pause.fill")
+        if #available(macOS 15.0, *) {
+            return HStack(spacing: 5) {
+                let image = HStack(spacing: 7) {
+                    if manager.trafficMonitorRunning == false && internetMonitoring {
+                        Image(systemName: "pause.fill")
+                    }
+                    Image(manager.ethernetTraffic ? "ETHERNET_DOT" : "ETHERNET")
+                    Image(systemName: macBarIcon)
                 }
-                Image(manager.ethernetTraffic ? "ETHERNET_DOT" : "ETHERNET")
-                Image(systemName: macBarIcon)
-            }
-            .asImage()
+                .asImage()
 
-            var ethernetCableConnectedAndShowEthernet: Bool {
-                return showEthernet && manager.ethernetCableConnected
-            }
+                var ethernetCableConnectedAndShowEthernet: Bool {
+                    return showEthernet && manager.ethernetCableConnected
+                }
 
-            if !hideMenubarIcon {
-                if ethernetCableConnectedAndShowEthernet { Image(nsImage: image) }
-                Image(systemName: macBarIcon)
+                if !hideMenubarIcon {
+                    if ethernetCableConnectedAndShowEthernet { Image(nsImage: image) }
+                    Image(systemName: macBarIcon)
+                }
+                if !hideCount { countText }
             }
-            if !hideCount { countText }
+        } else {
+            return HStack(spacing: 5) {
+                Image(systemName: macBarIcon)
+                countText
+            }
         }
     }
 

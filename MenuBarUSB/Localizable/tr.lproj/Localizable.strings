@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "Temizlenecek özel ses ilişkilendirmesi yok";
 "play_only_connect" = "Yalnızca bağlantı sesini çal";
 "play_only_disconnect" = "Yalnızca bağlantı kesme sesini çal";
+"default" = "Varsayılan";
+"app_will_quickly_restart" = "Uygulama hızlıca yeniden başlatılacak";
+"restart_to_apply" = "Değişiklikleri uygulamak için MenuBarUSB’nin yeniden başlatılması gerekiyor";
+"looking_for_updates" = "Bilgiler toplanıyor...";

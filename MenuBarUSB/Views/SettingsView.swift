@@ -1089,6 +1089,7 @@ struct SettingsView: View {
                             binding: $forceEnglish,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
+                            willRestart: true,
                             onToggle: { _ in Utils.App.restart() }
                         )
                     }

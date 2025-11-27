@@ -290,3 +290,6 @@
 "play_only_connect" = "Play only the \"connect\" sound";
 "play_only_disconnect" = "Play only the \"disconnect\" sound";
 "default" = "Default";
+"app_will_quickly_restart" = "The app will quickly restart";
+"restart_to_apply" = "A restart is required for the changes to take effect";
+"looking_for_updates" = "Looking for updates...";

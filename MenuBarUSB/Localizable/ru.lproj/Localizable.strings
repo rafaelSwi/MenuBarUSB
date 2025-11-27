@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "Нет пользовательских звуковых связей для очистки";
 "play_only_connect" = "Воспроизводить только звук подключения";
 "play_only_disconnect" = "Воспроизводить только звук отключения";
+"default" = "По умолчанию";
+"app_will_quickly_restart" = "Приложение быстро перезапустится";
+"restart_to_apply" = "Для применения изменений требуется перезапустить MenuBarUSB";
+"looking_for_updates" = "Сбор информации...";

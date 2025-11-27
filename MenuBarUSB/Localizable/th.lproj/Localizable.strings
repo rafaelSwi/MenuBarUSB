@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "ไม่มีการเชื่อมโยงเสียงแบบกำหนดเองให้ล้าง";
 "play_only_connect" = "เล่นเฉพาะเสียงเชื่อมต่อ";
 "play_only_disconnect" = "เล่นเฉพาะเสียงตัดการเชื่อมต่อ";
+"default" = "ค่าเริ่มต้น";
+"app_will_quickly_restart" = "แอปจะรีสตาร์ทอย่างรวดเร็ว";
+"restart_to_apply" = "ต้องรีสตาร์ท MenuBarUSB เพื่อใช้การเปลี่ยนแปลง";
+"looking_for_updates" = "กำลังรวบรวมข้อมูล...";

@@ -289,3 +289,7 @@
 "no_custom_associations_to_undo" = "No hay asociaciones de sonido personalizadas para borrar";
 "play_only_connect" = "Reproducir solo el sonido de conexión";
 "play_only_disconnect" = "Reproducir solo el sonido de desconexión";
+"default" = "Predeterminado";
+"app_will_quickly_restart" = "La app se reiniciará rápidamente";
+"restart_to_apply" = "Es necesario reiniciar MenuBarUSB para aplicar los cambios";
+"looking_for_updates" = "Recolectando información...";
