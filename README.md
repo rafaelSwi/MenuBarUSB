@@ -9,9 +9,6 @@ brew install --cask menubarusb
 
 <img width="797" height="585" alt="Screenshot 2025-08-31 at 22 35 10 (2)" src="https://github.com/user-attachments/assets/e68bc061-5385-40d2-8092-1874bca83a1d" />
 
-### Warning for macOS 13/14 users
-I'm having a bit of a trouble trying to understand why MenuBarUSB refuses to open on older versions of macOS. If you're using macOS 14 (Sonoma) or lower, the last version that actually works is v2.5. As soon as I fix this, a new version will be released.
-
 ## Features
 
 ### Customization
