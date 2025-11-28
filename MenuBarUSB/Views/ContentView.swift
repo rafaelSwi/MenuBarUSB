@@ -1025,6 +1025,12 @@ struct ContentView: View {
                         }
                     }
                 }
+                
+                Button { // TODO: REMOVE
+                    openWindow(id: "user_manual")
+                } label: {
+                    Image(systemName: "book")
+                }
 
                 Button {
                     goToSettings()

@@ -94,6 +94,11 @@ struct MenuBarUSBApp: App {
                 .colorSchemeForce(light: false, dark: true)
         }
         .windowStyle(.hiddenTitleBar)
+        
+        Window("user_manual", id: "user_manual") {
+            UserManualView()
+        }
+        .windowStyle(.hiddenTitleBar)
     }
 
     private func view<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {

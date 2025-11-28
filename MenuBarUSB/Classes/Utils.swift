@@ -318,5 +318,15 @@ final class Utils {
                 }
             }
         }
+
+        static func loadTextFile(_ name: String) -> String {
+            guard let url = Bundle.main.url(forResource: name, withExtension: "txt"),
+                  let data = try? Data(contentsOf: url),
+                  let text = String(data: data, encoding: .utf8) else {
+                return "**Error loading \(name).txt**"
+            }
+
+            return text
+        }
     }
 }

@@ -1,0 +1,14 @@
+MenuBarUSB will keep constantly querying and presenting USB-related speed information obtained from the macOS I/O Registry. The values displayed are strictly based on data exposed by the operating system and by the connected USB device. The following clarifies, in technical terms, what is measured and what is not within this process.
+
+● What the software measures:
+➦ The link speed negotiated between the USB device and the host controller, as reported by the I/O Registry. This value reflects the operational speed selected during the USB enumeration process.
+➦ The maximum theoretical link speed supported by the host USB port, extracted from parent registry entries associated with the USB host controller and its port configuration.
+➦ Device-declared parameters such as USB release version (BCD), vendor identifiers, product identifiers, and other metadata included in the device’s descriptors.
+
+● What the software does not measure:
+➦ The intrinsic physical capabilities of the USB cable in use. The I/O Registry does not expose any attribute that indicates cable certification level (USB 2.0, USB 3.x, USB 3.2, USB4, Thunderbolt) or its true maximum throughput potential.
+➦ Actual data-transfer performance. The component does not perform throughput tests, bandwidth sampling, or real-time monitoring of effective transfer rates; it only reports negotiated or declared speeds.
+➦ Cable quality, signal integrity characteristics, or support for auxiliary features such as Power Delivery, alternate modes, or Thunderbolt tunneling, as these properties are not programmatically accessible through standard macOS APIs.
+
+● Summary:
+The software provides a technical representation of speed parameters obtained from the device descriptors and USB host port metadata. It does not assess or infer the real physical capabilities, certification, or performance characteristics of the cable connecting the device to the system.
