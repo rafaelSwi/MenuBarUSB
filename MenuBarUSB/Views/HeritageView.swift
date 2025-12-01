@@ -26,8 +26,6 @@ struct HeritageView: View {
     @State private var step: Step = .beginning
     @State private var role: DeviceRole = .nothing
 
-    @State private var tryingToDeleteAllInheritances = false
-
     @Binding var currentWindow: AppWindow
 
     @State private var selectedDevice: USBDeviceWrapper?
@@ -86,7 +84,6 @@ struct HeritageView: View {
     private func resetPageState() {
         selectedDevice = nil
         anotherSelectedDevice = nil
-        tryingToDeleteAllInheritances = false
         role = .nothing
         step = .beginning
     }
@@ -220,31 +217,9 @@ struct HeritageView: View {
             Spacer()
 
             HStack {
-                Button {
-                    tryingToDeleteAllInheritances = true
-                    step = .beginning
-                } label: {
-                    Label("delete_all_inheritances", systemImage: "trash")
-                }
-                .disabled(tryingToDeleteAllInheritances)
-
-                if tryingToDeleteAllInheritances {
-                    Button {
-                        tryingToDeleteAllInheritances = false
-                    } label: {
-                        Image(systemName: "x.circle")
-                    }
-
-                    Button("confirm") { deleteAllInheritances() }
-                        .buttonStyle(.borderedProminent)
-                }
-
                 Spacer()
-
-                if !tryingToDeleteAllInheritances {
-                    Button(action: { currentWindow = .settings }) {
-                        Label("back", systemImage: "arrow.uturn.backward")
-                    }
+                Button(action: { currentWindow = .settings }) {
+                    Label("back", systemImage: "arrow.uturn.backward")
                 }
             }
         }

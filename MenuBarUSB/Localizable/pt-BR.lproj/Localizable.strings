@@ -146,7 +146,7 @@
 "restart" = "Reiniciar";
 "mouse_hover_info" = "Passar o cursor exibe informações";
 "mouse_hover_info_description" = "Ao passar o cursor do mouse sobre o nome de um dispositivo por um curto período de tempo, serão exibidas informações como fabricante, versão USB e outros.";
-"restore_default_settings" = "Restaurar configurações padrão";
+"restore_default_settings" = "Restaurar todas as configurações";
 "are_you_sure" = "Você tem certeza?";
 "no" = "Não";
 "yes_confirm" = "Sim, confirmar";

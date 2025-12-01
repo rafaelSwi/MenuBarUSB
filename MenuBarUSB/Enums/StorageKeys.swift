@@ -16,6 +16,7 @@ enum StorageKeys {
     static let storedDevices = "storedDevices"
     static let inheritedDevices = "inheritedDevices"
     static let camouflagedDevices = "camouflagedDevices"
+    static let favoriteDevices = "favoriteDevices"
     static let renamedIndicator = "renamedIndicator"
     static let camouflagedIndicator = "camouflagedIndicator"
     static let customHardwareSounds = "customHardwareSounds"
@@ -60,5 +61,6 @@ enum StorageKeys {
     static let listToolBar = "listToolBar"
     static let storeDevices = "storeDevices"
     static let storedIndicator = "storedIndicator"
+    static let hideFavoriteIndicator = "hideFavoriteIndicator"
     static let forceEnglish = "forceEnglish"
 }

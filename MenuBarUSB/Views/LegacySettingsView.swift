@@ -68,6 +68,7 @@ struct LegacySettingsView: View {
     @AS(Key.storedIndicator) private var storedIndicator = false
     @AS(Key.restartButton) private var restartButton = false
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
+    @AS(Key.hideFavoriteIndicator) private var hideFavoriteIndicator = false
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.windowWidth) private var windowWidth: WindowWidth = .normal
@@ -536,9 +537,33 @@ struct LegacySettingsView: View {
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
+                        ToggleRow(
+                            label: "hide_favorite_indicator",
+                            description: "hide_favorite_indicator_description",
+                            binding: $hideFavoriteIndicator,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
                         
-                        Spacer()
-                            .frame(height: 4)
+                        HStack {
+                            Button("delete_device_history") {
+                                tryingToDeleteDeviceHistory = true
+                            }
+                            .help("(\(CSM.Stored.devices.count))")
+
+                            if tryingToDeleteDeviceHistory {
+                                Button("cancel") {
+                                    tryingToDeleteDeviceHistory = false
+                                }
+                                Button("confirm") {
+                                    CSM.Stored.clear()
+                                    tryingToDeleteDeviceHistory = false
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
+                        }
+                        .padding(.vertical, 3)
                         
                         HStack {
                             Button("clear_all_renamed") {
@@ -560,21 +585,12 @@ struct LegacySettingsView: View {
                         }
                         
                         HStack {
-                            Button("delete_device_history") {
-                                tryingToDeleteDeviceHistory = true
+                            Button("clear_all_favorites") {
+                                CSM.Favorite.clear()
                             }
-                            .help("(\(CSM.Stored.devices.count))")
-
-                            if tryingToDeleteDeviceHistory {
-                                Button("cancel") {
-                                    tryingToDeleteDeviceHistory = false
-                                }
-                                Button("confirm") {
-                                    CSM.Stored.clear()
-                                    tryingToDeleteDeviceHistory = false
-                                }
-                                .buttonStyle(.borderedProminent)
-                            }
+                            Text("single_click")
+                                .font(.footnote)
+                                .opacity(0.5)
                         }
                     }
 

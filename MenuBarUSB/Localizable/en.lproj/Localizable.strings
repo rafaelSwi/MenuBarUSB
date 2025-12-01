@@ -146,7 +146,7 @@
 "restart" = "Restart";
 "mouse_hover_info" = "Hovering displays information";
 "mouse_hover_info_description" = "Hovering over a device’s name for a short period of time will display its information, such as manufacturer, USB version, and others.";
-"restore_default_settings" = "Restore to default settings";
+"restore_default_settings" = "Restore all to default settings";
 "are_you_sure" = "Are you sure?";
 "no" = "No";
 "yes_confirm" = "Yes, confirm";
@@ -298,3 +298,10 @@
 "rmb" = "RMB";
 "rmb_explanation" = "RMB — Right Mouse Button";
 "single_click" = "(Single click)";
+"favorite" = "Favorite";
+"unfavorite" = "Unfavorite";
+"clear_all_favorites" = "Unfavorite all devices";
+"hide_favorite_indicator" = "Hide favorite indicator";
+"hide_favorite_indicator_description" = "Favorited devices no longer show any indicator in the list, but their ordering is still respected.";
+"storage_category" = "Storage";
+"clear_all_custom_hardware_sounds" = "Delete all custom hardware sounds";

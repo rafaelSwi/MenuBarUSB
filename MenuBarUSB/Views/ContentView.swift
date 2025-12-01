@@ -54,6 +54,7 @@ struct ContentView: View {
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.storeDevices) private var storeDevices = false
     @AS(Key.storedIndicator) private var storedIndicator = false
+    @AS(Key.hideFavoriteIndicator) private var hideFavoriteIndicator = false
     @AS(Key.searchEngine) private var searchEngine: SearchEngine = .google
 
     private var windowHeight: CGFloat? {
@@ -87,43 +88,60 @@ struct ContentView: View {
     }
 
     private var sortedDevices: [USBDeviceWrapper] {
-        var sorted: [USBDeviceWrapper] = []
-        var visited: Set<String> = []
 
         var childrenMap: [String: [String]] = [:]
         for relation in CSM.Heritage.devices {
             childrenMap[relation.inheritsFrom, default: []].append(relation.deviceId)
         }
 
-        func appendFamily(_ deviceId: String) {
-            guard !visited.contains(deviceId) else { return }
-            guard let device = manager.devices.first(where: { $0.item.uniqueId == deviceId }) else { return }
+        func buildFamilyTree(root: USBDeviceWrapper,
+                             deviceDict: [String: USBDeviceWrapper]) -> [USBDeviceWrapper] {
 
-            sorted.append(device)
-            visited.insert(deviceId)
+            var result: [USBDeviceWrapper] = []
+            result.append(root)
 
-            if let children = childrenMap[deviceId] {
-                for childId in children {
-                    appendFamily(childId)
+            if let children = childrenMap[root.item.uniqueId] {
+
+                let sortedChildren = children.sorted { idA, idB in
+                    let favA = isFavorite(idA)
+                    let favB = isFavorite(idB)
+
+                    if favA != favB { return favA }
+                    return false
+                }
+
+                for childId in sortedChildren {
+                    if let child = deviceDict[childId] {
+                        result.append(contentsOf: buildFamilyTree(root: child, deviceDict: deviceDict))
+                    }
                 }
             }
+
+            return result
         }
+
+        let deviceDict = Dictionary(uniqueKeysWithValues: manager.devices.map { ($0.item.uniqueId, $0) })
 
         let heirIds = Set(CSM.Heritage.devices.map { $0.deviceId })
+
         let roots = manager.devices.filter { !heirIds.contains($0.item.uniqueId) }
 
+        var families: [[USBDeviceWrapper]] = []
         for root in roots {
-            appendFamily(root.item.uniqueId)
+            families.append(buildFamilyTree(root: root, deviceDict: deviceDict))
         }
 
-        for device in manager.devices {
-            let id = device.item.uniqueId
-            if !visited.contains(id) {
-                sorted.append(device)
-            }
+        let sortedFamilies = families.sorted { famA, famB in
+            let rootA = famA.first!
+            let rootB = famB.first!
+            let favA = isFavorite(rootA.item.uniqueId)
+            let favB = isFavorite(rootB.item.uniqueId)
+
+            if favA != favB { return favA }
+            return false
         }
 
-        return sorted
+        return sortedFamilies.flatMap { $0 }
     }
 
     private func cycleWindowWidth() {
@@ -317,6 +335,10 @@ struct ContentView: View {
     private var showChargingStatus: Bool {
         return powerSourceInfo && manager.chargeConnected && manager.chargePercentage != nil
     }
+    
+    private func isFavorite(_ id: String) -> Bool {
+        return CSM.Favorite[id] != nil
+    }
 
     private func searchOnWeb(_ search: String) {
         guard let query = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -329,8 +351,17 @@ struct ContentView: View {
 
     private func deviceTitleView(_ name: String?, deviceId: String) -> some View {
         let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
+        let favorite = CSM.Favorite.devices.first { $0.deviceId == deviceId }
+
         let baseName = renamed?.name ?? name ?? "usb_device".localized
-        let title = (renamed != nil && renamedIndicator) ? "∙ \(baseName)" : baseName
+
+        let renamedName = renamedIndicator && renamed != nil
+            ? "● \(baseName)"
+            : baseName
+
+        let title = favorite != nil && !hideFavoriteIndicator
+            ? "★ \(renamedName)"
+            : renamedName
 
         return Text(title)
             .font(.system(size: 12, weight: .semibold))
@@ -560,12 +591,12 @@ struct ContentView: View {
                                 LazyVStack(alignment: .leading, spacing: 2) {
                                     HStack {
                                         if isRenaming(device: uniqueId) {
-                                            deviceRenameView(deviceId: device.item.uniqueId)
+                                            deviceRenameView(deviceId: uniqueId)
                                         } else {
                                             if indexIndicator {
                                                 indexIndicatorView(index)
                                             }
-                                            deviceTitleView(device.item.name, deviceId: device.item.uniqueId)
+                                            deviceTitleView(device.item.name, deviceId: uniqueId)
                                         }
 
                                         Spacer()
@@ -695,12 +726,25 @@ struct ContentView: View {
                                     }
                                     Divider()
                                     Button {
-                                        CSM.Camouflaged.add(withId: device.item.uniqueId)
+                                        if isFavorite(uniqueId) {
+                                            CSM.Favorite.remove(withId: uniqueId)
+                                        } else {
+                                            CSM.Favorite.add(withId: uniqueId)
+                                        }
+                                        manager.refresh()
+                                    } label: {
+                                        let label = isFavorite(uniqueId) ? "unfavorite" : "favorite"
+                                        let icon = isFavorite(uniqueId) ? "star.slash" : "star"
+                                        Label(label.localized, systemImage: icon)
+                                    }
+                                    Divider()
+                                    Button {
+                                        CSM.Camouflaged.add(withId: uniqueId)
                                         manager.refresh()
                                     } label: {
                                         Label("hide", systemImage: "eye.slash")
                                     }
-                                    .disabled(CSM.Heritage.devices.contains { $0.inheritsFrom == device.item.uniqueId })
+                                    .disabled(CSM.Heritage.devices.contains { $0.inheritsFrom == uniqueId })
 
                                     Button {
                                         inputText = ""
@@ -740,19 +784,19 @@ struct ContentView: View {
 
                                         Menu {
                                             Button {
-                                                CSM.Heritage.remove(withId: device.item.uniqueId)
+                                                CSM.Heritage.remove(withId: uniqueId)
                                                 manager.refresh()
                                             } label: {
                                                 Label("kill_inheritance", systemImage: "trash")
                                             }
-                                            .disabled(CSM.Heritage[device.item.uniqueId] == nil)
+                                            .disabled(CSM.Heritage[uniqueId] == nil)
 
                                             Divider()
 
                                             Menu {
                                                 ForEach(sortedDevices) { d in
                                                     Button {
-                                                        CSM.Heritage.add(withId: d.item.uniqueId, inheritsFrom: device.item.uniqueId)
+                                                        CSM.Heritage.add(withId: d.item.uniqueId, inheritsFrom: uniqueId)
                                                         manager.refresh()
                                                     } label: {
                                                         Text(CSM.Renamed[d.item.uniqueId]?.name ?? d.item.name)
@@ -783,23 +827,23 @@ struct ContentView: View {
                                             
                                             ForEach(HardwareSound.all, id: \.uniqueId) { sound in
                                                 Button {
-                                                    CSM.SoundDevices.add(device.item.uniqueId, sound.uniqueId)
+                                                    CSM.SoundDevices.add(uniqueId, sound.uniqueId)
                                                     manager.refresh()
                                                 } label: {
-                                                    let selected = CSM.SoundDevices.getByBothIds(device: device.item.uniqueId, sound: sound.uniqueId) != nil
+                                                    let selected = CSM.SoundDevices.getByBothIds(device: uniqueId, sound: sound.uniqueId) != nil
                                                     let title = sound.titleKey.localized
                                                     var text = selected ? "‣   \(title)" : title
                                                     if HardwareSound[hardwareSound]?.titleKey == sound.titleKey {
-                                                        text += " ✭"
+                                                        text += " ＊"
                                                     }
                                                     return Text(text)
                                                 }
                                             }
                                             
-                                            if CSM.SoundDevices[device.item.uniqueId] != nil {
+                                            if CSM.SoundDevices[uniqueId] != nil {
                                                 Divider()
                                                 Button("undo") {
-                                                    CSM.SoundDevices.remove(device.item.uniqueId)
+                                                    CSM.SoundDevices.remove(uniqueId)
                                                     manager.refresh()
                                                 }
                                             }

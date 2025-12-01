@@ -23,8 +23,6 @@ struct SettingsView: View {
     @State private var creatingNewAudioSet: Bool = false
     @State private var audioSetConnectedPath: String = ""
     @State private var audioSetDisconnectedPath: String = ""
-    @State private var selectedDeviceToCamouflage: USBDeviceWrapper?
-    @State private var selectedDeviceToRename: USBDeviceWrapper?
     @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
     @State private var activeRowID: UUID? = nil
@@ -81,6 +79,7 @@ struct SettingsView: View {
     @AS(Key.showScrollBar) private var showScrollBar = false
     @AS(Key.indexIndicator) private var indexIndicator = false
     @AS(Key.storeDevices) private var storeDevices = false
+    @AS(Key.hideFavoriteIndicator) private var hideFavoriteIndicator = false
     @AS(Key.storedIndicator) private var storedIndicator = false
     @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.searchEngine) private var searchEngine: SearchEngine = .google
@@ -176,26 +175,6 @@ struct SettingsView: View {
             disconnect: disconnect
         )
         CSM.Sound.add(item)
-    }
-
-    private func confirmRenameDevice() {
-        let uniqueId = selectedDeviceToRename!.item.uniqueId
-        if inputText.isEmpty {
-            CSM.Renamed.remove(withId: uniqueId)
-        } else {
-            CSM.Renamed.add(selectedDeviceToRename?.item.uniqueId, inputText)
-        }
-        inputText = ""
-        selectedDeviceToRename = nil
-        showRenameDevices = false
-        manager.refresh()
-    }
-
-    private func confirmCamouflageDevice() {
-        CSM.Camouflaged.add(withId: selectedDeviceToCamouflage?.item.uniqueId)
-        selectedDeviceToCamouflage = nil
-        showCamouflagedDevices = false
-        manager.refresh()
     }
 
     private func testHardwareSound(_ seconds: Double = 1.2) {
@@ -381,10 +360,7 @@ struct SettingsView: View {
                                 if checkingUpdate {
                                     ProgressView()
                                 } else {
-                                    Label(
-                                        !latestVersion.isEmpty ? "updated" : "check_for_updates",
-                                        systemImage: "checkmark.circle"
-                                    )
+                                    Text(!latestVersion.isEmpty ? "updated" : "check_for_updates")
                                 }
                             }
                             .buttonStyle(.bordered)
@@ -413,10 +389,13 @@ struct SettingsView: View {
                         }
 
                         if !hideDonate {
-                            Button {
+                            
+                            Text("|")
+                                .padding(.horizontal, 3)
+                                .opacity(0.3)
+                            
+                            Button("donate") {
                                 currentWindow = .donate
-                            } label: {
-                                Label("donate", systemImage: "hand.thumbsup.circle")
                             }
                             .disabled(anyBottomOptionInUse)
                             .contextMenu {
@@ -459,8 +438,6 @@ struct SettingsView: View {
                         Label("exit_settings_and_resume", systemImage: "arrow.uturn.backward")
                     }
                 }
-            } else {
-                Divider()
             }
 
             VStack(alignment: .leading, spacing: 3) {
@@ -477,6 +454,7 @@ struct SettingsView: View {
                     CategoryButton(category: .others, label: "others_category", image: "settings_others", binding: $category, disabled: off) {
                         resetSettingsPress = 0
                     }
+                    CategoryButton(category: .storage, label: "storage_category", image: "settings_storage", binding: $category, disabled: off)
                 }
                 .padding(.horizontal, 4)
                 .padding(.vertical, 8)
@@ -811,27 +789,6 @@ struct SettingsView: View {
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
-
-                    Button("delete_device_history") {
-                        tryingToDeleteDeviceHistory = true
-                    }
-                    .disabled(tryingToDeleteDeviceHistory || CSM.Stored.devices.isEmpty)
-                    .help("(\(CSM.Stored.devices.count))")
-                    .padding(.vertical, 5)
-
-                    if tryingToDeleteDeviceHistory {
-                        HStack(spacing: 6) {
-                            Text("are_you_sure")
-                            Button("no") {
-                                tryingToDeleteDeviceHistory = false
-                            }
-                            Button("yes_confirm") {
-                                CSM.Stored.clear()
-                                tryingToDeleteDeviceHistory = false
-                            }
-                            .buttonStyle(.borderedProminent)
-                        }
-                    }
                 }
 
                 if category == .usb {
@@ -863,8 +820,6 @@ struct SettingsView: View {
                         disabled: hideTechInfo && !mouseHoverInfo,
                         onToggle: { _ in }
                     )
-                    Spacer()
-                        .frame(height: 4)
                     ToggleRow(
                         label: "index_indicator",
                         description: "index_indicator_description",
@@ -897,46 +852,14 @@ struct SettingsView: View {
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
-                    Spacer()
-                        .frame(height: 4)
-                    Button {
-                        showRenameDevices.toggle()
-                    } label: {
-                        HStack {
-                            Image(systemName: "pencil.and.scribble")
-                            Text("rename_device")
-                        }
-                    }
-                    .disabled(anyBottomOptionInUse)
-                    .padding(.vertical, 5)
-                    .contextMenu {
-                        Button {
-                            CSM.Renamed.clear()
-                            manager.refresh()
-                        } label: {
-                            Label("undo_all", systemImage: "trash")
-                        }
-                        .disabled(CSM.Renamed.devices.isEmpty)
-                    }
-
-                    Button {
-                        showCamouflagedDevices.toggle()
-                    } label: {
-                        HStack {
-                            Image(systemName: "eye.slash")
-                            Text("hide_device")
-                        }
-                    }
-                    .disabled(anyBottomOptionInUse)
-                    .contextMenu {
-                        Button {
-                            CSM.Camouflaged.clear()
-                            manager.refresh()
-                        } label: {
-                            Label("undo_all", systemImage: "trash")
-                        }
-                        .disabled(CSM.Camouflaged.devices.isEmpty)
-                    }
+                    ToggleRow(
+                        label: "hide_favorite_indicator",
+                        description: "hide_favorite_indicator_description",
+                        binding: $hideFavoriteIndicator,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
                 }
 
                 if category == .contextMenu {
@@ -1069,20 +992,17 @@ struct SettingsView: View {
                         disabled: disableInheritanceLayout,
                         onToggle: { _ in }
                     )
-                    Button {
+                    
+                    Spacer()
+                        .frame(height: 4)
+                    
+                    Button("create_inheritance") {
                         currentWindow = .heritage
-                    } label: {
-                        Label("create_inheritance", systemImage: "plus")
                     }
-                    .disabled(anyBottomOptionInUse)
-                    .padding(.vertical, 5)
 
-                    Button {
+                    Button("view_inheritance_tree") {
                         currentWindow = .inheritanceTree
-                    } label: {
-                        Label("view_inheritance_tree", systemImage: "arrow.trianglehead.branch")
                     }
-                    .disabled(anyBottomOptionInUse)
                 }
 
                 if category == .others {
@@ -1187,145 +1107,80 @@ struct SettingsView: View {
                     }
                     .padding(.vertical, 7)
                 }
+                
+                if category == .storage {
+                    
+                    StorageButton(labelKey: "clear_all_favorites", icon: "star", count: CSM.Favorite.count) {
+                        CSM.Favorite.clear()
+                        manager.refresh()
+                    }
+                    
+                    StorageButton(labelKey: "clear_all_hidden", icon: "eye", count: CSM.Camouflaged.count) {
+                        CSM.Camouflaged.clear()
+                        manager.refresh()
+                    }
+                    
+                    StorageButton(labelKey: "delete_device_history", icon: "arrow.clockwise", count: CSM.Stored.count) {
+                        CSM.Stored.clear()
+                        manager.refresh()
+                    }
+                    
+                    StorageButton(labelKey: "clear_all_inheritances", icon: "link", count: CSM.Heritage.count) {
+                        CSM.Heritage.clear()
+                        manager.refresh()
+                    }
+                    
+                    StorageButton(labelKey: "undo_all_devices_sound_associations", icon: "speaker.wave.3", count: CSM.SoundDevices.count) {
+                        CSM.SoundDevices.clear()
+                        manager.refresh()
+                    }
+                    
+                    StorageButton(labelKey: "clear_all_custom_hardware_sounds", icon: "document", count: CSM.Sound.count) {
+                        CSM.Sound.clear()
+                        manager.refresh()
+                    }
+                    
+                }
             }
 
             Spacer()
 
-            VStack(alignment: .leading) {
-                if anyBottomOptionInUse {
-                    Button("cancel") {
-                        showRenameDevices = false
-                        showCamouflagedDevices = false
-                        selectedDeviceToRename = nil
-                        selectedDeviceToCamouflage = nil
-                        inputText = ""
+            HStack {
+                if category == .storage {
+                    Button("restore_default_settings") {
+                        resetSettingsPress += 1
+                        if resetSettingsPress == 5 {
+                            resetAppSettings()
+                        }
+                    }
+
+                    if resetSettingsPress > 0 {
+                        Text("(\(resetSettingsPress)/5)")
+                            .font(.footnote)
                     }
                 }
 
-                HStack {
-                    if category == .others {
-                        Button("restore_default_settings") {
-                            resetSettingsPress += 1
-                            if resetSettingsPress == 5 {
-                                resetAppSettings()
-                            }
+                Spacer()
+
+                if !anyBottomOptionInUse {
+                    Button(action: {
+                        if isTrafficMonitoringPausedForSettings {
+                            manager.startEthernetMonitoring()
                         }
-
-                        if resetSettingsPress > 0 {
-                            Text("(\(resetSettingsPress)/5)")
-                                .font(.footnote)
-                        }
-                    }
-
-                    Spacer()
-
-                    if !anyBottomOptionInUse {
-                        Button(action: {
-                            if isTrafficMonitoringPausedForSettings {
-                                manager.startEthernetMonitoring()
-                            }
-                            currentWindow = .devices
-                        }) {
-                            if isTrafficMonitoringPausedForSettings {
-                                Label("back_and_resume", systemImage: "arrow.uturn.backward")
-                                    .contextMenu {
-                                        Button {
-                                            currentWindow = .devices
-                                        } label: {
-                                            Label("back_without_resume", systemImage: "arrow.uturn.backward")
-                                        }
+                        currentWindow = .devices
+                    }) {
+                        if isTrafficMonitoringPausedForSettings {
+                            Label("back_and_resume", systemImage: "arrow.uturn.backward")
+                                .contextMenu {
+                                    Button {
+                                        currentWindow = .devices
+                                    } label: {
+                                        Label("back_without_resume", systemImage: "arrow.uturn.backward")
                                     }
-                            } else {
-                                Label("back", systemImage: "arrow.uturn.backward")
-                            }
-                        }
-                    }
-                }
-
-                if anyBottomOptionInUse {
-                    Divider()
-                }
-
-                if showCamouflagedDevices {
-                    HStack(spacing: 12) {
-                        Menu {
-                            ForEach(manager.devices, id: \.self) { device in
-                                let renamedDevice = CSM.Renamed.devices.first {
-                                    $0.deviceId == device.item.uniqueId
                                 }
-                                let buttonLabel = renamedDevice?.name ?? device.item.name
-                                Button(buttonLabel) {
-                                    selectedDeviceToCamouflage = device
-                                }
-                            }
-                        } label: {
-                            Text(selectedDeviceToCamouflage?.item.name ?? "device".localized)
+                        } else {
+                            Label("back", systemImage: "arrow.uturn.backward")
                         }
-
-                        if selectedDeviceToCamouflage != nil {
-                            if (CSM.Heritage.devices.contains {
-                                $0.inheritsFrom == selectedDeviceToCamouflage!.item.uniqueId
-                            }) {
-                                Text("cant_hide_heir")
-                                    .font(.subheadline)
-                            } else {
-                                Button("confirm") {
-                                    confirmCamouflageDevice()
-                                }
-                                .buttonStyle(.borderedProminent)
-                            }
-                        }
-
-                        if selectedDeviceToCamouflage == nil && !CSM.Camouflaged.devices.isEmpty {
-                            Button("undo_all") {
-                                undoAllCamouflagedDevices()
-                            }
-                        }
-
-                        Spacer()
-                    }
-                }
-
-                if showRenameDevices {
-                    HStack(spacing: 12) {
-                        Menu {
-                            ForEach(manager.devices, id: \.self) { device in
-                                let renamedDevice = CSM.Renamed.devices.first {
-                                    $0.deviceId == device.item.uniqueId
-                                }
-                                let buttonLabel = renamedDevice?.name ?? device.item.name
-                                Button(buttonLabel) {
-                                    inputText = ""
-                                    selectedDeviceToRename = device
-                                }
-                            }
-                        } label: {
-                            Text(selectedDeviceToRename?.item.name ?? "device".localized)
-                        }
-
-                        if selectedDeviceToRename != nil {
-                            CustomTextField(
-                                text: $inputText,
-                                placeholder: "insert_new_name",
-                                maxLength: 30,
-                                isFocused: $textFieldFocused
-                            )
-                            .frame(width: 190)
-                            .help("renaming_help")
-
-                            Button("confirm") {
-                                confirmRenameDevice()
-                            }
-                            .buttonStyle(.borderedProminent)
-                        }
-
-                        if selectedDeviceToRename == nil && !CSM.Renamed.devices.isEmpty {
-                            Button("undo_all") {
-                                undoAllRenamedDevices()
-                            }
-                        }
-
-                        Spacer()
                     }
                 }
             }

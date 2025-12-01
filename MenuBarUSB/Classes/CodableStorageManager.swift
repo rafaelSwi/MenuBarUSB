@@ -19,6 +19,10 @@ final class CodableStorageManager {
         static subscript(_ key: String) -> HardwareSound? {
             return items.first(where: { $0.uniqueId == key })
         }
+        
+        static var count: Int {
+            return items.count
+        }
 
         static func add(_ custom: HardwareSound) {
             if custom.titleKey.lowercased() == "mute" { return }
@@ -50,6 +54,10 @@ final class CodableStorageManager {
 
         static subscript(_ deviceId: String) -> DeviceSound? {
             return items.first(where: { $0.deviceId == deviceId })
+        }
+        
+        static var count: Int {
+            return items.count
         }
         
         static func getBySoundId(_ soundId: String) -> [DeviceSound] {
@@ -85,6 +93,10 @@ final class CodableStorageManager {
 
         static subscript(_ uniqueId: String) -> StoredDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
+        }
+        
+        static var count: Int {
+            return items.count
         }
 
         static func filteredDevices(_ connectedDevices: [USBDeviceWrapper]) -> [StoredDevice] {
@@ -139,6 +151,10 @@ final class CodableStorageManager {
         static subscript(_ uniqueId: String) -> RenamedDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
+        
+        static var count: Int {
+            return items.count
+        }
 
         static func add(_ deviceId: String?, _ name: String) {
             if deviceId == nil { return }
@@ -165,6 +181,10 @@ final class CodableStorageManager {
 
         static subscript(_ uniqueId: String) -> CamouflagedDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
+        }
+        
+        static var count: Int {
+            return items.count
         }
 
         static func add(withId id: String?) {
@@ -193,6 +213,10 @@ final class CodableStorageManager {
         static subscript(_ uniqueId: String) -> HeritageDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
+        
+        static var count: Int {
+            return items.count
+        }
 
         static func add(withId id: String?, inheritsFrom: String?) {
             if id == nil || inheritsFrom == nil { return }
@@ -214,6 +238,37 @@ final class CodableStorageManager {
             }
 
             items.removeAll { $0.inheritsFrom == id }
+        }
+
+        static func clear() {
+            items.removeAll(keepingCapacity: false)
+        }
+    }
+    
+    final class Favorite {
+        @CodableAppStorage(Key.favoriteDevices)
+        static var items: [FavoriteDevice] = []
+
+        static var devices: [FavoriteDevice] {
+            return items
+        }
+
+        static subscript(_ uniqueId: String) -> FavoriteDevice? {
+            return items.first(where: { $0.deviceId == uniqueId })
+        }
+        
+        static var count: Int {
+            return items.count
+        }
+
+        static func add(withId id: String?) {
+            if id == nil { return }
+            items.removeAll { $0.deviceId == id }
+            items.append(FavoriteDevice(deviceId: id!))
+        }
+
+        static func remove(withId id: String) {
+            items.removeAll { $0.deviceId == id }
         }
 
         static func clear() {
