@@ -10,7 +10,9 @@ import ServiceManagement
 import SwiftUI
 
 struct SettingsView: View {
+    
     @Environment(\.openURL) var openURL
+    @Environment(\.openWindow) private var openWindow
     @EnvironmentObject var manager: USBDeviceManager
 
     @Binding var currentWindow: AppWindow
@@ -61,7 +63,6 @@ struct SettingsView: View {
     @AS(Key.listToolBar) private var listToolBar = false
     @AS(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
     @AS(Key.hideMenubarIcon) private var hideMenubarIcon = false
-    @AS(Key.restartButton) private var restartButton = false
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
     @AS(Key.profilerButton) private var profilerButton = false
     @AS(Key.windowWidth) private var windowWidth: WindowWidth = .normal
@@ -882,6 +883,11 @@ struct SettingsView: View {
                     Button("view_connection_logs") {
                         currentWindow = .logs
                     }
+                    .contextMenu {
+                        Button("open_in_separate_window") {
+                            openWindow(id: "connection_logs")
+                        }
+                    }
                 }
 
                 if category == .contextMenu {
@@ -967,12 +973,11 @@ struct SettingsView: View {
                         description: "stop_traffic_monitor_button_description",
                         binding: $trafficButton,
                         activeRowID: $activeRowID,
-                        incompatibilities: [profilerButton, restartButton],
+                        incompatibilities: [profilerButton],
                         disabled: !showEthernet || !internetMonitoring,
                         onToggle: { value in
                             if value == true {
                                 profilerButton = false
-                                restartButton = false
                             }
                         }
                     )
@@ -981,7 +986,7 @@ struct SettingsView: View {
                         description: "stop_traffic_monitor_button_disable_status_description",
                         binding: $disableTrafficButtonLabel,
                         activeRowID: $activeRowID,
-                        incompatibilities: [profilerButton, restartButton],
+                        incompatibilities: [profilerButton],
                         disabled: !showEthernet || !internetMonitoring,
                         onToggle: { _ in }
                     )
@@ -1083,27 +1088,13 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: "restart_button",
-                        description: "restart_button_description",
-                        binding: $restartButton,
-                        activeRowID: $activeRowID,
-                        incompatibilities: [profilerButton, trafficButton],
-                        onToggle: { value in
-                            if value == true {
-                                profilerButton = false
-                                trafficButton = false
-                            }
-                        }
-                    )
-                    ToggleRow(
                         label: "profiler_shortcut",
                         description: "profiler_shortcut_description",
                         binding: $profilerButton,
                         activeRowID: $activeRowID,
-                        incompatibilities: [restartButton, trafficButton],
+                        incompatibilities: [trafficButton],
                         onToggle: { value in
                             if value == true {
-                                restartButton = false
                                 trafficButton = false
                             }
                         }

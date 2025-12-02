@@ -323,3 +323,4 @@
 "export" = "내보내기";
 "connection_logs" = "연결 로그";
 "file" = "파일";
+"open_in_separate_window" = "별도 창에서 열기";

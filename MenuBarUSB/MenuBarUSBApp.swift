@@ -94,6 +94,13 @@ struct MenuBarUSBApp: App {
                 .colorSchemeForce(light: false, dark: true)
         }
         .windowStyle(.hiddenTitleBar)
+        
+        Window("connection_logs", id: "connection_logs") {
+            LogsView(currentWindow: $currentWindow, separateWindow: true)
+                .colorSchemeForce(light: false, dark: true)
+                .environmentObject(manager)
+        }
+        .windowStyle(.hiddenTitleBar)
     }
 
     private func view<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
@@ -118,7 +125,7 @@ struct MenuBarUSBApp: App {
         case .inheritanceTree:
             view { InheritanceTreeView(currentWindow: $currentWindow) }
         case .logs:
-            view { LogsView(currentWindow: $currentWindow) }
+            view { LogsView(currentWindow: $currentWindow, separateWindow: false) }
         }
     }
 }

@@ -38,7 +38,6 @@ enum StorageKeys {
     static let macBarIcon = "macBarIcon"
     static let hideMenubarIcon = "hideMenubarIcon"
     static let switchSides = "switchSides"
-    static let restartButton = "restartButton"
     static let mouseHoverInfo = "mouseHoverInfo"
     static let profilerButton = "profilerButton"
     static let disableContextMenuSearch = "disableContextMenuSearch"

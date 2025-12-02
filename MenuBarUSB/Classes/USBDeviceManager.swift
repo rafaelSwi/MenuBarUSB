@@ -170,6 +170,7 @@ final class USBDeviceManager: ObservableObject {
             DispatchQueue.main.async(execute: DispatchWorkItem {
                 self.devices.append(newDeviceWrapper)
             })
+            CSM.ConnectionLog.add(withId: newDeviceWrapper.item.uniqueId, disconnect: false)
         }
     }
 

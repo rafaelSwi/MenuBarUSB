@@ -323,3 +323,4 @@
 "export" = "导出";
 "connection_logs" = "连接日志";
 "file" = "文件";
+"open_in_separate_window" = "在单独窗口中打开";

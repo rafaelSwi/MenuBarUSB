@@ -34,7 +34,6 @@ struct ContentView: View {
     @AS(Key.hardwareSound) private var hardwareSound: String = ""
     @AS(Key.hideSecondaryInfo) private var hideSecondaryInfo = false
     @AS(Key.noTextButtons) private var noTextButtons = false
-    @AS(Key.restartButton) private var restartButton = false
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
     @AS(Key.powerSourceInfo) private var powerSourceInfo = false
     @AS(Key.profilerButton) private var profilerButton = false
@@ -119,7 +118,8 @@ struct ContentView: View {
             return result
         }
 
-        let deviceDict = Dictionary(uniqueKeysWithValues: manager.devices.map { ($0.item.uniqueId, $0) })
+        let deviceDict = Dictionary(manager.devices.map { ($0.item.uniqueId, $0) },
+                                    uniquingKeysWith: { first, _ in first })
 
         let heirIds = Set(CSM.Heritage.devices.map { $0.deviceId })
 
@@ -211,7 +211,7 @@ struct ContentView: View {
         if noTextButtons {
             return true
         } else {
-            return !restartButton && !profilerButton
+            return !profilerButton
         }
     }
 
@@ -1135,17 +1135,6 @@ struct ContentView: View {
 
                 Button { manager.refresh() } label: {
                     mainButtonLabel("refresh", "arrow.clockwise")
-                }
-
-                if restartButton {
-                    Button { Utils.App.restart() } label: {
-                        mainButtonLabel("restart", "arrow.2.squarepath")
-                    }
-                    .contextMenu {
-                        Button { restartButton = false } label: {
-                            Label("hide_button", systemImage: "eye.slash")
-                        }
-                    }
                 }
 
                 Button { Utils.App.exit() } label: {

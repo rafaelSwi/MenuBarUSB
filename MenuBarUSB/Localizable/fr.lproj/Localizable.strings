@@ -323,3 +323,4 @@
 "export" = "Exporter";
 "connection_logs" = "Journaux de connexion";
 "file" = "Fichier";
+"open_in_separate_window" = "Ouvrir dans une fenêtre séparée";

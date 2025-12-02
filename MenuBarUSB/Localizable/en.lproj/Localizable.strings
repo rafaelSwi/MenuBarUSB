@@ -323,3 +323,4 @@
 "export" = "Export";
 "connection_logs" = "Connection logs";
 "file" = "File";
+"open_in_separate_window" = "Open in a separate window";

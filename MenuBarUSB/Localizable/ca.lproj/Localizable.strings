@@ -323,3 +323,4 @@
 "export" = "Exportar";
 "connection_logs" = "Logs de connexió";
 "file" = "Fitxer";
+"open_in_separate_window" = "Obrir en una finestra separada";

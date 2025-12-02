@@ -9,8 +9,11 @@ import SwiftUI
 
 struct LogsView: View {
     
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var manager: USBDeviceManager
     @Binding var currentWindow: AppWindow
+    
+    let separateWindow: Bool
     
     @AS(Key.storeConnectionLogs) private var storeConnectionLogs = false
     
@@ -209,7 +212,7 @@ struct LogsView: View {
                         .padding(.vertical, 4)
                         .background(isPainted ? .yellow.opacity(0.2) : .clear)
                         .id(log.id)
-                        .frame(maxHeight: 90)
+                        .frame(maxHeight: 50)
                         .contextMenu {
                             
                             Button(isPainted ? "remove_paint" : "paint") {
@@ -262,10 +265,23 @@ struct LogsView: View {
                 
                 Spacer()
                 
-                Button {
-                    currentWindow = .settings
-                } label: {
-                    Label("back", systemImage: "arrow.uturn.backward")
+                if separateWindow {
+                    Button {
+                        blacklistedIds.removeAll()
+                        paintedLogs.removeAll()
+                    } label: {
+                        Image(systemName: "eraser")
+                    }
+                    .disabled(blacklistedIds.isEmpty && paintedLogs.isEmpty)
+                    Button("close") {
+                        dismiss()
+                    }
+                } else {
+                    Button {
+                        currentWindow = .settings
+                    } label: {
+                        Label("back", systemImage: "arrow.uturn.backward")
+                    }
                 }
                 
             }

@@ -10,6 +10,7 @@ import ServiceManagement
 import SwiftUI
 
 struct LegacySettingsView: View {
+    @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) var openURL
 
@@ -43,6 +44,7 @@ struct LegacySettingsView: View {
     @AS(Key.showPortMax) private var showPortMax = false
     @AS(Key.hideDonate) private var hideDonate = false
     @AS(Key.powerSourceInfo) private var powerSourceInfo = false
+    @AS(Key.storeConnectionLogs) private var storeConnectionLogs = false
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.renamedIndicator) private var renamedIndicator = false
     @AS(Key.camouflagedIndicator) private var camouflagedIndicator = false
@@ -66,7 +68,6 @@ struct LegacySettingsView: View {
     @AS(Key.noTextButtons) private var noTextButtons = false
     @AS(Key.storeDevices) private var storeDevices = false
     @AS(Key.storedIndicator) private var storedIndicator = false
-    @AS(Key.restartButton) private var restartButton = false
     @AS(Key.bigNames) private var bigNames = false
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
     @AS(Key.hidePinIndicator) private var hidePinIndicator = false
@@ -548,52 +549,17 @@ struct LegacySettingsView: View {
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
-
-                        HStack {
-                            Button("delete_device_history") {
-                                tryingToDeleteDeviceHistory = true
-                            }
-                            .help("(\(CSM.Stored.devices.count))")
-
-                            if tryingToDeleteDeviceHistory {
-                                Button("cancel") {
-                                    tryingToDeleteDeviceHistory = false
-                                }
-                                Button("confirm") {
-                                    CSM.Stored.clear()
-                                    tryingToDeleteDeviceHistory = false
-                                }
-                                .buttonStyle(.borderedProminent)
-                            }
-                        }
-                        .padding(.vertical, 3)
-
-                        HStack {
-                            Button("clear_all_renamed") {
-                                CSM.Renamed.clear()
-                            }
-                            Text("single_click")
-                                .font(.footnote)
-                                .opacity(0.5)
-                        }
-
-                        HStack {
-                            Button("clear_all_hidden") {
-                                CSM.Camouflaged.clear()
-                            }
-                            .help("make_all_visible_again")
-                            Text("single_click")
-                                .font(.footnote)
-                                .opacity(0.5)
-                        }
-
-                        HStack {
-                            Button("clear_all_pins") {
-                                CSM.Pin.clear()
-                            }
-                            Text("single_click")
-                                .font(.footnote)
-                                .opacity(0.5)
+                        ToggleRow(
+                            label: "save_connection_logs",
+                            description: "save_connection_logs_description",
+                            binding: $storeConnectionLogs,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        
+                        Button("view_connection_logs") {
+                            openWindow(id: "connection_logs")
                         }
                     }
 
@@ -706,14 +672,6 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: "restart_button",
-                            description: "restart_button_description",
-                            binding: $restartButton,
-                            activeRowID: $activeRowID,
-                            incompatibilities: nil,
-                            onToggle: { _ in }
-                        )
-                        ToggleRow(
                             label: "disable_haptic_feedback",
                             description: "disable_haptic_feedback_description",
                             binding: $disableHaptic,
@@ -721,6 +679,61 @@ struct LegacySettingsView: View {
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
+                        
+                        HStack {
+                            Button("delete_device_history") {
+                                tryingToDeleteDeviceHistory = true
+                            }
+                            .help("(\(CSM.Stored.devices.count))")
+
+                            if tryingToDeleteDeviceHistory {
+                                Button("cancel") {
+                                    tryingToDeleteDeviceHistory = false
+                                }
+                                Button("confirm") {
+                                    CSM.Stored.clear()
+                                    tryingToDeleteDeviceHistory = false
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
+                        }
+                        
+                        HStack {
+                            Button("clear_all_connection_logs") {
+                                CSM.ConnectionLog.clear()
+                            }
+                            Text("single_click")
+                                .font(.footnote)
+                                .opacity(0.5)
+                        }
+
+                        HStack {
+                            Button("clear_all_renamed") {
+                                CSM.Renamed.clear()
+                            }
+                            Text("single_click")
+                                .font(.footnote)
+                                .opacity(0.5)
+                        }
+
+                        HStack {
+                            Button("clear_all_hidden") {
+                                CSM.Camouflaged.clear()
+                            }
+                            .help("make_all_visible_again")
+                            Text("single_click")
+                                .font(.footnote)
+                                .opacity(0.5)
+                        }
+
+                        HStack {
+                            Button("clear_all_pins") {
+                                CSM.Pin.clear()
+                            }
+                            Text("single_click")
+                                .font(.footnote)
+                                .opacity(0.5)
+                        }
 
                         Button {
                             tryingToResetSettings = true
