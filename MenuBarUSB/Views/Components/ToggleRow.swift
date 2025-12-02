@@ -21,7 +21,7 @@ struct ToggleRow: View {
 
     @State private var showIncompatibilityMessage = false
     @State private var showDescription = false
-    
+
     @State private var showRestartMessage = false
     @State private var restartHoverProgress: Double = 0
     @State private var restartTimer: Timer?
@@ -38,8 +38,8 @@ struct ToggleRow: View {
         let duration: TimeInterval = 1.5
         let step: TimeInterval = 0.05
         var elapsed: TimeInterval = 0
-        
-        switch (interaction) {
+
+        switch interaction {
         case .info:
             infoHoverProgress = 0
             infoTimer?.invalidate()
@@ -96,7 +96,7 @@ struct ToggleRow: View {
             }
         }
     }
-    
+
     private enum Interaction {
         case info
         case warning
@@ -104,7 +104,7 @@ struct ToggleRow: View {
     }
 
     private func cancelHover(_ interaction: Interaction) {
-        switch (interaction) {
+        switch interaction {
         case .info:
             infoTimer?.invalidate()
             infoHoverProgress = 0
@@ -118,8 +118,7 @@ struct ToggleRow: View {
     }
 
     private func immediateToggle(_ interaction: Interaction) {
-        
-        switch (interaction) {
+        switch interaction {
         case .info:
             infoTimer?.invalidate()
             infoHoverProgress = 0
@@ -184,7 +183,7 @@ struct ToggleRow: View {
                     }
                 }
                 .frame(width: 20, height: 20)
-                
+
                 if willRestart {
                     ZStack {
                         Image(systemName: "clock.fill")
@@ -237,17 +236,15 @@ struct ToggleRow: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
-            
+
             Group {
-                
                 if activeRowID == id && showIncompatibilityMessage {
                     Text("warning_incompatible_options")
                 }
-                
+
                 if activeRowID == id && showRestartMessage {
                     Text("app_will_quickly_restart")
                 }
-                
             }
             .font(.subheadline)
             .foregroundColor(.primary)

@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var isRenamingDeviceId: String = ""
     @State private var inputText: String = ""
     @State private var textFieldFocused: Bool = false
-    @State private var isChangingWidth: Bool = false
+    @State private var isHoveringPowerSupply: Bool = false
     @State private var devicesShowingMore: [USBDeviceWrapper] = []
 
     @Binding var currentWindow: AppWindow
@@ -48,13 +48,14 @@ struct ContentView: View {
     @AS(Key.trafficButton) private var trafficButton = false
     @AS(Key.showScrollBar) private var showScrollBar = false
     @AS(Key.indexIndicator) private var indexIndicator = false
+    @AS(Key.bigNames) private var bigNames = false
     @AS(Key.windowWidth) private var windowWidth: WindowWidth = .normal
     @AS(Key.listToolBar) private var listToolBar = false
     @AS(Key.disableTrafficButtonLabel) private var disableTrafficButtonLabel = false
     @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.storeDevices) private var storeDevices = false
     @AS(Key.storedIndicator) private var storedIndicator = false
-    @AS(Key.hideFavoriteIndicator) private var hideFavoriteIndicator = false
+    @AS(Key.hidePinIndicator) private var hidePinIndicator = false
     @AS(Key.searchEngine) private var searchEngine: SearchEngine = .google
 
     private var windowHeight: CGFloat? {
@@ -88,23 +89,21 @@ struct ContentView: View {
     }
 
     private var sortedDevices: [USBDeviceWrapper] {
-
         var childrenMap: [String: [String]] = [:]
         for relation in CSM.Heritage.devices {
             childrenMap[relation.inheritsFrom, default: []].append(relation.deviceId)
         }
 
         func buildFamilyTree(root: USBDeviceWrapper,
-                             deviceDict: [String: USBDeviceWrapper]) -> [USBDeviceWrapper] {
-
+                             deviceDict: [String: USBDeviceWrapper]) -> [USBDeviceWrapper]
+        {
             var result: [USBDeviceWrapper] = []
             result.append(root)
 
             if let children = childrenMap[root.item.uniqueId] {
-
                 let sortedChildren = children.sorted { idA, idB in
-                    let favA = isFavorite(idA)
-                    let favB = isFavorite(idB)
+                    let favA = isPinned(idA)
+                    let favB = isPinned(idB)
 
                     if favA != favB { return favA }
                     return false
@@ -134,24 +133,14 @@ struct ContentView: View {
         let sortedFamilies = families.sorted { famA, famB in
             let rootA = famA.first!
             let rootB = famB.first!
-            let favA = isFavorite(rootA.item.uniqueId)
-            let favB = isFavorite(rootB.item.uniqueId)
+            let favA = isPinned(rootA.item.uniqueId)
+            let favB = isPinned(rootB.item.uniqueId)
 
             if favA != favB { return favA }
             return false
         }
 
         return sortedFamilies.flatMap { $0 }
-    }
-
-    private func cycleWindowWidth() {
-        let order: [WindowWidth] = [.normal, .big, .veryBig, .huge]
-        guard let index = order.firstIndex(of: windowWidth) else {
-            windowWidth = .normal
-            return
-        }
-        let nextIndex = (index + 1) % order.count
-        windowWidth = order[nextIndex]
     }
 
     private func indentLevel(for device: borrowing USBDevice) -> CGFloat {
@@ -183,6 +172,7 @@ struct ContentView: View {
         mouseHoverInfo = false
         longList = false
         hideSecondaryInfo = false
+        bigNames = false
         storeDevices = false
         storedIndicator = false
         camouflagedIndicator = false
@@ -304,11 +294,16 @@ struct ContentView: View {
         return false
     }
 
-    private func showSecondaryInfo(for device: borrowing USBDevice) -> Bool {
+    private func showSecondaryInfo(for device: borrowing USBDevice, charger _: Bool = false) -> Bool {
         if devicesShowingMoreHas(device) { return true }
         if isRenamingDeviceId == device.uniqueId { return false }
         if !hideSecondaryInfo { return true }
         return mouseHoverInfo && isHoveringDeviceId == device.uniqueId
+    }
+
+    private var showBatteryPercentage: Bool {
+        if !hideSecondaryInfo { return true }
+        return isHoveringPowerSupply
     }
 
     private func showTechInfo(for device: borrowing USBDevice) -> Bool {
@@ -335,9 +330,9 @@ struct ContentView: View {
     private var showChargingStatus: Bool {
         return powerSourceInfo && manager.chargeConnected && manager.chargePercentage != nil
     }
-    
-    private func isFavorite(_ id: String) -> Bool {
-        return CSM.Favorite[id] != nil
+
+    private func isPinned(_ id: String) -> Bool {
+        return CSM.Pin[id] != nil
     }
 
     private func searchOnWeb(_ search: String) {
@@ -351,22 +346,42 @@ struct ContentView: View {
 
     private func deviceTitleView(_ name: String?, deviceId: String) -> some View {
         let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
-        let favorite = CSM.Favorite.devices.first { $0.deviceId == deviceId }
+        let pinned = CSM.Pin.devices.first { $0.deviceId == deviceId }
 
         let baseName = renamed?.name ?? name ?? "usb_device".localized
 
-        let renamedName = renamedIndicator && renamed != nil
-            ? "● \(baseName)"
+        let title = renamedIndicator && renamed != nil
+            ? "✏ \(baseName)"
             : baseName
 
-        let title = favorite != nil && !hideFavoriteIndicator
-            ? "★ \(renamedName)"
-            : renamedName
+        var showIsPinnedByHover: Bool {
+            let pin = pinned != nil
+            let hovering = isHoveringDeviceId == deviceId
+            return pin && hovering && hideTechInfo && mouseHoverInfo
+        }
 
-        return Text(title)
-            .font(.system(size: 12, weight: .semibold))
-            .foregroundColor(.primary)
-            .lineLimit(1)
+        var showPinIcon: Bool {
+            return pinned != nil && !hidePinIndicator && !showIsPinnedByHover
+        }
+
+        return HStack {
+            if showPinIcon {
+                Image(systemName: "pin.fill")
+                    .frame(width: 8, height: 8)
+            }
+
+            Text(title)
+                .font(.system(size: bigNames ? 18 : 12, weight: .semibold))
+                .foregroundColor(.primary)
+                .lineLimit(1)
+
+            if showIsPinnedByHover {
+                Text("pinned")
+                    .fontWeight(.bold)
+                    .font(.system(size: 8.5, weight: .semibold))
+                    .opacity(0.7)
+            }
+        }
     }
 
     private func deviceRenameView(deviceId: String) -> some View {
@@ -400,7 +415,7 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
         }
     }
-    
+
     private func indexIndicatorView(_ index: Int, force: Bool = false) -> some View {
         var value: Int = index
         if showChargingStatus {
@@ -495,13 +510,7 @@ struct ContentView: View {
                             toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info", .purple)
                         }
 
-                        toolbarListItemView($isChangingWidth, "arrow.left.and.right", "window_width", .brown) {
-                            cycleWindowWidth()
-                            isChangingWidth = windowWidth != .normal
-                        }
-                        .onAppear {
-                            isChangingWidth = windowWidth != .normal
-                        }
+                        toolbarListItemView($bigNames, "textformat.size", "big_names", .brown)
 
                         toolbarListItemView($longList, "arrow.up.and.down.text.horizontal", "long_list", .indigo)
                         toolbarListItemView($hideSecondaryInfo, "decrease.indent", "hide_secondary_info", .red)
@@ -562,16 +571,29 @@ struct ContentView: View {
                             }
                             Group {
                                 Text("power_supply")
+                                    .font(.system(size: bigNames ? 18 : 12, weight: .semibold))
                                 Spacer()
-                                Image(systemName: manager.chargePercentage == 100 ? "battery.100percent" : "bolt.fill")
-                                    .font(.system(size: 10))
-                                Text("\(manager.chargePercentage ?? 0)%")
+                                if showBatteryPercentage {
+                                    Image(systemName: manager.chargePercentage == 100 ? "battery.100percent" : "bolt.fill")
+                                        .font(.system(size: 10))
+                                    Text("\(manager.chargePercentage ?? 0)%")
+                                        .font(.system(size: 12, weight: .semibold))
+                                }
                             }
-                            .font(.system(size: 12, weight: .semibold))
                             .foregroundColor(.primary)
                         }
                         .padding(.horizontal, 4)
                         .padding(.top, 2)
+                        .onHover { hovering in
+                            if mouseHoverInfo {
+                                if hovering {
+                                    isHoveringPowerSupply = true
+                                    Utils.System.hapticFeedback()
+                                } else if isHoveringPowerSupply {
+                                    isHoveringPowerSupply = false
+                                }
+                            }
+                        }
                         .contextMenu {
                             Button {
                                 powerSourceInfo = false
@@ -580,6 +602,7 @@ struct ContentView: View {
                                 Label("hide_charger_information", systemImage: "eye.slash")
                             }
                         }
+
                         Divider()
                     }
                     ScrollView(showsIndicators: showScrollBar) {
@@ -726,18 +749,17 @@ struct ContentView: View {
                                     }
                                     Divider()
                                     Button {
-                                        if isFavorite(uniqueId) {
-                                            CSM.Favorite.remove(withId: uniqueId)
+                                        if isPinned(uniqueId) {
+                                            CSM.Pin.remove(withId: uniqueId)
                                         } else {
-                                            CSM.Favorite.add(withId: uniqueId)
+                                            CSM.Pin.add(withId: uniqueId)
                                         }
                                         manager.refresh()
                                     } label: {
-                                        let label = isFavorite(uniqueId) ? "unfavorite" : "favorite"
-                                        let icon = isFavorite(uniqueId) ? "star.slash" : "star"
+                                        let label = isPinned(uniqueId) ? "unpin" : "pin"
+                                        let icon = isPinned(uniqueId) ? "pin.slash" : "pin"
                                         Label(label.localized, systemImage: icon)
                                     }
-                                    Divider()
                                     Button {
                                         CSM.Camouflaged.add(withId: uniqueId)
                                         manager.refresh()
@@ -809,22 +831,21 @@ struct ContentView: View {
                                             Label("heritage", systemImage: "app.connected.to.app.below.fill")
                                         }
                                     }
-                                    
+
                                     if playHardwareSound {
                                         Divider()
-                                        
+
                                         Menu {
-                                            
                                             Button {
-                                                CSM.SoundDevices.add(uniqueId, "mute");
+                                                CSM.SoundDevices.add(uniqueId, "mute")
                                                 manager.refresh()
                                             } label: {
                                                 let isSelected = CSM.SoundDevices.getByBothIds(device: uniqueId, sound: "mute") != nil
                                                 Text(isSelected ? "‣   \("mute".localized)" : "mute")
                                             }
-                                            
+
                                             Divider()
-                                            
+
                                             ForEach(HardwareSound.all, id: \.uniqueId) { sound in
                                                 Button {
                                                     CSM.SoundDevices.add(uniqueId, sound.uniqueId)
@@ -839,7 +860,7 @@ struct ContentView: View {
                                                     return Text(text)
                                                 }
                                             }
-                                            
+
                                             if CSM.SoundDevices[uniqueId] != nil {
                                                 Divider()
                                                 Button("undo") {

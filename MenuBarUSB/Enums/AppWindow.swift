@@ -11,4 +11,5 @@ enum AppWindow {
     case donate
     case heritage
     case inheritanceTree
+    case logs
 }

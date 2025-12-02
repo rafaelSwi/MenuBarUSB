@@ -19,7 +19,7 @@ final class USBDeviceManager: ObservableObject {
     @Published var trafficCooldown: TimeInterval = 1.0
     @Published var lastTrafficDetected: Date = .distantPast
     @Published var trafficMonitorRunning: Bool = false
-    
+
     private var powerSourceRunLoopSource: CFRunLoopSource?
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
@@ -35,6 +35,7 @@ final class USBDeviceManager: ObservableObject {
     @AS(Key.playHardwareSound) private var playHardwareSound: Bool = false
     @AS(Key.powerSourceInfo) private var powerSourceInfo: Bool = false
     @AS(Key.hardwareSound) private var hardwareSound: String = ""
+    @AS(Key.storeConnectionLogs) private var storeConnectionLogs: Bool = false
     @AS(Key.showEthernet) var showEthernet = false
     @AS(Key.internetMonitoring) var internetMonitoring = false
     @AS(Key.storeDevices) private var storeDevices = false
@@ -52,7 +53,7 @@ final class USBDeviceManager: ObservableObject {
         }
 
         startMonitoring()
-        
+
         refresh()
     }
 
@@ -234,6 +235,10 @@ final class USBDeviceManager: ObservableObject {
 
         let charging = isChargerConnected
         let percentage = getChargePercentage()
+        
+        if chargeConnected != charging && storeConnectionLogs {
+            CSM.ConnectionLog.addChargerLog(disconnect: !charging)
+        }
 
         if chargeConnected != charging, showNotifications {
             if canSendNotification() {
@@ -448,7 +453,6 @@ final class USBDeviceManager: ObservableObject {
     }
 
     private func startMonitoring() {
-
         notifyPort = IONotificationPortCreate(kIOMainPortDefault)
         guard let notifyPort else { return }
 
@@ -466,7 +470,6 @@ final class USBDeviceManager: ObservableObject {
 
             var service: io_object_t = IOIteratorNext(iterator)
             while service != 0 {
-
                 if let wrapper = mySelf.makeDevice(from: service) {
                     addedDevices.append(wrapper)
                 }
@@ -476,11 +479,16 @@ final class USBDeviceManager: ObservableObject {
             }
 
             DispatchQueue.main.async {
-
                 mySelf.refresh()
                 
-                if mySelf.playHardwareSound {
+                if mySelf.storeConnectionLogs {
+                    for dev in addedDevices {
+                        let id = dev.item.uniqueId
+                        CSM.ConnectionLog.add(withId: id, disconnect: false)
+                    }
+                }
 
+                if mySelf.playHardwareSound {
                     var playedCustom = false
 
                     for dev in addedDevices {
@@ -497,7 +505,6 @@ final class USBDeviceManager: ObservableObject {
                 }
 
                 if mySelf.showNotifications, mySelf.canSendNotification() {
-
                     let names = addedDevices.compactMap { dev -> String? in
                         let vendor = dev.item.vendor ?? ""
                         let name = dev.item.name
@@ -524,7 +531,6 @@ final class USBDeviceManager: ObservableObject {
 
             var service: io_object_t = IOIteratorNext(iterator)
             while service != 0 {
-
                 if let wrapper = mySelf.makeDevice(from: service) {
                     removedDevices.append(wrapper)
                 }
@@ -534,11 +540,16 @@ final class USBDeviceManager: ObservableObject {
             }
 
             DispatchQueue.main.async {
-                
                 mySelf.refresh()
+                
+                if mySelf.storeConnectionLogs {
+                    for dev in removedDevices {
+                        let id = dev.item.uniqueId
+                        CSM.ConnectionLog.add(withId: id, disconnect: true)
+                    }
+                }
 
                 if mySelf.playHardwareSound {
-
                     var playedCustom = false
 
                     for device in removedDevices {

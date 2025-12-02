@@ -117,6 +117,8 @@ struct MenuBarUSBApp: App {
             view { HeritageView(currentWindow: $currentWindow) }
         case .inheritanceTree:
             view { InheritanceTreeView(currentWindow: $currentWindow) }
+        case .logs:
+            view { LogsView(currentWindow: $currentWindow) }
         }
     }
 }

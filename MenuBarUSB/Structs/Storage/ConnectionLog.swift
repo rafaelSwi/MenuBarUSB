@@ -1,19 +1,26 @@
 //
-//  DeviceSound.swift
+//  ConnectionLog.swift
 //  MenuBarUSB
 //
-//  Created by Rafael Neuwirth Swierczynski on 11/10/25.
+//  Created by Rafael Neuwirth on 02/12/25.
 //
 
 import Foundation
 
-struct DeviceSound: Codable, Identifiable {
+struct DeviceConnectionLog: Codable, Identifiable {
     let deviceId: String
-    var soundId: String
+    let time: Date
+    let disconnect: Bool
+    var id: String
+    
+    init(deviceId: String, time: Date, disconnect: Bool) {
+        self.deviceId = deviceId
+        self.time = time
+        self.disconnect = disconnect
+        self.id = UUID().uuidString
+    }
 
-    var id: String { deviceId }
-
-    static func encodeToJson(device: StoredDevice) throws -> String {
+    static func encodeToJson(device: DeviceConnectionLog) throws -> String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         let jsonData = try encoder.encode(device)
@@ -23,10 +30,10 @@ struct DeviceSound: Codable, Identifiable {
         return jsonString
     }
 
-    static func decodeFromJson(jsonString: String) throws -> StoredDevice {
+    static func decodeFromJson(jsonString: String) throws -> DeviceConnectionLog {
         guard let jsonData = jsonString.data(using: .utf8) else {
             throw NSError(domain: "DecodingError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert string to data."])
         }
-        return try JSONDecoder().decode(StoredDevice.self, from: jsonData)
+        return try JSONDecoder().decode(DeviceConnectionLog.self, from: jsonData)
     }
 }

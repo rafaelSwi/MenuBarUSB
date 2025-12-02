@@ -14,10 +14,10 @@ struct DonateView: View {
     @State private var isBitcoin = true
 
     @Binding var currentWindow: AppWindow
-    
+
     let btcAddress = Utils.Miscellaneous.btcAddress
     let ltcAddress = Utils.Miscellaneous.ltcAddress
-    
+
     private func checkOnBlockchain(bitcoin: Bool) {
         let urlString: String
         if bitcoin {

@@ -55,6 +55,7 @@ struct SettingsView: View {
     @AS(Key.hideUpdate) private var hideUpdate = false
     @AS(Key.hideDonate) private var hideDonate = false
     @AS(Key.noTextButtons) private var noTextButtons = false
+    @AS(Key.storeConnectionLogs) private var storeConnectionLogs = false
     @AS(Key.hideCount) private var hideCount = false
     @AS(Key.numberRepresentation) private var numberRepresentation: NumberRepresentation = .base10
     @AS(Key.listToolBar) private var listToolBar = false
@@ -79,7 +80,8 @@ struct SettingsView: View {
     @AS(Key.showScrollBar) private var showScrollBar = false
     @AS(Key.indexIndicator) private var indexIndicator = false
     @AS(Key.storeDevices) private var storeDevices = false
-    @AS(Key.hideFavoriteIndicator) private var hideFavoriteIndicator = false
+    @AS(Key.bigNames) private var bigNames = false
+    @AS(Key.hidePinIndicator) private var hidePinIndicator = false
     @AS(Key.storedIndicator) private var storedIndicator = false
     @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.searchEngine) private var searchEngine: SearchEngine = .google
@@ -189,7 +191,7 @@ struct SettingsView: View {
             disableButtonsRelatedToSound = false
         }
     }
-    
+
     private func playOnlyOneSound(for hardwareSound: String, connect: Bool) {
         playHardwareSound = false
         defer {
@@ -389,11 +391,10 @@ struct SettingsView: View {
                         }
 
                         if !hideDonate {
-                            
                             Text("|")
                                 .padding(.horizontal, 3)
                                 .opacity(0.3)
-                            
+
                             Button("donate") {
                                 currentWindow = .donate
                             }
@@ -597,7 +598,7 @@ struct SettingsView: View {
                                 Button("play_only_connect") {
                                     playOnlyOneSound(for: hardwareSound, connect: true)
                                 }
-                                
+
                                 Button("play_only_disconnect") {
                                     playOnlyOneSound(for: hardwareSound, connect: false)
                                 }
@@ -782,6 +783,14 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
+                        label: "big_names",
+                        description: "big_names_description",
+                        binding: $bigNames,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    ToggleRow(
                         label: "show_previously_connected",
                         description: "show_previously_connected_description",
                         binding: $storeDevices,
@@ -853,13 +862,26 @@ struct SettingsView: View {
                         onToggle: { _ in }
                     )
                     ToggleRow(
-                        label: "hide_favorite_indicator",
-                        description: "hide_favorite_indicator_description",
-                        binding: $hideFavoriteIndicator,
+                        label: "hide_pin_indicator",
+                        description: "hide_pin_indicator_description",
+                        binding: $hidePinIndicator,
                         activeRowID: $activeRowID,
                         incompatibilities: nil,
                         onToggle: { _ in }
                     )
+                    ToggleRow(
+                        label: "save_connection_logs",
+                        description: "save_connection_logs_description",
+                        binding: $storeConnectionLogs,
+                        activeRowID: $activeRowID,
+                        incompatibilities: nil,
+                        onToggle: { _ in }
+                    )
+                    Spacer()
+                        .frame(height: 2)
+                    Button("view_connection_logs") {
+                        currentWindow = .logs
+                    }
                 }
 
                 if category == .contextMenu {
@@ -992,13 +1014,16 @@ struct SettingsView: View {
                         disabled: disableInheritanceLayout,
                         onToggle: { _ in }
                     )
-                    
+
                     Spacer()
                         .frame(height: 4)
-                    
+
                     Button("create_inheritance") {
                         currentWindow = .heritage
                     }
+
+                    Spacer()
+                        .frame(height: 2)
 
                     Button("view_inheritance_tree") {
                         currentWindow = .inheritanceTree
@@ -1107,39 +1132,47 @@ struct SettingsView: View {
                     }
                     .padding(.vertical, 7)
                 }
-                
+
                 if category == .storage {
-                    
-                    StorageButton(labelKey: "clear_all_favorites", icon: "star", count: CSM.Favorite.count) {
-                        CSM.Favorite.clear()
+                    StorageButton(labelKey: "clear_all_pins", icon: "pin", count: CSM.Pin.count) {
+                        CSM.Pin.clear()
                         manager.refresh()
                     }
-                    
+
+                    StorageButton(labelKey: "clear_all_renamed", icon: "pencil.and.scribble", count: CSM.Renamed.count) {
+                        CSM.Renamed.clear()
+                        manager.refresh()
+                    }
+
                     StorageButton(labelKey: "clear_all_hidden", icon: "eye", count: CSM.Camouflaged.count) {
                         CSM.Camouflaged.clear()
                         manager.refresh()
                     }
-                    
+
+                    StorageButton(labelKey: "clear_all_inheritances", icon: "app.connected.to.app.below.fill", count: CSM.Heritage.count) {
+                        CSM.Heritage.clear()
+                        manager.refresh()
+                    }
+
+                    StorageButton(labelKey: "undo_all_devices_sound_associations", icon: "speaker.wave.3", count: CSM.SoundDevices.count) {
+                        CSM.SoundDevices.clear()
+                        manager.refresh()
+                    }
+
+                    StorageButton(labelKey: "clear_all_custom_hardware_sounds", icon: "document", count: CSM.Sound.count) {
+                        CSM.Sound.clear()
+                        manager.refresh()
+                    }
+
                     StorageButton(labelKey: "delete_device_history", icon: "arrow.clockwise", count: CSM.Stored.count) {
                         CSM.Stored.clear()
                         manager.refresh()
                     }
                     
-                    StorageButton(labelKey: "clear_all_inheritances", icon: "link", count: CSM.Heritage.count) {
-                        CSM.Heritage.clear()
+                    StorageButton(labelKey: "clear_all_connection_logs", icon: "text.document", count: CSM.ConnectionLog.count) {
+                        CSM.ConnectionLog.clear()
                         manager.refresh()
                     }
-                    
-                    StorageButton(labelKey: "undo_all_devices_sound_associations", icon: "speaker.wave.3", count: CSM.SoundDevices.count) {
-                        CSM.SoundDevices.clear()
-                        manager.refresh()
-                    }
-                    
-                    StorageButton(labelKey: "clear_all_custom_hardware_sounds", icon: "document", count: CSM.Sound.count) {
-                        CSM.Sound.clear()
-                        manager.refresh()
-                    }
-                    
                 }
             }
 

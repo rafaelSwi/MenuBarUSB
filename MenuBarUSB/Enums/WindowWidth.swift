@@ -10,9 +10,9 @@ import CoreFoundation
 enum WindowWidth: Int {
     case tiny = 410
     case normal = 465
-    case big = 510
-    case veryBig = 560
-    case huge = 620
+    case big = 500
+    case veryBig = 545
+    case huge = 605
 
     static var value: CGFloat {
         @AS(Key.windowWidth) var number: WindowWidth = .normal

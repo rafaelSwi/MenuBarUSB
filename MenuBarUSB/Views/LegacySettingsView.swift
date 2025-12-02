@@ -67,8 +67,9 @@ struct LegacySettingsView: View {
     @AS(Key.storeDevices) private var storeDevices = false
     @AS(Key.storedIndicator) private var storedIndicator = false
     @AS(Key.restartButton) private var restartButton = false
+    @AS(Key.bigNames) private var bigNames = false
     @AS(Key.mouseHoverInfo) private var mouseHoverInfo = false
-    @AS(Key.hideFavoriteIndicator) private var hideFavoriteIndicator = false
+    @AS(Key.hidePinIndicator) private var hidePinIndicator = false
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.windowWidth) private var windowWidth: WindowWidth = .normal
@@ -231,7 +232,6 @@ struct LegacySettingsView: View {
 
                     if !updateAvailable {
                         HStack {
-                            
                             if !hideUpdate {
                                 Button {
                                     checkForUpdate()
@@ -266,13 +266,12 @@ struct LegacySettingsView: View {
                                     }
                                 }
                             }
-                            
+
                             if !hideDonate {
-                                
                                 Text("|")
                                     .padding(.horizontal, 5)
                                     .opacity(0.3)
-                                
+
                                 Button {
                                     if showDonateOptions {
                                         showDonateOptions = false
@@ -291,7 +290,6 @@ struct LegacySettingsView: View {
                                     }
                                 }
                             }
-                            
                         }
                     }
                 }
@@ -376,7 +374,7 @@ struct LegacySettingsView: View {
                                     Utils.App.restart()
                                 }
                             }
-                            
+
                             if hardwareSound != "" {
                                 Button {
                                     isPlayingSound = true
@@ -447,6 +445,14 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
+                            label: "big_names",
+                            description: "big_names_description",
+                            binding: $bigNames,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
                             label: "show_previously_connected",
                             description: "show_previously_connected_description",
                             binding: $storeDevices,
@@ -501,10 +507,7 @@ struct LegacySettingsView: View {
                             disabled: hideTechInfo && !mouseHoverInfo,
                             onToggle: { _ in }
                         )
-                        
-                        Spacer()
-                            .frame(height: 4)
-                        
+
                         ToggleRow(
                             label: "index_indicator",
                             description: "index_indicator_description",
@@ -538,14 +541,14 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         ToggleRow(
-                            label: "hide_favorite_indicator",
-                            description: "hide_favorite_indicator_description",
-                            binding: $hideFavoriteIndicator,
+                            label: "hide_pin_indicator",
+                            description: "hide_pin_indicator_description",
+                            binding: $hidePinIndicator,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
                             onToggle: { _ in }
                         )
-                        
+
                         HStack {
                             Button("delete_device_history") {
                                 tryingToDeleteDeviceHistory = true
@@ -564,7 +567,7 @@ struct LegacySettingsView: View {
                             }
                         }
                         .padding(.vertical, 3)
-                        
+
                         HStack {
                             Button("clear_all_renamed") {
                                 CSM.Renamed.clear()
@@ -573,7 +576,7 @@ struct LegacySettingsView: View {
                                 .font(.footnote)
                                 .opacity(0.5)
                         }
-                        
+
                         HStack {
                             Button("clear_all_hidden") {
                                 CSM.Camouflaged.clear()
@@ -583,10 +586,10 @@ struct LegacySettingsView: View {
                                 .font(.footnote)
                                 .opacity(0.5)
                         }
-                        
+
                         HStack {
-                            Button("clear_all_favorites") {
-                                CSM.Favorite.clear()
+                            Button("clear_all_pins") {
+                                CSM.Pin.clear()
                             }
                             Text("single_click")
                                 .font(.footnote)
@@ -595,13 +598,12 @@ struct LegacySettingsView: View {
                     }
 
                     if showContextMenuOptions {
-                        
                         Text("rmb_explanation")
                             .font(.title2)
                             .italic()
                             .padding(.vertical)
                             .opacity(0.8)
-                        
+
                         ToggleRow(
                             label: "disable_context_menu_search",
                             description: "disable_context_menu_search_description",
@@ -748,7 +750,7 @@ struct LegacySettingsView: View {
                             }
                         }
                     }
-                    
+
                     if showDonateOptions {
                         let currentAddress = isBitcoin ? Utils.Miscellaneous.btcAddress : Utils.Miscellaneous.ltcAddress
                         let currentSymbol = isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
@@ -756,7 +758,6 @@ struct LegacySettingsView: View {
                         let email = "contatorafaelswi@gmail.com"
 
                         HStack(spacing: 20) {
-
                             Utils.Miscellaneous.QRCodeView(text: currentAddress)
                                 .frame(width: 230, height: 230)
                                 .padding()
@@ -769,9 +770,8 @@ struct LegacySettingsView: View {
                                         Label("copy_email", systemImage: "square.on.square")
                                     }
                                 }
-                            
-                            VStack(alignment: .leading, spacing: 12) {
 
+                            VStack(alignment: .leading, spacing: 12) {
                                 HStack(spacing: 6) {
                                     Image(systemName: currentSymbol)
                                         .resizable()
@@ -785,7 +785,6 @@ struct LegacySettingsView: View {
                                 }
 
                                 VStack(alignment: .leading, spacing: 10) {
-
                                     Text(currentAddress)
                                         .font(.subheadline)
                                         .contextMenu {

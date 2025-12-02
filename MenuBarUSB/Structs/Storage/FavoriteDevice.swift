@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FavoriteDevice: Codable, Identifiable {
+struct PinnedDevice: Codable, Identifiable {
     let deviceId: String
 
     var id: String { deviceId }

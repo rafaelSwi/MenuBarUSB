@@ -272,11 +272,11 @@ final class Utils {
             mbps >= 1000 ? String(format: "%.1f Gbps", Double(mbps) / 1000.0) : "\(mbps) Mbps"
         }
     }
-    
+
     final class Miscellaneous {
         static let btcAddress = "bc1qvluxh224489mt6svp23kr0u8y2upn009pa546t"
         static let ltcAddress = "ltc1qz42uw4plam83f2sud2rckzewvdwm9vs4rfazl5"
-        
+
         static func generateQRCode(from string: String) -> NSImage? {
             let context = CIContext()
             let filter = CIFilter.qrCodeGenerator()
@@ -291,11 +291,11 @@ final class Utils {
             }
             return nil
         }
-        
+
         struct QRCodeView: View {
             let text: String
             @State private var hovered = false
-            
+
             var body: some View {
                 let blurAmount: CGFloat = hovered ? 0 : (hovered ? 0 : 6)
 

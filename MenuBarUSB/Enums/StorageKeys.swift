@@ -16,7 +16,8 @@ enum StorageKeys {
     static let storedDevices = "storedDevices"
     static let inheritedDevices = "inheritedDevices"
     static let camouflagedDevices = "camouflagedDevices"
-    static let favoriteDevices = "favoriteDevices"
+    static let pinnedDevices = "pinnedDevices"
+    static let connectionLogs = "connectionLogs"
     static let renamedIndicator = "renamedIndicator"
     static let camouflagedIndicator = "camouflagedIndicator"
     static let customHardwareSounds = "customHardwareSounds"
@@ -48,6 +49,7 @@ enum StorageKeys {
     static let windowWidth = "windowWidth"
     static let hardwareSound = "hardwareSound"
     static let playHardwareSound = "playHardwareSound"
+    static let storeConnectionLogs = "storeConnectionLogs";
     static let toolbarClockOff = "toolbarClockOff"
     static let disableHaptic = "disableHaptic"
     static let trafficButton = "trafficButton"
@@ -61,6 +63,7 @@ enum StorageKeys {
     static let listToolBar = "listToolBar"
     static let storeDevices = "storeDevices"
     static let storedIndicator = "storedIndicator"
-    static let hideFavoriteIndicator = "hideFavoriteIndicator"
+    static let bigNames = "bigNames"
+    static let hidePinIndicator = "hidePinIndicator"
     static let forceEnglish = "forceEnglish"
 }

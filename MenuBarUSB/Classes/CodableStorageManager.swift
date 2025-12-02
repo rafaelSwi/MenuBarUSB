@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 final class CodableStorageManager {
     final class Sound {
@@ -19,7 +20,7 @@ final class CodableStorageManager {
         static subscript(_ key: String) -> HardwareSound? {
             return items.first(where: { $0.uniqueId == key })
         }
-        
+
         static var count: Int {
             return items.count
         }
@@ -47,7 +48,7 @@ final class CodableStorageManager {
             items.removeAll(keepingCapacity: false)
         }
     }
-    
+
     final class SoundDevices {
         @CodableAppStorage(Key.soundDevices)
         static var items: [DeviceSound] = []
@@ -55,15 +56,15 @@ final class CodableStorageManager {
         static subscript(_ deviceId: String) -> DeviceSound? {
             return items.first(where: { $0.deviceId == deviceId })
         }
-        
+
         static var count: Int {
             return items.count
         }
-        
+
         static func getBySoundId(_ soundId: String) -> [DeviceSound] {
             return items.filter { $0.soundId == soundId }
         }
-        
+
         static func getByBothIds(device: String, sound: String) -> DeviceSound? {
             return items.first { $0.soundId == sound && $0.deviceId == device }
         }
@@ -94,7 +95,7 @@ final class CodableStorageManager {
         static subscript(_ uniqueId: String) -> StoredDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static var count: Int {
             return items.count
         }
@@ -151,7 +152,7 @@ final class CodableStorageManager {
         static subscript(_ uniqueId: String) -> RenamedDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static var count: Int {
             return items.count
         }
@@ -182,7 +183,7 @@ final class CodableStorageManager {
         static subscript(_ uniqueId: String) -> CamouflagedDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static var count: Int {
             return items.count
         }
@@ -213,7 +214,7 @@ final class CodableStorageManager {
         static subscript(_ uniqueId: String) -> HeritageDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static var count: Int {
             return items.count
         }
@@ -244,19 +245,19 @@ final class CodableStorageManager {
             items.removeAll(keepingCapacity: false)
         }
     }
-    
-    final class Favorite {
-        @CodableAppStorage(Key.favoriteDevices)
-        static var items: [FavoriteDevice] = []
 
-        static var devices: [FavoriteDevice] {
+    final class Pin {
+        @CodableAppStorage(Key.pinnedDevices)
+        static var items: [PinnedDevice] = []
+
+        static var devices: [PinnedDevice] {
             return items
         }
 
-        static subscript(_ uniqueId: String) -> FavoriteDevice? {
+        static subscript(_ uniqueId: String) -> PinnedDevice? {
             return items.first(where: { $0.deviceId == uniqueId })
         }
-        
+
         static var count: Int {
             return items.count
         }
@@ -264,11 +265,55 @@ final class CodableStorageManager {
         static func add(withId id: String?) {
             if id == nil { return }
             items.removeAll { $0.deviceId == id }
-            items.append(FavoriteDevice(deviceId: id!))
+            items.append(PinnedDevice(deviceId: id!))
         }
 
         static func remove(withId id: String) {
             items.removeAll { $0.deviceId == id }
+        }
+
+        static func clear() {
+            items.removeAll(keepingCapacity: false)
+        }
+    }
+    
+    final class ConnectionLog {
+        @CodableAppStorage(Key.connectionLogs)
+        static var items: [DeviceConnectionLog] = []
+
+        static var logs: [DeviceConnectionLog] {
+            return items
+        }
+
+        static subscript(_ uuidString: String) -> DeviceConnectionLog? {
+            return items.first(where: { $0.id == uuidString })
+        }
+
+        static var count: Int {
+            return items.count
+        }
+
+        static func add(withId deviceId: String?, disconnect: Bool) {
+            if deviceId == nil { return }
+            items.append(DeviceConnectionLog(deviceId: deviceId!, time: Date.now, disconnect: disconnect))
+            let limit: Int = 500
+            if count >= limit {
+                keepOnly(last: limit)
+            }
+        }
+        
+        static func addChargerLog(disconnect: Bool) {
+            items.append(DeviceConnectionLog(deviceId: "power", time: Date.now, disconnect: disconnect))
+        }
+        
+        static func keepOnly(last amount: Int) {
+            if items.count > amount {
+                items = Array(items.suffix(amount))
+            }
+        }
+        
+        static func remove(withId id: String) {
+            items.removeAll { $0.id == id }
         }
 
         static func clear() {
