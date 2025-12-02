@@ -24,6 +24,11 @@ With MenuBarUSB, you can make your USB list your own.
 #### Recommended settings for macOS 15 or lower
 <img width="478" height="425" alt="settings_notif" src="https://github.com/user-attachments/assets/f83a7260-8d05-45bc-8d70-b3631f239c97" />
 
+## Monitoring
+Keep track of your devices’ connection status
+
+<img width="608" height="665" alt="PRINT" src="https://github.com/user-attachments/assets/87799c1b-acd8-458d-a86a-fcade473b617" />
+
 ## Installation via Homebrew
 
 ### 1. Add the tap
