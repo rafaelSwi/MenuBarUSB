@@ -280,12 +280,13 @@ struct LogsView: View {
                 
                 Spacer()
                 
-                Image(systemName: "clock.fill")
-                    .foregroundStyle(showTimeDifferences ? .green : .secondary)
-                    .help("toggle_time_interval")
-                    .onTapGesture {
-                        showTimeDifferences.toggle()
-                    }
+                Button {
+                    showTimeDifferences.toggle()
+                } label: {
+                    Image(systemName: "clock")
+                }
+                .foregroundStyle(showTimeDifferences ? .green : .secondary)
+                .help("toggle_time_interval")
                 
                 if separateWindow {
                     Button {

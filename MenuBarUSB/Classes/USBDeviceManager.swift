@@ -24,6 +24,7 @@ final class USBDeviceManager: ObservableObject {
     private var notifyPort: IONotificationPortRef?
     private var addedIterator: io_iterator_t = 0
     private var removedIterator: io_iterator_t = 0
+    private var isInitialPowerState = true
 
     lazy var persistentEthernetStore: SCDynamicStore? = {
         var context = SCDynamicStoreContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
@@ -66,7 +67,9 @@ final class USBDeviceManager: ObservableObject {
         if powerSourceInfo, chargeConnected {
             amount += 1
         }
-        count = amount
+        DispatchQueue.main.async {
+            self.count = amount
+        }
     }
 
     private func canSendNotification() -> Bool {
@@ -88,7 +91,7 @@ final class USBDeviceManager: ObservableObject {
             }
         }
 
-        DispatchQueue.global(qos: .userInitiated).async(execute: DispatchWorkItem {
+        DispatchQueue.global(qos: .utility).async {
             let snapshot = self.fetchUSBDevices()
 
             var seenIds = Set<String>()
@@ -114,14 +117,14 @@ final class USBDeviceManager: ObservableObject {
                 }
             }
 
-            DispatchQueue.main.async(execute: DispatchWorkItem {
+            DispatchQueue.main.async {
                 self.devices = filteredDevices.sorted(by: {
                     ($0.item.vendor ?? "") < ($1.item.vendor ?? "") ||
                         ($0.item.vendor == $1.item.vendor && $0.item.name < $1.item.name)
                 })
 
                 self.connectedCamouflagedDevices = camouflagedCount
-            })
+            }
 
             if self.powerSourceInfo {
                 if self.isChargerConnected {
@@ -149,7 +152,7 @@ final class USBDeviceManager: ObservableObject {
                     }
                 }
             }
-        })
+        }
     }
 
     func addDummy(amount: Int) {
@@ -167,9 +170,9 @@ final class USBDeviceManager: ObservableObject {
                 isExternalStorage: false
             )
             let newDeviceWrapper = USBDeviceWrapper(newDevice)
-            DispatchQueue.main.async(execute: DispatchWorkItem {
+            DispatchQueue.main.async {
                 self.devices.append(newDeviceWrapper)
-            })
+            }
             CSM.ConnectionLog.add(withId: newDeviceWrapper.item.uniqueId, disconnect: false)
         }
     }
@@ -209,7 +212,7 @@ final class USBDeviceManager: ObservableObject {
                 .fromOpaque(context!)
                 .takeUnretainedValue()
 
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .utility).async {
                 mySelf.updatePowerState()
             }
         }
@@ -221,13 +224,17 @@ final class USBDeviceManager: ObservableObject {
             CFRunLoopAddSource(CFRunLoopGetMain(), source, .defaultMode)
         }
 
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .utility).async {
             self.updatePowerState()
         }
     }
 
     private func updatePowerState() {
-        defer { setCount() }
+        defer {
+            DispatchQueue.main.async {
+                self.setCount()
+            }
+        }
 
         if !powerSourceInfo {
             chargePercentage = nil
@@ -236,6 +243,13 @@ final class USBDeviceManager: ObservableObject {
 
         let charging = isChargerConnected
         let percentage = getChargePercentage()
+
+        if isInitialPowerState {
+            isInitialPowerState = false
+            chargeConnected = charging
+            chargePercentage = charging ? percentage : nil
+            return
+        }
         
         if chargeConnected != charging && storeConnectionLogs {
             CSM.ConnectionLog.addChargerLog(disconnect: !charging)
@@ -261,12 +275,14 @@ final class USBDeviceManager: ObservableObject {
             }
         }
 
-        chargeConnected = charging
-
-        if charging {
-            chargePercentage = percentage
-        } else {
-            chargePercentage = nil
+        DispatchQueue.main.async {
+            self.chargeConnected = charging
+            
+            if charging {
+                self.chargePercentage = percentage
+            } else {
+                self.chargePercentage = nil
+            }
         }
     }
 

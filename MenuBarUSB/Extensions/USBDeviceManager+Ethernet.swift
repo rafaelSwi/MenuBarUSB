@@ -29,9 +29,6 @@ extension USBDeviceManager {
     func startEthernetMonitoring() {
         guard showEthernet else { return }
 
-        print("Starting Ethernet Monitoring...")
-        print("Detected interfaces: \(monitoredEthernetInterfaces)")
-
         if !ethernetCableConnected { return }
 
         startMonitoringEthernet()
@@ -39,26 +36,33 @@ extension USBDeviceManager {
         stopEthernetMonitoring()
 
         @AS(Key.fastMonitor) var fastMonitor = false
-        ethernetTimer = Timer.scheduledTimer(withTimeInterval: fastMonitor ? 0.4 : 2.1, repeats: true) { [weak self] _ in
-            guard let self else { return }
+        DispatchQueue.main.async {
+            self.ethernetTimer = Timer.scheduledTimer(withTimeInterval: fastMonitor ? 0.4 : 2.1, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
 
-            let connected = self.isEthernetConnected()
-            if self.ethernetCableConnected != connected {
-                self.ethernetCableConnected = connected
-                print("Ethernet status changed: \(connected)")
-            }
+                DispatchQueue.global(qos: .utility).async { [weak self] in
+                    guard let self = self else { return }
+                    let connected = self.isEthernetConnected()
+                    if self.ethernetCableConnected != connected {
+                        DispatchQueue.main.async { self.ethernetCableConnected = connected }
+                    }
 
-            if connected {
-                self.updateEthernetTraffic()
+                    if connected {
+                        self.updateEthernetTraffic()
+                    }
+                }
             }
+            RunLoop.main.add(self.ethernetTimer!, forMode: .default)
         }
     }
 
     func stopEthernetMonitoring() {
-        ethernetTimer?.invalidate()
-        ethernetTimer = nil
-        ethernetTraffic = false
-        trafficMonitorRunning = false
+        DispatchQueue.main.async {
+            self.ethernetTimer?.invalidate()
+            self.ethernetTimer = nil
+            self.ethernetTraffic = false
+            self.trafficMonitorRunning = false
+        }
     }
 
     func isEthernetConnected() -> Bool {
@@ -76,65 +80,61 @@ extension USBDeviceManager {
     }
 
     private func updateEthernetTraffic() {
-        trafficMonitorRunning = true
+        DispatchQueue.global(qos: .utility).async { [weak self] in
+            guard let self = self else { return }
 
-        if isEthernetConnected() == false {
-            trafficMonitorRunning = false
-            return
-        }
+            DispatchQueue.main.async { self.trafficMonitorRunning = true }
 
-        var trafficDetected = false
-        var ifaddrPtr: UnsafeMutablePointer<ifaddrs>? = nil
-        guard getifaddrs(&ifaddrPtr) == 0, let firstAddr = ifaddrPtr else { return }
-        defer { freeifaddrs(ifaddrPtr) }
-
-        var ptr = firstAddr
-        while ptr.pointee.ifa_next != nil {
-            let name = String(cString: ptr.pointee.ifa_name)
-            if monitoredEthernetInterfaces.contains(name),
-               let data = ptr.pointee.ifa_data?.assumingMemoryBound(to: if_data.self).pointee
-            {
-                let currentIn = UInt64(data.ifi_ibytes)
-                let currentOut = UInt64(data.ifi_obytes)
-
-                let previous = previousTraffic[name] ?? (ibytes: 0, obytes: 0)
-                let deltaIn: UInt64
-                if currentIn >= previous.ibytes {
-                    deltaIn = currentIn - previous.ibytes
-                } else {
-                    deltaIn = currentIn
-                }
-
-                let deltaOut: UInt64
-                if currentOut >= previous.obytes {
-                    deltaOut = currentOut - previous.obytes
-                } else {
-                    deltaOut = currentOut
-                }
-
-                previousTraffic[name] = (ibytes: currentIn, obytes: currentOut)
-
-                if deltaIn > 0 || deltaOut > 0 {
-                    trafficDetected = true
-                    lastTrafficDetected = Date()
-                }
-
-                print("Interface: \(name)")
-                print("Received: \(currentIn) bytes, Sent: \(currentOut) bytes")
-                print("Delta In: \(deltaIn), Delta Out: \(deltaOut)")
+            if self.isEthernetConnected() == false {
+                DispatchQueue.main.async { self.trafficMonitorRunning = false }
+                return
             }
-            ptr = ptr.pointee.ifa_next!
-        }
 
-        if !trafficDetected, Date().timeIntervalSince(lastTrafficDetected) > trafficCooldown {
-            trafficDetected = false
-        } else if trafficDetected {
-            lastTrafficDetected = Date()
-        }
+            var trafficDetected = false
+            var ifaddrPtr: UnsafeMutablePointer<ifaddrs>? = nil
+            guard getifaddrs(&ifaddrPtr) == 0, let firstAddr = ifaddrPtr else {
+                DispatchQueue.main.async { self.trafficMonitorRunning = false }
+                return
+            }
+            defer { freeifaddrs(ifaddrPtr) }
 
-        DispatchQueue.main.async {
-            self.ethernetTraffic = trafficDetected
-            print("ethernetTraffic updated: \(trafficDetected)")
+            var ptr = firstAddr
+            while ptr.pointee.ifa_next != nil {
+                let name = String(cString: ptr.pointee.ifa_name)
+                if self.monitoredEthernetInterfaces.contains(name),
+                   let data = ptr.pointee.ifa_data?.assumingMemoryBound(to: if_data.self).pointee
+                {
+                    let currentIn = UInt64(data.ifi_ibytes)
+                    let currentOut = UInt64(data.ifi_obytes)
+
+                    let previous = self.previousTraffic[name] ?? (ibytes: 0, obytes: 0)
+                    let deltaIn: UInt64
+                    if currentIn >= previous.ibytes { deltaIn = currentIn - previous.ibytes } else { deltaIn = currentIn }
+
+                    let deltaOut: UInt64
+                    if currentOut >= previous.obytes { deltaOut = currentOut - previous.obytes } else { deltaOut = currentOut }
+
+                    self.previousTraffic[name] = (ibytes: currentIn, obytes: currentOut)
+
+                    if deltaIn > 0 || deltaOut > 0 {
+                        trafficDetected = true
+                        self.lastTrafficDetected = Date()
+                    }
+                }
+                guard let next = ptr.pointee.ifa_next else { break }
+                ptr = next
+            }
+
+            if !trafficDetected, Date().timeIntervalSince(self.lastTrafficDetected) > self.trafficCooldown {
+                trafficDetected = false
+            } else if trafficDetected {
+                self.lastTrafficDetected = Date()
+            }
+
+            DispatchQueue.main.async {
+                self.ethernetTraffic = trafficDetected
+                self.trafficMonitorRunning = false
+            }
         }
     }
 
@@ -152,8 +152,9 @@ extension USBDeviceManager {
         func ethernetCallback(store _: SCDynamicStore, changedKeys _: CFArray, info: UnsafeMutableRawPointer?) {
             guard let info else { return }
             let manager = Unmanaged<USBDeviceManager>.fromOpaque(info).takeUnretainedValue()
-            DispatchQueue.main.async {
-                manager.ethernetCableConnected = manager.isEthernetConnected()
+            DispatchQueue.global(qos: .utility).async {
+                let connected = manager.isEthernetConnected()
+                DispatchQueue.main.async { manager.ethernetCableConnected = connected }
             }
         }
 
@@ -174,6 +175,9 @@ extension USBDeviceManager {
             CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .defaultMode)
         }
 
-        ethernetCableConnected = isEthernetConnected()
+        DispatchQueue.global(qos: .utility).async {
+            let connected = self.isEthernetConnected()
+            DispatchQueue.main.async { self.ethernetCableConnected = connected }
+        }
     }
 }
