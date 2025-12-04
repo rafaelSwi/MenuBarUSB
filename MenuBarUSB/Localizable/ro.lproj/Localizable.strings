@@ -331,3 +331,14 @@
 "connection_logs" = "Jurnale de conexiune";
 "file" = "Fișier";
 "open_in_separate_window" = "Deschide într-o fereastră separată";
+"open_separate_window_to_monitor" = "Monitorizați jurnalele de conexiune într-o fereastră separată";
+"time_interval" = "Interval de timp";
+"toggle_time_interval" = "Comutați intervalul de timp";
+"today" = "Astăzi";
+"yesterday" = "Ieri";
+"checking" = "Se verifică...";
+"download" = "Descărcare";
+"will_take_effect_after_refreshing" = "Modificările vor intra în vigoare doar după reîmprospătare manuală";
+"open_linkedin_profile" = "Deschide profilul LinkedIn";
+"linkedin_profile" = "Profil LinkedIn: %@";
+"copy_profile_url" = "Copiați URL-ul profilului";

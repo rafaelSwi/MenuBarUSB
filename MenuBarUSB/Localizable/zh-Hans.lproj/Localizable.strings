@@ -208,7 +208,7 @@
 "status" = "状态：";
 "exit_settings_and_resume" = "退出设置并恢复监控";
 "make_all_visible_again" = "重新显示全部";
-"show_previously_connected" = "显示所有曾连接的设备";
+"show_previously_connected" = "保存并显示所有先前连接的设备";
 "show_previously_connected_description" = "通常，列表仅显示已连接的设备。但如果你希望列表在设备断开后仍继续显示设备，这个选项很有用。仅当启用此选项时，才会自动存储设备信息。";
 "stored_indicator" = "先前连接设备的指示器";
 "stored_indicator_description" = "已断开连接的 USB 设备将其名称前面带有一个小图标。";
@@ -324,3 +324,14 @@
 "connection_logs" = "连接日志";
 "file" = "文件";
 "open_in_separate_window" = "在单独窗口中打开";
+"open_separate_window_to_monitor" = "在单独窗口中监控连接日志";
+"time_interval" = "时间间隔";
+"toggle_time_interval" = "切换时间间隔";
+"today" = "今天";
+"yesterday" = "昨天";
+"checking" = "正在检查...";
+"download" = "下载";
+"will_take_effect_after_refreshing" = "更改将在手动刷新后生效";
+"open_linkedin_profile" = "打开 LinkedIn 个人资料";
+"linkedin_profile" = "LinkedIn 个人资料：%@";
+"copy_profile_url" = "复制个人资料 URL";

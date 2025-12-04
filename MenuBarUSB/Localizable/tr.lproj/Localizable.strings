@@ -324,3 +324,14 @@
 "connection_logs" = "Bağlantı kayıtları";
 "file" = "Dosya";
 "open_in_separate_window" = "Ayrı bir pencerede aç";
+"open_separate_window_to_monitor" = "Bağlantı kayıtlarını ayrı bir pencerede izleyin";
+"time_interval" = "Zaman aralığı";
+"toggle_time_interval" = "Zaman aralığını değiştir";
+"today" = "Bugün";
+"yesterday" = "Dün";
+"checking" = "Kontrol ediliyor...";
+"download" = "İndir";
+"will_take_effect_after_refreshing" = "Değişiklikler yalnızca manuel yenilemeden sonra geçerli olacaktır";
+"open_linkedin_profile" = "LinkedIn profilini aç";
+"linkedin_profile" = "LinkedIn profili: %@";
+"copy_profile_url" = "Profil URL'sini kopyala";

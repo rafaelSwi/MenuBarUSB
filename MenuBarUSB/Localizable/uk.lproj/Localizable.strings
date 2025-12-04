@@ -208,7 +208,7 @@
 "status" = "Статус:";
 "exit_settings_and_resume" = "Вийти з налаштувань і відновити моніторинг";
 "make_all_visible_again" = "Зробити все видимим знову";
-"show_previously_connected" = "Показати всі раніше підключені пристрої";
+"show_previously_connected" = "Збережіть та відобразіть усі раніше підключені пристрої";
 "show_previously_connected_description" = "Зазвичай список показує лише підключені пристрої. Проте ця опція корисна, якщо ви хочете, щоб список продовжував показувати пристрої навіть після їх від’єднання.";
 "stored_indicator" = "Індикатор для раніше підключених пристроїв";
 "stored_indicator_description" = "USB-пристрої, які були від’єднані, матимуть маленьку іконку перед своєю назвою.";
@@ -324,3 +324,14 @@
 "connection_logs" = "Журнали підключень";
 "file" = "Файл";
 "open_in_separate_window" = "Відкрити в окремому вікні";
+"open_separate_window_to_monitor" = "Переглядати журнали з’єднань у окремому вікні";
+"time_interval" = "Часовий інтервал";
+"toggle_time_interval" = "Перемкнути часовий інтервал";
+"today" = "Сьогодні";
+"yesterday" = "Вчора";
+"checking" = "Перевірка...";
+"download" = "Завантажити";
+"will_take_effect_after_refreshing" = "Зміни набудуть чинності лише після ручного оновлення";
+"open_linkedin_profile" = "Відкрити профіль LinkedIn";
+"linkedin_profile" = "Профіль LinkedIn: %@";
+"copy_profile_url" = "Скопіювати URL профілю";

@@ -324,3 +324,14 @@
 "connection_logs" = "Forbindelseslog";
 "file" = "Fil";
 "open_in_separate_window" = "Åbn i et separat vindue";
+"open_separate_window_to_monitor" = "Overvåg forbindelseslogfiler i et separat vindue";
+"time_interval" = "Tidsinterval";
+"toggle_time_interval" = "Skift tidsinterval";
+"today" = "I dag";
+"yesterday" = "I går";
+"checking" = "Kontrollerer...";
+"download" = "Download";
+"will_take_effect_after_refreshing" = "Ændringer træder kun i kraft efter manuel opdatering";
+"open_linkedin_profile" = "Åbn LinkedIn-profil";
+"linkedin_profile" = "LinkedIn-profil: %@";
+"copy_profile_url" = "Kopiér profil-URL";

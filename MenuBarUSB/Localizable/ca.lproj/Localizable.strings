@@ -324,3 +324,14 @@
 "connection_logs" = "Logs de connexió";
 "file" = "Fitxer";
 "open_in_separate_window" = "Obrir en una finestra separada";
+"open_separate_window_to_monitor" = "Supervisa els registres de connexió en una finestra separada";
+"time_interval" = "Interval de temps";
+"toggle_time_interval" = "Alternar interval de temps";
+"today" = "Avui";
+"yesterday" = "Ahir";
+"checking" = "Comprovant...";
+"download" = "Descarregar";
+"will_take_effect_after_refreshing" = "Els canvis només tindran efecte després d'actualitzar manualment";
+"open_linkedin_profile" = "Obrir el perfil de LinkedIn";
+"linkedin_profile" = "Perfil de LinkedIn: %@";
+"copy_profile_url" = "Copiar l'URL del perfil";

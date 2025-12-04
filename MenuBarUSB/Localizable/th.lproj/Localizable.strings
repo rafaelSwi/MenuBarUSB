@@ -324,3 +324,14 @@
 "connection_logs" = "บันทึกการเชื่อมต่อ";
 "file" = "ไฟล์";
 "open_in_separate_window" = "เปิดในหน้าต่างแยก";
+"open_separate_window_to_monitor" = "ตรวจสอบบันทึกการเชื่อมต่อในหน้าต่างแยก";
+"time_interval" = "ช่วงเวลา";
+"toggle_time_interval" = "สลับช่วงเวลา";
+"today" = "วันนี้";
+"yesterday" = "เมื่อวาน";
+"checking" = "กำลังตรวจสอบ...";
+"download" = "ดาวน์โหลด";
+"will_take_effect_after_refreshing" = "การเปลี่ยนแปลงจะมีผลหลังจากรีเฟรชด้วยตนเอง";
+"open_linkedin_profile" = "เปิดโปรไฟล์ LinkedIn";
+"linkedin_profile" = "โปรไฟล์ LinkedIn: %@";
+"copy_profile_url" = "คัดลอก URL โปรไฟล์";

@@ -208,8 +208,8 @@
 "status" = "Status:";
 "exit_settings_and_resume" = "Exit settings and resume monitoring";
 "make_all_visible_again" = "Make all visible again";
-"show_previously_connected" = "Show all previously connected devices";
-"show_previously_connected_description" = "Normally, the list only displays connected devices. However, this option is useful if you want the list to continue displaying devices even after they're disconnected. Device information is only automatically stored if the option to display previously connected devices is enabled.";
+"show_previously_connected" = "Save and show previously connected devices";
+"show_previously_connected_description" = "Normally, the list only displays connected devices. However, this option is useful if you want the list to continue displaying devices even after they're disconnected.";
 "stored_indicator" = "Indicator for previously connected devices";
 "stored_indicator_description" = "USB devices that have been disconnected will have a little icon before their name.";
 "disconnected" = "Disconnected";
@@ -324,3 +324,14 @@
 "connection_logs" = "Connection logs";
 "file" = "File";
 "open_in_separate_window" = "Open in a separate window";
+"open_separate_window_to_monitor" = "Monitor connection logs in a separate window";
+"time_interval" = "Time interval";
+"toggle_time_interval" = "Toggle time interval";
+"today" = "Today";
+"yesterday" = "Yesterday";
+"checking" = "Checking...";
+"download" = "Download";
+"will_take_effect_after_refreshing" = "Changes will only take effect after manually refreshing";
+"open_linkedin_profile" = "Open LinkedIn profile";
+"linkedin_profile" = "LinkedIn profile: %@";
+"copy_profile_url" = "Copy profile URL";

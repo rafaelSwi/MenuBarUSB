@@ -208,7 +208,7 @@
 "status" = "Status:";
 "exit_settings_and_resume" = "Wyjdź z ustawień i wznow monitoring";
 "make_all_visible_again" = "Uczyń wszystko znowu widocznym";
-"show_previously_connected" = "Pokaż wszystkie wcześniej połączone urządzenia";
+"show_previously_connected" = "Zapisz i wyświetl wszystkie wcześniej podłączone urządzenia";
 "show_previously_connected_description" = "Zazwyczaj lista wyświetla tylko podłączone urządzenia. Jednak ta opcja jest przydatna, jeśli chcesz, aby lista nadal wyświetlała urządzenia nawet po ich odłączeniu. Informacje o urządzeniu zostaną automatycznie zapisane tylko po włączeniu tej opcji.";
 "stored_indicator" = "Wskaźnik dla wcześniej połączonych urządzeń";
 "stored_indicator_description" = "Urządzenia USB, które zostały odłączone, będą miały małą ikonę przed swoją nazwą.";
@@ -324,3 +324,14 @@
 "connection_logs" = "Dzienniki połączeń";
 "file" = "Plik";
 "open_in_separate_window" = "Otwórz w oddzielnym oknie";
+"open_separate_window_to_monitor" = "Monitoruj logi połączeń w osobnym oknie";
+"time_interval" = "Interwał czasowy";
+"toggle_time_interval" = "Przełącz interwał czasowy";
+"today" = "Dzisiaj";
+"yesterday" = "Wczoraj";
+"checking" = "Sprawdzanie...";
+"download" = "Pobierz";
+"will_take_effect_after_refreshing" = "Zmiany zaczną obowiązywać po ręcznym odświeżeniu";
+"open_linkedin_profile" = "Otwórz profil LinkedIn";
+"linkedin_profile" = "Profil LinkedIn: %@";
+"copy_profile_url" = "Kopiuj URL profilu";

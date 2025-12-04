@@ -324,3 +324,14 @@
 "connection_logs" = "कनेक्शन लॉग";
 "file" = "फ़ाइल";
 "open_in_separate_window" = "अलग विंडो में खोलें";
+"open_separate_window_to_monitor" = "कनेक्शन लॉग को अलग विंडो में मॉनिटर करें";
+"time_interval" = "समय अंतराल";
+"toggle_time_interval" = "समय अंतराल बदलें";
+"today" = "आज";
+"yesterday" = "कल";
+"checking" = "जाँच हो रही है...";
+"download" = "डाउनलोड";
+"will_take_effect_after_refreshing" = "परिवर्तन केवल मैनुअल रिफ्रेश के बाद प्रभावी होंगे";
+"open_linkedin_profile" = "LinkedIn प्रोफ़ाइल खोलें";
+"linkedin_profile" = "LinkedIn प्रोफ़ाइल: %@";
+"copy_profile_url" = "प्रोफ़ाइल URL कॉपी करें";

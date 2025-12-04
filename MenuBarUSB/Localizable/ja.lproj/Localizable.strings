@@ -324,3 +324,14 @@
 "connection_logs" = "接続ログ";
 "file" = "ファイル";
 "open_in_separate_window" = "別ウィンドウで開く";
+"open_separate_window_to_monitor" = "接続ログを別ウィンドウで監視する";
+"time_interval" = "時間間隔";
+"toggle_time_interval" = "時間間隔を切り替える";
+"today" = "今日";
+"yesterday" = "昨日";
+"checking" = "確認中...";
+"download" = "ダウンロード";
+"will_take_effect_after_refreshing" = "変更は手動で更新した後に有効になります";
+"open_linkedin_profile" = "LinkedInプロフィールを開く";
+"linkedin_profile" = "LinkedInプロフィール: %@";
+"copy_profile_url" = "プロフィールURLをコピー";

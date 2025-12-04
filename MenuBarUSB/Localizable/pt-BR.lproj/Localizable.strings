@@ -208,8 +208,8 @@
 "status" = "Status:";
 "exit_settings_and_resume" = "Sair dos ajustes e retomar monitoramento de rede";
 "make_all_visible_again" = "Tornar todos visíveis novamente";
-"show_previously_connected" = "Exibir todos os dispositivos conectados previamente";
-"show_previously_connected_description" = "Normalmente, a lista exibe apenas dispositivos conectados. No entanto, esta opção é útil se você quiser que a lista continue exibindo dispositivos mesmo após desconectados. As informações do dispositivo só são automaticamente armazenadas se esta opção estiver ativada.";
+"show_previously_connected" = "Salvar e exibir todos os dispositivos conectados previamente";
+"show_previously_connected_description" = "Normalmente, a lista exibe apenas dispositivos conectados. No entanto, esta opção é útil se você quiser que a lista continue exibindo dispositivos mesmo após desconectados.";
 "stored_indicator" = "Indicador para dispositivos previamente conectados";
 "stored_indicator_description" = "Dispositivos que foram desconectados terão um pequeno ícone ao lado do seu nome.";
 "disconnected" = "Desconectado";
@@ -324,3 +324,14 @@
 "connection_logs" = "Logs de conexão";
 "file" = "Arquivo";
 "open_in_separate_window" = "Abrir em uma janela separada";
+"open_separate_window_to_monitor" = "Monitorar logs em uma janela separada";
+"time_interval" = "Intervalo de tempo";
+"toggle_time_interval" = "Ligar/desligar intervalo de tempo";
+"today" = "Hoje";
+"yesterday" = "Ontem";
+"checking" = "Checando...";
+"download" = "Download";
+"will_take_effect_after_refreshing" = "As alterações só terão efeito após atualizar manualmente";
+"open_linkedin_profile" = "Abrir perfil do LinkedIn";
+"linkedin_profile" = "Perfil do LinkedIn: %@";
+"copy_profile_url" = "Copiar URL do perfil";

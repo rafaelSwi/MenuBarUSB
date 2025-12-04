@@ -208,7 +208,7 @@
 "status" = "상태:";
 "exit_settings_and_resume" = "설정을 종료하고 모니터링 재개";
 "make_all_visible_again" = "모두 다시 보이게 하기";
-"show_previously_connected" = "이전에 연결된 모든 장치 표시";
+"show_previously_connected" = "이전에 연결했던 모든 장치를 저장하고 표시합니다";
 "show_previously_connected_description" = "일반적으로 목록에는 연결된 장치만 표시됩니다. 하지만 이 옵션은 장치가 분리된 후에도 목록이 계속 장치를 표시하도록 하려는 경우 유용합니다. 이전에 연결된 기기를 표시하는 옵션이 활성화된 경우에만 기기 정보가 자동으로 저장됩니다.";
 "stored_indicator" = "이전에 연결된 장치를 위한 표시기";
 "stored_indicator_description" = "분리된 USB 장치에는 이름 앞에 작은 아이콘이 표시됩니다.";
@@ -324,3 +324,14 @@
 "connection_logs" = "연결 로그";
 "file" = "파일";
 "open_in_separate_window" = "별도 창에서 열기";
+"open_separate_window_to_monitor" = "연결 로그를 별도 창에서 모니터링";
+"time_interval" = "시간 간격";
+"toggle_time_interval" = "시간 간격 전환";
+"today" = "오늘";
+"yesterday" = "어제";
+"checking" = "확인 중...";
+"download" = "다운로드";
+"will_take_effect_after_refreshing" = "변경 사항은 수동 새로고침 후 적용됩니다";
+"open_linkedin_profile" = "LinkedIn 프로필 열기";
+"linkedin_profile" = "LinkedIn 프로필: %@";
+"copy_profile_url" = "프로필 URL 복사";

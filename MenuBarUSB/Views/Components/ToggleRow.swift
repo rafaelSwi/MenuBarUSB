@@ -33,6 +33,18 @@ struct ToggleRow: View {
     func hasIncompatibility() -> Bool {
         return incompatibilities?.contains(true) ?? false
     }
+    
+    private func messageBackgroundColor(_ id: UUID) -> Color {
+        if activeRowID == id && showIncompatibilityMessage {
+            return AssetColors.warning
+        }
+
+        if activeRowID == id && showRestartMessage {
+            return AssetColors.restartIcon
+        }
+        
+        return AssetColors.warning
+    }
 
     private func startHoverProgress(_ interaction: Interaction) {
         let duration: TimeInterval = 1.5
@@ -167,7 +179,7 @@ struct ToggleRow: View {
 
                 ZStack {
                     Image(systemName: "info.circle")
-                        .foregroundStyle(Color("Info"))
+                        .foregroundStyle(AssetColors.info)
                         .onTapGesture { immediateToggle(.info) }
                         .onHover { inside in
                             if inside && !showDescription { startHoverProgress(.info) }
@@ -177,7 +189,7 @@ struct ToggleRow: View {
                     if infoHoverProgress > 0 && infoHoverProgress < 1 {
                         Circle()
                             .trim(from: 0, to: infoHoverProgress)
-                            .stroke(Color("Info"), lineWidth: 2)
+                            .stroke(AssetColors.info, lineWidth: 2)
                             .rotationEffect(.degrees(-90))
                             .animation(.linear, value: infoHoverProgress)
                     }
@@ -186,8 +198,8 @@ struct ToggleRow: View {
 
                 if willRestart {
                     ZStack {
-                        Image(systemName: "clock.fill")
-                            .foregroundStyle(.orange)
+                        Image(systemName: "arrow.uturn.down.circle.fill")
+                            .foregroundStyle(AssetColors.restartIcon)
                             .onTapGesture { immediateToggle(.restart) }
                             .onHover { inside in
                                 if inside && !showRestartMessage { startHoverProgress(.restart) }
@@ -197,7 +209,7 @@ struct ToggleRow: View {
                         if restartHoverProgress > 0 && restartHoverProgress < 1 {
                             Circle()
                                 .trim(from: 0, to: restartHoverProgress)
-                                .stroke(.orange, lineWidth: 2)
+                                .stroke(AssetColors.restartIcon, lineWidth: 2)
                                 .rotationEffect(.degrees(-90))
                                 .animation(.linear, value: restartHoverProgress)
                         }
@@ -208,7 +220,7 @@ struct ToggleRow: View {
                 if hasIncompatibility() {
                     ZStack {
                         Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(Color("Warning"))
+                            .foregroundStyle(AssetColors.warning)
                             .onTapGesture { immediateToggle(.warning) }
                             .onHover { inside in
                                 if inside && !showIncompatibilityMessage { startHoverProgress(.warning) }
@@ -218,7 +230,7 @@ struct ToggleRow: View {
                         if warningHoverProgress > 0 && warningHoverProgress < 1 {
                             Circle()
                                 .trim(from: 0, to: warningHoverProgress)
-                                .stroke(Color("Warning"), lineWidth: 2)
+                                .stroke(AssetColors.warning, lineWidth: 2)
                                 .rotationEffect(.degrees(-90))
                                 .animation(.linear, value: warningHoverProgress)
                         }
@@ -250,7 +262,7 @@ struct ToggleRow: View {
             .foregroundColor(.primary)
             .padding(8)
             .background(
-                Color("Warning")
+                messageBackgroundColor(id)
                     .opacity(0.4)
                     .cornerRadius(8)
             )

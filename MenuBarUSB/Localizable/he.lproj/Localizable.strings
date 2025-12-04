@@ -324,3 +324,14 @@
 "connection_logs" = "יומני חיבור";
 "file" = "קובץ";
 "open_in_separate_window" = "פתיחה בחלון נפרד";
+"open_separate_window_to_monitor" = "מעקב אחר יומני חיבור בחלון נפרד";
+"time_interval" = "מרווח זמן";
+"toggle_time_interval" = "החלף מרווח זמן";
+"today" = "היום";
+"yesterday" = "אתמול";
+"checking" = "בודק...";
+"download" = "הורדה";
+"will_take_effect_after_refreshing" = "השינויים ייכנסו לתוקף רק לאחר רענון ידני";
+"open_linkedin_profile" = "פתח פרופיל LinkedIn";
+"linkedin_profile" = "פרופיל LinkedIn: %@";
+"copy_profile_url" = "העתק כתובת פרופיל";

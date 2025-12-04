@@ -12,7 +12,6 @@ struct CategoryButton: View {
     let label: LocalizedStringKey
     let image: String
     @Binding var binding: SettingsCategory
-    let disabled: Bool
     var action: (() -> Void)?
 
     init(
@@ -20,14 +19,12 @@ struct CategoryButton: View {
         label: LocalizedStringKey,
         image: String,
         binding: Binding<SettingsCategory>,
-        disabled: Bool,
         action: (() -> Void)? = nil
     ) {
         self.category = category
         self.label = label
         self.image = image
         _binding = binding
-        self.disabled = disabled
         self.action = action
     }
 
@@ -37,7 +34,7 @@ struct CategoryButton: View {
         let backgroundColor: Color = {
             if binding == category {
                 return Color.blue.opacity(0.25)
-            } else if hovering && !disabled {
+            } else if hovering {
                 return Color.blue.opacity(0.10)
             } else {
                 return Color.clear
@@ -58,9 +55,7 @@ struct CategoryButton: View {
                         .frame(width: 14, height: 14)
                         .scaledToFit()
                         .padding(2)
-                        .opacity(disabled ? 0.4 : 1.0)
                 }
-                .disabled(disabled)
                 .background(backgroundColor)
                 .cornerRadius(5)
                 .onHover { hovering = $0 }

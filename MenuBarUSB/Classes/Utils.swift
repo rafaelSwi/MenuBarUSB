@@ -274,6 +274,10 @@ final class Utils {
     }
 
     final class Miscellaneous {
+        static let contactEmail = "contatorafaelswi@gmail.com"
+        static let githubUrl = "https://github.com/rafaelSwi/MenuBarUSB"
+        static let linkedinUrl = "https://www.linkedin.com/in/rafaelneuwirth/"
+        static let linkedinProfile = "in/rafaelneuwirth"
         static let btcAddress = "bc1qvluxh224489mt6svp23kr0u8y2upn009pa546t"
         static let ltcAddress = "ltc1qz42uw4plam83f2sud2rckzewvdwm9vs4rfazl5"
 

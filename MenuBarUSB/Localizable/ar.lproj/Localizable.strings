@@ -324,3 +324,14 @@
 "connection_logs" = "سجلات الاتصال";
 "file" = "ملف";
 "open_in_separate_window" = "فتح في نافذة منفصلة";
+"open_separate_window_to_monitor" = "مراقبة سجلات الاتصال في نافذة منفصلة";
+"time_interval" = "الفاصل الزمني";
+"toggle_time_interval" = "تبديل الفاصل الزمني";
+"today" = "اليوم";
+"yesterday" = "أمس";
+"checking" = "جارٍ الفحص...";
+"download" = "تنزيل";
+"will_take_effect_after_refreshing" = "لن تُطبق التغييرات إلا بعد التحديث اليدوي";
+"open_linkedin_profile" = "فتح ملف LinkedIn الشخصي";
+"linkedin_profile" = "ملف LinkedIn الشخصي: %@";
+"copy_profile_url" = "نسخ رابط الملف الشخصي";

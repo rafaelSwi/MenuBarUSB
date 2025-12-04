@@ -432,9 +432,9 @@ struct ContentView: View {
         _ value: Binding<Bool>,
         _ icon: String,
         _ help: LocalizedStringKey,
-        _ color: Color,
         _ action: (() -> Void)? = nil
     ) -> some View {
+        let color = AssetColors.toolbarButton
         return Button {
             value.wrappedValue.toggle()
             if action != nil {
@@ -443,7 +443,7 @@ struct ContentView: View {
         } label: {
             Image(systemName: icon)
                 .toolbarItem()
-                .background(value.wrappedValue ? color.opacity(0.14) : .gray.opacity(0.18))
+                .background(value.wrappedValue ? color.opacity(0.24) : .gray.opacity(0.18))
         }
         .buttonStyle(.borderless)
         .foregroundStyle(value.wrappedValue ? color : .gray)
@@ -496,27 +496,27 @@ struct ContentView: View {
                 // TOOLBAR
                 if showToolbar {
                     HStack {
-                        toolbarListItemView($showNotifications, "bell.fill", "show_notification", .orange) {
+                        toolbarListItemView($showNotifications, "bell.fill", "show_notification") {
                             if showNotifications {
                                 Utils.System.requestNotificationPermission()
                             }
                         }
 
-                        toolbarListItemView($indexIndicator, "list.number", "index_indicator", .blue)
+                        toolbarListItemView($indexIndicator, "list.number", "index_indicator")
 
-                        toolbarListItemView($hideTechInfo, "arrow.down.and.line.horizontal.and.arrow.up", "hide_technical_info", .cyan)
+                        toolbarListItemView($hideTechInfo, "arrow.down.and.line.horizontal.and.arrow.up", "hide_technical_info")
 
                         if hideTechInfo {
-                            toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info", .purple)
+                            toolbarListItemView($mouseHoverInfo, "rectangle.and.text.magnifyingglass", "mouse_hover_info")
                         }
 
-                        toolbarListItemView($bigNames, "textformat.size", "big_names", .brown)
+                        toolbarListItemView($bigNames, "textformat.size", "big_names")
 
-                        toolbarListItemView($longList, "arrow.up.and.down.text.horizontal", "long_list", .indigo)
-                        toolbarListItemView($hideSecondaryInfo, "decrease.indent", "hide_secondary_info", .red)
-                        toolbarListItemView($storeDevices, "arrow.counterclockwise", "show_previously_connected", .green)
-                        toolbarListItemView($camouflagedIndicator, "eye.fill", "hidden_indicator", .mint)
-                        toolbarListItemView($noTextButtons, "ellipsis.circle", "no_text_buttons", .teal)
+                        toolbarListItemView($longList, "arrow.up.and.down.text.horizontal", "long_list")
+                        toolbarListItemView($hideSecondaryInfo, "decrease.indent", "hide_secondary_info")
+                        toolbarListItemView($storeDevices, "arrow.counterclockwise", "show_previously_connected")
+                        toolbarListItemView($camouflagedIndicator, "eye.fill", "hidden_indicator")
+                        toolbarListItemView($noTextButtons, "ellipsis.circle", "no_text_buttons")
 
                         Button(action: Utils.System.openSysInfo, label: {
                             if noTextButtons {
@@ -1135,6 +1135,13 @@ struct ContentView: View {
 
                 Button { manager.refresh() } label: {
                     mainButtonLabel("refresh", "arrow.clockwise")
+                }
+                .contextMenu {
+                    Button {
+                        openWindow(id: "connection_logs")
+                    } label: {
+                        Label("open_separate_window_to_monitor", systemImage: "macwindow.on.rectangle")
+                    }
                 }
 
                 Button { Utils.App.exit() } label: {

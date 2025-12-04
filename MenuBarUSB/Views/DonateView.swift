@@ -29,12 +29,19 @@ struct DonateView: View {
             openURL(url)
         }
     }
+    
+    private func openLinkedinProfile() {
+        if let url = URL(string: Utils.Miscellaneous.linkedinUrl) {
+            openURL(url)
+        }
+    }
 
     var body: some View {
         let currentAddress = isBitcoin ? btcAddress : ltcAddress
         let currentSymbol = isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
-        let currentColor: Color = isBitcoin ? .orange : Color("LTC")
-        let email = "contatorafaelswi@gmail.com"
+        let currentColor: Color = isBitcoin ? .orange : AssetColors.ltcCoin
+        let email = Utils.Miscellaneous.contactEmail
+        let linkedin = Utils.Miscellaneous.linkedinProfile
 
         VStack(spacing: 12) {
             Text("donate_description")
@@ -85,14 +92,23 @@ struct DonateView: View {
                 Group {
                     Text(currentAddress)
                         .contextMenu {
-                            Button { Utils.System.copyToClipboard(currentAddress) } label: {
-                                Label("copy", systemImage: "square.on.square")
+                            Button("copy") {
+                                Utils.System.copyToClipboard(currentAddress)
                             }
                         }
                     Text(String(format: NSLocalizedString("contact", comment: "EMAIL"), email))
                         .contextMenu {
-                            Button { Utils.System.copyToClipboard(email) } label: {
-                                Label("copy_email", systemImage: "square.on.square")
+                            Button("copy_email") {
+                                Utils.System.copyToClipboard(email)
+                            }
+                        }
+                    Text(String(format: NSLocalizedString("linkedin_profile", comment: "LINKEDIN"), linkedin))
+                        .contextMenu {
+                            Button("copy_profile_url") {
+                                Utils.System.copyToClipboard(Utils.Miscellaneous.linkedinUrl)
+                            }
+                            Button("open_linkedin_profile") {
+                                openLinkedinProfile()
                             }
                         }
                 }

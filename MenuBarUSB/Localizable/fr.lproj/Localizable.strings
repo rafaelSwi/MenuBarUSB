@@ -208,7 +208,7 @@
 "status" = "Statut :";
 "exit_settings_and_resume" = "Quitter les réglages et reprendre la surveillance";
 "make_all_visible_again" = "Rendre tout visible à nouveau";
-"show_previously_connected" = "Afficher tous les appareils précédemment connectés";
+"show_previously_connected" = "Enregistrer et afficher tous les appareils précédemment connectés";
 "show_previously_connected_description" = "Normalement, la liste n’affiche que les appareils connectés. Cependant, cette option est utile si vous souhaitez que la liste continue d’afficher les appareils même après leur déconnexion. Les informations relatives aux appareils ne sont enregistrées automatiquement que si l'option permettant d'afficher les appareils précédemment connectés est activée.";
 "stored_indicator" = "Indicateur pour les appareils connectés précédemment";
 "stored_indicator_description" = "Les périphériques USB qui ont été déconnectés auront une petite icône avant leur nom.";
@@ -324,3 +324,14 @@
 "connection_logs" = "Journaux de connexion";
 "file" = "Fichier";
 "open_in_separate_window" = "Ouvrir dans une fenêtre séparée";
+"open_separate_window_to_monitor" = "Surveiller les journaux de connexion dans une fenêtre séparée";
+"time_interval" = "Intervalle de temps";
+"toggle_time_interval" = "Basculer l’intervalle de temps";
+"today" = "Aujourd’hui";
+"yesterday" = "Hier";
+"checking" = "Vérification...";
+"download" = "Télécharger";
+"will_take_effect_after_refreshing" = "Les modifications ne prendront effet qu’après un rafraîchissement manuel";
+"open_linkedin_profile" = "Ouvrir le profil LinkedIn";
+"linkedin_profile" = "Profil LinkedIn : %@";
+"copy_profile_url" = "Copier l’URL du profil";

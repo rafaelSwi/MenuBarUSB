@@ -36,6 +36,7 @@ struct LegacySettingsView: View {
     @State private var showHeritageOptions = false
     @State private var showOthersOptions = false
     @State private var showDonateOptions = false
+    @State private var showStorageOptions = false
 
     @AS(Key.launchAtLogin) private var launchAtLogin = false
     @AS(Key.convertHexa) private var convertHexa = false
@@ -100,6 +101,27 @@ struct LegacySettingsView: View {
             manageShowOptions(binding: toggle)
         }
     }
+    
+    private func openLinkedinProfile() {
+        if let url = URL(string: Utils.Miscellaneous.linkedinUrl) {
+            openURL(url)
+        }
+    }
+    
+    private var updateButtonLabel: String {
+        
+        if updateAvailable {
+            return "\("download".localized) (v\(latestVersion))";
+        }
+        
+        if checkingUpdate {
+            return "looking_for_updates"
+        } else if latestVersion.isEmpty {
+            return "check_for_updates"
+        } else {
+            return "updated"
+        }
+    }
 
     private func setWindowWidth(increase: Bool) {
         let order: [WindowWidth] = [.tiny, .normal, .big, .veryBig, .huge]
@@ -114,15 +136,15 @@ struct LegacySettingsView: View {
     private var windowWidthLabel: String {
         switch windowWidth {
         case .tiny:
-            return "window_size_tiny".localized
+            return "window_size_tiny"
         case .normal:
-            return "window_size_normal".localized
+            return "window_size_normal"
         case .big:
-            return "window_size_big".localized
+            return "window_size_big"
         case .veryBig:
-            return "window_size_verybig".localized
+            return "window_size_verybig"
         case .huge:
-            return "window_size_huge".localized
+            return "window_size_huge"
         }
     }
 
@@ -132,6 +154,7 @@ struct LegacySettingsView: View {
         showInfoOptions = false
         showOthersOptions = false
         showContextMenuOptions = false
+        showStorageOptions = false
         showHeritageOptions = false
         showDonateOptions = false
     }
@@ -157,12 +180,18 @@ struct LegacySettingsView: View {
         }
     }
 
-    private func checkForUpdate() {
+    private func updateButtonAction() {
+        
+        if updateAvailable, let releaseURL {
+            openURL(releaseURL)
+            return
+        }
+        
         checkingUpdate = true
         updateAvailable = false
         latestVersion = ""
         releaseURL = nil
-
+        
         guard
             let url = URL(
                 string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest")
@@ -170,19 +199,18 @@ struct LegacySettingsView: View {
             checkingUpdate = false
             return
         }
-
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
             defer { checkingUpdate = false }
             guard let data = data, error == nil else { return }
-
+            
             if let release = try? JSONDecoder().decode(GitHubRelease.self, from: data) {
                 let latest = release.tag_name.replacingOccurrences(of: "v", with: "")
                 latestVersion = latest
                 releaseURL = URL(string: release.html_url)
-
+                
                 DispatchQueue.main.async {
                     updateAvailable = Utils.App.isVersion(Utils.App.appVersion, olderThan: latest)
-                    Utils.System.playSound(updateAvailable ? "Submarine" : "Glass")
                 }
             }
         }.resume()
@@ -234,44 +262,26 @@ struct LegacySettingsView: View {
                     if !updateAvailable {
                         HStack {
                             if !hideUpdate {
-                                Button {
-                                    checkForUpdate()
-                                } label: {
-                                    if checkingUpdate {
-                                        Text("looking_for_updates")
-                                    } else {
-                                        Text(!latestVersion.isEmpty ? "updated" : "check_for_updates")
-                                    }
+                                Button(updateButtonLabel.localized) {
+                                    updateButtonAction()
                                 }
-                                .buttonStyle(.bordered)
+                                .foregroundStyle(updateAvailable ? AssetColors.update : .primary)
                                 .contextMenu {
-                                    Button {
-                                        checkForUpdate()
-                                    } label: {
-                                        Label("check_for_updates", systemImage: "magnifyingglass")
-                                    }
-                                    Button {
-                                        if let url = URL(
-                                            string: "https://github.com/rafaelSwi/MenuBarUSB")
-                                        {
-                                            openURL(url)
-                                        }
-                                    } label: {
-                                        Label("open_github_page", systemImage: "globe")
-                                    }
-                                    Divider()
                                     Button {
                                         hideUpdate = true
                                     } label: {
-                                        Label("hide", systemImage: "eye.slash")
+                                        Label("hide_button", systemImage: "eye.slash")
                                     }
                                 }
                             }
-
-                            if !hideDonate {
+                            
+                            if !hideDonate && !hideUpdate {
                                 Text("|")
                                     .padding(.horizontal, 5)
                                     .opacity(0.3)
+                            }
+
+                            if !hideDonate {
 
                                 Button {
                                     if showDonateOptions {
@@ -287,7 +297,7 @@ struct LegacySettingsView: View {
                                     Button {
                                         hideDonate = true
                                     } label: {
-                                        Text("hide")
+                                        Label("hide_button", systemImage: "eye.slash")
                                     }
                                 }
                             }
@@ -304,6 +314,7 @@ struct LegacySettingsView: View {
                     categoryButton(toggle: $showContextMenuOptions, label: "rmb")
                     categoryButton(toggle: $showHeritageOptions, label: "heritage_category")
                     categoryButton(toggle: $showOthersOptions, label: "others_category")
+                    categoryButton(toggle: $showStorageOptions, label: "storage_category")
                 }
 
                 VStack(alignment: .leading, spacing: 6) {
@@ -480,7 +491,7 @@ struct LegacySettingsView: View {
                             }
                             .disabled(windowWidth == .veryBig)
 
-                            Text(windowWidthLabel)
+                            Text(windowWidthLabel.localized)
                                 .font(.footnote)
                         }
                         .padding(.top, 7)
@@ -680,86 +691,77 @@ struct LegacySettingsView: View {
                             onToggle: { _ in }
                         )
                         
-                        HStack {
-                            Button("delete_device_history") {
-                                tryingToDeleteDeviceHistory = true
-                            }
-                            .help("(\(CSM.Stored.devices.count))")
-
-                            if tryingToDeleteDeviceHistory {
-                                Button("cancel") {
-                                    tryingToDeleteDeviceHistory = false
-                                }
-                                Button("confirm") {
-                                    CSM.Stored.clear()
-                                    tryingToDeleteDeviceHistory = false
-                                }
-                                .buttonStyle(.borderedProminent)
-                            }
+                    }
+                    
+                    if showStorageOptions {
+                        
+                        Text("will_take_effect_after_refreshing")
+                            .font(.title2)
+                            .italic()
+                            .padding(.vertical)
+                            .opacity(0.8)
+                        
+                        StorageButton(labelKey: "clear_all_pins", icon: "pin", count: CSM.Pin.count) {
+                            CSM.Pin.clear()
                         }
                         
+                        StorageButton(labelKey: "clear_all_renamed", icon: "pencil.and.scribble", count: CSM.Renamed.count) {
+                            CSM.Renamed.clear()
+                        }
+                        
+                        StorageButton(labelKey: "clear_all_hidden", icon: "eye", count: CSM.Camouflaged.count) {
+                            CSM.Camouflaged.clear()
+                        }
+                        
+                        StorageButton(labelKey: "clear_all_inheritances", icon: "app.connected.to.app.below.fill", count: CSM.Heritage.count) {
+                            CSM.Heritage.clear()
+                        }
+                        
+                        StorageButton(labelKey: "undo_all_devices_sound_associations", icon: "speaker.wave.3", count: CSM.SoundDevices.count) {
+                            CSM.SoundDevices.clear()
+                        }
+                        
+                        StorageButton(labelKey: "clear_all_custom_hardware_sounds", icon: "document", count: CSM.Sound.count) {
+                            CSM.Sound.clear()
+                        }
+                        
+                        StorageButton(labelKey: "delete_device_history", icon: "arrow.clockwise", count: CSM.Stored.count) {
+                            CSM.Stored.clear()
+                        }
+                        
+                        StorageButton(labelKey: "clear_all_connection_logs", icon: "text.document", count: CSM.ConnectionLog.count) {
+                            CSM.ConnectionLog.clear()
+                        }
+                        
+                        Spacer()
+                            .frame(height: 8)
+                        
                         HStack {
-                            Button("clear_all_connection_logs") {
-                                CSM.ConnectionLog.clear()
+                            
+                            Button("restore_default_settings") {
+                                tryingToResetSettings = true
                             }
-                            Text("single_click")
-                                .font(.footnote)
-                                .opacity(0.5)
-                        }
-
-                        HStack {
-                            Button("clear_all_renamed") {
-                                CSM.Renamed.clear()
-                            }
-                            Text("single_click")
-                                .font(.footnote)
-                                .opacity(0.5)
-                        }
-
-                        HStack {
-                            Button("clear_all_hidden") {
-                                CSM.Camouflaged.clear()
-                            }
-                            .help("make_all_visible_again")
-                            Text("single_click")
-                                .font(.footnote)
-                                .opacity(0.5)
-                        }
-
-                        HStack {
-                            Button("clear_all_pins") {
-                                CSM.Pin.clear()
-                            }
-                            Text("single_click")
-                                .font(.footnote)
-                                .opacity(0.5)
-                        }
-
-                        Button {
-                            tryingToResetSettings = true
-                        } label: {
-                            HStack {
-                                Text("restore_default_settings")
-                            }
-                        }
-                        .disabled(tryingToResetSettings)
-
-                        if tryingToResetSettings {
-                            HStack(spacing: 12) {
-                                Text("are_you_sure")
-                                Button("no") {
-                                    tryingToResetSettings = false
-                                }
-                                Button("yes_confirm") {
-                                    Utils.App.deleteStorageData()
-                                    tryingToResetSettings = false
-                                    showOthersOptions = false
-                                    Utils.System.playSound("Bottle")
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                        Utils.App.restart()
+                            .disabled(tryingToResetSettings)
+                            
+                            if tryingToResetSettings {
+                                HStack(spacing: 12) {
+                                    Text("are_you_sure")
+                                        .bold()
+                                        .foregroundStyle(.red)
+                                    Button("no") {
+                                        tryingToResetSettings = false
                                     }
+                                    Button("yes_confirm") {
+                                        Utils.App.deleteStorageData()
+                                        tryingToResetSettings = false
+                                        showOthersOptions = false
+                                        Utils.System.playSound("Bottle")
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                            Utils.App.restart()
+                                        }
+                                    }
+                                    .buttonStyle(.borderedProminent)
                                 }
-                                .buttonStyle(.borderedProminent)
                             }
                         }
                     }
@@ -767,8 +769,8 @@ struct LegacySettingsView: View {
                     if showDonateOptions {
                         let currentAddress = isBitcoin ? Utils.Miscellaneous.btcAddress : Utils.Miscellaneous.ltcAddress
                         let currentSymbol = isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
-                        let currentColor: Color = isBitcoin ? .orange : Color("LTC")
-                        let email = "contatorafaelswi@gmail.com"
+                        let currentColor: Color = isBitcoin ? .orange : AssetColors.ltcCoin
+                        let email = Utils.Miscellaneous.contactEmail
 
                         HStack(spacing: 20) {
                             Utils.Miscellaneous.QRCodeView(text: currentAddress)
@@ -814,6 +816,17 @@ struct LegacySettingsView: View {
                                             }
                                         }
                                 }
+                                
+                                Text(String(format: NSLocalizedString("linkedin_profile", comment: "LINKEDIN"), Utils.Miscellaneous.linkedinProfile))
+                                    .font(.subheadline)
+                                    .contextMenu {
+                                        Button("copy_profile_url") {
+                                            Utils.System.copyToClipboard(Utils.Miscellaneous.linkedinUrl)
+                                        }
+                                        Button("open_linkedin_profile") {
+                                            openLinkedinProfile()
+                                        }
+                                    }
 
                                 Button(action: { isBitcoin.toggle() }) {
                                     Text(isBitcoin ? "show_ltc_address" : "show_btc_address")

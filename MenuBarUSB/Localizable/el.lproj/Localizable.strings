@@ -324,3 +324,14 @@
 "connection_logs" = "Αρχεία σύνδεσης";
 "file" = "Αρχείο";
 "open_in_separate_window" = "Άνοιγμα σε ξεχωριστό παράθυρο";
+"open_separate_window_to_monitor" = "Παρακολούθηση αρχείων σύνδεσης σε ξεχωριστό παράθυρο";
+"time_interval" = "Χρονικό διάστημα";
+"toggle_time_interval" = "Εναλλαγή χρονικού διαστήματος";
+"today" = "Σήμερα";
+"yesterday" = "Χθες";
+"checking" = "Έλεγχος...";
+"download" = "Λήψη";
+"will_take_effect_after_refreshing" = "Οι αλλαγές θα ισχύσουν μόνο μετά από χειροκίνητη ανανέωση";
+"open_linkedin_profile" = "Άνοιγμα προφίλ LinkedIn";
+"linkedin_profile" = "Προφίλ LinkedIn: %@";
+"copy_profile_url" = "Αντιγραφή URL προφίλ";
