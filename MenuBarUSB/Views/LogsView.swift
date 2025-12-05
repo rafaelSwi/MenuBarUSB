@@ -127,37 +127,130 @@ struct LogsView: View {
     }
     
     private func exportAllLogsToJSON() {
+
         struct ExportLog: Codable {
             let name: String
             let time: String
             let connect: Bool
+            let disposableId: String
+        }
+
+        struct ExportDevice: Codable {
+            let disposableId: String
+            let name: String
+            let vendor: String?
+            let vendorId: Int
+            let productId: Int
+            let serialNumber: String?
+            let locationId: UInt32?
+            let speedMbps: Int?
+            let portMaxSpeedMbps: Int?
+            let usbVersionBCD: Int?
         }
         
-        let transformed: [ExportLog] = CSM.ConnectionLog.items.map { log in
+        struct Metadata: Codable {
+            let exportedAt: String
+            let machineModel: String
+            let osVersion: String
+            let appVersion: String
+        }
+
+        struct ExportData: Codable {
+            let metadata: Metadata
+            let devices: [ExportDevice]
+            let logs: [ExportLog]
+        }
+
+        var idMap: [String: String] = [:]
+
+        for log in CSM.ConnectionLog.items {
+            if idMap[log.deviceId] == nil {
+                idMap[log.deviceId] = UUID().uuidString
+            }
+        }
+
+        let logsTransformed: [ExportLog] = CSM.ConnectionLog.items.map { log in
             ExportLog(
                 name: deviceName(log.deviceId) ?? "UNKNOWN_DEVICE",
                 time: formatDateSimple(log.time),
-                connect: !log.disconnect
+                connect: !log.disconnect,
+                disposableId: idMap[log.deviceId] ?? "UNKNOWN"
             )
         }
+
+        let devicesTransformed: [ExportDevice] = manager.devices.map { wrapper in
+
+            let devIdKey: String = {
+                if let loc = wrapper.item.locationId {
+                    if idMap[String(loc)] != nil { return String(loc) }
+                }
+                if idMap[wrapper.item.id.uuidString] != nil {
+                    return wrapper.item.id.uuidString
+                }
+                if idMap[wrapper.item.uniqueId] != nil {
+                    return wrapper.item.uniqueId
+                }
+                return UUID().uuidString
+            }()
+
+            let disposableId = idMap[devIdKey] ?? UUID().uuidString
+
+            return ExportDevice(
+                disposableId: disposableId,
+                name: wrapper.item.name,
+                vendor: wrapper.item.vendor,
+                vendorId: wrapper.item.vendorId,
+                productId: wrapper.item.productId,
+                serialNumber: wrapper.item.serialNumber,
+                locationId: wrapper.item.locationId,
+                speedMbps: wrapper.item.speedMbps,
+                portMaxSpeedMbps: wrapper.item.portMaxSpeedMbps,
+                usbVersionBCD: wrapper.item.usbVersionBCD
+            )
+        }
+
+        let exportedAt = formatDateSimple(Date())
+        let v = ProcessInfo.processInfo.operatingSystemVersion
+        let appVersion = Utils.App.appVersion
         
+        let osVersion = "\(v.majorVersion).\(v.minorVersion).\(v.patchVersion)"
+
+        let machineModel: String = {
+            var size = 0
+            sysctlbyname("hw.model", nil, &size, nil, 0)
+            var model = [CChar](repeating: 0, count: size)
+            sysctlbyname("hw.model", &model, &size, nil, 0)
+            return String(cString: model)
+        }()
+
+        
+        let metadata = Metadata(exportedAt: exportedAt, machineModel: machineModel, osVersion: osVersion, appVersion: appVersion)
+        let exportObject = ExportData(
+            metadata: metadata,
+            devices: devicesTransformed,
+            logs: logsTransformed
+        )
+
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        encoder.dateEncodingStrategy = .iso8601
-        
+
         do {
-            let data = try encoder.encode(transformed)
+            let data = try encoder.encode(exportObject)
+
             let panel = NSSavePanel()
             panel.title = "export_connection_logs".localized
             panel.message = "choose_where_to_save_exported_json".localized
             panel.allowedContentTypes = [.json]
             panel.nameFieldStringValue = "file".localized.lowercased() + ".json"
+
             panel.begin { response in
                 if response == .OK, let url = panel.url {
                     try? data.write(to: url, options: .atomic)
                 }
             }
-        } catch { }
+        } catch {
+            print("Failed to export logs: \(error)")
+        }
     }
     
     var body: some View {
