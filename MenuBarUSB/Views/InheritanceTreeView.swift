@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct InheritanceTreeView: View {
+    
     @EnvironmentObject var manager: USBDeviceManager
+    @Environment(\.dismiss) private var dismiss
+    
     @Binding var currentWindow: AppWindow
 
     @State private var refreshID = UUID()
     @State var hoveringInfo: Bool = false
 
     @AS(Key.storeDevices) private var storeDevices = false
+    
+    let window: Bool
 
     private func refresh() {
         manager.refresh()
@@ -71,10 +76,14 @@ struct InheritanceTreeView: View {
                 } label: {
                     Label("refresh", systemImage: "arrow.clockwise")
                 }
-                Button {
-                    currentWindow = .settings
-                } label: {
-                    Label("back", systemImage: "arrow.uturn.backward")
+                if window {
+                    Button("close") { dismiss() }
+                } else {
+                    Button {
+                        currentWindow = .settings
+                    } label: {
+                        Label("back", systemImage: "arrow.uturn.backward")
+                    }
                 }
             }
             .animation(.bouncy, value: hoveringInfo)

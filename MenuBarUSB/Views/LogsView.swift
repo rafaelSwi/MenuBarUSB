@@ -13,7 +13,7 @@ struct LogsView: View {
     @EnvironmentObject var manager: USBDeviceManager
     @Binding var currentWindow: AppWindow
     
-    let separateWindow: Bool
+    let window: Bool
     
     @AS(Key.storeConnectionLogs) private var storeConnectionLogs = false
     
@@ -288,7 +288,7 @@ struct LogsView: View {
                 .foregroundStyle(showTimeDifferences ? .green : .secondary)
                 .help("toggle_time_interval")
                 
-                if separateWindow {
+                if window {
                     Button {
                         blacklistedIds.removeAll()
                         paintedLogs.removeAll()

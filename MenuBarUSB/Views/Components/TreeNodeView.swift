@@ -15,16 +15,8 @@ struct TreeNodeView: View {
     let onRefresh: () -> Void
 
     @State var hoveringTrash: Bool = false
-
-    private var deviceName: String? {
-        let device: USBDeviceWrapper? = manager.devices.first(where: { $0.item.uniqueId == deviceId })
-        if device == nil {
-            let stored: StoredDevice? = CSM.Stored[deviceId]
-            return stored?.name
-        } else {
-            return device?.item.name
-        }
-    }
+    
+    @State private var storedNames: Dictionary<String, String> = [:]
 
     private var isConnected: Bool {
         let device = manager.devices.first(where: { $0.item.uniqueId == deviceId })
@@ -33,6 +25,24 @@ struct TreeNodeView: View {
 
     private var showXmark: Bool {
         return xmarked || hoveringTrash
+    }
+    
+    private var deviceName: String? {
+        let id = deviceId
+        let dictName = storedNames[id]
+        if id == "power" { return "power_supply".localized }
+        if dictName != nil { return dictName }
+        let renamedName = CSM.Renamed[id]?.name
+        if renamedName != nil { return renamedName }
+        let storedName = CSM.Stored[id]?.name
+        if storedName != nil { return storedName }
+        let name = manager.devices.first(where: { $0.item.uniqueId == id })?.item.name
+        if name != nil {
+            DispatchQueue.main.async {
+                storedNames[id] = name
+            }
+        }
+        return name
     }
 
     var body: some View {

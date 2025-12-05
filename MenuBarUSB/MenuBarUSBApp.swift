@@ -13,7 +13,7 @@ struct MenuBarUSBApp: App {
     @StateObject private var manager = USBDeviceManager()
     @State private var currentWindow: AppWindow = .devices
     @State private var convertedCount: String = ""
-
+    
     @AS(Key.reduceTransparency) private var isReduceTransparencyOn = false
     @AS(Key.forceDarkMode) private var forceDarkMode = false
     @AS(Key.forceLightMode) private var forceLightMode = false
@@ -25,33 +25,30 @@ struct MenuBarUSBApp: App {
     @AS(Key.forceEnglish) private var forceEnglish = false
     @AS(Key.newVersionNotification) private var newVersionNotification = false
     @AS(Key.internetMonitoring) private var internetMonitoring = false
-
+    
     init() {
         if newVersionNotification {
             Task {
                 if await Utils.App.hasUpdate() {
-                    Utils.System.sendNotification(
-                        title: String(localized: "update_notification_title"),
-                        body: String(localized: "update_notification_body")
-                    )
+                    Utils.TemplateNotification.updateAvailable()
                 }
             }
         }
     }
-
+    
     private var countText: some View {
         func updateCount() {
             convertedCount = NumberConverter(manager.count).converted
         }
-
+        
         return Text(convertedCount)
             .onAppear(perform: updateCount)
             .onChange(of: manager.count) { _ in updateCount() }
     }
-
-    private var menuLabel: some View {
-        if #available(macOS 15.0, *) {
-            return HStack(spacing: 5) {
+    
+    private var modernMenuLabel: AnyView {
+        return AnyView (
+            HStack(spacing: 5) {
                 let image = HStack(spacing: 7) {
                     if manager.trafficMonitorRunning == false && internetMonitoring {
                         Image(systemName: "pause.fill")
@@ -59,50 +56,42 @@ struct MenuBarUSBApp: App {
                     Image(manager.ethernetTraffic ? "ETHERNET_DOT" : "ETHERNET")
                     Image(systemName: macBarIcon)
                 }
-                .asImage()
-
+                    .asImage()
+                
                 var ethernetCableConnectedAndShowEthernet: Bool {
                     return showEthernet && manager.ethernetCableConnected
                 }
-
+                
                 if !hideMenubarIcon {
                     if ethernetCableConnectedAndShowEthernet { Image(nsImage: image) }
                     Image(systemName: macBarIcon)
                 }
                 if !hideCount { countText }
             }
-        } else {
-            return HStack(spacing: 5) {
+        )
+    }
+    
+    private var legacyMenuLabel: AnyView {
+        return AnyView(HStack(spacing: 5) {
+            if !hideMenubarIcon {
                 Image(systemName: macBarIcon)
+            }
+            if !hideCount {
                 countText
             }
         }
+        )
     }
-
-    var body: some Scene {
-        MenuBarExtra {
-            mainContent
-        } label: {
-            HStack {
-                menuLabel
-            }
+    
+    private var menuLabel: some View {
+        if #available(macOS 15.0, *) {
+            modernMenuLabel
+        } else {
+            legacyMenuLabel
         }
-        .menuBarExtraStyle(.window)
-
-        Window("settings", id: "legacy_settings") {
-            LegacySettingsView()
-                .colorSchemeForce(light: false, dark: true)
-        }
-        .windowStyle(.hiddenTitleBar)
-        
-        Window("connection_logs", id: "connection_logs") {
-            LogsView(currentWindow: $currentWindow, separateWindow: true)
-                .colorSchemeForce(light: false, dark: true)
-                .environmentObject(manager)
-        }
-        .windowStyle(.hiddenTitleBar)
     }
-
+    
+    // Default menubar view
     private func view<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
         content()
             .appBackground(isReduceTransparencyOn)
@@ -110,7 +99,37 @@ struct MenuBarUSBApp: App {
             .environmentObject(manager)
             .environment(\.locale, forceEnglish ? Locale(identifier: "en") : Locale.current)
     }
-
+    
+    // Auxiliary function for views in separate windows
+    @SceneBuilder
+    private func appWindow<Content: View>(
+        _ title: String,
+        id: String,
+        @ViewBuilder content: () -> Content
+    ) -> some Scene {
+        Window(title, id: id) {
+            content()
+                .colorSchemeForce(light: false, dark: true)
+                .environmentObject(manager)
+        }
+    }
+    
+    // Auxiliary function for views in separate windows
+    @SceneBuilder
+    private var windowScenes: some Scene {
+        appWindow("settings", id: "legacy_settings") {
+            LegacySettingsView()
+        }
+        
+        appWindow("connection_logs", id: "connection_logs") {
+            LogsView(currentWindow: $currentWindow, window: true)
+        }
+        
+        appWindow("inheritance_tree", id: "inheritance_tree") {
+            InheritanceTreeView(currentWindow: $currentWindow, window: true)
+        }
+    }
+    
     @ViewBuilder
     private var mainContent: some View {
         switch currentWindow {
@@ -123,9 +142,21 @@ struct MenuBarUSBApp: App {
         case .heritage:
             view { HeritageView(currentWindow: $currentWindow) }
         case .inheritanceTree:
-            view { InheritanceTreeView(currentWindow: $currentWindow) }
+            view { InheritanceTreeView(currentWindow: $currentWindow, window: false) }
         case .logs:
-            view { LogsView(currentWindow: $currentWindow, separateWindow: false) }
+            view { LogsView(currentWindow: $currentWindow, window: false) }
         }
+    }
+    
+    var body: some Scene {
+        MenuBarExtra {
+            mainContent
+        } label: {
+            menuLabel
+        }
+        .menuBarExtraStyle(.window)
+        
+        windowScenes
+            .windowStyle(.hiddenTitleBar)
     }
 }

@@ -101,8 +101,8 @@ final class Utils {
         static func sendNotification(title: String, body: String) {
             DispatchQueue.global(qos: .utility).async {
                 let content = UNMutableNotificationContent()
-                content.title = title
-                content.body = body
+                content.title = title.localized
+                content.body = body.localized
                 content.sound = .default
                 content.interruptionLevel = .timeSensitive
 
@@ -116,6 +116,53 @@ final class Utils {
                 }
             }
         }
+    }
+    
+    final class TemplateNotification {
+        
+        static func updateAvailable() {
+            Utils.System.sendNotification(
+                title: "update_notification_title",
+                body: "update_notification_body"
+            )
+        }
+        
+        static func deviceConnection(devices: String, connected: Bool) {
+            if connected {
+                Utils.System.sendNotification(
+                    title: "usb_detected",
+                    body: devices.isEmpty
+                    ? "usb_detected_info"
+                    : String(format: "device_connected".localized, devices)
+                )
+            } else {
+                Utils.System.sendNotification(
+                    title: "usb_disconnected",
+                    body: devices.isEmpty
+                        ? "usb_disconnected_info"
+                        : String(format: "device_disconnected".localized, devices)
+                )
+            }
+        }
+        
+        static func charger(_ chargePercentage: Int?, charging: Bool) {
+            var battery = "\("battery".localized): \(chargePercentage ?? 0)%"
+            if chargePercentage == nil {
+                battery = charging ? "charger_connected_body" : "charger_disconnected_body"
+            }
+            if charging {
+                Utils.System.sendNotification(
+                    title: "charger_connected",
+                    body: battery
+                )
+            } else {
+                Utils.System.sendNotification(
+                    title: "charger_disconnected",
+                    body: "\("battery".localized): \(chargePercentage ?? 0)%"
+                )
+            }
+        }
+        
     }
 
     final class App {
@@ -322,6 +369,27 @@ final class Utils {
                         Color.gray
                     }
                 }
+            }
+        }
+        
+        static func sizeOfCodableArray<T: Codable>(_ value: T) -> Int {
+            let encoder = PropertyListEncoder()
+            encoder.outputFormat = .binary
+            return (try? encoder.encode(value))?.count ?? 0
+        }
+
+        static func formatBytes(_ bytes: Int) -> String {
+            if bytes < 1024 {
+                return "\(bytes)b"
+            } else if bytes < 1024 * 1024 {
+                let kb = Double(bytes) / 1024.0
+                return String(format: "%.1fkb", kb)
+            } else if bytes < 1024 * 1024 * 1024 {
+                let mb = Double(bytes) / 1024.0 / 1024.0
+                return String(format: "%.1fmb", mb)
+            } else {
+                let gb = Double(bytes) / 1024.0 / 1024.0 / 1024.0
+                return String(format: "%.1fgb", gb)
             }
         }
     }

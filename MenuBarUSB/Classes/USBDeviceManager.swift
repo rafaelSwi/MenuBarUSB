@@ -72,7 +72,7 @@ final class USBDeviceManager: ObservableObject {
         }
     }
 
-    private func canSendNotification() -> Bool {
+    private var canSendNotification: Bool {
         if disableNotifCooldown {
             return true
         }
@@ -256,22 +256,8 @@ final class USBDeviceManager: ObservableObject {
         }
 
         if chargeConnected != charging, showNotifications {
-            if canSendNotification() {
-                var battery = "\("battery".localized): \(chargePercentage ?? 0)%"
-                if chargePercentage == nil {
-                    battery = charging ? "charger_connected_body".localized : "charger_disconnected_body".localized
-                }
-                if charging {
-                    Utils.System.sendNotification(
-                        title: "charger_connected".localized,
-                        body: battery
-                    )
-                } else {
-                    Utils.System.sendNotification(
-                        title: "charger_disconnected".localized,
-                        body: "\("battery".localized): \(chargePercentage ?? 0)%"
-                    )
-                }
+            if canSendNotification {
+                Utils.TemplateNotification.charger(chargePercentage, charging: charging)
             }
         }
 
@@ -521,7 +507,7 @@ final class USBDeviceManager: ObservableObject {
                     }
                 }
 
-                if mySelf.showNotifications, mySelf.canSendNotification() {
+                if mySelf.showNotifications, mySelf.canSendNotification {
                     let names = addedDevices.compactMap { dev -> String? in
                         let vendor = dev.item.vendor ?? ""
                         let name = dev.item.name
@@ -530,13 +516,8 @@ final class USBDeviceManager: ObservableObject {
                     }
 
                     let deviceList = names.joined(separator: ", ")
-
-                    Utils.System.sendNotification(
-                        title: "usb_detected".localized,
-                        body: deviceList.isEmpty
-                            ? "usb_detected_info".localized
-                            : String(format: "device_connected".localized, deviceList)
-                    )
+                    
+                    Utils.TemplateNotification.deviceConnection(devices: deviceList, connected: true)
                 }
             }
         }
@@ -581,17 +562,12 @@ final class USBDeviceManager: ObservableObject {
                     }
                 }
 
-                if mySelf.showNotifications, mySelf.canSendNotification() {
+                if mySelf.showNotifications, mySelf.canSendNotification {
                     let deviceList = removedDevices.map {
                         "\($0.item.vendor ?? "") \($0.item.name)"
                     }.joined(separator: ", ")
 
-                    Utils.System.sendNotification(
-                        title: "usb_disconnected".localized,
-                        body: deviceList.isEmpty
-                            ? "usb_disconnected_info".localized
-                            : String(format: "device_disconnected".localized, deviceList)
-                    )
+                    Utils.TemplateNotification.deviceConnection(devices: deviceList, connected: false)
                 }
             }
         }

@@ -1013,6 +1013,11 @@ struct SettingsView: View {
                     Button("view_inheritance_tree") {
                         currentWindow = .inheritanceTree
                     }
+                    .contextMenu {
+                        Button("open_in_separate_window") {
+                            openWindow(id: "inheritance_tree")
+                        }
+                    }
                 }
                 
                 if category == .others {
@@ -1105,42 +1110,42 @@ struct SettingsView: View {
                 }
                 
                 if category == .storage {
-                    StorageButton(labelKey: "clear_all_pins", icon: "pin", count: CSM.Pin.count) {
+                    StorageButton(type: .pinned) {
                         CSM.Pin.clear()
                         manager.refresh()
                     }
                     
-                    StorageButton(labelKey: "clear_all_renamed", icon: "pencil.and.scribble", count: CSM.Renamed.count) {
+                    StorageButton(type: .renamed) {
                         CSM.Renamed.clear()
                         manager.refresh()
                     }
                     
-                    StorageButton(labelKey: "clear_all_hidden", icon: "eye", count: CSM.Camouflaged.count) {
+                    StorageButton(type: .camouflaged) {
                         CSM.Camouflaged.clear()
                         manager.refresh()
                     }
                     
-                    StorageButton(labelKey: "clear_all_inheritances", icon: "app.connected.to.app.below.fill", count: CSM.Heritage.count) {
+                    StorageButton(type: .heritage) {
                         CSM.Heritage.clear()
                         manager.refresh()
                     }
                     
-                    StorageButton(labelKey: "undo_all_devices_sound_associations", icon: "speaker.wave.3", count: CSM.SoundDevices.count) {
+                    StorageButton(type: .soundAssociation) {
                         CSM.SoundDevices.clear()
                         manager.refresh()
                     }
                     
-                    StorageButton(labelKey: "clear_all_custom_hardware_sounds", icon: "document", count: CSM.Sound.count) {
+                    StorageButton(type: .sound) {
                         CSM.Sound.clear()
                         manager.refresh()
                     }
                     
-                    StorageButton(labelKey: "delete_device_history", icon: "arrow.clockwise", count: CSM.Stored.count) {
+                    StorageButton(type: .stored) {
                         CSM.Stored.clear()
                         manager.refresh()
                     }
                     
-                    StorageButton(labelKey: "clear_all_connection_logs", icon: "text.document", count: CSM.ConnectionLog.count) {
+                    StorageButton(type: .log) {
                         CSM.ConnectionLog.clear()
                         manager.refresh()
                     }

@@ -208,8 +208,8 @@
 "status" = "Status:";
 "exit_settings_and_resume" = "Sair dos ajustes e retomar monitoramento de rede";
 "make_all_visible_again" = "Tornar todos visíveis novamente";
-"show_previously_connected" = "Salvar e exibir todos os dispositivos conectados previamente";
-"show_previously_connected_description" = "Normalmente, a lista exibe apenas dispositivos conectados. No entanto, esta opção é útil se você quiser que a lista continue exibindo dispositivos mesmo após desconectados.";
+"show_previously_connected" = "Salvar e exibir os dispositivos previamente conectados";
+"show_previously_connected_description" = "Normalmente, a lista exibe apenas dispositivos conectados. Esta opção é útil se você quiser que a lista continue exibindo dispositivos mesmo após desconectados.";
 "stored_indicator" = "Indicador para dispositivos previamente conectados";
 "stored_indicator_description" = "Dispositivos que foram desconectados terão um pequeno ícone ao lado do seu nome.";
 "disconnected" = "Desconectado";
@@ -294,7 +294,7 @@
 "restart_to_apply" = "Para aplicar, é necessário reiniciar o MenuBarUSB";
 "looking_for_updates" = "Coletando informações...";
 "clear_all_renamed" = "Restaurar o nome dos dispositivos renomeados";
-"clear_all_hidden" = "Tornar todos os dispositivos ocultos visíveis novamente";
+"clear_all_hidden" = "Tornar visível todos os dispositivos ocultos";
 "rmb" = "RMB";
 "rmb_explanation" = "RMB — Right Mouse Button (Clique direito)";
 "single_click" = "(Clique único)";

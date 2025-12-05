@@ -296,7 +296,7 @@ final class CodableStorageManager {
         static func add(withId deviceId: String?, disconnect: Bool) {
             if deviceId == nil { return }
             items.append(DeviceConnectionLog(deviceId: deviceId!, time: Date.now, disconnect: disconnect))
-            let limit: Int = 500
+            let limit: Int = 700
             if count >= limit {
                 keepOnly(last: limit)
             }
