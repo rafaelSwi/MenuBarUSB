@@ -118,7 +118,9 @@ extension USBDeviceManager {
 
                     if deltaIn > 0 || deltaOut > 0 {
                         trafficDetected = true
-                        self.lastTrafficDetected = Date()
+                        DispatchQueue.main.async {
+                            self.lastTrafficDetected = Date()
+                        }
                     }
                 }
                 guard let next = ptr.pointee.ifa_next else { break }
@@ -128,7 +130,9 @@ extension USBDeviceManager {
             if !trafficDetected, Date().timeIntervalSince(self.lastTrafficDetected) > self.trafficCooldown {
                 trafficDetected = false
             } else if trafficDetected {
-                self.lastTrafficDetected = Date()
+                DispatchQueue.main.async {
+                    self.lastTrafficDetected = Date()
+                }
             }
 
             DispatchQueue.main.async {

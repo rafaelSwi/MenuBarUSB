@@ -17,6 +17,7 @@ struct SettingsView: View {
     
     @Binding var currentWindow: AppWindow
     
+    @State private var showExperimentalEthernet: Bool = false
     @State private var showMessage: Bool = false
     @State private var disableButtonsRelatedToSound: Bool = false
     @State private var creatingNewAudioSet: Bool = false
@@ -929,56 +930,75 @@ struct SettingsView: View {
                             }
                         }
                     )
-                    ToggleRow(
-                        label: "internet_monitoring_icon",
-                        description: "internet_monitoring_icon_description",
-                        binding: $internetMonitoring,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        disabled: hideMenubarIcon || !showEthernet,
-                        onToggle: { value in
-                            if value == true {
-                                if manager.ethernetCableConnected {
-                                    manager.startEthernetMonitoring()
-                                    currentWindow = .devices
+                    
+                    HStack {
+                        
+                        Image(systemName: showExperimentalEthernet ? "chevron.down" : "chevron.right")
+                            .frame(width: 22)
+                        
+                        Text("experimental_features")
+                            .font(.title3)
+                            .padding(.top, 12)
+                            .padding(.bottom, 7)
+                        
+                    }
+                    .bold()
+                    .onTapGesture {
+                        showExperimentalEthernet.toggle()
+                    }
+                    
+                    if showExperimentalEthernet {
+                        ToggleRow(
+                            label: "internet_monitoring_icon",
+                            description: "internet_monitoring_icon_description",
+                            binding: $internetMonitoring,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            disabled: hideMenubarIcon || !showEthernet,
+                            onToggle: { value in
+                                if value == true {
+                                    if manager.ethernetCableConnected {
+                                        manager.startEthernetMonitoring()
+                                        currentWindow = .devices
+                                    }
+                                } else {
+                                    manager.stopEthernetMonitoring()
+                                    trafficButton = false
                                 }
-                            } else {
-                                manager.stopEthernetMonitoring()
-                                trafficButton = false
                             }
-                        }
-                    )
-                    ToggleRow(
-                        label: "stop_traffic_monitor_button",
-                        description: "stop_traffic_monitor_button_description",
-                        binding: $trafficButton,
-                        activeRowID: $activeRowID,
-                        incompatibilities: [profilerButton],
-                        disabled: !showEthernet || !internetMonitoring,
-                        onToggle: { value in
-                            if value == true {
-                                profilerButton = false
+                        )
+                        ToggleRow(
+                            label: "stop_traffic_monitor_button",
+                            description: "stop_traffic_monitor_button_description",
+                            binding: $trafficButton,
+                            activeRowID: $activeRowID,
+                            incompatibilities: [profilerButton],
+                            disabled: !showEthernet || !internetMonitoring,
+                            onToggle: { value in
+                                if value == true {
+                                    profilerButton = false
+                                }
                             }
-                        }
-                    )
-                    ToggleRow(
-                        label: "stop_traffic_monitor_button_disable_status",
-                        description: "stop_traffic_monitor_button_disable_status_description",
-                        binding: $disableTrafficButtonLabel,
-                        activeRowID: $activeRowID,
-                        incompatibilities: [profilerButton],
-                        disabled: !showEthernet || !internetMonitoring,
-                        onToggle: { _ in }
-                    )
-                    ToggleRow(
-                        label: "fast_traffic_monitor",
-                        description: "fast_traffic_monitor_description",
-                        binding: $fastMonitor,
-                        activeRowID: $activeRowID,
-                        incompatibilities: nil,
-                        disabled: !internetMonitoring,
-                        onToggle: { _ in }
-                    )
+                        )
+                        ToggleRow(
+                            label: "stop_traffic_monitor_button_disable_status",
+                            description: "stop_traffic_monitor_button_disable_status_description",
+                            binding: $disableTrafficButtonLabel,
+                            activeRowID: $activeRowID,
+                            incompatibilities: [profilerButton],
+                            disabled: !showEthernet || !internetMonitoring,
+                            onToggle: { _ in }
+                        )
+                        ToggleRow(
+                            label: "fast_traffic_monitor",
+                            description: "fast_traffic_monitor_description",
+                            binding: $fastMonitor,
+                            activeRowID: $activeRowID,
+                            incompatibilities: nil,
+                            disabled: !internetMonitoring,
+                            onToggle: { _ in }
+                        )
+                    }
                 }
                 
                 if category == .heritage {
