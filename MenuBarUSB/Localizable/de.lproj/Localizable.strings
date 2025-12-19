@@ -146,7 +146,7 @@
 "restart" = "Neustart";
 "mouse_hover_info" = "Beim Darüberfahren werden Informationen angezeigt";
 "mouse_hover_info_description" = "Wenn Sie den Mauszeiger kurz über den Namen eines Geräts bewegen, werden Informationen wie Hersteller, USB-Version und weitere angezeigt.";
-"restore_default_settings" = "Auf Standardeinstellungen zurücksetzen";
+"restore_default_settings" = "Alles zurücksetzen";
 "are_you_sure" = "Sind Sie sicher?";
 "no" = "Nein";
 "yes_confirm" = "Ja, bestätigen";
@@ -336,3 +336,4 @@
 "linkedin_profile" = "LinkedIn-Profil: %@";
 "copy_profile_url" = "Profil-URL kopieren";
 "experimental_features" = "Experimentelle Funktionen";
+"analysis_tool" = "Analysetool";

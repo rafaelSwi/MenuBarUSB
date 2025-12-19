@@ -112,10 +112,10 @@
 "hide_secondary_info" = "Ocultar información secundaria";
 "hide_secondary_info_description" = "La información en la esquina derecha (como el número de serie y el fabricante) no se mostrará.";
 "others_category" = "Otros";
-"hide_check_update" = "Ocultar botón de comprobar actualizaciones";
+"hide_check_update" = "Ocultar botón de buscar actualizaciones";
 "hide_check_update_description" = "Si ya tienes MenuBarUSB instalado vía brew, o simplemente no te gusta el botón, puedes ocultarlo.";
 "hide_donate" = "Ocultar botón de donación";
-"hide_donate_description" = "El desarrollador se pondría un poco triste, pero si quieres, puedes ocultar el botón de donación.";
+"hide_donate_description" = "Ocultar el botón de donación.";
 "no_text_buttons" = "Los botones principales no tienen texto, solo iconos";
 "no_text_buttons_description" = "Los botones de salir, actualizar y de configuración se muestran solo con iconos, en lugar de iconos con texto. Haz que el diseño sea un poco más minimalista.";
 "warning_incompatible_options" = "Tienes opciones activadas que son incompatibles con esta. Activar esta desactivará automáticamente las opciones incompatibles.";
@@ -146,7 +146,7 @@
 "restart" = "Reiniciar";
 "mouse_hover_info" = "Pasar el ratón muestra información";
 "mouse_hover_info_description" = "Al pasar el ratón sobre el nombre de un dispositivo durante un breve período, se mostrará su información, como fabricante, versión de USB y otros.";
-"restore_default_settings" = "Restaurar configuración predeterminada";
+"restore_default_settings" = "Borrar todas las configuraciones";
 "are_you_sure" = "¿Estás seguro?";
 "no" = "No";
 "yes_confirm" = "Sí, confirmar";
@@ -193,7 +193,7 @@
 "back_and_resume" = "Volver y reanudar";
 "back_without_resume" = "Volver (sin reanudar)";
 "required_ethernet_to_monitor_traffic" = "Se requiere un cable Ethernet conectado para mantener el monitoreo de red activo";
-"new_version_notification" = "Comprobar si hay actualizaciones";
+"new_version_notification" = "Avísame si hay una nueva versión";
 "new_version_notification_description" = "Al abrir la aplicación, recibirá una notificación si hay una nueva versión disponible, pero no se descargará automáticamente.";
 "update_notification_title" = "Actualización";
 "update_notification_body" = "Hay una nueva actualización disponible.";
@@ -208,7 +208,7 @@
 "status" = "Estado:";
 "exit_settings_and_resume" = "Salir de ajustes y reanudar supervisión";
 "make_all_visible_again" = "Volver a hacer todo visible";
-"show_previously_connected" = "Guardar y mostrar todos los dispositivos conectados previamente";
+"show_previously_connected" = "Mostrar dispositivos previamente conectados";
 "show_previously_connected_description" = "Normalmente, la lista solo muestra dispositivos conectados. Sin embargo, esta opción es útil si desea que la lista siga mostrando dispositivos incluso después de que se desconecten. La información del dispositivo solo se almacena automáticamente si está habilitada la opción para mostrar los dispositivos conectados previamente.";
 "stored_indicator" = "Indicador de dispositivos conectados previamente";
 "stored_indicator_description" = "Los dispositivos USB que se han desconectado tendrán un pequeño icono antes de su nombre.";
@@ -306,7 +306,7 @@
 "hide_pin_indicator_description" = "Oculta el símbolo que indica un dispositivo fijado.";
 "storage_category" = "Almacenamiento";
 "clear_all_custom_hardware_sounds" = "Eliminar todos los sonidos de hardware personalizados";
-"big_names" = "Usar un tamaño de fuente más grande para el nombre del dispositivo";
+"big_names" = "Tamaño de fuente más grande para el nombre del dispositivo";
 "big_names_description" = "Los nombres de los dispositivos serán notablemente más grandes que los demás elementos.";
 "save_connection_logs" = "Guardar registros de conexión";
 "save_connection_logs_description" = "Cada vez que un dispositivo se conecta o desconecta, se guarda la hora exacta.";
@@ -329,10 +329,11 @@
 "toggle_time_interval" = "Alternar intervalo de tiempo";
 "today" = "Hoy";
 "yesterday" = "Ayer";
-"checking" = "Comprobando...";
+"checking" = "Buscando...";
 "download" = "Descargar";
 "will_take_effect_after_refreshing" = "Los cambios solo tendrán efecto después de actualizar manualmente";
 "open_linkedin_profile" = "Abrir perfil de LinkedIn";
 "linkedin_profile" = "Perfil de LinkedIn: %@";
 "copy_profile_url" = "Copiar URL del perfil";
 "experimental_features" = "Funciones experimentales";
+"analysis_tool" = "Herramienta de análisis";

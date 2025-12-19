@@ -28,14 +28,14 @@
 "contact" = "Contacto:";
 "donate" = "Donar";
 "address" = "Dirección";
-"settings" = "Configuración";
+"settings" = "Ajustes";
 "donate_description" = "¡Se agradece muchísimo cualquier apoyo!";
 "open_on_startup_description" = "Hace que la app se abra automáticamente al iniciar sesión. Puedes desactivarlo en cualquier momento.";
 "show_port_max" = "Si es posible, mostrar la capacidad máxima de un USB";
 "show_port_max_description" = "Si se detecta, se mostrará la capacidad máxima del USB junto con la demás información del dispositivo.";
 "long_list" = "Lista vertical extendida";
 "long_list_description" = "Incrementa la altura máxima que puede alcanzar la lista de dispositivos.";
-"convert_hexa" = "Convertir valores hexadecimales desconocidos en una etiqueta legible";
+"convert_hexa" = "Convertir hexadecimales desconocidos en etiquetas legibles";
 "convert_hexa_description" = "Los hexadecimales no mapeados serán convertidos a un formato legible. Por ejemplo, 0x0210 se mostrará como USB 2.1.\nNo se garantiza la precisión de la etiqueta.";
 "rename_device" = "Renombrar USB";
 "rename" = "Renombrar";
@@ -115,7 +115,7 @@
 "hide_check_update" = "Ocultar botón para verificar actualizaciones";
 "hide_check_update_description" = "Si ya tienes MenuBarUSB instalado vía brew, o simplemente no te gusta el botón, puedes ocultarlo.";
 "hide_donate" = "Ocultar botón de donación";
-"hide_donate_description" = "Al desarrollador le daría un poco de pena, pero si quieres, puedes ocultar el botón de donación.";
+"hide_donate_description" = "Ocultar el botón de donación.";
 "no_text_buttons" = "Los botones principales no tienen texto, solo iconos";
 "no_text_buttons_description" = "Los botones de salir, actualizar y configuración se muestran solo como iconos, en lugar de iconos con texto. Haz que el diseño sea un poco más minimalista.";
 "warning_incompatible_options" = "Tienes opciones habilitadas que son incompatibles con esta. Al habilitarla se desactivarán automáticamente las opciones incompatibles.";
@@ -208,7 +208,7 @@
 "status" = "Estado:";
 "exit_settings_and_resume" = "Salir de configuración y reanudar monitoreo";
 "make_all_visible_again" = "Hacer todo visible nuevamente";
-"show_previously_connected" = "Guardar y mostrar todos los dispositivos conectados previamente";
+"show_previously_connected" = "Mostrar dispositivos previamente conectados";
 "show_previously_connected_description" = "Normalmente, la lista solo muestra dispositivos conectados. Sin embargo, esta opción es útil si deseas que la lista continúe mostrando dispositivos incluso después de que se desconecten. La información del dispositivo solo se almacena automáticamente si está habilitada la opción para mostrar los dispositivos conectados previamente.";
 "stored_indicator" = "Indicador para dispositivos conectados previamente";
 "stored_indicator_description" = "Los dispositivos USB que han sido desconectados tendrán un pequeño ícono antes de su nombre.";
@@ -306,7 +306,7 @@
 "hide_pin_indicator_description" = "Oculta el símbolo que indica un dispositivo fijado.";
 "storage_category" = "Almacenamiento";
 "clear_all_custom_hardware_sounds" = "Eliminar todos los sonidos de hardware personalizados";
-"big_names" = "Usar un tamaño de letra más grande para el nombre del dispositivo";
+"big_names" = "Tamaño de letra más grande para el nombre del dispositivo";
 "big_names_description" = "Los nombres de los dispositivos serán notablemente más grandes que los demás elementos.";
 "save_connection_logs" = "Guardar registros de conexión";
 "save_connection_logs_description" = "Cada vez que un dispositivo se conecta o desconecta, se guarda la hora exacta.";
@@ -329,10 +329,11 @@
 "toggle_time_interval" = "Cambiar intervalo de tiempo";
 "today" = "Hoy";
 "yesterday" = "Ayer";
-"checking" = "Revisando...";
+"checking" = "Buscando...";
 "download" = "Descargar";
 "will_take_effect_after_refreshing" = "Los cambios solo surtirán efecto después de actualizar manualmente";
 "open_linkedin_profile" = "Abrir perfil de LinkedIn";
 "linkedin_profile" = "Perfil de LinkedIn: %@";
 "copy_profile_url" = "Copiar URL del perfil";
 "experimental_features" = "Funciones experimentales";
+"analysis_tool" = "Herramienta de análisis";
