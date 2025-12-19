@@ -16,6 +16,11 @@ With MenuBarUSB, you can make your USB list your own.
 
 <img width="1075" height="886" alt="full_image" src="https://github.com/user-attachments/assets/94651ef4-f0b4-4a55-9389-2e37e267b376" />
 
+## Technical support
+You can use MenuBarUSB as a technical support tool to analyze device activity. While MenuBarUSB includes a built-in feature to review recorded activity, [MenuBarUSB Analysis Tool](https://github.com/rafaelSwi/MenuBarUSBAnalysisTool) allows you to view exported logs from other Macs. This is particularly useful for examining logs from clients or colleagues who are experiencing issues with USB devices.
+
+<img width="682" height="239" alt="template" src="https://github.com/user-attachments/assets/03e0bcfa-d0a7-47d6-a764-645c5d360e50" />
+
 ## Notifications
 
 #### Recommended settings for macOS 26 or higher
@@ -23,11 +28,6 @@ With MenuBarUSB, you can make your USB list your own.
 
 #### Recommended settings for macOS 15 or lower
 <img width="478" height="425" alt="settings_notif" src="https://github.com/user-attachments/assets/f83a7260-8d05-45bc-8d70-b3631f239c97" />
-
-## Monitoring
-Keep track of your devices’ connection status
-
-<img width="608" height="665" alt="PRINT" src="https://github.com/user-attachments/assets/87799c1b-acd8-458d-a86a-fcade473b617" />
 
 ## Installation via Homebrew
 
@@ -44,7 +44,7 @@ brew install --cask menubarusb
 ```
 
 ### 3. "Apple could not verify MenuBarUSB" warning
-This warning appears because the developer don't have a paid Apple account. To open it, go to Settings > Privacy & Security > (scroll down) > Open Anyway.
+To open it, go to Settings > Privacy & Security > (scroll down) > Open Anyway.
 
 ### Update
 
