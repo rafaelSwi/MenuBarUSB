@@ -1,4 +1,4 @@
-# MenuBarUSB
+# MenuBarUSB <img width="31" height="31" alt="LOGO_PRINCIPAL" src="https://github.com/user-attachments/assets/e904ea51-7044-44b2-8770-c7925aa46839" />
 
 A very simple and lightweight app that shows your USB connections in the macOS menu bar.
 
@@ -7,7 +7,7 @@ brew tap rafaelswi/menubarusb
 brew install --cask menubarusb
 ```
 
-<img width="682" height="239" alt="template_original" src="https://github.com/user-attachments/assets/0cc47619-569c-4d4b-80e4-a0aafc906ed7" />
+### Overview
 
 <img width="797" height="585" alt="Screenshot 2025-08-31 at 22 35 10 (2)" src="https://github.com/user-attachments/assets/e68bc061-5385-40d2-8092-1874bca83a1d" />
 
