@@ -7,6 +7,8 @@ brew tap rafaelswi/menubarusb
 brew install --cask menubarusb
 ```
 
+<img width="682" height="239" alt="template_original" src="https://github.com/user-attachments/assets/0cc47619-569c-4d4b-80e4-a0aafc906ed7" />
+
 <img width="797" height="585" alt="Screenshot 2025-08-31 at 22 35 10 (2)" src="https://github.com/user-attachments/assets/e68bc061-5385-40d2-8092-1874bca83a1d" />
 
 ## Features
@@ -19,7 +21,7 @@ With MenuBarUSB, you can make your USB list your own.
 ## Technical support
 You can use MenuBarUSB as a technical support tool to analyze device activity. While MenuBarUSB includes a built-in feature to review recorded activity, [MenuBarUSB Analysis Tool](https://github.com/rafaelSwi/MenuBarUSBAnalysisTool) allows you to view exported logs from other Macs. This is particularly useful for examining logs from clients or colleagues who are experiencing issues with USB devices.
 
-<img width="682" height="239" alt="template" src="https://github.com/user-attachments/assets/03e0bcfa-d0a7-47d6-a764-645c5d360e50" />
+<img width="682" height="239" alt="template" src="https://github.com/user-attachments/assets/2b79e587-d12a-4b7e-99bc-47a2792a8ef6" />
 
 ## Notifications
 
