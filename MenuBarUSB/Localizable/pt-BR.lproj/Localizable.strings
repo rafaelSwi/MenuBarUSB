@@ -273,7 +273,7 @@
 "disconnected_audio_file" = "Arquivo .mp3 (desconectar)";
 "create" = "Criar";
 "delete" = "Excluir";
-"show_charger" = "O carregador é reconhecido como um dispositivo";
+"show_charger" = "Exibir o carregador do MacBook na lista";
 "show_charger_description" = "Quando o carregador do MacBook estiver conectado, ele ficará visível na lista e uma notificação será exibida se permitido.";
 "power_supply" = "Fonte de energia";
 "hide_charger_information" = "Ocultar informações do carregador";
@@ -290,7 +290,7 @@
 "play_only_connect" = "Tocar apenas o som de conectar";
 "play_only_disconnect" = "Tocar apenas o som de desconectar";
 "default" = "Padrão";
-"app_will_quickly_restart" = "O MenuBarUSB pode dar uma rápida reiniciada";
+"app_will_quickly_restart" = "O MenuBarUSB irá reiniciar";
 "restart_to_apply" = "Para aplicar, é necessário reiniciar o MenuBarUSB";
 "looking_for_updates" = "Coletando informações...";
 "clear_all_renamed" = "Restaurar o nome dos dispositivos renomeados";

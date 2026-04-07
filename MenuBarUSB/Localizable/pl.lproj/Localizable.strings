@@ -158,10 +158,10 @@
 "search_name" = "Szukaj nazwy";
 "search_id" = "Szukaj ID";
 "search_sn" = "Szukaj SN";
-"disable_context_menu_search" = "Wyłącz wyszukiwanie w menu kontekstowym";
+"disable_context_menu_search" = "Wyłącz wyszukiwanie w menu podręcznym";
 "disable_context_menu_search_description" = "Opcje wyszukiwania nie będą się już pojawiać.";
 "search_engine" = "Wyszukiwarka";
-"context_menu_category" = "Menu kontekstowe";
+"context_menu_category" = "Menu podręczne";
 "show_more" = "Pokaż więcej";
 "show_less" = "Pokaż mniej";
 "disable_indicator" = "Wyłącz wskaźnik";
@@ -229,7 +229,7 @@
 "search" = "Szukaj";
 "clear_all_inheritances" = "Wyczyść wszystkie dziedziczenia";
 "security_mode" = "Tryb bezpieczeństwa";
-"disable_context_menu_heritage" = "Wyłącz dziedziczenie w menu kontekstowym";
+"disable_context_menu_heritage" = "Wyłącz dziedziczenie w menu podręcznym";
 "disable_context_menu_heritage_description" = "Opcje dziedziczenia nie będą się już pojawiać.";
 "show_scrollbar" = "Pokaż pasek przewijania";
 "show_scrollbar_description" = "Pasek przewijania pojawia się automatycznie, gdy lista przekracza widoczny obszar.";

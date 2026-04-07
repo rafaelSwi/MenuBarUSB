@@ -790,7 +790,8 @@ struct SettingsView: View {
                             binding: $powerSourceInfo,
                             activeRowID: $activeRowID,
                             incompatibilities: nil,
-                            onToggle: { _ in manager.refresh() }
+                            willRestart: true,
+                            onToggle: { _ in Utils.App.restart() }
                         )
                     }
                     ToggleRow(

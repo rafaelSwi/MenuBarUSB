@@ -21,9 +21,10 @@ enum SearchEngine: String, CaseIterable {
     case aol = "AOL"
     case searx = "Searx"
     case gibiru = "Gibiru"
-    case wolframAlpha = "Wolfram"
-    case metager = "MetaGer"
-    case swisscows = "Swisscows"
+    case x_twitter = "X (Twitter)"
+    case facebook = "Facebook"
+    case wikipedia = "Wikipedia"
+    case chatgpt = "ChatGPT"
 
     var searchURL: String {
         switch self {
@@ -42,9 +43,10 @@ enum SearchEngine: String, CaseIterable {
         case .aol: return "https://search.aol.com/aol/search?q="
         case .searx: return "https://searx.org/?q="
         case .gibiru: return "https://gibiru.com/results.html?q="
-        case .wolframAlpha: return "https://www.wolframalpha.com/input/?i="
-        case .metager: return "https://www.metager.org/meta/meta.ger3?eingabe="
-        case .swisscows: return "https://swisscows.com/web?query="
+        case .x_twitter: return "https://x.com/search?q="
+        case .facebook: return "https://www.facebook.com/search/?q="
+        case .wikipedia: return "https://en.wikipedia.org/wiki/Special:Search?search="
+        case .chatgpt: return "https://chatgpt.com/?q="
         }
     }
 }
