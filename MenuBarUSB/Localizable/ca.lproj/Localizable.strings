@@ -337,3 +337,6 @@
 "increase_quantity" = "Augmentar la quantitat";
 "reduce_quantity" = "Reduir la quantitat";
 "nothing_to_show" = "No hi ha res per mostrar aquí";
+"rename_to_charger" = "Canvia el nom a \"Carregador\"";
+"charger" = "Carregador";
+"revert_to_the_original_name" = "Reverteix al nom original";

@@ -337,3 +337,6 @@
 "increase_quantity" = "数量を増やす";
 "reduce_quantity" = "数量を減らす";
 "nothing_to_show" = "ここに表示するものはありません";
+"rename_to_charger" = "「充電器」に名前を変更";
+"charger" = "充電器";
+"revert_to_the_original_name" = "元の名前に戻す";

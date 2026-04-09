@@ -337,3 +337,6 @@
 "increase_quantity" = "Øg antal";
 "reduce_quantity" = "Reducer antal";
 "nothing_to_show" = "Intet at vise her";
+"rename_to_charger" = "Omdøb til \"Oplader\"";
+"charger" = "Oplader";
+"revert_to_the_original_name" = "Gendan det oprindelige navn";

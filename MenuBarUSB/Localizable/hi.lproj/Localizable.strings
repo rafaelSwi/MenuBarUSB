@@ -337,3 +337,6 @@
 "increase_quantity" = "मात्रा बढ़ाएं";
 "reduce_quantity" = "मात्रा घटाएं";
 "nothing_to_show" = "यहाँ दिखाने के लिए कुछ नहीं है";
+"rename_to_charger" = "नाम बदलकर \"चार्जर\" करें";
+"charger" = "चार्जर";
+"revert_to_the_original_name" = "मूल नाम पर वापस जाएँ";

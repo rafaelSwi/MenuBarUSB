@@ -337,3 +337,6 @@
 "increase_quantity" = "Увеличить количество";
 "reduce_quantity" = "Уменьшить количество";
 "nothing_to_show" = "Нечего отображать здесь";
+"rename_to_charger" = "Переименовать в \"Зарядное устройство\"";
+"charger" = "Зарядное устройство";
+"revert_to_the_original_name" = "Вернуть исходное имя";

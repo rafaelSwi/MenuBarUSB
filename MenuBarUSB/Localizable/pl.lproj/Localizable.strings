@@ -337,3 +337,6 @@
 "increase_quantity" = "Zwiększ ilość";
 "reduce_quantity" = "Zmniejsz ilość";
 "nothing_to_show" = "Brak elementów do wyświetlenia";
+"rename_to_charger" = "Zmień nazwę na \"Ładowarka\"";
+"charger" = "Ładowarka";
+"revert_to_the_original_name" = "Przywróć oryginalną nazwę";

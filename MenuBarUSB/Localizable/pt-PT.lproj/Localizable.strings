@@ -337,3 +337,6 @@
 "increase_quantity" = "Aumentar quantidade";
 "reduce_quantity" = "Reduzir quantidade";
 "nothing_to_show" = "Nada para mostrar aqui";
+"rename_to_charger" = "Renomear para \"Carregador\"";
+"charger" = "Carregador";
+"revert_to_the_original_name" = "Reverter para o nome original";

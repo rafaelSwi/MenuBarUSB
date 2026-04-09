@@ -337,3 +337,6 @@
 "increase_quantity" = "เพิ่มจำนวน";
 "reduce_quantity" = "ลดจำนวน";
 "nothing_to_show" = "ไม่มีอะไรให้แสดงที่นี่";
+"rename_to_charger" = "เปลี่ยนชื่อเป็น \"ที่ชาร์จ\"";
+"charger" = "ที่ชาร์จ";
+"revert_to_the_original_name" = "กลับเป็นชื่อเดิม";

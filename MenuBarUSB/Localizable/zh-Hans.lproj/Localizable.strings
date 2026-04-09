@@ -337,3 +337,6 @@
 "increase_quantity" = "增加数量";
 "reduce_quantity" = "减少数量";
 "nothing_to_show" = "这里没有可显示的内容";
+"rename_to_charger" = "重命名为\"充电器\"";
+"charger" = "充电器";
+"revert_to_the_original_name" = "恢复为原始名称";

@@ -39,6 +39,7 @@ struct ContentView: View {
     @AS(Key.profilerButton) private var profilerButton = false
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
+    @AS(Key.powerSupplyAsCharger) private var powerSupplyAsCharger = false
     @AS(Key.playHardwareSound) private var playHardwareSound = false
     @AS(Key.showEthernet) private var showEthernet = false
     @AS(Key.toolbarClockOff) private var toolbarClockOff = false
@@ -163,6 +164,10 @@ struct ContentView: View {
 
         let multiply: CGFloat = increasedIndentationGap ? 36 : 16
         return CGFloat(level) * multiply
+    }
+    
+    private var powerSupplyLabel: String {
+        powerSupplyAsCharger ? "charger".localized : "power_supply".localized
     }
 
     private func disableToolbarValues() {
@@ -570,7 +575,7 @@ struct ContentView: View {
                                 indexIndicatorView(1, force: true)
                             }
                             Group {
-                                Text("power_supply")
+                                Text(powerSupplyLabel)
                                     .font(.system(size: bigNames ? 18 : 12, weight: .semibold))
                                 Spacer()
                                 if showBatteryPercentage {
@@ -595,6 +600,13 @@ struct ContentView: View {
                             }
                         }
                         .contextMenu {
+                            Button {
+                                powerSupplyAsCharger.toggle()
+                            } label: {
+                                let text = powerSupplyAsCharger ? "revert_to_the_original_name" : "rename_to_charger"
+                                Label(text.localized, systemImage: "pencil")
+                            }
+                            Divider()
                             Button {
                                 powerSourceInfo = false
                                 manager.refresh()

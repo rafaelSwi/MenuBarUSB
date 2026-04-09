@@ -337,3 +337,6 @@
 "increase_quantity" = "Αύξηση ποσότητας";
 "reduce_quantity" = "Μείωση ποσότητας";
 "nothing_to_show" = "Δεν υπάρχει τίποτα για εμφάνιση εδώ";
+"rename_to_charger" = "Μετονομασία σε \"Φορτιστής\"";
+"charger" = "Φορτιστής";
+"revert_to_the_original_name" = "Επαναφορά στο αρχικό όνομα";

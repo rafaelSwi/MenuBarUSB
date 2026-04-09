@@ -26,6 +26,7 @@ enum StorageKeys {
     static let reduceTransparency = "reduceTransparency"
     static let disableNotifCooldown = "disableNotifCooldown"
     static let disableInheritanceLayout = "disableInheritanceLayout"
+    static let powerSupplyAsCharger = "powerSupplyAsCharger"
     static let forceDarkMode = "forceDarkMode"
     static let forceLightMode = "forceLightMode"
     static let increasedIndentationGap = "increasedIndentationGap"

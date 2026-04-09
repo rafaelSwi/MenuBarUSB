@@ -337,3 +337,6 @@
 "increase_quantity" = "수량 증가";
 "reduce_quantity" = "수량 감소";
 "nothing_to_show" = "표시할 항목이 없습니다";
+"rename_to_charger" = "\"충전기\"로 이름 변경";
+"charger" = "충전기";
+"revert_to_the_original_name" = "원래 이름으로 되돌리기";

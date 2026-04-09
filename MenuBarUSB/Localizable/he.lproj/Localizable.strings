@@ -337,3 +337,6 @@
 "increase_quantity" = "הגדל כמות";
 "reduce_quantity" = "הקטן כמות";
 "nothing_to_show" = "אין מה להציג כאן";
+"rename_to_charger" = "שנה שם ל\"מטען\"";
+"charger" = "מטען";
+"revert_to_the_original_name" = "חזור לשם המקורי";

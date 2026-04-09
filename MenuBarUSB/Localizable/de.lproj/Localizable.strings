@@ -337,3 +337,6 @@
 "increase_quantity" = "Menge erhöhen";
 "reduce_quantity" = "Menge verringern";
 "nothing_to_show" = "Nichts zum Anzeigen hier";
+"rename_to_charger" = "In \"Ladegerät\" umbenennen";
+"charger" = "Ladegerät";
+"revert_to_the_original_name" = "Zum ursprünglichen Namen zurückkehren";

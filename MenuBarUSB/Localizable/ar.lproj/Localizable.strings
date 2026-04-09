@@ -337,3 +337,6 @@
 "increase_quantity" = "زيادة الكمية";
 "reduce_quantity" = "تقليل الكمية";
 "nothing_to_show" = "لا يوجد شيء لعرضه هنا";
+"rename_to_charger" = "إعادة التسمية إلى \"الشاحن\"";
+"charger" = "الشاحن";
+"revert_to_the_original_name" = "العودة إلى الاسم الأصلي";

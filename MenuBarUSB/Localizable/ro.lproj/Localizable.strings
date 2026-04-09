@@ -344,3 +344,6 @@
 "increase_quantity" = "Crește cantitatea";
 "reduce_quantity" = "Reduce cantitatea";
 "nothing_to_show" = "Nimic de afișat aici";
+"rename_to_charger" = "Redenumește în \"Încărcător\"";
+"charger" = "Încărcător";
+"revert_to_the_original_name" = "Revino la numele original";
