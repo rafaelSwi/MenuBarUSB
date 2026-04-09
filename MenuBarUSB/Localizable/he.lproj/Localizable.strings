@@ -260,9 +260,6 @@
 "win_modern" = "Windows ‏(8 - 11)";
 "win_old" = "Windows ‏(Vista, 7)";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "לינוקס Ubuntu";
 "linux_mint" = "לינוקס Mint";
 "heist" = "שוד";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "העתק כתובת פרופיל";
 "experimental_features" = "תכונות ניסיוניות";
 "analysis_tool" = "כלי ניתוח";
+"increase_quantity" = "הגדל כמות";
+"reduce_quantity" = "הקטן כמות";
+"nothing_to_show" = "אין מה להציג כאן";

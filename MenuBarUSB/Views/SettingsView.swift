@@ -593,6 +593,10 @@ struct SettingsView: View {
                     .disabled(disableButtonsRelatedToSound)
                     
                     if creatingNewAudioSet {
+                        
+                        Spacer()
+                            .frame(height: 3)
+                        
                         CustomTextField(
                             text: $inputText,
                             placeholder: "title",

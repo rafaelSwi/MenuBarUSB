@@ -260,9 +260,6 @@
 "win_modern" = "Windows (8 - 11)";
 "win_old" = "Windows (Vista, 7)";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "강도";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "프로필 URL 복사";
 "experimental_features" = "실험적 기능";
 "analysis_tool" = "분석 도구";
+"increase_quantity" = "수량 증가";
+"reduce_quantity" = "수량 감소";
+"nothing_to_show" = "표시할 항목이 없습니다";

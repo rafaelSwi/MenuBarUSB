@@ -260,9 +260,6 @@
 "win_modern" = "Windows (8 - 11)";
 "win_old" = "Windows (Vista, 7)";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "ปล้น";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "คัดลอก URL โปรไฟล์";
 "experimental_features" = "คุณสมบัติทดลอง";
 "analysis_tool" = "เครื่องมือวิเคราะห์";
+"increase_quantity" = "เพิ่มจำนวน";
+"reduce_quantity" = "ลดจำนวน";
+"nothing_to_show" = "ไม่มีอะไรให้แสดงที่นี่";

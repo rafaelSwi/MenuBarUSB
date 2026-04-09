@@ -40,14 +40,19 @@ struct InheritanceTreeView: View {
                     let childIds = Set(CSM.Heritage.devices.map { $0.deviceId })
                     let rootIds = Array(allIds.subtracting(childIds))
 
-                    ForEach(rootIds, id: \.self) { rootId in
-                        TreeNodeView(
-                            deviceId: rootId,
-                            level: 0,
-                            manager: manager,
-                            xmarked: false,
-                            onRefresh: { refresh() }
-                        )
+                    if rootIds.isEmpty {
+                        Text("nothing_to_show")
+                            .foregroundColor(.secondary)
+                    } else {
+                        ForEach(rootIds, id: \.self) { rootId in
+                            TreeNodeView(
+                                deviceId: rootId,
+                                level: 0,
+                                manager: manager,
+                                xmarked: false,
+                                onRefresh: { refresh() }
+                            )
+                        }
                     }
                 }
                 .padding(15)

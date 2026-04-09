@@ -267,9 +267,6 @@
 "win_modern" = "Windows (8 - 11)";
 "win_old" = "Windows (Vista, 7)";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Jaf";
@@ -344,3 +341,6 @@
 "copy_profile_url" = "Copiați URL-ul profilului";
 "experimental_features" = "Funcționalități experimentale";
 "analysis_tool" = "Instrument de analiză";
+"increase_quantity" = "Crește cantitatea";
+"reduce_quantity" = "Reduce cantitatea";
+"nothing_to_show" = "Nimic de afișat aici";

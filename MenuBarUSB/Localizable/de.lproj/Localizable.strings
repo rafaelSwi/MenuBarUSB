@@ -260,9 +260,6 @@
 "win_modern" = "Windows (8 - 11)";
 "win_old" = "Windows (Vista, 7)";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Überfall";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "Profil-URL kopieren";
 "experimental_features" = "Experimentelle Funktionen";
 "analysis_tool" = "Analysetool";
+"increase_quantity" = "Menge erhöhen";
+"reduce_quantity" = "Menge verringern";
+"nothing_to_show" = "Nichts zum Anzeigen hier";

@@ -22,7 +22,7 @@ struct LogsView: View {
     @State private var paintedLogs: [String] = []
     @State private var blacklistedIds: [String] = []
     @State private var recentsOnly: Bool = false
-    @State private var recentsAmount: Int = 10
+    @State private var recentsAmount: Int = 50
     @State private var showTimeDifferences: Bool = false
     @State private var hoveringAppTool: Bool = false
     
@@ -40,30 +40,42 @@ struct LogsView: View {
     
     private func formatDate(_ date: Date) -> String {
         let calendar = Calendar.current
-
+        
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss"
-
+        
         if calendar.isDateInToday(date) {
             let todayString = "today".localized
             return "\(todayString) \(timeFormatter.string(from: date))"
         }
-
+        
         if calendar.isDateInYesterday(date) {
             let yesterdayString = "yesterday".localized
             return "\(yesterdayString) \(timeFormatter.string(from: date))"
         }
-
+        
         let normalFormatter = DateFormatter()
         normalFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
         return normalFormatter.string(from: date)
+    }
+    
+    private func addRecentsAmount() {
+        if recentsAmount < 100 {
+            recentsAmount += 10
+        }
+    }
+    
+    private func reduceRecentsAmount() {
+        if recentsAmount > 10 {
+            recentsAmount -= 10
+        }
     }
     
     private func formatDifference(from: Date?, to: Date?) -> String {
         guard let from, let to else {
             return "unknown".localized
         }
-
+        
         let interval = to.timeIntervalSince(from)
         let totalMilliseconds = Int(abs(interval * 1000))
         
@@ -104,39 +116,30 @@ struct LogsView: View {
         return name
     }
     
-    private func cycle () {
-        defer {
-            if recentsOnly {
-                CSM.ConnectionLog.keepOnly(last: recentsAmount)
-                manager.refresh()
-            }
-        }
-        switch recentsAmount {
-        case 95: recentsAmount = 10
-        case 10: recentsAmount = 20
-        case 20: recentsAmount = 30
-        case 30: recentsAmount = 50
-        case 50: recentsAmount = 80
-        case 80: recentsAmount = 95
-        default: break
-        }
-    }
-    
     private var allLogsSorted: [DeviceConnectionLog] {
-        return CSM.ConnectionLog.items
-            .reversed()
-            .filter { !blacklistedIds.contains($0.deviceId) }
+        if recentsOnly {
+            return Array(
+                CSM.ConnectionLog.items
+                    .reversed()
+                    .filter { !blacklistedIds.contains($0.deviceId) }
+                    .prefix(recentsAmount)
+            )
+        } else {
+            return CSM.ConnectionLog.items
+                .reversed()
+                .filter { !blacklistedIds.contains($0.deviceId) }
+        }
     }
     
     private func exportAllLogsToJSON() {
-
+        
         struct ExportLog: Codable {
             let name: String
             let time: String
             let connect: Bool
             let disposableId: String
         }
-
+        
         struct ExportDevice: Codable {
             let disposableId: String
             let name: String
@@ -156,21 +159,21 @@ struct LogsView: View {
             let osVersion: String
             let appVersion: String
         }
-
+        
         struct ExportData: Codable {
             let metadata: Metadata
             let devices: [ExportDevice]
             let logs: [ExportLog]
         }
-
+        
         var idMap: [String: String] = [:]
-
+        
         for log in CSM.ConnectionLog.items {
             if idMap[log.deviceId] == nil {
                 idMap[log.deviceId] = UUID().uuidString
             }
         }
-
+        
         let logsTransformed: [ExportLog] = CSM.ConnectionLog.items.map { log in
             ExportLog(
                 name: deviceName(log.deviceId) ?? "UNKNOWN_DEVICE",
@@ -179,9 +182,9 @@ struct LogsView: View {
                 disposableId: idMap[log.deviceId] ?? "UNKNOWN"
             )
         }
-
+        
         let devicesTransformed: [ExportDevice] = manager.devices.map { wrapper in
-
+            
             let devIdKey: String = {
                 if let loc = wrapper.item.locationId {
                     if idMap[String(loc)] != nil { return String(loc) }
@@ -194,9 +197,9 @@ struct LogsView: View {
                 }
                 return UUID().uuidString
             }()
-
+            
             let disposableId = idMap[devIdKey] ?? UUID().uuidString
-
+            
             return ExportDevice(
                 disposableId: disposableId,
                 name: wrapper.item.name,
@@ -210,13 +213,13 @@ struct LogsView: View {
                 usbVersionBCD: wrapper.item.usbVersionBCD
             )
         }
-
+        
         let exportedAt = formatDateSimple(Date())
         let v = ProcessInfo.processInfo.operatingSystemVersion
         let appVersion = Utils.App.appVersion
         
         let osVersion = "\(v.majorVersion).\(v.minorVersion).\(v.patchVersion)"
-
+        
         let machineModel: String = {
             var size = 0
             sysctlbyname("hw.model", nil, &size, nil, 0)
@@ -224,7 +227,7 @@ struct LogsView: View {
             sysctlbyname("hw.model", &model, &size, nil, 0)
             return String(cString: model)
         }()
-
+        
         
         let metadata = Metadata(exportedAt: exportedAt, machineModel: machineModel, osVersion: osVersion, appVersion: appVersion)
         let exportObject = ExportData(
@@ -232,19 +235,19 @@ struct LogsView: View {
             devices: devicesTransformed,
             logs: logsTransformed
         )
-
+        
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-
+        
         do {
             let data = try encoder.encode(exportObject)
-
+            
             let panel = NSSavePanel()
             panel.title = "export_connection_logs".localized
             panel.message = "choose_where_to_save_exported_json".localized
             panel.allowedContentTypes = [.json]
             panel.nameFieldStringValue = "file".localized.lowercased() + ".json"
-
+            
             panel.begin { response in
                 if response == .OK, let url = panel.url {
                     try? data.write(to: url, options: .atomic)
@@ -367,63 +370,74 @@ struct LogsView: View {
                         .frame(height: 1)
                         .id("BOTTOM")
                 }
-                .onChange(of: allLogsSorted.count) { _ in
-                    if recentsOnly {
-                        CSM.ConnectionLog.keepOnly(last: recentsAmount)
-                    }
-                    withAnimation {
-                        proxy.scrollTo(allLogsSorted.first?.time.timeIntervalSince1970, anchor: .top)
-                    }
-                }
             }
             
-            HStack {
+            VStack {
                 
-                Button("＋", action: cycle)
-                
-                let msg = String(format: NSLocalizedString("show_only_x_logs", comment: "TOGGLE"), "\(recentsAmount)")
-                Button(msg) {
-                    recentsOnly.toggle()
-                    if recentsOnly {
-                        CSM.ConnectionLog.keepOnly(last: recentsAmount)
-                    }
-                    manager.refresh()
+                if !window {
+                    Rectangle()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 1)
+                        .opacity(0.3)
                 }
-                
-                Text(recentsOnly ? "on" : "off")
-                    .foregroundStyle(recentsOnly ? .green : .secondary)
-                    .fontWeight(.bold)
-                    .onTapGesture {
-                        recentsOnly.toggle()
-                    }
                 
                 Spacer()
                 
-                Button {
-                    showTimeDifferences.toggle()
-                } label: {
-                    Image(systemName: "clock")
+                HStack {
+                    
+                    let msg = String(format: NSLocalizedString("show_only_x_logs", comment: "TOGGLE"), "\(recentsAmount)")
+                    Button(msg) {
+                        recentsOnly.toggle()
+                    }
+                    .contextMenu {
+                        Button("increase_quantity", action: addRecentsAmount)
+                        Button("reduce_quantity", action: reduceRecentsAmount)
+                    }
+                    
+                    Text(recentsOnly ? "on" : "off")
+                        .foregroundStyle(recentsOnly ? .green : .secondary)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
                 }
-                .foregroundStyle(showTimeDifferences ? .green : .secondary)
-                .help("toggle_time_interval")
                 
-                if window {
-                    Button {
-                        blacklistedIds.removeAll()
-                        paintedLogs.removeAll()
-                    } label: {
-                        Image(systemName: "eraser")
+                HStack {
+                    
+                    Button("time_interval"){
+                        showTimeDifferences.toggle()
                     }
-                    .disabled(blacklistedIds.isEmpty && paintedLogs.isEmpty)
-                    Button("close") { dismiss() }
-                } else {
-                    Button {
-                        currentWindow = .settings
-                    } label: {
-                        Label("back", systemImage: "arrow.uturn.backward")
+                    
+                    Text(showTimeDifferences ? "on" : "off")
+                        .foregroundStyle(showTimeDifferences ? .green : .secondary)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
+                    if window {
+                        Button {
+                            blacklistedIds.removeAll()
+                            paintedLogs.removeAll()
+                        } label: {
+                            Image(systemName: "eraser")
+                        }
+                        .disabled(blacklistedIds.isEmpty && paintedLogs.isEmpty)
+                        .help("undo")
+                        
+                        Button("close") { dismiss() }
+                        
+                    } else {
+                        Button {
+                            currentWindow = .settings
+                        } label: {
+                            Label("back", systemImage: "arrow.uturn.backward")
+                        }
                     }
                 }
+            
+                
             }
+            .frame(height: 50)
         }
         .padding(10)
         .frame(minWidth: WindowWidth.value, minHeight: 600)

@@ -260,9 +260,6 @@
 "win_modern" = "Windows（8 - 11）";
 "win_old" = "Windows（Vista, 7）";
 "win_xp" = "Windows XP";
-"n_switch" = "SWITCH";
-"n_switch_ii" = "SWITCH II";
-"n_wii" = "WII";
 "linux_ubuntu" = "UBUNTU";
 "linux_mint" = "MINT";
 "heist" = "抢劫";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "复制个人资料 URL";
 "experimental_features" = "实验性功能";
 "analysis_tool" = "分析工具";
+"increase_quantity" = "增加数量";
+"reduce_quantity" = "减少数量";
+"nothing_to_show" = "这里没有可显示的内容";

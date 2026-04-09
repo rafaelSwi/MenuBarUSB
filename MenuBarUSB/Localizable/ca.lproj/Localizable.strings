@@ -260,9 +260,6 @@
 "win_modern" = "Windows (8 - 11)";
 "win_old" = "Windows (Vista, 7)";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Atracament";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "Copiar l'URL del perfil";
 "experimental_features" = "Funcions experimentals";
 "analysis_tool" = "Eina d'anàlisi";
+"increase_quantity" = "Augmentar la quantitat";
+"reduce_quantity" = "Reduir la quantitat";
+"nothing_to_show" = "No hi ha res per mostrar aquí";

@@ -176,8 +176,8 @@
 "legacy_settings" = "Ajustes (Legacy)";
 "legacy_settings_description" = "Você está usando a versão legada do MenuBarUSB, adaptada para macOS Ventura e Sonoma.";
 "ethernet_category" = "Ethernet";
-"ethernet_connected_icon" = "Exibir ícone caso um cabo de Ethernet estiver conectado";
-"ethernet_connected_icon_description" = "Se uma conexão de rede com fio for detectada (requer um endereço IP ativo), um ícone será exibido.";
+"ethernet_connected_icon" = "Ícone de cabo Ethernet";
+"ethernet_connected_icon_description" = "Se uma conexão de rede com fio for detectada (requer um endereço IP ativo), um ícone será exibido na menubar do macOS.";
 "internet_monitoring_icon" = "Indicador de tráfego de rede";
 "internet_monitoring_icon_description" = "O icone indicador de cabo ethernet ficará piscando sempre que houver detectcão de trafego de rede via cabo.";
 "stop_traffic_monitor_button" = "Botão para iniciar/retomar o monitoramento de rede";
@@ -201,15 +201,15 @@
 "stop_traffic_monitor_button_disable_status_description" = "Ao lado do botão, há um texto informando se o tráfego de rede está sendo monitorado ou não.";
 "export_settings" = "Exportar configurações";
 "import_settings" = "Importar configurações";
-"allow_copying_individual" = "Permitir copiar cada propriedade individual";
+"allow_copying_individual" = "Permitir copiar propriedades de forma individual";
 "allow_copying_individual_description" = "Permite copiar propriedades individuais do dispositivo, como nome, fabricante e outros.";
 "fast_traffic_monitor" = "Monitoramento eficiente (alto uso de CPU)";
 "fast_traffic_monitor_description" = "Em média, o tráfego de rede é atualizado a cada 2 segundos. Ativar esta opção reduzirá esse tempo para menos de meio segundo, aumentando significativamente o uso da CPU.";
 "status" = "Status:";
 "exit_settings_and_resume" = "Sair dos ajustes e retomar monitoramento de rede";
 "make_all_visible_again" = "Tornar todos visíveis novamente";
-"show_previously_connected" = "Salvar e exibir os dispositivos previamente conectados";
-"show_previously_connected_description" = "Normalmente, a lista exibe apenas dispositivos conectados. Esta opção é útil se você quiser que a lista continue exibindo dispositivos mesmo após desconectados.";
+"show_previously_connected" = "Histórico de dispositivos";
+"show_previously_connected_description" = "Normalmente, a lista exibe apenas dispositivos conectados. Entretanto, esta opção é útil se você quiser que a lista continue exibindo dispositivos mesmo após desconectados.";
 "stored_indicator" = "Indicador para dispositivos previamente conectados";
 "stored_indicator_description" = "Dispositivos que foram desconectados terão um pequeno ícone ao lado do seu nome.";
 "disconnected" = "Desconectado";
@@ -260,9 +260,6 @@
 "win_modern" = "Windows (8 - 11)";
 "win_old" = "Windows (Vista, 7)";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Heist";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "Copiar URL do perfil";
 "experimental_features" = "Recursos experimentais";
 "analysis_tool" = "Análise de Logs"; 
+"increase_quantity" = "Aumentar quantidade";
+"reduce_quantity" = "Reduzir quantidade";
+"nothing_to_show" = "Nada para mostrar aqui";

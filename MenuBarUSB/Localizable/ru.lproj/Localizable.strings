@@ -260,9 +260,6 @@
 "win_modern" = "Windows (8 - 11)";
 "win_old" = "Windows (Vista, 7)";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "Ограбление";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "Скопировать URL профиля";
 "experimental_features" = "Экспериментальные функции";
 "analysis_tool" = "Инструмент анализа";
+"increase_quantity" = "Увеличить количество";
+"reduce_quantity" = "Уменьшить количество";
+"nothing_to_show" = "Нечего отображать здесь";

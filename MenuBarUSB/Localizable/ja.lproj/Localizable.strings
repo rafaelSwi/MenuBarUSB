@@ -260,9 +260,6 @@
 "win_modern" = "Windows（8〜11）";
 "win_old" = "Windows（Vista、7）";
 "win_xp" = "Windows XP";
-"n_switch" = "N. Switch";
-"n_switch_ii" = "N. Switch 2";
-"n_wii" = "N. Wii";
 "linux_ubuntu" = "Linux Ubuntu";
 "linux_mint" = "Linux Mint";
 "heist" = "強盗";
@@ -337,3 +334,6 @@
 "copy_profile_url" = "プロフィールURLをコピー";
 "experimental_features" = "実験的な機能";
 "analysis_tool" = "解析ツール"; 
+"increase_quantity" = "数量を増やす";
+"reduce_quantity" = "数量を減らす";
+"nothing_to_show" = "ここに表示するものはありません";
