@@ -269,35 +269,46 @@ final class Utils {
     }
 
     final class USB {
-        static func usbVersionLabel(from bcd: Int?, convertHexa: Bool) -> String? {
+        static func usbVersionLabel(from bcd: Int?) -> String? {
             guard let bcd = bcd else { return nil }
-            switch bcd {
-            case 0x0100: return "USB 1.0"
-            case 0x0110: return "USB 1.1"
-            case 0x0200: return "USB 2.0"
-            case 0x0300: return "USB 3.0"
-            case 0x0310: return "USB 3.1"
-            case 0x0320: return "USB 3.2"
-            case 0x0400: return "USB4"
-            case 0x0420: return "USB4 2.0"
-            default:
-                let major = (bcd >> 8) & 0xFF
-                let minorHigh = (bcd >> 4) & 0x0F
-                let minorLow = bcd & 0x0F
-                let minor = minorHigh * 10 + minorLow
 
-                let versionString = minor == 0 ? "\(major)" : "\(major).\(minor)"
-                if convertHexa {
-                    return String(
-                        format: "USB %@ (\("unknown".localized))",
-                        versionString
-                    )
+            let major = (bcd >> 8) & 0xFF
+            let minorHigh = (bcd >> 4) & 0x0F
+            let minorLow = bcd & 0x0F
+            let minor = minorHigh * 10 + minorLow
+
+            func format(_ label: String) -> String {
+                return "\(label) (0x\(String(format: "%04X", bcd)))"
+            }
+
+            switch major {
+            case 1:
+                if bcd == 0x0100 { return format("USB 1.0") }
+                if bcd == 0x0110 { return format("USB 1.1") }
+                return format("USB 1.\(minor)")
+
+            case 2:
+                return format("USB \(major).\(minor)")
+
+            case 3:
+                if bcd >= 0x0320 {
+                    return format("USB 3.2")
+                } else if bcd >= 0x0310 {
+                    return format("USB 3.1")
                 } else {
-                    return String(
-                        format: "\("unknown".localized) (0x%04X)",
-                        bcd
-                    )
+                    return format("USB 3.0")
                 }
+
+            case 4:
+                if bcd >= 0x0420 {
+                    return format("USB4 2.0")
+                } else {
+                    return format("USB4")
+                }
+
+            default:
+                let versionString = minor == 0 ? "\(major)" : "\(major).\(minor)"
+                return format("USB \(versionString)")
             }
         }
 

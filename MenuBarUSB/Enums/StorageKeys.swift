@@ -8,7 +8,6 @@
 enum StorageKeys {
     static let launchAtLogin = "launchAtLogin"
     static let showPortMax = "showPortMax"
-    static let convertHexa = "convertHexa"
     static let longList = "longList"
     static let hideTechInfo = "hideTechInfo"
     static let renamedDevices = "renamedDevices"

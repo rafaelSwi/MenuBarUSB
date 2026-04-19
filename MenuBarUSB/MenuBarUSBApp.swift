@@ -134,7 +134,7 @@ struct MenuBarUSBApp: App {
     private var mainContent: some View {
         switch currentWindow {
         case .devices:
-            view { ContentView(currentWindow: $currentWindow) }
+            view { MainListView(currentWindow: $currentWindow) }
         case .settings:
             view { SettingsView(currentWindow: $currentWindow) }
         case .donate:

@@ -8,7 +8,6 @@
 import CoreFoundation
 
 enum WindowWidth: Int {
-    case tiny = 410
     case normal = 465
     case big = 500
     case veryBig = 545
