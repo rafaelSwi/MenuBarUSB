@@ -340,3 +340,5 @@
 "rename_to_charger" = "إعادة التسمية إلى \"الشاحن\"";
 "charger" = "الشاحن";
 "revert_to_the_original_name" = "العودة إلى الاسم الأصلي";
+"automation_category" = "الأتمتة";
+"no_custom_association_to_undo" = "لم تتم إضافة ملف صوتي خارجي";

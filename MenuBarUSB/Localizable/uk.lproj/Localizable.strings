@@ -340,3 +340,5 @@
 "rename_to_charger" = "Перейменувати на \"Зарядний пристрій\"";
 "charger" = "Зарядний пристрій";
 "revert_to_the_original_name" = "Повернути оригінальну назву";
+"automation_category" = "Автоматизація";
+"no_custom_association_to_undo" = "Зовнішній аудіофайл не було додано";

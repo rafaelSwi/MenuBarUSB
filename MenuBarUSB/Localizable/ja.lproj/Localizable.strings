@@ -340,3 +340,5 @@
 "rename_to_charger" = "「充電器」に名前を変更";
 "charger" = "充電器";
 "revert_to_the_original_name" = "元の名前に戻す";
+"automation_category" = "オートメーション";
+"no_custom_association_to_undo" = "外部オーディオファイルは追加されていません";

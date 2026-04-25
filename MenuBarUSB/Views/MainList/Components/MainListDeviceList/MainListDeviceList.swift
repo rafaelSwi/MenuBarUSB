@@ -37,7 +37,6 @@ struct MainListDeviceList: View {
     @AS(Key.disableContextMenuSearch) private var disableContextMenuSearch = false
     @AS(Key.disableContextMenuHeritage) private var disableContextMenuHeritage = false
     @AS(Key.bigNames) private var bigNames = false
-    @AS(Key.contextMenuCopyAll) private var contextMenuCopyAll = false
     @AS(Key.storeDevices) private var storeDevices = false
     @AS(Key.playHardwareSound) private var playHardwareSound = false
     @AS(Key.hardwareSound) private var hardwareSound: String = ""
@@ -160,18 +159,6 @@ struct MainListDeviceList: View {
             .foregroundStyle(.gray)
     }
     
-    private func copyTextLabelView(_ text: String) -> some View {
-        let copy = "copy".localized
-        let item = "\(text)".localized
-        let label = "\(copy): \(item)"
-        return Label(label, systemImage: "square.on.square")
-    }
-
-    private func showRestoreName(for deviceId: String) -> Bool {
-        let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
-        return renamed != nil
-    }
-    
     private func deviceTitleView(_ name: String?, deviceId: String) -> some View {
         let renamed = CSM.Renamed.devices.first { $0.deviceId == deviceId }
         let pinned = CSM.Pin.devices.first { $0.deviceId == deviceId }
@@ -257,45 +244,6 @@ struct MainListDeviceList: View {
         return String(format: "%04X:%04X", device.vendorId, device.productId)
     }
     
-    private func compactStringInformation(_ device: borrowing USBDevice) -> String {
-        var parts: [String] = []
-
-        if !device.name.isEmpty {
-            parts.append(device.name)
-        } else {
-            parts.append("usb_device".localized)
-        }
-
-        if let vendor = device.vendor, !vendor.isEmpty {
-            parts.append(vendor)
-        }
-
-        parts.append(device.uniqueId)
-
-        parts.append(deviceId(device))
-
-        if let usbVer = device.usbVersionBCD {
-            if let usbVersion = Utils.USB.usbVersionLabel(from: usbVer) {
-                parts.append("\("usb_version".localized) \(usbVersion)")
-            } else {
-                parts.append("\("usb_version".localized) 0x\(String(format: "%04X", usbVer))")
-            }
-        }
-
-        if let serial = device.serialNumber, !serial.isEmpty {
-            parts.append("\("serial_number".localized) \(serial)")
-        }
-
-        if let portMax = device.portMaxSpeedMbps {
-            let portStr = portMax >= 1000
-                ? String(format: "%.1f Gbps", Double(portMax) / 1000.0)
-                : "\(portMax) Mbps"
-            parts.append("\("port_max".localized) \(portStr)")
-        }
-
-        return parts.joined(separator: "\n")
-    }
-    
     private func indentLevel(for device: borrowing USBDevice) -> CGFloat {
         if isRenamingDeviceId == device.uniqueId {
             return 0
@@ -351,19 +299,7 @@ struct MainListDeviceList: View {
                 }
             }
             .contextMenu {
-                Button {
-                    powerSupplyAsCharger.toggle()
-                } label: {
-                    let text = powerSupplyAsCharger ? "revert_to_the_original_name" : "rename_to_charger"
-                    Label(text.localized, systemImage: "pencil")
-                }
-                Divider()
-                Button {
-                    powerSourceInfo = false
-                    manager.refresh()
-                } label: {
-                    Label("hide_charger_information", systemImage: "eye.slash")
-                }
+                MainListDeviceListContextMenuCharger()
             }
 
             Divider()
@@ -462,207 +398,14 @@ struct MainListDeviceList: View {
                     .animation(.spring(duration: 0.15), value: showSecondaryInfo(for: device.item))
                     .animation(.spring(duration: 0.15), value: showTechInfo(for: device.item))
                     .contextMenu {
-                        if contextMenuCopyAll {
-                            Menu {
-                                Button {
-                                    Utils.System.copyToClipboard(compactStringInformation(device.item))
-                                } label: {
-                                    Label("copy_all_properties", systemImage: "square.on.square")
-                                }
-
-                                Divider()
-
-                                Button {
-                                    Utils.System.copyToClipboard(device.item.name)
-                                } label: {
-                                    copyTextLabelView(device.item.name)
-                                }
-
-                                if device.item.vendor != nil {
-                                    Button {
-                                        Utils.System.copyToClipboard(device.item.vendor ?? "?")
-                                    } label: {
-                                        copyTextLabelView(device.item.vendor ?? "?")
-                                    }
-                                }
-
-                                Button {
-                                    Utils.System.copyToClipboard(deviceId(device.item))
-                                } label: {
-                                    copyTextLabelView(deviceId(device.item))
-                                }
-
-                                if device.item.serialNumber != nil {
-                                    Button {
-                                        Utils.System.copyToClipboard(device.item.serialNumber ?? "SN")
-                                    } label: {
-                                        copyTextLabelView(device.item.serialNumber ?? "SN")
-                                    }
-                                }
-                            } label: {
-                                Label("copy", systemImage: "square.on.square")
-                            }
-
-                        } else {
-                            Button {
-                                Utils.System.copyToClipboard(compactStringInformation(device.item))
-                            } label: {
-                                Label("copy", systemImage: "square.on.square")
-                            }
-                        }
-                        Divider()
-                        Button {
-                            if isPinned(uniqueId) {
-                                CSM.Pin.remove(withId: uniqueId)
-                            } else {
-                                CSM.Pin.add(withId: uniqueId)
-                            }
-                            manager.refresh()
-                        } label: {
-                            let label = isPinned(uniqueId) ? "unpin" : "pin"
-                            let icon = isPinned(uniqueId) ? "pin.slash" : "pin"
-                            Label(label.localized, systemImage: icon)
-                        }
-                        Button {
-                            CSM.Camouflaged.add(withId: uniqueId)
-                            manager.refresh()
-                        } label: {
-                            Label("hide", systemImage: "eye.slash")
-                        }
-                        .disabled(CSM.Heritage.devices.contains { $0.inheritsFrom == uniqueId })
-
-                        Button {
-                            inputText = ""
-                            isRenamingDeviceId = uniqueId
-                        } label: {
-                            Label("rename", systemImage: "pencil.and.scribble")
-                        }
-
-                        if showRestoreName(for: uniqueId) {
-                            Button {
-                                CSM.Renamed.remove(withId: uniqueId)
-                                manager.refresh()
-                            } label: {
-                                Label("restore_name", systemImage: "eraser.line.dashed")
-                            }
-                        }
-
-                        if !mouseHoverInfo && hideTechInfo {
-                            Divider()
-                            if !devicesShowingMoreHas(device.item) {
-                                Button {
-                                    devicesShowingMore.append(device)
-                                } label: {
-                                    Label("show_more", systemImage: "line.3.horizontal")
-                                }
-                            } else {
-                                Button {
-                                    devicesShowingMore.removeAll { $0 == device }
-                                } label: {
-                                    Label("show_less", systemImage: "ellipsis")
-                                }
-                            }
-                        }
-
-                        if !disableContextMenuHeritage {
-                            Divider()
-
-                            Menu {
-                                Button {
-                                    CSM.Heritage.remove(withId: uniqueId)
-                                    manager.refresh()
-                                } label: {
-                                    Label("kill_inheritance", systemImage: "trash")
-                                }
-                                .disabled(CSM.Heritage[uniqueId] == nil)
-
-                                Divider()
-
-                                Menu {
-                                    ForEach(sortedDevices) { d in
-                                        Button {
-                                            CSM.Heritage.add(withId: d.item.uniqueId, inheritsFrom: uniqueId)
-                                            manager.refresh()
-                                        } label: {
-                                            Text(CSM.Renamed[d.item.uniqueId]?.name ?? d.item.name)
-                                        }
-                                    }
-                                } label: {
-                                    Label("new_heir", systemImage: "plus.square")
-                                }
-                            } label: {
-                                Label("heritage", systemImage: "app.connected.to.app.below.fill")
-                            }
-                        }
-
-                        if playHardwareSound {
-                            Divider()
-
-                            Menu {
-                                Button {
-                                    CSM.SoundDevices.add(uniqueId, "mute")
-                                    manager.refresh()
-                                } label: {
-                                    let isSelected = CSM.SoundDevices.getByBothIds(device: uniqueId, sound: "mute") != nil
-                                    Text(isSelected ? "‣   \("mute".localized)" : "mute")
-                                }
-
-                                Divider()
-
-                                ForEach(HardwareSound.all, id: \.uniqueId) { sound in
-                                    Button {
-                                        CSM.SoundDevices.add(uniqueId, sound.uniqueId)
-                                        manager.refresh()
-                                    } label: {
-                                        let selected = CSM.SoundDevices.getByBothIds(device: uniqueId, sound: sound.uniqueId) != nil
-                                        let title = sound.titleKey.localized
-                                        var text = selected ? "‣   \(title)" : title
-                                        if HardwareSound[hardwareSound]?.titleKey == sound.titleKey {
-                                            text += " ＊"
-                                        }
-                                        return Text(text)
-                                    }
-                                }
-
-                                if CSM.SoundDevices[uniqueId] != nil {
-                                    Divider()
-                                    Button("undo") {
-                                        CSM.SoundDevices.remove(uniqueId)
-                                        manager.refresh()
-                                    }
-                                }
-                            } label: {
-                                Label("sound", systemImage: "speaker.wave.3")
-                            }
-                        }
-
-                        if !disableContextMenuSearch {
-                            Divider()
-
-                            Menu {
-                                Button {
-                                    searchOnWeb(device.item.name)
-                                } label: {
-                                    Label("search_name", systemImage: "globe")
-                                }
-
-                                Button {
-                                    let id = String(format: "%04X:%04X", device.item.vendorId, device.item.productId)
-                                    searchOnWeb(id)
-                                } label: {
-                                    Label("search_id", systemImage: "globe")
-                                }
-
-                                Button {
-                                    searchOnWeb(device.item.serialNumber!)
-                                } label: {
-                                    Label("search_sn", systemImage: "globe")
-                                }
-                                .disabled(device.item.serialNumber == nil)
-                            } label: {
-                                Label("search", systemImage: "globe")
-                            }
-                        }
+                        MainListDeviceListContextMenuDevice(
+                            inputText: $inputText,
+                            isRenamingDeviceId: $isRenamingDeviceId,
+                            devicesShowingMore: $devicesShowingMore,
+                            device: device,
+                            sortedDevices: sortedDevices,
+                            searchOnWeb: searchOnWeb(_:)
+                        )
                     }
 
                     Divider()
@@ -705,38 +448,11 @@ struct MainListDeviceList: View {
                             }
                         }
                         .contextMenu {
-                            Button {
-                                manager.refresh()
-                            } label: {
-                                Label("refresh", systemImage: "arrow.clockwise")
-                            }
-                            Divider()
-                            Button {
-                                CSM.Camouflaged.add(withId: device.deviceId)
-                                manager.refresh()
-                            } label: {
-                                Label("hide", systemImage: "eye.slash")
-                            }
-                            Button {
-                                inputText = ""
-                                isRenamingDeviceId = device.deviceId
-                            } label: {
-                                Label("rename", systemImage: "pencil.and.scribble")
-                            }
-                            if showRestoreName(for: device.deviceId) {
-                                Button {
-                                    CSM.Renamed.remove(withId: device.deviceId)
-                                } label: {
-                                    Label("restore_name", systemImage: "eraser.line.dashed")
-                                }
-                            }
-                            Divider()
-                            Button {
-                                CSM.Stored.remove(withId: device.deviceId)
-                                manager.refresh()
-                            } label: {
-                                Label("remove_from_history", systemImage: "trash")
-                            }
+                            MainListDeviceListContextMenuOfflineDevice(
+                                inputText: $inputText,
+                                isRenamingDeviceId: $isRenamingDeviceId,
+                                storedDevice: device
+                            )
                         }
                         Divider()
                             .padding(.top, 3)

@@ -340,3 +340,5 @@
 "rename_to_charger" = "\"충전기\"로 이름 변경";
 "charger" = "충전기";
 "revert_to_the_original_name" = "원래 이름으로 되돌리기";
+"automation_category" = "자동화";
+"no_custom_association_to_undo" = "외부 오디오 파일이 추가되지 않았습니다";

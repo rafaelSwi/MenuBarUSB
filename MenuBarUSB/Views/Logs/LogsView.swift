@@ -59,18 +59,6 @@ struct LogsView: View {
         return normalFormatter.string(from: date)
     }
     
-    private func addRecentsAmount() {
-        if recentsAmount < 100 {
-            recentsAmount += 10
-        }
-    }
-    
-    private func reduceRecentsAmount() {
-        if recentsAmount > 10 {
-            recentsAmount -= 10
-        }
-    }
-    
     private func formatDifference(from: Date?, to: Date?) -> String {
         guard let from, let to else {
             return "unknown".localized
@@ -308,7 +296,7 @@ struct LogsView: View {
                         }
                     }
                     .onTapGesture {
-                        let url = URL(string: "https://github.com/rafaelSwi/MenuBarUSBAnalysisTool")
+                        let url = URL(string: Utils.Miscellaneous.analysisToolUrl)
                         openURL(url!)
                     }
                     .opacity(hoveringAppTool ? 1.0 : 0.4)
@@ -344,17 +332,7 @@ struct LogsView: View {
                         .id(log.id)
                         .frame(maxHeight: 10)
                         .contextMenu {
-                            Button(isPainted ? "remove_paint" : "paint") {
-                                if !isPainted { paintedLogs.append(log.id) }
-                                else { paintedLogs.removeAll(where: { $0 == log.id }) }
-                                manager.refresh()
-                            }
-                            
-                            Divider()
-                            
-                            Button("temporarily_ignore_device_logs") {
-                                blacklistedIds.append(log.deviceId)
-                            }
+                            LogsContextMenuSingleLog(paintedLogs: $paintedLogs, blacklistedIds: $blacklistedIds, log: log, isPainted: isPainted)
                         }
                         
                         if showDiff {
@@ -390,8 +368,7 @@ struct LogsView: View {
                         recentsOnly.toggle()
                     }
                     .contextMenu {
-                        Button("increase_quantity", action: addRecentsAmount)
-                        Button("reduce_quantity", action: reduceRecentsAmount)
+                        LogsContextMenuRecentsOnly(recentsAmount: $recentsAmount)
                     }
                     
                     Text(recentsOnly ? "on" : "off")

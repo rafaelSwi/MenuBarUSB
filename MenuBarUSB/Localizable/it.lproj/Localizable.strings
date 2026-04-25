@@ -340,3 +340,5 @@
 "rename_to_charger" = "Rinomina in \"Caricatore\"";
 "charger" = "Caricatore";
 "revert_to_the_original_name" = "Ripristina il nome originale";
+"automation_category" = "Automazione";
+"no_custom_association_to_undo" = "Nessun file audio esterno è stato aggiunto";

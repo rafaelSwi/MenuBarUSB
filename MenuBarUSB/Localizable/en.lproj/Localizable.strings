@@ -341,3 +341,4 @@
 "charger" = "Charger";
 "revert_to_the_original_name" = "Revert to the original name";
 "automation_category" = "Automation";
+"no_custom_association_to_undo" = "No external audio file was added";

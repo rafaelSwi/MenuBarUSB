@@ -347,3 +347,5 @@
 "rename_to_charger" = "Redenumește în \"Încărcător\"";
 "charger" = "Încărcător";
 "revert_to_the_original_name" = "Revino la numele original";
+"automation_category" = "Automatizare";
+"no_custom_association_to_undo" = "Nu a fost adăugat niciun fișier audio extern";

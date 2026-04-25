@@ -67,12 +67,7 @@ struct SettingsView: View {
                     manager.stopEthernetMonitoring()
                 }
                 .contextMenu {
-                    Button {
-                        manager.startEthernetMonitoring()
-                        currentWindow = .devices
-                    } label: {
-                        Label("exit_settings_and_resume", systemImage: "arrow.uturn.backward")
-                    }
+                    SettingsContextMenuTrafficWarning(currentWindow: $currentWindow)
                 }
             }
             
@@ -86,7 +81,6 @@ struct SettingsView: View {
                     CategoryButton(category: .contextMenu, label: "context_menu_category", image: "settings_contextmenu", binding: $category)
                     CategoryButton(category: .ethernet, label: "ethernet_category", image: "settings_ethernet", binding: $category)
                     CategoryButton(category: .heritage, label: "heritage_category", image: "settings_heritage", binding: $category)
-                    //CategoryButton(category: .automation, label: "automation_category", image: "settings_automation", binding: $category)
                     CategoryButton(category: .others, label: "others_category", image: "settings_others", binding: $category) {
                         resetSettingsPress = 0
                     }

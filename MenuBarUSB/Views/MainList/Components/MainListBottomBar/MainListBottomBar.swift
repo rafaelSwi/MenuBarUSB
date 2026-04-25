@@ -29,10 +29,6 @@ struct MainListBottomBar: View {
     private var showTrafficButtonLabel: Bool {
         return !camouflagedIndicator && !disableTrafficButtonLabel
     }
-
-    private var trafficMonitorOn: Bool {
-        return showEthernet && internetMonitoring
-    }
     
     private var showEyeSlash: Bool {
         if noTextButtons {
@@ -65,25 +61,6 @@ struct MainListBottomBar: View {
         return !manager.trafficMonitorRunning
     }
     
-    private var noEthernetCableAndNoMonitoring: Bool {
-        return !manager.ethernetCableConnected && trafficMonitorInactive
-    }
-    
-    private var isTrulyEmpty: Bool {
-        let connectedCount: Int = manager.count
-        let storedCount: Int = CSM.Stored.filteredDevices(manager.devices).count
-
-        if connectedCount == 0 && storeDevices == false {
-            return true
-        }
-
-        if connectedCount == 0 && storedCount == 0 {
-            return true
-        }
-
-        return false
-    }
-    
     private func toggleTrafficMonitoring() {
         if manager.trafficMonitorRunning {
             manager.stopEthernetMonitoring()
@@ -106,21 +83,7 @@ struct MainListBottomBar: View {
                 .opacity(manager.connectedCamouflagedDevices > 0 ? 0.5 : 0.2)
                 .help("hidden_indicator")
                 .contextMenu {
-                    Button {
-                        camouflagedIndicator = false
-                    } label: {
-                        Label("disable_indicator", systemImage: "eye.slash")
-                    }
-
-                    Divider()
-
-                    Button {
-                        CSM.Camouflaged.clear()
-                        manager.refresh()
-                    } label: {
-                        Label("make_all_visible_again", systemImage: "eye")
-                    }
-                    .disabled(CSM.Camouflaged.devices.isEmpty)
+                    MainListBottomBarContextMenuCamouflagedIndicator(camouflagedIndicator: $camouflagedIndicator)
                 }
             }
 
@@ -136,11 +99,7 @@ struct MainListBottomBar: View {
                         Label("profiler_abbreviated", systemImage: "info.circle")
                             .help("open_profiler")
                             .contextMenu {
-                                Button {
-                                    profilerButton = false
-                                } label: {
-                                    Label("hide_button", systemImage: "eye.slash")
-                                }
+                                MainListBottomBarContextMenuProfiler()
                             }
                     }
                 }
@@ -160,38 +119,7 @@ struct MainListBottomBar: View {
                     }
                 }
                 .contextMenu {
-                    let status = LocalizedStringKey(manager.trafficMonitorRunning ? "running" : "paused")
-                    Text("status") + Text(" ") + Text(status)
-
-                    Divider()
-
-                    Button {
-                        toggleTrafficMonitoring()
-                    } label: {
-                        Label("stop_resume", systemImage: "playpause.fill")
-                    }
-                    .disabled(noEthernetCableAndNoMonitoring)
-
-                    Divider()
-
-                    Button {
-                        disableTrafficButtonLabel.toggle()
-                    } label: {
-                        if disableTrafficButtonLabel {
-                            Label("show_traffic_side_label", systemImage: "eye")
-                        } else {
-                            Label("hide_traffic_side_label", systemImage: "eye.slash")
-                        }
-                    }
-                    .disabled(camouflagedIndicator)
-
-                    Divider()
-
-                    Button {
-                        trafficButton = false
-                    } label: {
-                        Label("hide_button", systemImage: "eye.slash")
-                    }
+                    MainListBottomBarContextMenuTraffic()
                 }
             }
 
@@ -201,62 +129,21 @@ struct MainListBottomBar: View {
                 mainButtonLabel("settings", "gear")
             }
             .contextMenu {
-                Button {
-                    listToolBar.toggle()
-                } label: {
-                    Label(listToolBar ? "hide_toolbar" : "show_toolbar", systemImage: "menubar.arrow.up.rectangle")
-                }
-                .disabled(isTrulyEmpty)
-                Divider()
-                Button {
-                    Utils.System.openSysInfo()
-                } label: {
-                    Label("open_profiler", systemImage: "info.circle")
-                }
-                if #available(macOS 15.0, *) {
-                    Button {
-                        openWindow(id: "legacy_settings")
-                    } label: {
-                        Label("open_legacy_settings", systemImage: "gearshape")
-                    }
-                }
-
-                if trafficMonitorOn {
-                    Divider()
-
-                    if trafficMonitorInactive {
-                        Button { manager.startEthernetMonitoring() } label: {
-                            Label("resume_traffic_monitor", systemImage: "play.fill")
-                        }
-                        .disabled(!manager.ethernetCableConnected)
-                    } else {
-                        Button { manager.stopEthernetMonitoring() } label: {
-                            Label("stop_traffic_monitor", systemImage: "pause.fill")
-                        }
-                    }
-                }
+                MainListBottomBarContextMenuSettings()
             }
 
             Button { manager.refresh() } label: {
                 mainButtonLabel("refresh", "arrow.clockwise")
             }
             .contextMenu {
-                Button {
-                    openWindow(id: "connection_logs")
-                } label: {
-                    Label("open_separate_window_to_monitor", systemImage: "macwindow.on.rectangle")
-                }
+                MainListBottomBarContextMenuRefresh()
             }
 
             Button { Utils.App.exit() } label: {
                 mainButtonLabel("exit", "power")
             }
             .contextMenu {
-                Button {
-                    Utils.App.restart()
-                } label: {
-                    Label("restart", systemImage: "arrow.2.squarepath")
-                }
+                MainListBottomBarContextMenuExit()
             }
         }
     }

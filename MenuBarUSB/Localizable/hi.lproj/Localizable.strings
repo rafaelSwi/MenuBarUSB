@@ -340,3 +340,5 @@
 "rename_to_charger" = "नाम बदलकर \"चार्जर\" करें";
 "charger" = "चार्जर";
 "revert_to_the_original_name" = "मूल नाम पर वापस जाएँ";
+"automation_category" = "स्वचालन";
+"no_custom_association_to_undo" = "कोई बाहरी ऑडियो फ़ाइल नहीं जोड़ी गई";

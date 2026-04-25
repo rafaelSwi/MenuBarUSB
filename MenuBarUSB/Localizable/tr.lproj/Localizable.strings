@@ -340,3 +340,5 @@
 "rename_to_charger" = "\"Şarj Cihazı\" olarak yeniden adlandır";
 "charger" = "Şarj Cihazı";
 "revert_to_the_original_name" = "Orijinal ada geri dön";
+"automation_category" = "Otomasyon";
+"no_custom_association_to_undo" = "Harici bir ses dosyası eklenmedi";

@@ -47,15 +47,21 @@ struct SettingsHeritageCategory: View {
             }
             
             Spacer()
-                .frame(height: 2)
+                .frame(height: 4)
             
-            Button("view_inheritance_tree") {
-                currentWindow = .inheritanceTree
-            }
-            .contextMenu {
-                Button("open_in_separate_window") {
-                    openWindow(id: "inheritance_tree")
+            HStack {
+                Button("view_inheritance_tree") {
+                    currentWindow = .inheritanceTree
                 }
+                
+                Button {
+                    openWindow(id: "inheritance_tree")
+                } label: {
+                    Image(systemName: "macwindow.badge.plus")
+                }
+                .help("open_in_separate_window")
+                .buttonStyle(.plain)
+                
             }
         }
     }

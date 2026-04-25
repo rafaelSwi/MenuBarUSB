@@ -51,7 +51,7 @@ struct LegacySettingsHorizontalTopBar: View {
         
         guard
             let url = URL(
-                string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest")
+                string: Utils.Miscellaneous.latestRepoGithubApi)
         else {
             checkingUpdate = false
             return
@@ -116,13 +116,6 @@ struct LegacySettingsHorizontalTopBar: View {
                             updateButtonAction()
                         }
                         .foregroundStyle(updateAvailable ? AssetColors.update : .primary)
-                        .contextMenu {
-                            Button {
-                                hideUpdate = true
-                            } label: {
-                                Label("hide_button", systemImage: "eye.slash")
-                            }
-                        }
                     }
                     
                     if !hideDonate && !hideUpdate {
@@ -142,13 +135,6 @@ struct LegacySettingsHorizontalTopBar: View {
                             }
                         } label: {
                             Text("donate")
-                        }
-                        .contextMenu {
-                            Button {
-                                hideDonate = true
-                            } label: {
-                                Label("hide_button", systemImage: "eye.slash")
-                            }
                         }
                     }
                 }

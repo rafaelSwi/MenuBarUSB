@@ -50,7 +50,7 @@ struct SettingsHorizontalTopBar: View {
         
         guard
             let url = URL(
-                string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest")
+                string: Utils.Miscellaneous.latestRepoGithubApi)
         else {
             checkingUpdate = false
             return
@@ -72,12 +72,6 @@ struct SettingsHorizontalTopBar: View {
         }.resume()
     }
     
-    private func openGithubPage() {
-        if let url = URL(string: Utils.Miscellaneous.githubUrl) {
-            openURL(url)
-        }
-    }
-    
     var body: some View {
         HStack {
             if !hideUpdate {
@@ -86,17 +80,7 @@ struct SettingsHorizontalTopBar: View {
                 }
                 .foregroundStyle(updateAvailable ? AssetColors.update : .primary)
                 .contextMenu {
-                    Button {
-                        openGithubPage()
-                    } label: {
-                        Label("open_github_page", systemImage: "globe")
-                    }
-                    Divider()
-                    Button {
-                        hideUpdate = true
-                    } label: {
-                        Label("hide_button", systemImage: "eye.slash")
-                    }
+                    SettingsHorizontalTopBarContextMenuUpdate()
                 }
             }
             
@@ -112,17 +96,7 @@ struct SettingsHorizontalTopBar: View {
                     currentWindow = .donate
                 }
                 .contextMenu {
-                    Button {
-                        currentWindow = .donate
-                    } label: {
-                        Label("open", systemImage: "arrow.up.right.square")
-                    }
-                    Divider()
-                    Button {
-                        hideDonate = true
-                    } label: {
-                        Label("hide_button", systemImage: "eye.slash")
-                    }
+                    SettingsHorizontalTopBarContextMenuDonate(currentWindow: $currentWindow)
                 }
                 
             }

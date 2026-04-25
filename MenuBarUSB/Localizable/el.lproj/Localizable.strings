@@ -340,3 +340,5 @@
 "rename_to_charger" = "Μετονομασία σε \"Φορτιστής\"";
 "charger" = "Φορτιστής";
 "revert_to_the_original_name" = "Επαναφορά στο αρχικό όνομα";
+"automation_category" = "Αυτοματισμός";
+"no_custom_association_to_undo" = "Δεν προστέθηκε εξωτερικό αρχείο ήχου";

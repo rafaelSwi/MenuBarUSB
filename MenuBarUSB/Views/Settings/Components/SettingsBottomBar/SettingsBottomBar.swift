@@ -57,11 +57,7 @@ struct SettingsBottomBar: View {
                 if isTrafficMonitoringPausedForSettings {
                     Label("back_and_resume", systemImage: "arrow.uturn.backward")
                         .contextMenu {
-                            Button {
-                                currentWindow = .devices
-                            } label: {
-                                Label("back_without_resume", systemImage: "arrow.uturn.backward")
-                            }
+                            SettingsBottomBarContextMenuExitTraffic(currentWindow: $currentWindow)
                         }
                 } else {
                     Label("back", systemImage: "arrow.uturn.backward")

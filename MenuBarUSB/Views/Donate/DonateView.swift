@@ -17,31 +17,28 @@ struct DonateView: View {
 
     let btcAddress = Utils.Miscellaneous.btcAddress
     let ltcAddress = Utils.Miscellaneous.ltcAddress
-
-    private func checkOnBlockchain(bitcoin: Bool) {
-        let urlString: String
-        if bitcoin {
-            urlString = "https://www.blockchain.com/explorer/addresses/btc/\(btcAddress)"
-        } else {
-            urlString = "https://litecoinspace.org/address/\(ltcAddress)"
-        }
-        if let url = URL(string: urlString) {
-            openURL(url)
-        }
+    
+    var currentAddress: String {
+        return isBitcoin ? btcAddress : ltcAddress
     }
     
-    private func openLinkedinProfile() {
-        if let url = URL(string: Utils.Miscellaneous.linkedinUrl) {
-            openURL(url)
-        }
+    var email: String {
+        return Utils.Miscellaneous.contactEmail
+    }
+    
+    var linkedin: String {
+        return Utils.Miscellaneous.linkedinProfile
+    }
+    
+    var currentSymbol: String {
+        return isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
+    }
+    
+    var currentColor: Color {
+        return isBitcoin ? .orange : AssetColors.ltcCoin
     }
 
     var body: some View {
-        let currentAddress = isBitcoin ? btcAddress : ltcAddress
-        let currentSymbol = isBitcoin ? "bitcoinsign.circle.fill" : "l.circle.fill"
-        let currentColor: Color = isBitcoin ? .orange : AssetColors.ltcCoin
-        let email = Utils.Miscellaneous.contactEmail
-        let linkedin = Utils.Miscellaneous.linkedinProfile
 
         VStack(spacing: 12) {
             Text("donate_description")
@@ -54,19 +51,7 @@ struct DonateView: View {
                 Utils.Miscellaneous.QRCodeView(text: currentAddress)
                     .frame(width: 250, height: 250)
                     .contextMenu {
-                        Button { Utils.System.copyToClipboard(currentAddress) } label: {
-                            Label("copy_crypto_address", systemImage: "square.on.square")
-                        }
-
-                        Button { Utils.System.copyToClipboard(email) } label: {
-                            Label("copy_email", systemImage: "square.on.square")
-                        }
-
-                        Divider()
-
-                        Button { checkOnBlockchain(bitcoin: isBitcoin) } label: {
-                            Label("check_on_blockchain", systemImage: "globe")
-                        }
+                        DonateContextMenuQRCode(isBitcoin: $isBitcoin)
                     }
 
                 Button(action: { Utils.System.copyToClipboard(currentAddress) }) {
@@ -92,24 +77,15 @@ struct DonateView: View {
                 Group {
                     Text(currentAddress)
                         .contextMenu {
-                            Button("copy") {
-                                Utils.System.copyToClipboard(currentAddress)
-                            }
+                            DonateContextMenuCryptoAddress(currentAddress: currentAddress)
                         }
                     Text(String(format: NSLocalizedString("contact", comment: "EMAIL"), email))
                         .contextMenu {
-                            Button("copy_email") {
-                                Utils.System.copyToClipboard(email)
-                            }
+                            DonateContextMenuEmail()
                         }
                     Text(String(format: NSLocalizedString("linkedin_profile", comment: "LINKEDIN"), linkedin))
                         .contextMenu {
-                            Button("copy_profile_url") {
-                                Utils.System.copyToClipboard(Utils.Miscellaneous.linkedinUrl)
-                            }
-                            Button("open_linkedin_profile") {
-                                openLinkedinProfile()
-                            }
+                            DonateContextMenuLinkedin()
                         }
                 }
                 .font(.footnote)

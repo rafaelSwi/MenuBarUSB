@@ -340,3 +340,5 @@
 "rename_to_charger" = "In \"Ladegerät\" umbenennen";
 "charger" = "Ladegerät";
 "revert_to_the_original_name" = "Zum ursprünglichen Namen zurückkehren";
+"automation_category" = "Automatisierung";
+"no_custom_association_to_undo" = "Es wurde keine externe Audiodatei hinzugefügt";

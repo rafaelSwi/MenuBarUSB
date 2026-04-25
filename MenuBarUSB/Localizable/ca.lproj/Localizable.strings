@@ -340,3 +340,5 @@
 "rename_to_charger" = "Canvia el nom a \"Carregador\"";
 "charger" = "Carregador";
 "revert_to_the_original_name" = "Reverteix al nom original";
+"automation_category" = "Automatització";
+"no_custom_association_to_undo" = "No s'ha afegit cap fitxer d'àudio extern";

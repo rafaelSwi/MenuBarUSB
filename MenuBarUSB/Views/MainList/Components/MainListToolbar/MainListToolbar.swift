@@ -24,7 +24,6 @@ struct MainListToolbar: View {
     @AS(Key.camouflagedIndicator) private var camouflagedIndicator = false
     @AS(Key.renamedIndicator) private var renamedIndicator = false
     @AS(Key.noTextButtons) private var noTextButtons = false
-    @AS(Key.listToolBar) private var listToolBar = false
     @AS(Key.macBarIcon) private var macBarIcon: String = "cable.connector"
     
     private func toolbarListItemView(
@@ -48,25 +47,7 @@ struct MainListToolbar: View {
         .foregroundStyle(value.wrappedValue ? color : .gray)
         .help(help)
         .contextMenu {
-            Label(help, systemImage: "questionmark.circle")
-            if action == nil {
-                Button {
-                    value.wrappedValue.toggle()
-                } label: {
-                    Label("on_off", systemImage: "power")
-                }
-            }
-            Button {
-                disableToolbarValues()
-            } label: {
-                Label("disable_all", systemImage: "bolt.slash")
-            }
-            Divider()
-            Button {
-                listToolBar = false
-            } label: {
-                Label("hide_toolbar", systemImage: "menubar.arrow.up.rectangle")
-            }
+            MainListToolbarContextMenuToolbarItem(value: value, help: help, disableToolbarValues: disableToolbarValues)
         }
     }
     
@@ -138,9 +119,7 @@ struct MainListToolbar: View {
                 }
             }
             .contextMenu {
-                Button(toolbarClockOff ? "switch_to_clock" : "switch_to_device_count") {
-                    toolbarClockOff.toggle()
-                }
+                MainListToolbarContextMenuToolbarClock()
             }
         }
         .padding(.horizontal, 3)

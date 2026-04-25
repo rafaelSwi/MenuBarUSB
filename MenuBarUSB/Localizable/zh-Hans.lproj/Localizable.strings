@@ -340,3 +340,5 @@
 "rename_to_charger" = "重命名为\"充电器\"";
 "charger" = "充电器";
 "revert_to_the_original_name" = "恢复为原始名称";
+"automation_category" = "自动化";
+"no_custom_association_to_undo" = "未添加外部音频文件";

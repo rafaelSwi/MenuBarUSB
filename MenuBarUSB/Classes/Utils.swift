@@ -171,7 +171,7 @@ final class Utils {
         }
 
         static func hasUpdate() async -> Bool {
-            guard let url = URL(string: "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest") else { return false }
+            guard let url = URL(string: Utils.Miscellaneous.latestRepoGithubApi) else { return false }
 
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
@@ -340,6 +340,8 @@ final class Utils {
         static let linkedinProfile = "in/rafaelneuwirth"
         static let btcAddress = "bc1qvluxh224489mt6svp23kr0u8y2upn009pa546t"
         static let ltcAddress = "ltc1qz42uw4plam83f2sud2rckzewvdwm9vs4rfazl5"
+        static let analysisToolUrl = "https://github.com/rafaelSwi/MenuBarUSBAnalysisTool"
+        static let latestRepoGithubApi = "https://api.github.com/repos/rafaelSwi/MenuBarUSB/releases/latest"
 
         static func generateQRCode(from string: String) -> NSImage? {
             let context = CIContext()

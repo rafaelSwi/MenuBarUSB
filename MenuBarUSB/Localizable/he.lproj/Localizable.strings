@@ -340,3 +340,5 @@
 "rename_to_charger" = "שנה שם ל\"מטען\"";
 "charger" = "מטען";
 "revert_to_the_original_name" = "חזור לשם המקורי";
+"automation_category" = "אוטומציה";
+"no_custom_association_to_undo" = "לא נוסף קובץ שמע חיצוני";

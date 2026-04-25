@@ -340,3 +340,5 @@
 "rename_to_charger" = "Zmień nazwę na \"Ładowarka\"";
 "charger" = "Ładowarka";
 "revert_to_the_original_name" = "Przywróć oryginalną nazwę";
+"automation_category" = "Automatyzacja";
+"no_custom_association_to_undo" = "Nie dodano zewnętrznego pliku audio";

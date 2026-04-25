@@ -98,13 +98,19 @@ struct SettingsUSBCategory: View {
             )
             Spacer()
                 .frame(height: 2)
-            Button("view_connection_logs") {
-                currentWindow = .logs
-            }
-            .contextMenu {
-                Button("open_in_separate_window") {
-                    openWindow(id: "connection_logs")
+            HStack {
+                Button("view_connection_logs") {
+                    currentWindow = .logs
                 }
+                
+                Button {
+                    openWindow(id: "connection_logs")
+                } label: {
+                    Image(systemName: "macwindow.badge.plus")
+                }
+                .help("open_in_separate_window")
+                .buttonStyle(.plain)
+                
             }
         }
     }
