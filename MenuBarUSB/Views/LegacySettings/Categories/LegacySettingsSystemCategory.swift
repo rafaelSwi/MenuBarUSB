@@ -124,7 +124,7 @@ struct LegacySettingsSystemCategory: View {
             Spacer()
         }
         .frame(maxWidth: 290)
-        .disabled(isPlayingSound)
+        .disabled(isPlayingSound || !playHardwareSound)
         .opacity(playHardwareSound ? 1.0 : 0.1)
     }
 }

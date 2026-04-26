@@ -71,7 +71,7 @@
 "back" = "Voltar";
 "updated" = "Atualizado";
 "disable_notification_cooldown" = "Desativar cooldown entre notificações";
-"disable_notification_cooldown_description" = "Dispositivos ou portas USB com mau funcionamento podem resultar em uma experiência desagradável, não é recomendado para uso constante.";
+"disable_notification_cooldown_description" = "Permite que as notificações de dispositivos ocorram repetidamente, sem intervalo de tempo entre cada notificação.";
 "system_category" = "Sistema";
 "ui_category" = "Lista";
 "usb_category" = "USB";
