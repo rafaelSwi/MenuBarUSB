@@ -1,6 +1,6 @@
 # MenuBarUSB <img width="31" height="31" alt="LOGO_PRINCIPAL" src="https://github.com/user-attachments/assets/e904ea51-7044-44b2-8770-c7925aa46839" />
 
-A very simple and lightweight app that shows your USB connections in the macOS menu bar.
+A simple and lightweight app that shows your USB connections in the macOS menu bar.
 
 ```bash
 brew tap rafaelswi/menubarusb
@@ -22,14 +22,6 @@ With MenuBarUSB, you can make your USB list your own.
 You can use MenuBarUSB as a technical support tool to analyze device activity. While MenuBarUSB includes a built-in feature to review recorded activity, [MenuBarUSB Analysis Tool](https://github.com/rafaelSwi/MenuBarUSBAnalysisTool) allows you to view exported logs from other Macs. This is particularly useful for examining logs from clients or colleagues who are experiencing issues with USB devices.
 
 <img width="682" height="239" alt="template" src="https://github.com/user-attachments/assets/2b79e587-d12a-4b7e-99bc-47a2792a8ef6" />
-
-## Notifications
-
-#### Recommended settings for macOS 26 or higher
-<img width="477" height="410" alt="Screenshot 2025-09-26 at 10 36 46" src="https://github.com/user-attachments/assets/5d2476b9-cc1e-4b20-bf6a-005b1df58f1c" />
-
-#### Recommended settings for macOS 15 or lower
-<img width="478" height="425" alt="settings_notif" src="https://github.com/user-attachments/assets/f83a7260-8d05-45bc-8d70-b3631f239c97" />
 
 ## Installation via Homebrew
 
@@ -62,6 +54,12 @@ brew upgrade --cask menubarusb
 brew upgrade
 brew reinstall --cask menubarusb
 ```
+
+### Credits
+
+MenuBarUSB's main feature of listing connected USB devices was inspired by [USB Connection Information](https://apps.apple.com/br/app/usb-connection-information/id6747853674), a paid application available on the App Store. Initially conceived as an open-source alternative to USB Connection Information, MenuBarUSB has since evolved into an independent application with its own features.
+
+_MenuBarUSB has no affiliation, association, or relationship with USB Connection Information, including any shared code, licensing, or partnership. MenuBarUSB is distributed under the [MIT License](LICENSE), whereas USB Connection Information is not, and no code from that application is included in MenuBarUSB._
 
 ### License
 
