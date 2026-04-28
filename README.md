@@ -40,26 +40,11 @@ brew install --cask menubarusb
 ### 3. "Apple could not verify MenuBarUSB" warning
 To open it, go to Settings > Privacy & Security > (scroll down) > Open Anyway.
 
-### Update
-
-To update MenuBarUSB after a new version is released:
-
-```bash
-brew upgrade --cask menubarusb
-```
-
-### If something goes wrong
-
-```bash
-brew upgrade
-brew reinstall --cask menubarusb
-```
-
 ### Credits
 
-MenuBarUSB's main feature of listing connected USB devices was inspired by [USB Connection Information](https://apps.apple.com/br/app/usb-connection-information/id6747853674), a paid application available on the App Store. Initially conceived as an open-source alternative to USB Connection Information, MenuBarUSB has since evolved into an independent application with its own features.
+MenuBarUSB's main feature of listing connected USB devices was inspired by [USB Connection Information](https://apps.apple.com/app/usb-connection-information/id6747853674), a paid application available on the App Store. Initially conceived as an open-source alternative to USB Connection Information, MenuBarUSB has since evolved into an independent application with its own features.
 
-_MenuBarUSB has no affiliation, association, or relationship with USB Connection Information, including any shared code, licensing, or partnership. MenuBarUSB is distributed under the [MIT License](LICENSE), whereas USB Connection Information is not, and no code from that application is included in MenuBarUSB._
+_MenuBarUSB has no affiliation or association with USB Connection Information, including any shared code, licensing, or partnership. MenuBarUSB is distributed under the [MIT License](LICENSE), whereas USB Connection Information is not, and no code from that application is included in MenuBarUSB._
 
 ### License
 
